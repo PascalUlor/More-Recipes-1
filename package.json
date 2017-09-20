@@ -1,0 +1,19 @@
+{
+  "name": "more_recipes",
+  "version": "1.0.0",
+  "description": "more-recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.",
+  "main": "server/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chykehyman/More-Recipes.git"
+  },
+  "author": "Chinwoke Hyginus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chykehyman/More-Recipes/issues"
+  },
+  "homepage": "https://github.com/chykehyman/More-Recipes#readme"
+}
