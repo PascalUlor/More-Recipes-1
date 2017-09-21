@@ -1,0 +1,74 @@
+/* main.css */
+
+html,
+body {
+    margin: 0;
+    height: 100%;
+}
+
+li.active {
+    background-color: whitesmoke;
+}
+
+.cover-caption p {
+    padding: 1.4rem;
+}
+
+h1.display-3 {
+    color: wheat;
+    padding-top: 1rem;
+}
+
+hr {
+    margin: 20px 20px;
+    border-top: 1px solid darkgray;
+    border-bottom: 1px solid darkgray;
+}
+
+.list-inline li {
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-bottom: 10px;
+}
+
+.beautify {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+a.beautify {
+    color: gold;
+    font-size: 1.3rem;
+}
+
+#main-wrapper {
+    text-align: center;
+    color: white;
+    display: flex;
+    align-content: center;
+    background: url("../images/background1.jpg") top center no-repeat;
+    background-size: cover;
+    height: auto;
+    padding: 1.4rem;
+    background-attachment: fixed;
+}
+
+header {
+    padding: 2px;
+}
+
+#site-name {
+    font-family: 'Playball', cursive;
+    font-size: 1.7rem;
+    vertical-align: middle;
+}
+
+.site-wrapper {
+    height: 100%;
+}
+
+@media screen and (max-width: 1000px) and (min-width: 150px) {
+    .display-3 {
+        font-size: 3rem;
+    }
+}
