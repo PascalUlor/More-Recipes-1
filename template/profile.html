@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>More Recipes | Profile</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./public/bootstrap4/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Playball" rel="stylesheet">
+    <!-- Bootstrap Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="./public/CSS/signup_signin.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <!--Site Navigation Start -->
+            <nav class="navbar navbar-toggleable-md navbar-light">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarItems" aria-controls="navbarItems" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                <a class="navbar-brand" href="./index.html">
+                    <img src="./public/images/logo.png" width="45" height="32" class="d-inline-block align-center" alt=" Make Recipe Logo"> <span id="site-name">More Recipes</span>
+                </a>
+
+                <div class="collapse navbar-collapse" id="navbarItems">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Create Recipes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Favorite Recipes</a>
+                        </li>
+                    </ul>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="beautify">Chyke</span>
+                            </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">View Profile</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!--Site Navigation End-->
+        </header>
+    </div>
+    <!--Header Container End -->
+
+
+    <!--Page Main Content Start-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-10 col-md-8 col-lg-8 offset-sm-1 offset-md-2 offset-lg-2">
+                <div class="row">
+
+                    <!--Site Logo and Name Section-->
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                        <figure class="figure">
+                            <img src="./public/images/profile.jpg" width="200" height="50" class="figure-img img-fluid rounded" alt="Site Logo.">
+                            <figcaption class="figure-caption text-center">
+                                <h3>Profile Picture</h3>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <!--Site Logo and Name Section End-->
+
+                    <!--Form Section Start-->
+                    <div class="col-8 col-sm-8 col-md-8 col-lg-8">
+                        <h2>Bacis Information</h2>
+                        <form role="form" action="#" method="post">
+                            <div class="form-group">
+                                <label for="user">Full name</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class=" fa fa-user-circle-o " aria-hidden="true "></i></div>
+                                    <input type="text" class="form-control" id="user" placeholder="firstname lastname" value="Chinwoke Hyginus">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user">Username</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class=" fa fa-user-circle-o " aria-hidden="true "></i></div>
+                                    <input type="text" class="form-control" id="user" placeholder="enter username" value="Chikebaba">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class=" fa fa-envelope " aria-hidden="true "></i></div>
+                                    <input type="email" class="form-control" id="email" placeholder="enter email" value="chikebaba@gmail.com" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class=" fa fa-lock " aria-hidden="true "></i></div>
+                                    <input type="password" class="form-control" id="password" placeholder="enter password" value="password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="repassword">Confirm password</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class=" fa fa-lock " aria-hidden="true "></i></div>
+                                    <input type="password" class="form-control" id="repassword" placeholder="re-enter password" value="password">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-outline-info">Save Changes</button>
+                        </form>
+                    </div>
+                    <!--Form Section End-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Page Main Content End-->
+
+    <!--Page Footer Start-->
+    <footer id="copyright">
+        <hr>
+        <div class="container">
+            <p class="text-center text-muted">&copy; 2017 More Recipes, Andela Nigeria. All rights reserved.</p>
+        </div>
+    </footer>
+    <!--Page Footer End-->
+
+
+
+    <!-- jQuery -->
+    <script src="public/jquery/jquery.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="./public/bootstrap4/js/bootstrap.min.js"></script>
+</body>
+
+</html>
