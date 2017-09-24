@@ -24,7 +24,7 @@
                     <!--Site Logo and Name Section-->
                     <div class="col-4 col-sm-4 col-md-4 col-lg-4">
                         <figure class="figure">
-                            <a href="./index.html"><img src="./public/images/logo3.png" width="200" height="70" class="figure-img img-fluid rounded" alt="Site Logo.">
+                            <a href="./index.html"><img src="./public/images/logo.png" width="200" height="70" class="figure-img img-fluid rounded" alt="Site Logo.">
                                 <figcaption class="figure-caption text-center">
                                     <h3>More Recipes</h3>
                                 </figcaption>
@@ -39,31 +39,38 @@
                         <p class="lead">Already have a More Recipes account? <a href="./signin.html">Sign In</a></p>
                         <form role="form" action="#" method="post">
                             <div class="form-group">
+                                <label for="user">Full name</label>
+                                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                    <div class="input-group-addon"><i class=" fa fa-user-circle-o " aria-hidden="true "></i></div>
+                                    <input type="text" class="form-control form-control-sm" id="fullname" placeholder="firstname lastname">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="user">Username</label>
                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                     <div class="input-group-addon"><i class=" fa fa-user-circle-o " aria-hidden="true "></i></div>
-                                    <input type="text" class="form-control" id="user" placeholder="enter username">
+                                    <input type="text" class="form-control form-control-sm" id="username" placeholder="enter username">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                     <div class="input-group-addon"><i class=" fa fa-envelope " aria-hidden="true "></i></div>
-                                    <input type="email" class="form-control" id="email" placeholder="enter email">
+                                    <input type="email" class="form-control form-control-sm" id="email" placeholder="enter email">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                     <div class="input-group-addon"><i class=" fa fa-lock " aria-hidden="true "></i></div>
-                                    <input type="password" class="form-control" id="password" placeholder="enter password">
+                                    <input type="password" class="form-control form-control-sm" id="password" placeholder="enter password">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="repassword">Confirm password</label>
                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                     <div class="input-group-addon"><i class=" fa fa-lock " aria-hidden="true "></i></div>
-                                    <input type="password" class="form-control" id="repassword" placeholder="re-enter password">
+                                    <input type="password" class="form-control form-control-sm" id="repassword" placeholder="re-enter password">
                                 </div>
                             </div>
                             <p class="lead">By signing up you are agreeing to these <a href="#">terms and conditons</a></p>
