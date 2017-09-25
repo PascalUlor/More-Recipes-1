@@ -19,6 +19,14 @@ a.beautify {
     padding: 1.4rem;
 }
 
+.container-fluid {
+    padding: 1rem;
+}
+
+.figure-img:hover {
+    border-bottom: none;
+}
+
 footer#copyright hr {
     margin-left: 10%;
     margin-right: 10%;
@@ -33,6 +41,12 @@ header {
 h1.display-3 {
     color: wheat;
     padding-top: 1rem;
+}
+
+h2,
+.lead a {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: cadetblue;
 }
 
 hr#favorites {
