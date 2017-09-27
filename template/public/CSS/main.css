@@ -6,7 +6,7 @@ body {
     height: 100%;
 }
 
-a.beautify {
+p.lead.beautify a {
     color: gold;
     font-size: 1.3rem;
 }
@@ -27,11 +27,17 @@ a.beautify {
     border-bottom: none;
 }
 
-footer#copyright hr {
+footer hr {
     margin-left: 10%;
     margin-right: 10%;
     border-top: 1px solid darkgray;
     border-bottom: 1px solid darkgray;
+}
+
+footer#homeFooter {
+    background: url("../images/footer.jpg") top center no-repeat;
+    background-size: cover;
+    padding: 0.5rem;
 }
 
 header {
@@ -66,6 +72,10 @@ li.active {
     margin-bottom: 10px;
 }
 
+.list-group-item h5 {
+    border-bottom: 2px solid burlywood;
+}
+
 #main-wrapper {
     text-align: center;
     color: white;
@@ -79,6 +89,10 @@ main.landing {
     background: url("../images/background.jpg") top center no-repeat;
     background-size: cover;
     background-attachment: fixed;
+}
+
+section#home img {
+    max-height: 12rem;
 }
 
 #site-name {

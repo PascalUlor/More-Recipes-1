@@ -36,12 +36,6 @@
                                 <a class="nav-link" style="color: skyblue;" href="./index.html">Home<span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="./template/my_recipes.html">Create Recipe</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./template/recipes_list.html">View Recipes</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="./template/signin.html">Login</a>
                             </li>
                             <li class="nav-item">
@@ -83,29 +77,140 @@
                     </div>
                 </section>
                 <!--Section For Main Div End-->
-
-                <!--Page Footer Start-->
-                <footer id="copywrite">
-                    <hr>
-                    <div class="row">
-                        <div class="col-12 col-sm-8 col-md-8 col-lg-6">
-                            <small id="copywrite" class="text-dark">&copy;2017 Bootcamp27, Andela Nigeria. All rights reserved.</small>
-                        </div>
-                        <div class="col-12 col-sm-4 col-md-4 col-lg-6">
-                            <ul class="list-inline">
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-github"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></a></i>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </footer>
-                <!--Page Footer End-->
             </div>
         </main>
         <!--Cover and Footer Main Div End-->
+
+        <!--Section For Page Body Start-->
+        <section id="home">
+            <div class="container">
+
+                <!--Section For Page Body Header/Title Start-->
+                <section class="cover text-center mb-3 mt-3">
+                    <h3 class="text-info">Popular Recipes</h3>
+                    <hr id="favorites">
+                </section>
+                <!--Section For Page Body Header/Title End-->
+
+                <div class="row">
+                    <div class="col-md-10 col-lg-10 offset-md-1 offset-lg-1">
+                        <div class="card-deck mb-3 mt-3">
+                            <div class="col-sm-6 col-md-6 col-lg-4">
+                                <div class="card mb-4">
+                                    <img class="card-img-top img-fluid" src="./public/images/food5.jpg" alt="Card image cap">
+                                    <div class="card-body pt-1 pb-2">
+                                        <h5 class="card-title text-muted mt-2 text-center">Mexican Chunchy Bread</h5>
+                                        <p class="text-muted w-100 text-center"><i class="fa fa-hand-o-right text-info" aria-hidden="true"></i> Chinwoke Hyginus</p>
+                                        <div class="card-text text-center">
+                                            <small class="text-success pr-1"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 53</small>
+                                            <a href="./recipe_details.html" role="button" class="btn btn-outline-info btn-sm"><small><i class="fa fa-eye"></i> View</small></a>
+                                            <small class="text-danger pl-1"><i class="fa fa-thumbs-o-down"></i> 5</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4">
+                                <div class="card mb-4">
+                                    <img class="card-img-top img-fluid" src="./public/images/food2.jpg" alt="Card image cap">
+                                    <div class="card-body pt-1 pb-2">
+                                        <h5 class="card-title text-muted mt-2 text-center">American Crunchy Burger</h5>
+                                        <p class="text-muted w-100 text-center"><i class="fa fa-hand-o-right text-info" aria-hidden="true"></i> Andalene Jane</p>
+                                        <div class="card-text text-center">
+                                            <small class="text-success pr-1"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 47</small>
+                                            <a href="./recipe_details.html" role="button" class="btn btn-outline-info btn-sm"><small><i class="fa fa-eye"></i> View</small></a>
+                                            <small class="text-danger pl-1"><i class="fa fa-thumbs-o-down"></i> 8</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4">
+                                <div class="card mb-4">
+                                    <img class="card-img-top img-fluid" src="./public/images/food4.jpg" alt="Card image cap">
+                                    <div class="card-body pt-1 pb-2">
+                                        <h5 class="card-title text-muted mt-2 text-center">Chinese Chicken Stew</h5>
+                                        <p class="text-muted w-100 text-center"><i class="fa fa-hand-o-right text-info" aria-hidden="true"></i> Myles Monroe</p>
+                                        <div class="card-text text-center">
+                                            <small class="text-success pr-1"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 42</small>
+                                            <a href="./recipe_details.html" role="button" class="btn btn-outline-info btn-sm"><small><i class="fa fa-eye"></i> View</small></a>
+                                            <small class="text-danger pl-1"><i class="fa fa-thumbs-o-down"></i> 11</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4">
+                                <div class="card mb-4">
+                                    <img class="card-img-top img-fluid" src="./public/images/food1.jpg" alt="Card image cap">
+                                    <div class="card-body pt-1 pb-2">
+                                        <h5 class="card-title text-muted mt-2 text-center">Indian Tomato Sauce</h5>
+                                        <p class="text-muted w-100 text-center"><i class="fa fa-hand-o-right text-info" aria-hidden="true"></i> Rjah Rowland</p>
+                                        <div class="card-text text-center">
+                                            <small class="text-success pr-1"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 35</small>
+                                            <a href="./recipe_details.html" role="button" class="btn btn-outline-info btn-sm"><small><i class="fa fa-eye"></i> View</small></a>
+                                            <small class="text-danger pl-1"><i class="fa fa-thumbs-o-down"></i> 5</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4">
+                                <div class="card mb-4">
+                                    <img class="card-img-top img-fluid" style="width: inherit;" src="./public/images/food6.jpg" alt="Card image cap">
+                                    <div class="card-body pt-1 pb-2">
+                                        <h5 class="card-title text-muted mt-2 text-center">Tasty Crab Salad</h5>
+                                        <p class="text-muted w-100 text-center"><i class="fa fa-hand-o-right text-info" aria-hidden="true"></i> Mary Jane</p>
+                                        <div class="card-text text-center">
+                                            <small class="text-success pr-1"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 33</small>
+                                            <a href="./recipe_details.html" role="button" class="btn btn-outline-info btn-sm"><small><i class="fa fa-eye"></i> View</small></a>
+                                            <small class="text-danger pl-1"><i class="fa fa-thumbs-o-down"></i> 7</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4">
+                                <div class="card mb-4">
+                                    <img class="card-img-top img-fluid" src="./public/images/food3.jpg" alt="Card image cap">
+                                    <div class="card-body pt-1 pb-2">
+                                        <h5 class="card-title text-muted mt-2 text-center">French Spicy Fries</h5>
+                                        <p class="text-muted w-100 text-center"><i class="fa fa-hand-o-right text-info" aria-hidden="true"></i> Dennis Pogba</p>
+                                        <div class="card-text text-center">
+                                            <small class="text-success pr-1"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 26</small>
+                                            <a href="./recipe_details.html" role="button" class="btn btn-outline-info btn-sm"><small><i class="fa fa-eye"></i> View</small></a>
+                                            <small class="text-danger pl-1"><i class="fa fa-thumbs-o-down"></i> 5</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <p class="lead font-weight-bold">Want to view more awesome recipes? <a href="./template/signup.html">Sign Up Now</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Section For Page Body End-->
+
+        <!--Page Footer Start-->
+        <footer id="homeFooter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-8 col-md-8 col-lg-8">
+                        <small id="copywrite" class="text-white">&copy;2017 Bootcamp27, Andela Nigeria. All rights reserved.</small>
+                    </div>
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-github"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--Page Footer End-->
     </div>
     <!--Entire Site Wrapper End-->
 
