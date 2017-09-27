@@ -81,6 +81,10 @@ main.landing {
     background-attachment: fixed;
 }
 
+section#home img {
+    max-height: 12rem;
+}
+
 #site-name {
     font-family: 'Playball', cursive;
     font-size: 1.7rem;
