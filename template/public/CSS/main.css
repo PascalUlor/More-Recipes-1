@@ -27,11 +27,17 @@ p.lead.beautify a {
     border-bottom: none;
 }
 
-footer#copyright hr {
+footer hr {
     margin-left: 10%;
     margin-right: 10%;
     border-top: 1px solid darkgray;
     border-bottom: 1px solid darkgray;
+}
+
+footer#homeFooter {
+    background: url("../images/footer.jpg") top center no-repeat;
+    background-size: cover;
+    padding: 0.5rem;
 }
 
 header {
