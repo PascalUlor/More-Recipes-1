@@ -72,6 +72,10 @@ li.active {
     margin-bottom: 10px;
 }
 
+.list-group-item h5 {
+    border-bottom: 2px solid burlywood;
+}
+
 #main-wrapper {
     text-align: center;
     color: white;
