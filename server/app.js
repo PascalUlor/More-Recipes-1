@@ -1,6 +1,5 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import path from 'path';
 
 const app = express();
 
@@ -12,10 +11,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/api', (req, res) => {
     res.status(200);
     res.json({
-        name: "Chike",
-        message: "Welcome to More-Recipes"
+        name: 'Chike',
+        message: 'Welcome to More-Recipes'
     });
-
 });
 
 
