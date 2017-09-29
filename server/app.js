@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
     });
 });
 
-app.use('/api/', recipes);
+app.use('/api/', recipesRoute);
 app.use('/api/', (req, res) => {
     res.status(404);
     res.json({ msg: 'Page not found' });
