@@ -12,7 +12,7 @@ export default class RecipesApiController {
      * @param {obj} next
      * @returns {obj} insertion error messages or success message
      */
-    static postRecipe(req, res) {
+    static addRecipe(req, res) {
         // const { title, ingredients, directions } = req.body;
         let idOfLastItem;
 
