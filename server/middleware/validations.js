@@ -14,7 +14,7 @@ export default class Validation {
      * @param {obj} next
      * @returns {obj} Validation error messages or contents of req.body
      */
-    static addRecipe(req, res, next) {
+    static addRecipeValidation(req, res, next) {
         const { title, ingredients, directions } = req.body,
             errors = {};
         // check for undefined inputs
