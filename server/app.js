@@ -16,4 +16,6 @@ app.get('/', (req, res) => {
     });
 });
 
+app.use('/api/', recipes);
+
 app.listen(port, () => console.log(`Application started on port ${port}`));
