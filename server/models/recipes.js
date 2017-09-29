@@ -5,7 +5,7 @@ const recipes = [{
             'maggie', 'pepper', 'onions'
         ],
         directions: 'Boil water for about 20 minutes. Sleeve your onions properly.',
-        upvotes: 6,
+        upvotes: 15,
         downvotes: 2,
         userId: 2
     },
@@ -16,8 +16,8 @@ const recipes = [{
             'maggie', 'pepper', 'onions'
         ],
         directions: 'Boil water for about 20 minutes. Sleeve your onions properly.',
-        upvotes: 6,
-        downvotes: 2,
+        upvotes: 9,
+        downvotes: 4,
         userId: 1
     }
 ];
