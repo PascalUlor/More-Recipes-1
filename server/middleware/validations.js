@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 
 /**
  * Validates all routes
- * @class Validator
+ * @class Validation
  */
 export default class Validation {
     /**
