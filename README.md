@@ -15,9 +15,22 @@ recipe. Users can also keep a list of their favorite recipes on the application.
 - Bookmark recipes as Favorites
 - View user profile
 
+## UI Templates
+To View online hosted templates, copy and paste the following link in your browser
+[More-Recipes] - https://chykehyman.github.io/More-Recipes/index.html 
+
+## Installation
+- install POSTMAN app
+- run `npm run start:dev` then navigate to `localhost:3000` on POSTMAN
+
+## API Routes
+* [Landing page] - GET http://localhost:3000/
+* [Create Recipe] - POST http://localhost:3000/api/recipes
+
 ## Author
 * **Chinwoke Hyginus** -Aspiring Software Developer.
 
 ## Acknowledgments
 * Bootstrap
 * Jquery
+* Javascript
