@@ -26,11 +26,11 @@ export default class Validation {
                 if (validator.toInt(title)) {
                     errors.title = 'title should not start with number(s)';
                 }
-            } else { errors.username = 'title of recipe is required'; }
+            } else { errors.title = 'title of recipe is required'; }
 
             // validation for recipe ingredients
-            if (!(validator.isEmpty(ingredients))) {
-                if (!(validator.isLength(ingredients, { min: 4, max: 30 }))) {
+            if (!(ingredients.length === 0)) {
+                if (ingredients.length < 4) {
                     errors.ingredients = 'Please make sure recipe ingredients is adequate';
                 }
             } else { errors.ingredients = 'Recipe ingredients are required'; }
