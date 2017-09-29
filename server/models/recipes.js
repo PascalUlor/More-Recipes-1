@@ -19,6 +19,17 @@ const recipes = [{
         upvotes: 9,
         downvotes: 4,
         userId: 1
+    },
+    {
+        id: 3,
+        title: 'Indian Tomato Sauce',
+        ingredients: [
+            'fresh tomatoes', 'green pepper', 'onions'
+        ],
+        directions: 'Boil water for about 20 minutes. Sleeve your onions properly.',
+        upvotes: 3,
+        downvotes: 0,
+        userId: 1
     }
 ];
 
