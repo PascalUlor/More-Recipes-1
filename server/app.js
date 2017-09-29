@@ -17,5 +17,9 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/', recipes);
+app.use('/api/', (req, res) => {
+    res.status(404);
+    res.json({ msg: 'Page not found' });
+});
 
 app.listen(port, () => console.log(`Application started on port ${port}`));
