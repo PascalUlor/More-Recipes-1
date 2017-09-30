@@ -100,8 +100,28 @@ export default class RecipesApiController {
      */
     static getRecipes(req, res) {
         if (recipesData.length !== 0) {
-            res.status(200);
-            res.json({ recipesData });
+            if (!req.query.sort) {
+                res.status(200);
+                res.json({ recipesData });
+            } else if (req.query.sort === 'upvotes') {
+                if (req.query.order === 'des') {
+                    recipesData.sort((a, b) => b.upvotes - a.upvotes);
+                    res.status(200);
+                    res.json({ recipesData });
+                } else {
+                    recipesData.sort((a, b) => a.upvotes - b.upvotes);
+                    res.status(200);
+                    res.json({ recipesData });
+                }
+            } else if (req.query.order === 'des') {
+                recipesData.sort((a, b) => b.downvotes - a.downvotes);
+                res.status(200);
+                res.json({ recipesData });
+            } else {
+                recipesData.sort((a, b) => a.downvotes - b.downvotes);
+                res.status(200);
+                res.json({ recipesData });
+            }
         } else {
             res.status(400);
             res.json({ message: 'There are no available recipes' });
