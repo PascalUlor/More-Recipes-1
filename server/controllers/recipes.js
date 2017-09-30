@@ -1,4 +1,5 @@
 import recipesData from '../models/recipes';
+import reviewData from '../models/reviews';
 
 /**
  * Class implementation for /api/recipes routes
