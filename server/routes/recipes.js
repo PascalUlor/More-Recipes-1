@@ -9,6 +9,7 @@ router.route('/recipes')
     .post(Validation.addRecipeValidation, RecipesController.addRecipe);
 
 router.route('/recipes/:id')
-    .put(RecipesController.updateRecipe);
+    .put(RecipesController.updateRecipe)
+    .delete(RecipesController.deleteRecipe);
 
 export default router;
