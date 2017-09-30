@@ -1,5 +1,5 @@
 import recipesData from '../models/recipes';
-import reviewData from '../models/reviews';
+import reviewsData from '../models/reviews';
 
 /**
  * Class implementation for /api/recipes routes
@@ -105,6 +105,46 @@ export default class RecipesApiController {
         } else {
             res.status(400);
             res.json({ message: 'There are no available recipes' });
+        }
+    }
+
+    /**
+     * Validates all recipe details before allowing access to database
+     * @param {obj} req
+     * @param {obj} res
+     * @param {obj} next
+     * @returns {obj} insertion error messages or success message
+     */
+    static postReview(req, res) {
+        let newReviewId;
+
+        if (recipesData.length === 0) {
+            newReviewId = 1;
+        } else {
+            newReviewId = (reviewsData[reviewsData.length - 1].id) + 1;
+        }
+
+        try {
+            if (parseInt(req.params.id, 10) in recipesData.map(recipe => recipe.id)) {
+                reviewsData.push({
+                    id: newReviewId,
+                    reviewSubject: req.body.reviewSubject,
+                    vote: req.body.vote,
+                    userId: 3,
+                    recipeId: 1
+                });
+                res.status(200);
+                res.json({
+                    message: 'Successfully added review',
+                    reviewsData
+                });
+            } else {
+                res.status(409);
+                res.json({ message: 'Wrong recipe ID parameter' });
+            }
+        } catch (e) {
+            res.status(400);
+            res.json({ message: 'Unable to add review' });
         }
     }
 }
