@@ -51,4 +51,44 @@ export default class Validation {
             }
         }
     }
+
+    /**
+     * Validates all recipe details before allowing access to database
+     * @param {obj} req
+     * @param {obj} res
+     * @param {obj} next
+     * @returns {obj} Validation error messages or contents of req.body
+     */
+    static getSortdedRecipesValidation(req, res, next) {
+        const { sort, order } = req.query,
+            errors = {};
+        if (!(req.originalUrl.includes('?'))) {
+            next();
+        } else {
+            if (sort === undefined || order === undefined) {
+                res.status(409);
+                res.json({ message: 'Sort or/and order query parameter is/are missing' });
+            } else {
+                if (!(validator.isEmpty(sort))) {
+                    if (!(sort.toLowerCase() === 'upvotes' || sort.toLowerCase() === 'downvotes')) {
+                        errors.sort = 'Sort query must be either upvotes or downvotes';
+                    }
+                } else { errors.sort = 'Sort query is required'; }
+
+                if (!(validator.isEmpty(order))) {
+                    if (!(order.toLowerCase() === 'asc' || order.toLowerCase() === 'des')) {
+                        errors.order = 'Order query must be either asc or des';
+                    }
+                } else { errors.order = 'Order query is required'; }
+            }
+
+            const result = { errors, isValid: isEmpty(errors) };
+
+            if (!result.isValid) {
+                res.json({ errors });
+            } else {
+                next();
+            }
+        }
+    }
 }
