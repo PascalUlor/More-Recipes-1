@@ -8,5 +8,7 @@ const router = express.Router();
 router.route('/recipes')
     .post(Validation.addRecipeValidation, RecipesController.addRecipe);
 
+router.route('/recipes/:id')
+    .put(RecipesController.updateRecipe);
 
 export default router;
