@@ -89,4 +89,21 @@ export default class RecipesApiController {
             res.json({ message: 'Wrong recipe ID parameter' });
         }
     }
+
+    /**
+     * Validates all recipe details before allowing access to database
+     * @param {obj} req
+     * @param {obj} res
+     * @param {obj} next
+     * @returns {obj} insertion error messages or success message
+     */
+    static getRecipes(req, res) {
+        if (recipesData.length !== 0) {
+            res.status(200);
+            res.json({ recipesData });
+        } else {
+            res.status(400);
+            res.json({ message: 'There are no available recipes' });
+        }
+    }
 }
