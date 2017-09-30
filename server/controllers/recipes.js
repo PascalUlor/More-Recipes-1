@@ -68,4 +68,25 @@ export default class RecipesApiController {
         res.status(409);
         res.json({ message: 'Wrong recipe ID parameter' });
     }
+
+    /**
+     * Validates all recipe details before allowing access to database
+     * @param {obj} req
+     * @param {obj} res
+     * @param {obj} next
+     * @returns {obj} insertion error messages or success message
+     */
+    static deleteRecipe(req, res) {
+        if (parseInt(req.params.id, 10) in recipesData.map(recipe => recipe.id)) {
+            const newRecipeCatalog = recipesData.filter(recipe => recipe.id !== parseInt(req.params.id, 10));
+            res.status(200);
+            res.json({
+                message: 'Delete was successful',
+                newRecipeCatalog
+            });
+        } else {
+            res.status(409);
+            res.json({ message: 'Wrong recipe ID parameter' });
+        }
+    }
 }
