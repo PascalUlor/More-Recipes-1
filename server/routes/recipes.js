@@ -6,6 +6,7 @@ const router = express.Router();
 
 // Route for all recipe verbs
 router.route('/recipes')
+    .get(RecipesController.getRecipes)
     .post(Validation.addRecipeValidation, RecipesController.addRecipe);
 
 router.route('/recipes/:id')
