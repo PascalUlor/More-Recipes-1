@@ -35,7 +35,37 @@ export default class RecipesApiController {
             });
             res.json({ success: 'Successfully posted new item' });
         } catch (e) {
-            res.json({ failure: 'Unable to post new recipe' });
+            res.json({ failure: 'Unable to add new recipe' });
         }
+    }
+
+    /**
+     * Validates all recipe details before allowing access to database
+     * @param {obj} req
+     * @param {obj} res
+     * @param {obj} next
+     * @returns {obj} insertion error messages or success message
+     */
+    static updateRecipe(req, res) {
+        const { title, ingredients, directions } = req.body;
+        for (let i = 0; i < recipesData.length; i += 1) {
+            if (recipesData[i].id === parseInt(req.params.id, 10)) {
+                if (title || ingredients || directions) {
+                    recipesData[i].title = (title) || recipesData[i].title;
+                    recipesData[i].ingredients = (ingredients) || recipesData[i].ingredients;
+                    recipesData[i].directions = (directions) || recipesData[i].directions;
+                    res.status(200);
+                    res.json({
+                        message: 'Update was successful',
+                        recipesData
+                    });
+                } else {
+                    res.status(409);
+                    res.json({ message: 'Specify data to update' });
+                }
+            }
+        }
+        res.status(409);
+        res.json({ message: 'Wrong recipe ID parameter' });
     }
 }
