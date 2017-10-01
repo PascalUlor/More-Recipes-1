@@ -5,7 +5,7 @@ const recipes = [{
             'maggie', 'pepper', 'onions'
         ],
         directions: 'Boil water for about 20 minutes. Sleeve your onions properly.',
-        upvotes: 15,
+        upvotes: 10,
         downvotes: 2,
         userId: 2
     },
@@ -16,7 +16,7 @@ const recipes = [{
             'maggie', 'pepper', 'onions'
         ],
         directions: 'Boil water for about 20 minutes. Sleeve your onions properly.',
-        upvotes: 9,
+        upvotes: 14,
         downvotes: 4,
         userId: 1
     },
@@ -27,7 +27,7 @@ const recipes = [{
             'fresh tomatoes', 'green pepper', 'onions'
         ],
         directions: 'Boil water for about 20 minutes. Sleeve your onions properly.',
-        upvotes: 3,
+        upvotes: 20,
         downvotes: 0,
         userId: 1
     }
