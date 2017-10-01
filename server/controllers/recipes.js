@@ -166,11 +166,10 @@ export default class RecipesApiController {
     }
 
     /**
-     * Validates all recipe details before allowing access to database
+     * Adds review for a particular recipe to the reviews model
      * @param {obj} req
      * @param {obj} res
-     * @param {obj} next
-     * @returns {obj} insertion error messages or success message
+     * @returns {obj} insertion error messages or success messages
      */
     static postReview(req, res) {
         let newReviewId;
