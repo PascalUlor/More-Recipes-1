@@ -14,15 +14,13 @@ export default class RecipesApiController {
      * @returns {obj} insertion error messages or success message
      */
     static addRecipe(req, res) {
-        // const { title, ingredients, directions } = req.body;
-        let idOfLastItem;
+        let newRecipeId;
 
         if (recipesData.length === 0) {
-            idOfLastItem = 0;
+            newRecipeId = 1;
         } else {
-            idOfLastItem = recipesData[recipesData.length - 1].id;
+            newRecipeId = (recipesData[recipesData.length - 1].id) + 1;
         }
-        const newRecipeId = idOfLastItem + 1;
 
         try {
             recipesData.push({
