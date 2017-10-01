@@ -35,3 +35,5 @@ app.use('*', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Application started on port ${port}`));
+
+export default app;
