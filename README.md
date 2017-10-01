@@ -26,6 +26,11 @@ To View online hosted templates, copy and paste the following link in your brows
 ## API Routes
 * [Landing page] - GET http://localhost:3000/
 * [Create Recipe] - POST http://localhost:3000/api/recipes
+* [Modify Recipe] - PUT http://localhost:3000/api/recipes/:recipeID
+* [Delete Recipe] - POST http://localhost:3000/api/recipes/:recipeID
+* [Fetch All Recipes] - GET http://localhost:3000/api/recipes
+* [Post Recipe Review] - POST http://localhost:3000/api/recipes/:recipeID/reviews
+* [Fetch Recipes by Most Upvotes] - POST http://localhost:3000/api/recipes?sort=upvotes&order=des
 
 ## Author
 * **Chinwoke Hyginus** -Aspiring Software Developer.
