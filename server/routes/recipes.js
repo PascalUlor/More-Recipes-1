@@ -16,7 +16,4 @@ router.route('/recipes/:id')
 router.route('/recipes/:id/reviews')
     .post(RecipesController.postReview);
 
-// router.route('/recipes?sort=upvotes&order=des')
-//     .get(Validation.getSortdedRecipesValidation, RecipesController.getSortdedRecipes);
-
 export default router;
