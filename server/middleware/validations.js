@@ -15,10 +15,10 @@ export default class Validation {
      * @returns {obj} Validation error messages or contents of req.body
      */
     static addRecipeValidation(req, res, next) {
-        const { title, ingredients, directions } = req.body,
+        const { title, ingredients, procedures } = req.body,
             errors = {};
         // check for undefined inputs
-        if (title === undefined || ingredients === undefined || directions === undefined) {
+        if (title === undefined || ingredients === undefined || procedures === undefined) {
             res.status(400);
             res.json({
                 status: 'Failed',
@@ -40,11 +40,11 @@ export default class Validation {
             } else { errors.ingredients = 'Recipe ingredients are required'; }
 
             // validation for recipe directions
-            if (!(validator.isEmpty(directions))) {
-                if (!(validator.isLength(directions, { min: 20, max: 1000 }))) {
-                    errors.directions = 'Procedures provided must be more than 20 characters';
+            if (!(validator.isEmpty(procedures))) {
+                if (!(validator.isLength(procedures, { min: 20, max: 1000 }))) {
+                    errors.procedures = 'Procedures provided must be more than 20 characters';
                 }
-            } else { errors.directions = 'Procedures for your recipe are required'; }
+            } else { errors.procedures = 'Procedures for your recipe are required'; }
 
             const result = { errors, isValid: isEmpty(errors) };
 
