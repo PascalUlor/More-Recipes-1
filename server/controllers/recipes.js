@@ -26,7 +26,7 @@ export default class RecipesApiController {
                 id: newRecipeId,
                 title: req.body.title,
                 ingredients: req.body.ingredients,
-                directions: req.body.directions,
+                procedures: req.body.procedures,
                 upvotes: 0,
                 downvotes: 0,
                 userId: 3,
@@ -53,13 +53,13 @@ export default class RecipesApiController {
      * @returns {obj} insertion error messages or success messages
      */
     static updateRecipe(req, res) {
-        const { title, ingredients, directions } = req.body;
+        const { title, ingredients, procedures } = req.body;
         for (let i = 0; i < recipesData.length; i += 1) {
             if (recipesData[i].id === parseInt(req.params.id, 10)) {
-                if (title || ingredients || directions) {
+                if (title || ingredients || procedures) {
                     recipesData[i].title = (title) || recipesData[i].title;
                     recipesData[i].ingredients = (ingredients) || recipesData[i].ingredients;
-                    recipesData[i].directions = (directions) || recipesData[i].directions;
+                    recipesData[i].procedures = (procedures) || recipesData[i].procedures;
                     res.status(200);
                     res.json({
                         status: 'Success',
