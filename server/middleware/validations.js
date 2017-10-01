@@ -28,23 +28,23 @@ export default class Validation {
             // validation for recipe title
             if (!(validator.isEmpty(title))) {
                 if (validator.toInt(title)) {
-                    errors.title = 'title should not start with number(s)';
+                    errors.title = 'Title should not start with number(s)';
                 }
-            } else { errors.title = 'title of recipe is required'; }
+            } else { errors.title = 'Title of recipe is required'; }
 
             // validation for recipe ingredients
             if (!(ingredients.length === 0)) {
-                if (ingredients.length < 4) {
-                    errors.ingredients = 'Please make sure recipe ingredients is adequate';
+                if (ingredients.length < 15) {
+                    errors.ingredients = 'Ingredients provided must be more than 15 characters';
                 }
             } else { errors.ingredients = 'Recipe ingredients are required'; }
 
             // validation for recipe directions
             if (!(validator.isEmpty(directions))) {
                 if (!(validator.isLength(directions, { min: 20, max: 1000 }))) {
-                    errors.directions = 'Please provide more directions for your recipe';
+                    errors.directions = 'Procedures provided must be more than 20 characters';
                 }
-            } else { errors.directions = 'Directions for your recipe is required'; }
+            } else { errors.directions = 'Procedures for your recipe are required'; }
 
             const result = { errors, isValid: isEmpty(errors) };
 
