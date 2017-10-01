@@ -19,7 +19,11 @@ export default class Validation {
             errors = {};
         // check for undefined inputs
         if (title === undefined || ingredients === undefined || directions === undefined) {
-            res.json({ message: 'All or some fields are not defined' });
+            res.status(400);
+            res.json({
+                status: 'Failed',
+                message: 'All or some fields are not defined'
+            });
         } else {
             // validation for recipe title
             if (!(validator.isEmpty(title))) {
@@ -45,6 +49,7 @@ export default class Validation {
             const result = { errors, isValid: isEmpty(errors) };
 
             if (!result.isValid) {
+                res.status(400);
                 res.json({ errors });
             } else {
                 next();
