@@ -201,17 +201,17 @@ export default class RecipesApiController {
                     reviewsData
                 });
             } else {
-                res.status(409);
+                res.status(404);
                 res.json({
                     status: 'Failed',
-                    message: 'Wrong recipe ID parameter'
+                    message: 'Recipe ID parameter does not exist'
                 });
             }
         } catch (e) {
-            res.status(400);
+            res.status(500);
             res.json({
                 status: 'Failed',
-                message: 'Unable to add review'
+                message: 'Error adding review'
             });
         }
     }
