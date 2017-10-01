@@ -26,4 +26,12 @@ app.use('/api/v1', (req, res) => {
     });
 });
 
+app.use('*', (req, res) => {
+    res.status(404);
+    res.json({
+        status: 'Failed',
+        message: 'Page not found'
+    });
+});
+
 app.listen(port, () => console.log(`Application started on port ${port}`));
