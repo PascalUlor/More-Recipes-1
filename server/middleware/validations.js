@@ -71,8 +71,11 @@ export default class Validation {
             next();
         } else {
             if (sort === undefined || order === undefined) {
-                res.status(409);
-                res.json({ message: 'Sort or/and order query parameter is/are missing' });
+                res.status(400);
+                res.json({
+                    status: 'Failed',
+                    message: 'Sort or(and) order query parameter(s) is(are) not defined'
+                });
             } else {
                 if (!(validator.isEmpty(sort))) {
                     if (!(sort.toLowerCase() === 'upvotes' || sort.toLowerCase() === 'downvotes')) {
@@ -90,6 +93,7 @@ export default class Validation {
             const result = { errors, isValid: isEmpty(errors) };
 
             if (!result.isValid) {
+                res.json(400);
                 res.json({ errors });
             } else {
                 next();
