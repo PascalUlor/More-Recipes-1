@@ -53,11 +53,11 @@ export default class Validation {
     }
 
     /**
-     * Validates all recipe details before allowing access to database
+     * Validates query and non query routes before allowing access to controller class
      * @param {obj} req
      * @param {obj} res
      * @param {obj} next
-     * @returns {obj} Validation error messages or contents of req.body
+     * @returns {obj} Validation error messages or contents of req.query(or nothing)
      */
     static getSortdedRecipesValidation(req, res, next) {
         const { sort, order } = req.query,
