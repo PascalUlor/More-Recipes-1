@@ -83,11 +83,10 @@ export default class RecipesApiController {
     }
 
     /**
-     * Validates all recipe details before allowing access to database
+     * Deletes a particular recipe from the recipes model
      * @param {obj} req
      * @param {obj} res
-     * @param {obj} next
-     * @returns {obj} insertion error messages or success message
+     * @returns {obj} insertion error messages or success messages
      */
     static deleteRecipe(req, res) {
         if (parseInt(req.params.id, 10) in recipesData.map(recipe => recipe.id)) {
