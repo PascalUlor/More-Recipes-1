@@ -32,7 +32,7 @@ export default class RecipesApiController {
                 downvotes: 0,
                 userId: 3,
             });
-            res.status(200);
+            res.status(201);
             res.json({
                 status: 'Success',
                 message: 'Successfully added new recipe',
