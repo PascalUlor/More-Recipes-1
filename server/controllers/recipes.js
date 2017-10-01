@@ -120,25 +120,45 @@ export default class RecipesApiController {
         if (recipesData.length !== 0) {
             if (!req.query.sort) {
                 res.status(200);
-                res.json({ recipesData });
+                res.json({
+                    status: 'Success',
+                    message: 'Successfully retrieved all available recipes',
+                    recipesData
+                });
             } else if (req.query.sort === 'upvotes') {
                 if (req.query.order === 'des') {
                     recipesData.sort((a, b) => b.upvotes - a.upvotes);
                     res.status(200);
-                    res.json({ recipesData });
+                    res.json({
+                        status: 'Success',
+                        message: 'Successfully retrieved all available sorted recipes',
+                        recipesData
+                    });
                 } else {
                     recipesData.sort((a, b) => a.upvotes - b.upvotes);
                     res.status(200);
-                    res.json({ recipesData });
+                    res.json({
+                        status: 'Success',
+                        message: 'Successfully retrieved all available sorted recipes',
+                        recipesData
+                    });
                 }
             } else if (req.query.order === 'des') {
                 recipesData.sort((a, b) => b.downvotes - a.downvotes);
                 res.status(200);
-                res.json({ recipesData });
+                res.json({
+                    status: 'Success',
+                    message: 'Successfully retrieved all available sorted recipes',
+                    recipesData
+                });
             } else {
                 recipesData.sort((a, b) => a.downvotes - b.downvotes);
                 res.status(200);
-                res.json({ recipesData });
+                res.json({
+                    status: 'Success',
+                    message: 'Successfully retrieved all available sorted recipes',
+                    recipesData
+                });
             }
         } else {
             res.status(400);
