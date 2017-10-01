@@ -32,9 +32,18 @@ export default class RecipesApiController {
                 downvotes: 0,
                 userId: 3,
             });
-            res.json({ success: 'Successfully posted new item' });
+            res.status(200);
+            res.json({
+                status: 'Success',
+                message: 'Successfully added new recipe',
+                recipesData
+            });
         } catch (e) {
-            res.json({ failure: 'Unable to add new recipe' });
+            res.status(500);
+            res.json({
+                status: 'Failed',
+                message: 'Error adding new recipe'
+            });
         }
     }
 
