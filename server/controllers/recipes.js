@@ -80,7 +80,7 @@ export default class RecipesApiController {
         res.status(409);
         res.json({
             status: 'Failed',
-            message: 'Wrong recipe ID parameter'
+            message: 'Recipe ID parameter does not exist'
         });
     }
 
