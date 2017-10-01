@@ -8,7 +8,7 @@ import isEmpty from 'lodash/isEmpty';
  */
 export default class Validation {
     /**
-     * Validates all recipe details before allowing access to database
+     * Validates all recipe details before allowing access to controller class
      * @param {obj} req
      * @param {obj} res
      * @param {obj} next
