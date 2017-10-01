@@ -7,11 +7,10 @@ import reviewsData from '../models/reviews';
  */
 export default class RecipesApiController {
     /**
-     * Validates all recipe details before allowing access to database
+     * Add recipe to recipes model
      * @param {obj} req
      * @param {obj} res
-     * @param {obj} next
-     * @returns {obj} insertion error messages or success message
+     * @returns {obj} insertion error messages or success messages
      */
     static addRecipe(req, res) {
         let newRecipeId;
