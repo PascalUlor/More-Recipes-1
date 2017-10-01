@@ -64,17 +64,24 @@ export default class RecipesApiController {
                     recipesData[i].directions = (directions) || recipesData[i].directions;
                     res.status(200);
                     res.json({
+                        status: 'Success',
                         message: 'Update was successful',
                         recipesData
                     });
                 } else {
                     res.status(409);
-                    res.json({ message: 'Specify data to update' });
+                    res.json({
+                        status: 'Failed',
+                        message: 'Specify data to update'
+                    });
                 }
             }
         }
         res.status(409);
-        res.json({ message: 'Wrong recipe ID parameter' });
+        res.json({
+            status: 'Failed',
+            message: 'Wrong recipe ID parameter'
+        });
     }
 
     /**
@@ -89,12 +96,16 @@ export default class RecipesApiController {
             const newRecipeCatalog = recipesData.filter(recipe => recipe.id !== parseInt(req.params.id, 10));
             res.status(200);
             res.json({
+                status: 'Success',
                 message: 'Delete was successful',
                 newRecipeCatalog
             });
         } else {
             res.status(409);
-            res.json({ message: 'Wrong recipe ID parameter' });
+            res.json({
+                status: 'Failed',
+                message: 'Wrong recipe ID parameter'
+            });
         }
     }
 
@@ -131,7 +142,10 @@ export default class RecipesApiController {
             }
         } else {
             res.status(400);
-            res.json({ message: 'There are no available recipes' });
+            res.json({
+                status: 'Failed',
+                message: 'There are no available recipes'
+            });
         }
     }
 
@@ -162,16 +176,23 @@ export default class RecipesApiController {
                 });
                 res.status(200);
                 res.json({
+                    status: 'Success',
                     message: 'Successfully added review',
                     reviewsData
                 });
             } else {
                 res.status(409);
-                res.json({ message: 'Wrong recipe ID parameter' });
+                res.json({
+                    status: 'Failed',
+                    message: 'Wrong recipe ID parameter'
+                });
             }
         } catch (e) {
             res.status(400);
-            res.json({ message: 'Unable to add review' });
+            res.json({
+                status: 'Failed',
+                message: 'Unable to add review'
+            });
         }
     }
 }
