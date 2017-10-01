@@ -161,7 +161,7 @@ export default class RecipesApiController {
                 });
             }
         } else {
-            res.status(400);
+            res.status(404);
             res.json({
                 status: 'Failed',
                 message: 'There are no available recipes'
