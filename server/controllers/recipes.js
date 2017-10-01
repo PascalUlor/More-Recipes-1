@@ -101,10 +101,10 @@ export default class RecipesApiController {
                 newRecipeCatalog
             });
         } else {
-            res.status(409);
+            res.status(404);
             res.json({
                 status: 'Failed',
-                message: 'Wrong recipe ID parameter'
+                message: 'Recipe ID parameter does not exist'
             });
         }
     }
