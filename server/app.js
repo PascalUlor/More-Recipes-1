@@ -17,8 +17,8 @@ app.get('/', (req, res) => {
     });
 });
 
-app.use('/api/', recipesRoute);
-app.use('/api/', (req, res) => {
+app.use('/api/v1', recipesRoute);
+app.use('/api/v1', (req, res) => {
     res.status(404);
     res.json({
         status: 'Failed',
