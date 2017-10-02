@@ -1,43 +1,43 @@
 {
-  "name": "more_recipes",
-  "version": "1.0.0",
-  "description": "more-recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.",
-  "main": "server/app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon --watch server --exec babel-node -- server/app.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/chykehyman/More-Recipes.git"
-  },
-  "author": "Chinwoke Hyginus",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/chykehyman/More-Recipes/issues"
-  },
-  "homepage": "https://github.com/chykehyman/More-Recipes#readme",
-  "dependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "body-parser": "^1.18.2",
-    "chai": "^4.1.2",
-    "chai-http": "^3.0.0",
-    "express": "^4.15.5",
-    "lodash": "^4.17.4",
-    "mocha": "^3.5.3",
-    "nodemon": "^1.12.1",
-    "supertest": "^3.0.0",
-    "validator": "^9.0.0"
-  },
-  "devDependencies": {
-    "coveralls": "^3.0.0",
-    "eslint": "^4.7.2",
-    "eslint-config-airbnb-base": "^12.0.1",
-    "eslint-plugin-import": "^2.7.0",
-    "mocha-istanbul": "^0.3.0",
-    "mocha-lcov-reporter": "^1.3.0",
-    "nyc": "^11.2.1"
-  }
+    "name": "more_recipes",
+    "version": "1.0.0",
+    "description": "more-recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.",
+    "main": "server/app.js",
+    "scripts": {
+        "test": "mocha --timeout 500000 --compilers js:babel-core/register server/specs/",
+        "start:dev": "nodemon --watch server --exec babel-node -- server/app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/chykehyman/More-Recipes.git"
+    },
+    "author": "Chinwoke Hyginus",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/chykehyman/More-Recipes/issues"
+    },
+    "homepage": "https://github.com/chykehyman/More-Recipes#readme",
+    "dependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-es2015": "^6.24.1",
+        "babel-register": "^6.26.0",
+        "body-parser": "^1.18.2",
+        "chai": "^4.1.2",
+        "chai-http": "^3.0.0",
+        "express": "^4.15.5",
+        "lodash": "^4.17.4",
+        "mocha": "^3.5.3",
+        "nodemon": "^1.12.1",
+        "supertest": "^3.0.0",
+        "validator": "^9.0.0"
+    },
+    "devDependencies": {
+        "coveralls": "^3.0.0",
+        "eslint": "^4.7.2",
+        "eslint-config-airbnb-base": "^12.0.1",
+        "eslint-plugin-import": "^2.7.0",
+        "mocha-istanbul": "^0.3.0",
+        "mocha-lcov-reporter": "^1.3.0",
+        "nyc": "^11.2.1"
+    }
 }
