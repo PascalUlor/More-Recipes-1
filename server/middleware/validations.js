@@ -79,9 +79,9 @@ export default class Validation {
             } else {
                 if (!(validator.isEmpty(sort))) {
                     if (!(sort.toLowerCase() === 'upvotes' || sort.toLowerCase() === 'downvotes')) {
-                        errors.sort = 'Sort query must be either upvotes or downvotes';
+                        errors.sortType = 'Sort query must be either upvotes or downvotes';
                     }
-                } else { errors.sort = 'Sort query is required'; }
+                } else { errors.sortType = 'Sort query is required'; }
 
                 if (!(validator.isEmpty(order))) {
                     if (!(order.toLowerCase() === 'asc' || order.toLowerCase() === 'des')) {
