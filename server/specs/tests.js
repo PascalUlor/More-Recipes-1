@@ -132,7 +132,7 @@
                          ingredients: 'onion, tomatoes, bread, icecream',
                          description: 'Boil enough nnsgsn shhsgsn dn d hdmd'
                      })
-                     .expect(200)
+                     .expect(201)
                      .end((err, res) => {
                          expect('Success').to.equal(res.body.status);
                          expect('Successfully added new recipe').to.equal(res.body.message);
