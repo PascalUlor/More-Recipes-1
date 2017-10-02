@@ -4,7 +4,7 @@
     "description": "more-recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.",
     "main": "server/app.js",
     "scripts": {
-        "test": "mocha --timeout 500000 --compilers js:babel-core/register server/specs/",
+        "test": "nyc --reporter=html --reporter=text mocha --timeout 500000 --compilers js:babel-core/register server/specs/",
         "start:dev": "nodemon --watch server --exec babel-node -- server/app.js"
     },
     "repository": {
