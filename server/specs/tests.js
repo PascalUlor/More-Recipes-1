@@ -24,4 +24,54 @@
                  });
          });
      });
+
+     describe('All test cases for invalid routes', () => {
+         it('should fail to load application home page', (done) => {
+             request.get('/home')
+                 .set('Content-Type', 'application/json')
+                 .expect(404)
+                 .end((err, res) => {
+                     expect(res.body).deep.equal({
+                         status: 'Failed',
+                         message: 'Page not found'
+                     });
+                     if (err) done(err);
+                     done();
+                 });
+         });
+
+         it('should fail to get route', (done) => {
+             request.get('/api/v1')
+                 .set('Content-Type', 'application/json')
+                 .expect(404)
+                 .end((err, res) => {
+                     expect(res.body).deep.equal({
+                         status: 'Failed',
+                         message: 'Page not found'
+                     });
+                     if (err) done(err);
+                     done();
+                 });
+         });
+
+         it('should return `404` page for all invalid routes', (done) => {
+             request.get('*')
+                 .set('Content-Type', 'application/json')
+                 .expect(404)
+                 .end((err, res) => {
+                     expect(res.body).deep.equal({
+                         status: 'Failed',
+                         message: 'Page not found'
+                     });
+                     if (err) done(err);
+                     done();
+                 });
+         });
+     });
+
+     describe('All test cases for adding a recipe', () => {
+         describe('All negative test cases for adding a recipe', () => {
+
+         });
+     });
  });
