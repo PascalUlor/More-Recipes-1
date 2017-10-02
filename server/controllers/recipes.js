@@ -94,7 +94,7 @@ export default class RecipesApiController {
             res.status(200);
             res.json({
                 status: 'Success',
-                message: 'Delete was successful',
+                message: 'Successfully deleted recipe',
                 newRecipeCatalog
             });
         } else {
