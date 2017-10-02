@@ -63,7 +63,7 @@ export default class RecipesApiController {
                     res.status(200);
                     res.json({
                         status: 'Success',
-                        message: 'Update was successful',
+                        message: 'Successfully updated recipe',
                         recipesData
                     });
                 } else {
