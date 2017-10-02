@@ -92,7 +92,7 @@
                      .send({
                          title: '',
                          ingredients: '',
-                         directions: ''
+                         description: ''
                      }) // empty body request
                      .expect(400)
                      .end((err, res) => {
@@ -110,7 +110,7 @@
                      .send({
                          title: '24_African Salad',
                          ingredients: 'Salt, pepper',
-                         directions: 'Boil water'
+                         description: 'Boil water'
                      })
                      .expect(400)
                      .end((err, res) => {
@@ -130,7 +130,7 @@
                      .send({
                          title: 'African Salad',
                          ingredients: 'onion, tomatoes, bread, icecream',
-                         directions: 'Boil enough nnsgsn shhsgsn dn d hdmd'
+                         description: 'Boil enough nnsgsn shhsgsn dn d hdmd'
                      })
                      .expect(200)
                      .end((err, res) => {
