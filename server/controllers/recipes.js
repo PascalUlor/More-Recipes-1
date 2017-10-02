@@ -189,14 +189,14 @@ export default class RecipesApiController {
                     userId: 3,
                     recipeId: 1
                 });
-                res.status(200);
+                res.status(201);
                 res.json({
                     status: 'Success',
                     message: 'Successfully added review',
                     reviewsData
                 });
             } else {
-                res.status(404);
+                res.status(400);
                 res.json({
                     status: 'Failed',
                     message: 'Recipe ID parameter does not exist'
