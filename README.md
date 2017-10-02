@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/chykehyman/More-Recipes.svg?branch=feature_api_endpoints_dummy)]
+(https://travis-ci.org/chykehyman/More-Recipes)
+
 # More Recipes
 ### Share Your Special Recipe Ideas Instanly
 More-Recipes provides a platform for users to share the awesome and exciting recipe ideas they
