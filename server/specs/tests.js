@@ -143,7 +143,3 @@
          });
      });
  });
-
- //  title: 'African Salad',
- //      ingredients: 'onion, tomatoes, bread, icecream',
- //      directions: 'Boil enough nnsgsn  shhsgsn dn d hdmd'
