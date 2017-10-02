@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/chykehyman/More-Recipes.svg?branch=feature_api_endpoints_dummy)]
-(https://travis-ci.org/chykehyman/More-Recipes)
+[![Build Status](https://travis-ci.org/chykehyman/More-Recipes.svg?branch=feature_api_endpoints_dummy)](https://travis-ci.org/chykehyman/More-Recipes)
 
 # More Recipes
 ### Share Your Special Recipe Ideas Instanly
