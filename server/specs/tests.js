@@ -284,4 +284,60 @@
                  });
          });
      });
+
+     describe('All test cases for getting or retriving all recipes based on most upvotes', () => {
+         describe('All negative test cases for getting all recipes based on most upvotes', () => {
+             it('should return `400` status code with res.body error messages', (done) => {
+                 request.get('/api/v1/recipes?') // no defined request query
+                     .set('Content-Type', 'application/json')
+                     .expect(400)
+                     .end((err, res) => {
+                         expect(res.body).deep.equal({
+                             status: 'Failed',
+                             message: 'Sort or(and) order query parameter(s) is(are) not defined'
+                         });
+                         if (err) done(err);
+                         done();
+                     });
+             });
+
+             it('should return `400` status code with `res.body.errors` messages', (done) => {
+                 request.get('/api/v1/recipes?sort=&order=') // empty request query
+                     .set('Content-Type', 'application/json')
+                     .expect(400)
+                     .end((err, res) => {
+                         expect('Sort query is required').to.equal(res.body.errors.sortType);
+                         expect('Order query is required').to.equal(res.body.errors.order);
+                         if (err) done(err);
+                         done();
+                     });
+             });
+
+             it('should return `400` status code with `res.body.errors` messages', (done) => {
+                 request.get('/api/v1/recipes?sort=upvote&order=descending')
+                     .set('Content-Type', 'application/json')
+                     .expect(400)
+                     .end((err, res) => {
+                         expect('Sort query must be either upvotes or downvotes').to.equal(res.body.errors.sortType);
+                         expect('Order query must be either asc or des').to.equal(res.body.errors.order);
+                         if (err) done(err);
+                         done();
+                     });
+             });
+         });
+
+         describe('Positive test case for getting all recipes based on most upvotes', () => {
+             it('should return `200` status code with `res.body` success messages', (done) => {
+                 request.get('/api/v1/recipes?sort=upvotes&order=des')
+                     .set('Content-Type', 'application/json')
+                     .expect(200)
+                     .end((err, res) => {
+                         expect('Success').to.equal(res.body.status);
+                         expect('Successfully retrieved all available sorted recipes').to.equal(res.body.message);
+                         if (err) done(err);
+                         done();
+                     });
+             });
+         });
+     });
  });
