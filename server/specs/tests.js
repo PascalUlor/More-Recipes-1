@@ -221,12 +221,27 @@
          });
 
          it('should return `200` status code with `res.body` success messages', (done) => {
-             request.delete('/api/v1/recipes/4')
+             request.delete('/api/v1/recipes/3')
                  .set('Content-Type', 'application/json')
                  .expect(200)
                  .end((err, res) => {
                      expect('Success').to.equal(res.body.status);
                      expect('Successfully deleted recipe').to.equal(res.body.message);
+                     if (err) done(err);
+                     done();
+                 });
+         });
+     });
+
+     describe('Positive test case for getting or retriving all recipes without sort query', () => {
+         it('should return `200` status code with `res.body` success messages', (done) => {
+             request.get('/api/v1/recipes')
+                 .set('Content-Type', 'application/json')
+                 .expect(200)
+                 .end((err, res) => {
+                     expect('Success').to.equal(res.body.status);
+                     expect('Successfully retrieved all available recipes').to.equal(res.body.message);
+                     expect(res.body.recipesData.length).to.equal(4);
                      if (err) done(err);
                      done();
                  });
