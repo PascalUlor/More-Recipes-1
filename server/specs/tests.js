@@ -247,4 +247,41 @@
                  });
          });
      });
+
+     describe('All positive and negative test cases for adding or posting a recipe review', () => {
+         it('should return `400` status code with `res.body` error messages', (done) => {
+             request.post(`/api/v1/recipes/${invalidRecipeID}/reviews`)
+                 .set('Content-Type', 'application/json')
+                 .send({
+                     reviewSubject: 'I think you did not put that special ingredient',
+                     vote: 'downvote'
+                 })
+                 .expect(400)
+                 .end((err, res) => {
+                     expect(res.body).deep.equal({
+                         status: 'Failed',
+                         message: 'Recipe ID parameter does not exist'
+                     });
+                     if (err) done(err);
+                     done();
+                 });
+         });
+
+         it('should return `200` status code with `res.body` success messages', (done) => {
+             request.post('/api/v1/recipes/1/reviews')
+                 .set('Content-Type', 'application/json')
+                 .send({
+                     reviewSubject: 'I think you did not put that special ingredient',
+                     vote: 'downvote'
+                 })
+                 .expect(201)
+                 .end((err, res) => {
+                     expect('Success').to.equal(res.body.status);
+                     expect('Successfully added review').to.equal(res.body.message);
+                     expect(res.body.reviewsData.length).to.equal(3);
+                     if (err) done(err);
+                     done();
+                 });
+         });
+     });
  });
