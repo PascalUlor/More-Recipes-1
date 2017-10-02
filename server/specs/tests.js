@@ -55,7 +55,7 @@
          });
 
          it('should return `404` page for all invalid routes', (done) => {
-             request.get('*')
+             request.get('/more-recipes/recipes')
                  .set('Content-Type', 'application/json')
                  .expect(404)
                  .end((err, res) => {
