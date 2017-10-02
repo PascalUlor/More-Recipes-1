@@ -204,4 +204,32 @@
              });
          });
      });
+
+     describe('All postive and negative test cases for deleting a recipe', () => {
+         it('should return `400` status code with `res.body` error messages', (done) => {
+             request.delete(`/api/v1/recipes/${invalidRecipeID}`)
+                 .set('Content-Type', 'application/json')
+                 .expect(400)
+                 .end((err, res) => {
+                     expect(res.body).deep.equal({
+                         status: 'Failed',
+                         message: 'Recipe ID parameter does not exist'
+                     });
+                     if (err) done(err);
+                     done();
+                 });
+         });
+
+         it('should return `200` status code with `res.body` success messages', (done) => {
+             request.delete('/api/v1/recipes/4')
+                 .set('Content-Type', 'application/json')
+                 .expect(200)
+                 .end((err, res) => {
+                     expect('Success').to.equal(res.body.status);
+                     expect('Successfully deleted recipe').to.equal(res.body.message);
+                     if (err) done(err);
+                     done();
+                 });
+         });
+     });
  });
