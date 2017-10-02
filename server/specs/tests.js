@@ -137,7 +137,6 @@
                          expect('Success').to.equal(res.body.status);
                          expect('Successfully added new recipe').to.equal(res.body.message);
                          expect(res.body.recipesData[3]).to.have.property('title');
-                         if (err) done(err);
                          done();
                      });
              });
