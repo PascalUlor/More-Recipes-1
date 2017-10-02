@@ -143,4 +143,65 @@
              });
          });
      });
+
+     describe('All test cases for updating a recipe', () => {
+         describe('All negative test cases for updating a recipe', () => {
+             it('should return `400` status code with `res.body` error messages', (done) => {
+                 request.put(`/api/v1/recipes/${invalidRecipeID}`)
+                     .set('Content-Type', 'application/json')
+                     .send({
+                         title: 'African Salad',
+                         ingredients: 'onion, tomatoes, bread, icecream',
+                         description: 'Boil enough nnsgsn shhsgsn dn d hdmd'
+                     })
+                     .expect(400)
+                     .end((err, res) => {
+                         expect(res.body).deep.equal({
+                             status: 'Failed',
+                             message: 'Recipe ID parameter does not exist'
+                         });
+                         if (err) done(err);
+                         done();
+                     });
+             });
+
+             it('should return `400` status code with `res.body` error messages', (done) => {
+                 request.put('/api/v1/recipes/3')
+                     .set('Content-Type', 'application/json')
+                     .send({
+                         title: '',
+                         ingredients: '',
+                         description: ''
+                     })
+                     .expect(400)
+                     .end((err, res) => {
+                         expect(res.body).deep.equal({
+                             status: 'Failed',
+                             message: 'Specify data to update'
+                         });
+                         if (err) done(err);
+                         done();
+                     });
+             });
+         });
+
+         describe('Positive test case for updating a recipe', () => {
+             it('should return `200` status code with `res.body` success messages', (done) => {
+                 request.put('/api/v1/recipes/3')
+                     .set('Content-Type', 'application/json')
+                     .send({
+                         title: 'African Delicious Salad',
+                         ingredients: 'onion, tomatoes, vegetables, pepper'
+                     })
+                     .expect(200)
+                     .end((err, res) => {
+                         expect('Success').to.equal(res.body.status);
+                         expect('Successfully updated recipe').to.equal(res.body.message);
+                         expect(res.body.recipesData[2].title).to.equal('African Delicious Salad');
+                         if (err) done(err);
+                         done();
+                     });
+             });
+         });
+     });
  });
