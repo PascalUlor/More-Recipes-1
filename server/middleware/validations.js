@@ -93,7 +93,7 @@ export default class Validation {
             const result = { errors, isValid: isEmpty(errors) };
 
             if (!result.isValid) {
-                res.json(400);
+                res.status(400);
                 res.json({ errors });
             } else {
                 next();
