@@ -67,7 +67,7 @@ export default class RecipesApiController {
                         recipesData
                     });
                 } else {
-                    res.status(422);
+                    res.status(400);
                     res.json({
                         status: 'Failed',
                         message: 'Specify data to update'
@@ -75,7 +75,7 @@ export default class RecipesApiController {
                 }
             }
         }
-        res.status(404);
+        res.status(400);
         res.json({
             status: 'Failed',
             message: 'Recipe ID parameter does not exist'
