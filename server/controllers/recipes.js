@@ -98,7 +98,7 @@ export default class RecipesApiController {
                 newRecipeCatalog
             });
         } else {
-            res.status(404);
+            res.status(400);
             res.json({
                 status: 'Failed',
                 message: 'Recipe ID parameter does not exist'
