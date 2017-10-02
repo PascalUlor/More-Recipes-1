@@ -6,7 +6,8 @@
  import app from '../app';
 
  const { expect } = chai,
- request = supertest(app);
+ request = supertest(app),
+     invalidRecipeID = 5;
 
  describe('All test cases for application', () => {
      describe('Test case for loading application home page', () => {
