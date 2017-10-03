@@ -1,17 +1,43 @@
-const reviews = [{
-        id: 1,
-        reviewSubject: 'This is really a nice way of making a burger. I love it',
-        vote: 'upvote',
-        userId: 2,
-        recipeId: 2
-    },
-    {
-        id: 2,
-        reviewSubject: 'The directions for this is not clear. I bet it\'s just one of those silly things',
-        vote: 'upvote',
-        userId: 2,
-        recipeId: 3
-    },
-];
+/** Define Review database model with foreign associations
+ * @param  {obj} sequelize
+ * @param  {obj} DataTypes
+ * @returns {obj} Reviews model
+ */
+export default (sequelize, DataTypes) => {
+    const Reviews = sequelize.define('Reviews', {
+        reviewBody: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            onDelete: 'CASCADE',
+            references: {
+                model: 'Users',
+                key: 'id',
+                as: 'userId',
+            }
+        },
+        recipeId: {
+            type: DataTypes.INTEGER,
+            onDelete: 'CASCADE',
+            references: {
+                model: 'Recipes',
+                key: 'id',
+                as: 'recipeId',
+            }
+        }
+    });
 
-export default reviews;
+    Reviews.associate = (models) => {
+        Reviews.belongsTo(models.Users, {
+            foreignKey: 'userId',
+            onDelete: 'CASCADE'
+        });
+        Reviews.belongsTo(models.Recipes, {
+            foreignKey: 'recipeId',
+            onDelete: 'CASCADE'
+        });
+    };
+    return Reviews;
+};
