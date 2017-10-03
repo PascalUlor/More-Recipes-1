@@ -9,6 +9,14 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'access-control-allow-methods,access-control-allow-origin,x-access-token,content-type,Origin, X-Requested-With, Accept');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
+
 app.get('/', (req, res) => {
     res.status(200);
     res.json({
