@@ -1,1 +1,15 @@
+# folders
 .vscode
+.nyc_output
+coverage
+
+.coveralls.yml
+
+#dependencies
+node_modules
+
+# logs
+npm-debug.log
+
+# misc
+.DS_Store
