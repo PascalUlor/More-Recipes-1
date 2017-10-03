@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/chykehyman/More-Recipes.svg?branch=feature_api_endpoints_dummy)](https://travis-ci.org/chykehyman/More-Recipes)
+[![Coverage Status](https://coveralls.io/repos/github/chykehyman/More-Recipes/badge.svg?branch=feature_api_endpoints_dummy)](https://coveralls.io/github/chykehyman/More-Recipes?branch=master)
+[![Code Climate](https://codeclimate.com/github/chykehyman/More-Recipes/badges/gpa.svg)](https://codeclimate.com/github/chykehyman/More-Recipes)
 
 # More Recipes
 ### Share Your Special Recipe Ideas Instanly
