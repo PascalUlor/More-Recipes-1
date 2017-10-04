@@ -1,6 +1,9 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import env from 'dotenv';
 import { Users } from '../models';
+
+env.config();
 
 /**
  * @class UsersApiController
