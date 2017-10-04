@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import recipesRoute from './routes/recipes';
+import apiRoutes from './routes/apiRoutes';
 
 const app = express();
 
@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
     });
 });
 
-app.use('/api/v1/', recipesRoute);
+app.use('/api/v1/', apiRoutes);
 app.use('/api/v1/', (req, res) => {
     res.status(404);
     res.json({
