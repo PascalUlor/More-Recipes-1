@@ -10,6 +10,6 @@ router.route('/users/signup')
 
 // POST route for users signin
 router.route('/users/signin')
-    .post(UserValidation.signup, UserController.signup);
+    .post(UserValidation.signin, UserController.signin);
 
 export default router;
