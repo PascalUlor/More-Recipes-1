@@ -7,6 +7,7 @@ export default (sequelize, DataTypes) => {
     const Upvotes = sequelize.define('Upvotes', {
         userId: {
             type: DataTypes.INTEGER,
+            onDelete: 'CASCADE',
             references: {
                 model: 'Users',
                 key: 'id',
@@ -15,6 +16,7 @@ export default (sequelize, DataTypes) => {
         },
         recipeId: {
             type: DataTypes.INTEGER,
+            onDelete: 'CASCADE',
             references: {
                 model: 'Recipes',
                 key: 'id',
