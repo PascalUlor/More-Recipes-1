@@ -26,24 +26,19 @@ export default (sequelize, DataTypes) => {
     });
     Users.associate = (models) => {
         Users.hasMany(models.Recipes, {
-            foreignKey: 'userId',
-            as: 'userId'
+            foreignKey: 'userId'
         });
         Users.hasMany(models.Reviews, {
-            foreignKey: 'userId',
-            as: 'userId'
+            foreignKey: 'userId'
         });
         Users.hasMany(models.Favorites, {
-            foreignKey: 'userId',
-            as: 'userId'
+            foreignKey: 'userId'
         });
         Users.hasMany(models.Upvotes, {
-            foreignKey: 'userId',
-            as: 'userId'
+            foreignKey: 'userId'
         });
         Users.hasMany(models.Downvotes, {
-            foreignKey: 'userId',
-            as: 'userId'
+            foreignKey: 'userId'
         });
     };
     return Users;

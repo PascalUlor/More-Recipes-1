@@ -43,20 +43,16 @@ export default (sequelize, DataTypes) => {
             onDelete: 'CASCADE'
         });
         Recipes.hasMany(models.Reviews, {
-            foreignKey: 'recipeId',
-            as: 'recipeId'
+            foreignKey: 'recipeId'
         });
         Recipes.hasMany(models.Favorites, {
-            foreignKey: 'recipeId',
-            as: 'recipeId'
+            foreignKey: 'recipeId'
         });
         Recipes.hasMany(models.Upvotes, {
-            foreignKey: 'recipeId',
-            as: 'recipeId'
+            foreignKey: 'recipeId'
         });
         Recipes.hasMany(models.Downvotes, {
-            foreignKey: 'recipeId',
-            as: 'recipeId'
+            foreignKey: 'recipeId'
         });
     };
     return Recipes;
