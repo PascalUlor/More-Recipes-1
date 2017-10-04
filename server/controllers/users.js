@@ -20,38 +20,67 @@ export default class UsersApiController {
      * @memberof UsersApiController
      */
     static signup(req, res) {
-        return Users.sync({ force: false }).then(() => {
-            const saltRounds = 10;
-            bcrypt.genSalt(saltRounds, (err, salt) => {
-                bcrypt.hash(req.body.password, salt, (err, hash) => {
-                    Users.create({
-                        fullName: req.body.fullname,
-                        username: req.body.username,
-                        email: req.body.email,
-                        password: hash
-                    }).then((user) => {
-                        res.status(200);
-                        res.json({
-                            status: 'Success',
-                            message: 'Successfully create a new account',
-                            data: {
-                                id: user.id,
-                                username: user.username,
-                                email: user.email
+        Users.findOne({
+                where: {
+                    $or: [{
+                            username: {
+                                $iLike: req.body.username
                             }
-                        });
-                    }).catch((err) => {
-                        if (err) {
-                            res.status(400);
-                            res.json({
-                                status: 'Failed',
-                                message: 'Username or email already exits'
-                            });
+                        },
+                        {
+                            email: {
+                                $iLike: req.body.email
+                            }
                         }
+                    ]
+                }
+            }).then((foundUser) => {
+                let errorField;
+                if (foundUser) {
+                    if (foundUser.username === req.body.username) {
+                        errorField = 'Username';
+                    } else {
+                        errorField = 'Email';
+                    }
+                    res.status(400);
+                    res.json({
+                        status: 'Failed',
+                        message: `${errorField} already exist`
                     });
-                });
+                } else {
+                    const saltRounds = 10;
+                    bcrypt.genSalt(saltRounds, (err, salt) => {
+                        bcrypt.hash(req.body.password, salt, (err, hash) => {
+                            Users.create({
+                                fullName: req.body.fullName,
+                                username: req.body.username,
+                                email: req.body.email,
+                                password: hash
+                            }).then((user) => {
+                                res.status(201);
+                                res.json({
+                                    status: 'Success',
+                                    message: 'Successfully created account',
+                                    data: {
+                                        id: user.id,
+                                        username: user.username,
+                                        email: user.email
+                                    }
+                                });
+                            });
+                        });
+                    });
+                }
+            })
+            .catch((err) => {
+                if (err) {
+                    res.status(500);
+                    res.json({
+                        status: 'Failed',
+                        message: 'Server error occurred'
+                    });
+                }
             });
-        });
     }
 
     /**
