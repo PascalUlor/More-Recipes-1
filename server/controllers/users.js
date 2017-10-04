@@ -37,10 +37,10 @@ export default class UsersApiController {
                         });
                     }).catch((err) => {
                         if (err) {
-                            res.status(409);
+                            res.status(400);
                             res.json({
                                 status: 'Failed',
-                                message: 'Username or email already exits'
+                                message: 'Username already exits'
                             });
                         }
                     });
