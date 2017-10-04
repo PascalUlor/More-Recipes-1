@@ -1,7 +1,9 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import env from 'dotenv';
-import { Users } from '../models';
+import models from '../models';
+
+const { Users } = models;
 
 env.config();
 
@@ -43,7 +45,7 @@ export default class UsersApiController {
                             res.status(400);
                             res.json({
                                 status: 'Failed',
-                                message: 'Username already exits'
+                                message: 'Username or email already exits'
                             });
                         }
                     });
