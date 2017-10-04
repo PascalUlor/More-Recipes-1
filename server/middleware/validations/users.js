@@ -68,4 +68,43 @@ export default class Validation {
             }
         }
     }
+
+    /**
+     * Validates signin form input fields before allowing access to the database
+     * @param {obj} req
+     * @param {obj} res
+     * @param {obj} next
+     * @returns {json} Validation error messages or Validation success
+     */
+    static signin(req, res, next) {
+        const {
+            username,
+            password
+        } = req.body,
+            errors = {};
+        if (username === undefined || password === undefined) {
+            res.status(400);
+            res.json({
+                status: 'Failed',
+                message: 'Username or(and) password field(s) is(are) not defined'
+            });
+        } else {
+            if (validator.isEmpty(username)) {
+                errors.username = 'Username is required';
+            }
+
+            if (validator.isEmpty(password)) {
+                errors.password = 'Password is required';
+            }
+
+            const result = { isValid: isEmpty(errors) };
+
+            if (!result.isValid) {
+                res.status(400);
+                res.json({ errors });
+            } else {
+                next();
+            }
+        }
+    }
 }
