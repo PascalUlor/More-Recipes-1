@@ -92,20 +92,29 @@ export default class UsersApiController {
      * @memberof UsersApiController
      */
     static signin(req, res) {
-        Users.findOne({ where: { username: req.body.username } }).then((user) => {
-            if (user && user.username === req.body.username) {
+        Users.findOne({
+            where: {
+                username: {
+                    $iLike: req.body.username
+                }
+            }
+        }).then((user) => {
+            if (user && user.username.toLowerCase === req.body.username.toLowerCase) {
                 const check = bcrypt.compareSync(req.body.password, user.password);
                 if (check) {
-                    const payload = { username: user.username, userId: user.id };
+                    const payload = { fullName: user.fullName, username: user.username, userId: user.id };
                     const token = jwt.sign(payload, process.env.SECRET_KEY, {
-                        expiresIn: 60 * 60
+                        expiresIn: 60 * 2
                     });
                     req.token = token;
                     res.status(200);
                     res.json({
                         status: 'Success',
                         message: 'You are now logged In',
-                        data: { id: user.id, username: user.username },
+                        data: {
+                            id: user.id,
+                            username: user.username
+                        },
                         token
                     });
                 } else {
