@@ -5,6 +5,7 @@ import RecipesValidation from '../middleware/validations/recipes';
 import RecipesController from '../controllers/recipes';
 import ReviewsValidation from '../middleware/validations/reviews';
 import ReviewsController from '../controllers/reviews';
+import FavoritesController from '../controllers/favorites';
 import tokenAuth from '../middleware/authToken';
 
 const router = express.Router();
@@ -30,6 +31,14 @@ router.route('/recipes/:recipeID')
 // POST route to create/add a review for a recipe
 router.route('/recipes/:recipeID/reviews')
     .post(tokenAuth, ReviewsValidation.addReviewsValidation, ReviewsController.postReview);
+
+// POST route to create/add user's favorite recipes
+router.route('/users/:recipeID/recipes')
+    .post(tokenAuth, FavoritesController.addToFavorite);
+
+// GET route to retrieve user's favorite recipes
+router.route('/users/:userID/recipes')
+    .get(tokenAuth, FavoritesController.getFavRecipes);
 
 
 export default router;
