@@ -38,7 +38,7 @@ router.route('/users/:recipeID/recipes')
 
 // GET route to retrieve user's favorite recipes
 router.route('/users/:userID/recipes')
-    .get(tokenAuth, FavoritesController.getFavRecipes);
+    .get(tokenAuth, FavoritesController.getFavoriteRecipes);
 
 
 export default router;
