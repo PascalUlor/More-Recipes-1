@@ -68,8 +68,7 @@ export default class FavoriteRecipes {
                         .findAll({
                             where: { userId },
                             include: [
-                                { model: models.Recipes },
-                                { model: models.Users }
+                                { model: models.Recipes }
                             ]
                         })
                         .then((favorites) => {
