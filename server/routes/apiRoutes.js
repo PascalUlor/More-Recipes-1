@@ -20,4 +20,10 @@ router.route('/recipes')
     .post(tokenAuth, RecipesValidation.addRecipeValidation, RecipesController.addRecipe)
     .get(RecipesValidation.getSortdedRecipesValidation, RecipesController.getRecipes);
 
+// PUT and DELETE routes to modify/update and delete recipes
+router.route('/recipes/:recipeID')
+    .put(tokenAuth, RecipesController.UpdateRecipe)
+    .delete(tokenAuth, RecipesController.deleteRecipe);
+
+
 export default router;
