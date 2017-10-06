@@ -1,14 +1,10 @@
-/** Define Review database model with foreign associations
+/** Defines Upvotes database model and foreign associations
  * @param  {obj} sequelize
  * @param  {obj} DataTypes
- * @returns {obj} Reviews model
+ * @returns {obj} The Upvotes model
  */
 export default (sequelize, DataTypes) => {
-    const Reviews = sequelize.define('Reviews', {
-        reviewBody: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
+    const Upvotes = sequelize.define('Upvotes', {
         userId: {
             type: DataTypes.INTEGER,
             onDelete: 'CASCADE',
@@ -26,16 +22,15 @@ export default (sequelize, DataTypes) => {
             }
         }
     });
-
-    Reviews.associate = (models) => {
-        Reviews.belongsTo(models.Users, {
-            foreignKey: 'userId',
-            onDelete: 'CASCADE'
-        });
-        Reviews.belongsTo(models.Recipes, {
+    Upvotes.associate = (models) => {
+        Upvotes.belongsTo(models.Recipes, {
             foreignKey: 'recipeId',
             onDelete: 'CASCADE'
         });
+        Upvotes.belongsTo(models.Users, {
+            foreignKey: 'userId',
+            onDelete: 'CASCADE'
+        });
     };
-    return Reviews;
+    return Upvotes;
 };

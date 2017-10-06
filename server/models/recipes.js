@@ -1,30 +1,58 @@
-const recipes = [{
-        id: 1,
-        title: 'Nigerian Ewedu Soup',
-        ingredients: 'maggie, pepper, onions',
-        description: 'Boil water for about 20 minutes. Sleeve your onions properly.',
-        upvotes: 10,
-        downvotes: 2,
-        userId: 2
-    },
-    {
-        id: 2,
-        title: 'American Crunchy Burger',
-        ingredients: 'vegetable, bread, beef',
-        description: 'Boil water for about 20 minutes. Sleeve your onions properly.',
-        upvotes: 14,
-        downvotes: 4,
-        userId: 1
-    },
-    {
-        id: 3,
-        title: 'Indian Tomato Sauce',
-        ingredients: 'fresh tomatoes, green pepper, onions',
-        description: 'Boil water for about 20 minutes. Sleeve your onions properly.',
-        upvotes: 20,
-        downvotes: 0,
-        userId: 1
-    }
-];
-
-export default recipes;
+/** Define recipes database model with foreign associations
+ * @param  {obj} sequelize
+ * @param  {obj} DataTypes
+ * @returns {obj} Recipes model
+ */
+export default (sequelize, DataTypes) => {
+    const Recipes = sequelize.define('Recipes', {
+        title: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        ingredients: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        procedures: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        upvotes: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue: 0
+        },
+        downvotes: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue: 0
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            onDelete: 'CASCADE',
+            references: {
+                model: 'Users',
+                key: 'id'
+            }
+        }
+    });
+    Recipes.associate = (models) => {
+        Recipes.belongsTo(models.Users, {
+            foreignKey: 'userId',
+            onDelete: 'CASCADE'
+        });
+        Recipes.hasMany(models.Reviews, {
+            foreignKey: 'recipeId'
+        });
+        Recipes.hasMany(models.Favorites, {
+            foreignKey: 'recipeId'
+        });
+        Recipes.hasMany(models.Upvotes, {
+            foreignKey: 'recipeId'
+        });
+        Recipes.hasMany(models.Downvotes, {
+            foreignKey: 'recipeId'
+        });
+    };
+    return Recipes;
+};

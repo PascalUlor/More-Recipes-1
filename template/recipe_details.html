@@ -46,7 +46,7 @@
                                 <a class="nav-link" href="./index.html">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="./my_recipes.html">Create Recipe</a>
+                                <a class="nav-link" href="./my_recipes.html">My Recipes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="./favourites.html">Favorites</a>
@@ -98,20 +98,15 @@
                         </div>
                     </div>
                     <div class="col-md-5 col-lg-5">
-                        <h4 class="text-info">Procedures</h4>
+                        <h4 class="text-info">Description</h4>
                         <div class="text-muted text-left">
                             Wash and slice tomatoes. Cut beef into shape. Boil water for about 20 minutes. Add a full of salt. Prepare beef for roasting
                         </div>
                         <div class="mt-5 mb-5">
                             <h4 class="text-info">My Review</h4>
                             <form role="form">
-                                <div class="form-group">
-                                    <div class="input-group mb-2">
-                                        <div class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
-                                        <input type="text" class="form-control" id="user" placeholder="enter your review here">
-                                    </div>
-                                </div>
-                                <div class="form-check form-check-inline">
+                                <textarea class="form-control" name="review" id="review" placeholder="enter your review for this recipe" rows="5"></textarea>
+                                <div class="form-check form-check-inline mt-3 mb-3">
                                     <label class="form-check-label">
                                         <input class="form-check-input text-info" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> <span class="text-muted"> upvote </span><i class="fa fa-thumbs-o-up text-success" aria-hidden="true"></i>
                                     </label>
@@ -158,37 +153,6 @@
                                 </ul>
                             </div>
                         </div>
-
-                        <!--Pagination Start-->
-                        <nav aria-label="Page navigation" class="mt-2">
-                            <ul class="pagination w-100">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">4</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                        <!--Pagination End-->
                     </div>
                 </div>
             </div>

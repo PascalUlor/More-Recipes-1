@@ -10,13 +10,13 @@ More-Recipes and get feedback in form of reviews and votes from other users who 
 recipe. Users can also keep a list of their favorite recipes on the application.
 
 ## Features
-- Signup and Signin
+- User Signup and Signin
 - Create/Add, modify or delete recipes
 - View recipes from other users
-- View details of particular recipe
+- View details of recipes
 - Post reviews on recipes
 - Upvote or downvote recipes
-- Bookmark recipes as Favorites
+- Bookmark recipes as favorites
 - View user profile
 
 ## UI Templates

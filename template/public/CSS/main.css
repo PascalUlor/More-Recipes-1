@@ -6,7 +6,7 @@ body {
     height: 100%;
 }
 
-a.beautify {
+p.lead.beautify a {
     color: gold;
     font-size: 1.3rem;
 }
@@ -19,11 +19,25 @@ a.beautify {
     padding: 1.4rem;
 }
 
-footer#copyright hr {
+.container-fluid {
+    padding: 1rem;
+}
+
+.figure-img:hover {
+    border-bottom: none;
+}
+
+footer hr {
     margin-left: 10%;
     margin-right: 10%;
     border-top: 1px solid darkgray;
     border-bottom: 1px solid darkgray;
+}
+
+footer#homeFooter {
+    background: url("../images/footer.jpg") top center no-repeat;
+    background-size: cover;
+    padding: 0.5rem;
 }
 
 header {
@@ -33,6 +47,12 @@ header {
 h1.display-3 {
     color: wheat;
     padding-top: 1rem;
+}
+
+h2,
+.lead a {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: cadetblue;
 }
 
 hr#favorites {
@@ -52,6 +72,10 @@ li.active {
     margin-bottom: 10px;
 }
 
+.list-group-item h5 {
+    border-bottom: 2px solid burlywood;
+}
+
 #main-wrapper {
     text-align: center;
     color: white;
@@ -65,6 +89,10 @@ main.landing {
     background: url("../images/background.jpg") top center no-repeat;
     background-size: cover;
     background-attachment: fixed;
+}
+
+section#home img {
+    max-height: 12rem;
 }
 
 #site-name {
