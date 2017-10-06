@@ -3,6 +3,8 @@ import UserValidation from '../middleware/validations/users';
 import UserController from '../controllers/users';
 import RecipesValidation from '../middleware/validations/recipes';
 import RecipesController from '../controllers/recipes';
+import ReviewsValidation from '../middleware/validations/reviews';
+import ReviewsController from '../controllers/reviews';
 import tokenAuth from '../middleware/authToken';
 
 const router = express.Router();
@@ -24,6 +26,10 @@ router.route('/recipes')
 router.route('/recipes/:recipeID')
     .put(tokenAuth, RecipesController.UpdateRecipe)
     .delete(tokenAuth, RecipesController.deleteRecipe);
+
+// POST route to create/add a review for a recipe
+router.route('/recipes/:recipeID/reviews')
+    .post(tokenAuth, ReviewsValidation.addReviewsValidation, ReviewsController.postReview);
 
 
 export default router;
