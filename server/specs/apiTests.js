@@ -55,8 +55,8 @@
                  .expect(200)
                  .end((err, res) => {
                      expect(res.body).deep.equal({
-                         name: 'Chike',
-                         message: 'Welcome to More-Recipes'
+                         project: 'More-Recipes',
+                         message: 'Share your awesome recipes ideas'
                      });
                      if (err) done(err);
                      done();
