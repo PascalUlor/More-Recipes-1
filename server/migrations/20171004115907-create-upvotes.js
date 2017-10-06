@@ -12,8 +12,7 @@ module.exports = {
                 onDelete: 'CASCADE',
                 references: {
                     model: 'Users',
-                    key: 'id',
-                    as: 'userId',
+                    key: 'id'
                 }
             },
             recipeId: {
@@ -21,17 +20,16 @@ module.exports = {
                 onDelete: 'CASCADE',
                 references: {
                     model: 'Recipes',
-                    key: 'id',
-                    as: 'recipeId',
+                    key: 'id'
                 }
             },
             createdAt: {
-                allowNull: false,
-                type: Sequelize.DATE
+                type: Sequelize.DATE,
+                allowNull: false
             },
             updatedAt: {
-                allowNull: false,
-                type: Sequelize.DATE
+                type: Sequelize.DATE,
+                allowNull: false
             }
         });
     },
