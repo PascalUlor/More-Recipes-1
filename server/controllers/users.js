@@ -42,11 +42,11 @@ export default class UsersApiController {
                     } else {
                         errorField = 'Email';
                     }
-                    res.status(400);
-                    res.json({
-                        status: 'Failed',
-                        message: `${errorField} already exist`
-                    });
+                    res.status(400)
+                        .json({
+                            status: 'Failed',
+                            message: `${errorField} already exist`
+                        });
                 } else {
                     const saltRounds = 10;
                     bcrypt.genSalt(saltRounds, (err, salt) => {
@@ -57,16 +57,16 @@ export default class UsersApiController {
                                 email: req.body.email,
                                 password: hash
                             }).then((user) => {
-                                res.status(201);
-                                res.json({
-                                    status: 'Success',
-                                    message: 'Successfully created account',
-                                    data: {
-                                        id: user.id,
-                                        username: user.username,
-                                        email: user.email
-                                    }
-                                });
+                                res.status(201)
+                                    .json({
+                                        status: 'Success',
+                                        message: 'Successfully created account',
+                                        data: {
+                                            id: user.id,
+                                            username: user.username,
+                                            email: user.email
+                                        }
+                                    });
                             });
                         });
                     });
@@ -74,11 +74,11 @@ export default class UsersApiController {
             })
             .catch((err) => {
                 if (err) {
-                    res.status(500);
-                    res.json({
-                        status: 'Failed',
-                        message: 'Server error occurred'
-                    });
+                    res.status(500)
+                        .json({
+                            status: 'Failed',
+                            message: 'Server error occurred'
+                        });
                 }
             });
     }
@@ -104,32 +104,32 @@ export default class UsersApiController {
                 if (check) {
                     const payload = { fullName: user.fullName, username: user.username, userId: user.id };
                     const token = jwt.sign(payload, process.env.SECRET_KEY, {
-                        expiresIn: 60 * 2
+                        expiresIn: 60 * 60 * 8
                     });
                     req.token = token;
-                    res.status(200);
-                    res.json({
-                        status: 'Success',
-                        message: 'You are now logged In',
-                        data: {
-                            id: user.id,
-                            username: user.username
-                        },
-                        token
-                    });
+                    res.status(200)
+                        .json({
+                            status: 'Success',
+                            message: 'You are now logged In',
+                            data: {
+                                id: user.id,
+                                username: user.username
+                            },
+                            token
+                        });
                 } else {
-                    res.status(400);
-                    res.json({
-                        status: 'Failed',
-                        message: 'Invalid Password'
-                    });
+                    res.status(400)
+                        .json({
+                            status: 'Failed',
+                            message: 'Invalid Password'
+                        });
                 }
             } else {
-                res.status(404);
-                res.json({
-                    status: 'Failed',
-                    message: 'User not found'
-                });
+                res.status(404)
+                    .json({
+                        status: 'Failed',
+                        message: 'User not found'
+                    });
             }
         });
     }
