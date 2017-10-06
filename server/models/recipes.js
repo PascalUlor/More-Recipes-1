@@ -32,8 +32,7 @@ export default (sequelize, DataTypes) => {
             onDelete: 'CASCADE',
             references: {
                 model: 'Users',
-                key: 'id',
-                as: 'userId',
+                key: 'id'
             }
         }
     });
