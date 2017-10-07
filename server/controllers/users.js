@@ -121,7 +121,7 @@ export default class UsersApiController {
                     res.status(400)
                         .json({
                             status: 'Failed',
-                            message: 'Invalid Password'
+                            message: 'Invalid username or password'
                         });
                 }
             } else {
