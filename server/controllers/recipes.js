@@ -58,45 +58,52 @@ export default class RecipesApiController {
         const { userId } = req.decoded, { title, ingredients, procedures } = req.body,
             recipeId = req.params.recipeID;
 
-        models.Recipes
-            .findById(recipeId)
-            .then((recipe) => {
-                if (recipe) {
-                    if (recipe.userId === userId) {
-                        models.Recipes.update({
-                            title: (title) || recipe.title,
-                            ingredients: (ingredients) || recipe.ingredients,
-                            procedures: (procedures) || recipe.procedures
-                        }, {
-                            where: {
-                                id: recipeId
-                            }
-                        }).then(() =>
-                            res.status(202).json({
-                                status: 'Success',
-                                message: 'Successfully updated recipe'
-                            }));
+        if (title || ingredients || procedures) {
+            models.Recipes
+                .findById(recipeId)
+                .then((recipe) => {
+                    if (recipe) {
+                        if (recipe.userId === userId) {
+                            models.Recipes.update({
+                                title: (title) || recipe.title,
+                                ingredients: (ingredients) || recipe.ingredients,
+                                procedures: (procedures) || recipe.procedures
+                            }, {
+                                where: {
+                                    id: recipeId
+                                }
+                            }).then(() =>
+                                res.status(202).json({
+                                    status: 'Success',
+                                    message: 'Successfully updated recipe'
+                                }));
+                        } else {
+                            res.status(400).json({
+                                status: 'Failed',
+                                message: 'You can not perform an update on a recipe not created by you'
+                            });
+                        }
                     } else {
-                        res.status(400).json({
+                        res.status(404).json({
                             status: 'Failed',
-                            message: 'You can not perform an update on a recipe not created by you'
+                            message: `Recipe with id: ${recipeId}, is not available`
                         });
                     }
-                } else {
-                    res.status(404).json({
-                        status: 'Failed',
-                        message: `Recipe with id: ${recipeId}, is not available`
-                    });
-                }
-            }).catch((err) => {
-                if (err) {
-                    res.status(500)
-                        .json({
-                            status: 'Failed',
-                            message: 'Error updating recipe'
-                        });
-                }
+                }).catch((err) => {
+                    if (err) {
+                        res.status(500)
+                            .json({
+                                status: 'Failed',
+                                message: 'Error updating recipe'
+                            });
+                    }
+                });
+        } else {
+            res.status(400).json({
+                status: 'Failed',
+                message: 'Provide a field to update'
             });
+        }
     }
 
     /**
@@ -118,7 +125,7 @@ export default class RecipesApiController {
                                     id: recipeId
                                 },
                             })
-                            .then(() => res.status(205).json({
+                            .then(() => res.status(200).json({
                                 status: 'Success',
                                 message: 'Successfully delected recipe'
                             }));
