@@ -7,8 +7,9 @@
  import models from '../models';
 
  const { expect } = chai,
- request = supertest(app);
- let token;
+ wrongToken = 'wrongAccessToken',
+     request = supertest(app);
+ let pageToken1;
 
  models.Users.destroy({
      cascade: true,
@@ -336,7 +337,7 @@
                  .end((err, res) => {
                      expect(res.body).deep.equal({
                          status: 'Failed',
-                         message: 'Invalid Password'
+                         message: 'Invalid username or password'
                      });
                      if (err) done(err);
                      done();
@@ -351,9 +352,111 @@
                  .send(user)
                  .expect(200)
                  .end((err, res) => {
-                     token = res.body.token;
+                     pageToken1 = res.body.token;
                      expect('annie').to.equal(res.body.data.username);
                      expect('You are now logged In').to.equal(res.body.message);
+                     done();
+                 });
+         });
+     });
+
+     describe('Create/Add recipe negative operations', () => {
+         it('should not be able to access the recipes page when security token is undefined(not set)', (done) => {
+             const recipeBody = { title: 'title of recipe' };
+             request.post('/api/v1/recipes')
+                 .send(recipeBody)
+                 .expect(403)
+                 .end((err, res) => {
+                     expect(res.body).deep.equal({
+                         status: 'Failed',
+                         message: 'Access denied. You are not logged in'
+                     });
+                     if (err) done(err);
+                     done();
+                 });
+         });
+         it('should not be able to access the recipes page with a wrong security token', (done) => {
+             const recipeBody = { title: 'title of recipe' };
+             request.post('/api/v1/recipes')
+                 .set('x-access-token', wrongToken)
+                 .send(recipeBody)
+                 .expect(401)
+                 .end((err, res) => {
+                     expect(res.body).deep.equal({
+                         status: 'Failed',
+                         message: 'Authentication failed. Token is invalid or expired'
+                     });
+                     if (err) done(err);
+                     done();
+                 });
+         });
+         it('should not be able to create recipe when one or more field(s) is(are) undefined(missing)', (done) => {
+             // ingredients and procedures fields are undefined(missing)
+             const recipeBody = { title: 'title of recipe' };
+             request.post('/api/v1/recipes')
+                 .set('x-access-token', pageToken1)
+                 .send(recipeBody)
+                 .expect(400)
+                 .end((err, res) => {
+                     expect(res.body).deep.equal({
+                         status: 'Failed',
+                         message: 'All or some fields are not defined'
+                     });
+                     if (err) done(err);
+                     done();
+                 });
+         });
+         it('should not be able to create recipe with empty input fields', (done) => {
+             const recipeBody = { title: '', ingredients: '', procedures: '' };
+             request.post('/api/v1/recipes')
+                 .set('x-access-token', pageToken1)
+                 .send(recipeBody)
+                 .expect(400)
+                 .end((err, res) => {
+                     expect('Title of recipe is required').to.equal(res.body.errors.title);
+                     expect('Recipe ingredients are required').to.equal(res.body.errors.ingredients);
+                     expect('Procedures for your recipe are required').to.equal(res.body.errors.procedures);
+                     if (err) done(err);
+                     done();
+                 });
+         });
+         it('Should not be able to create recipe when number begins recipe title, ingredients characters length is less than 20 and procedures characters length is less than 20', (done) => {
+             const recipeBody = { title: '24African Salad', ingredients: 'onions', procedures: 'Boil water' };
+             request.post('/api/v1/recipes')
+                 .set('x-access-token', pageToken1)
+                 .send(recipeBody)
+                 .expect(400)
+                 .end((err, res) => {
+                     expect('Title should not start with number(s)').to.equal(res.body.errors.title);
+                     expect('Recipe ingredients provided must be more than 20 characters').to.equal(res.body.errors.ingredients);
+                     expect('Procedures provided must be more than 20 characters').to.equal(res.body.errors.procedures);
+                     if (err) done(err);
+                     done();
+                 });
+         });
+     });
+     describe('Create/Add recipe positive operations', () => {
+         it('should be able to create recipe when all validations are met', (done) => {
+             const recipeBody = { title: 'African Salad', ingredients: 'onions, vegetables, carrots, salt', procedures: 'Boil water for about 20 minutes. Cut carrots into considerable sizes...' };
+             request.post('/api/v1/recipes')
+                 .set('x-access-token', pageToken1)
+                 .send(recipeBody)
+                 .expect(201)
+                 .end((err, res) => {
+                     expect('Successfully added new recipe').to.equal(res.body.message);
+                     if (err) done(err);
+                     done();
+                 });
+         });
+         it('should be able to create another recipe when all validations are met', (done) => {
+             const recipeBody = { title: 'French Fries', ingredients: 'onions, vegetables, carrots, salt', procedures: 'Boil water for about 20 minutes. Cut carrots into considerable sizes...' };
+             request.post('/api/v1/recipes')
+                 .set('x-access-token', pageToken1)
+                 .send(recipeBody)
+                 .expect(201)
+                 .end((err, res) => {
+                     expect('Successfully added new recipe').to.equal(res.body.message);
+                     if (err) done(err);
                      done();
                  });
          });
