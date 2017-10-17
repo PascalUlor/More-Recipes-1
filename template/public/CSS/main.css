@@ -24,8 +24,8 @@ p.lead.beautify a {
     padding: 1rem;
 }
 
-.figure-img:hover {
-    border-bottom: none;
+.figure a:hover {
+    text-decoration: none;
 }
 
 footer hr {
