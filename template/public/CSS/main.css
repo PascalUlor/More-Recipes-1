@@ -3,7 +3,8 @@
 html,
 body {
     margin: 0;
-    height: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
 }
 
 p.lead.beautify a {
@@ -34,10 +35,17 @@ footer hr {
     border-bottom: 1px solid darkgray;
 }
 
-footer#homeFooter {
+footer#homeFooter,
+footer#signInFooter {
     background: url("../images/footer.jpg") top center no-repeat;
     background-size: cover;
     padding: 0.5rem;
+}
+
+footer#signInFooter {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 header {
