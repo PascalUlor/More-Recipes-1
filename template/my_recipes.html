@@ -12,11 +12,11 @@
     <!-- CSS Styles -->
     <link rel="stylesheet" href="./public/CSS/main.css">
     <!-- Bootstrap Font Awesome -->
-    <link rel="stylesheet" href="./public/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-    <!--Entire Site Wrapper Start-->
+    <!--Site Wrapper Start-->
     <div class="site-wrapper">
         <!--Header Container Start -->
         <div class="container">
@@ -70,7 +70,7 @@
         </div>
         <!--Header Container End -->
 
-        <!--Cover and Footer Main Div Start-->
+        <!--Cover Div Start-->
         <main id="main-wrapper">
             <div class="container">
                 <!--Section For Main Div Start-->
@@ -81,7 +81,7 @@
                     <hr id="favorites">
                 </section>
 
-                <!-- Create Recipe Button Trigger Modal -->
+                <!-- Create Recipe Modal Button Trigger -->
                 <div class="text-left">
                     <button type="button" data-toggle="modal" data-target="#createRecipeModal" class="btn btn-outline-success ml-5 mt-3"><i class="fa fa-plus-circle" aria-hidden="true"></i> Create Recipe</button>
                 </div>
@@ -135,7 +135,7 @@
                 </div>
                 <!--Pagination Start-->
                 <div class="row">
-                    <div class="col-6 col-sm-4 col-md-4 col-lg-4 offset-3 offet-sm-4 offset-md-4 offset-lg-4">
+                    <div class="col-8 col-sm-8 col-md-4 col-lg-4 offset-2 offet-sm-2 offset-md-4 offset-lg-4">
                         <ul class="pagination text-center">
                             <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                             <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -162,26 +162,17 @@
                                     <div class="form-row text-muted">
                                         <h6 class="text-center text-info p-2">Ingredients</h6>
                                         <div class="col p-1">
-                                            <input type="text" class="form-control" placeholder="enter ingredient">
-                                        </div>
-                                        <div class="col p-1">
-                                            <input type="text" class="form-control" placeholder="enter ingredient">
-                                        </div>
-                                        <div class="col p-1">
-                                            <input type="text" class="form-control" placeholder="enter ingredient">
-                                        </div>
-                                        <div class="text-left">
-                                            <button type="button" class="btn btn-outline-success btn-sm mt-1 ml-1"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add more Ingredients</button>
-                                        </div>
-                                        <h6 class="text-center text-info p-2">Description</h6>
-                                        <div class="col p-1">
-                                            <textarea rows="5" class="form-control" placeholder="enter procedures or steps taken"></textarea>
+                                            <textarea rows="5" class="form-control" placeholder="enter recipe ingredients"></textarea>
+                                            <h6 class="text-center text-info p-2">Procedures</h6>
+                                            <div class="col p-1">
+                                                <textarea rows="5" class="form-control" placeholder="enter procedures or steps taken"></textarea>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-info">Save changes</button>
+                                    <button type="button" class="btn btn-info">Save Recipe</button>
                                 </div>
                             </form>
                         </div>
@@ -192,29 +183,22 @@
                 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editRecipe" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header text-muted text-center">
-                                <h5 class="modal-title" id="editRecipe">American Crunchy Burger</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
-                                </button>
-                            </div>
                             <form role="form" action="">
+                                <div class="modal-header text-muted text-center">
+                                    <input type="text" class="form-control" placeholder="enter recipe title">
+                                    <button type="button" class="close pl-2" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+                                    </button>
+                                </div>
                                 <div class="modal-body">
                                     <div class="form-row text-muted">
                                         <h6 class="text-center text-info p-2">Ingredients</h6>
                                         <div class="col p-1">
-                                            <input type="text" class="form-control" value="fresh baked bread" placeholder="enter ingredient">
-                                        </div>
-                                        <div class="col p-1">
-                                            <input type="text" value="spicy roasted beef" class="form-control" placeholder="enter ingredient">
-                                        </div>
-                                        <div class="col p-1">
-                                            <input type="text" value="fresh tomatoes" class="form-control" placeholder="enter ingredient">
-                                        </div>
-                                        <h6 class="text-center text-info p-2">Description</h6>
-                                        <div class="col p-1">
-                                            <textarea rows="5" class="form-control" placeholder="enter procedures or steps taken">Wash tomatoes
-cut beef into shape</textarea>
+                                            <textarea rows="5" class="form-control" placeholder="enter recipe ingredients"></textarea>
+                                            <h6 class="text-center text-info p-2">Procedures</h6>
+                                            <div class="col p-1">
+                                                <textarea rows="5" class="form-control" placeholder="enter procedures or steps taken"></textarea>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -226,37 +210,38 @@ cut beef into shape</textarea>
                         </div>
                     </div>
                 </div>
-
-                <!--Page Footer Start-->
-                <footer id="copywrite" class="mt-2">
-                    <hr>
-                    <div class="row">
-                        <div class="col-12 col-sm-8 col-md-8 col-lg-6">
-                            <small id="copywrite" class="text-muted">&copy;2017 Bootcamp27, Andela Nigeria. All rights reserved.</small>
-                        </div>
-                        <div class="col-12 col-sm-4 col-md-4 col-lg-6">
-                            <ul class="list-inline">
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-github"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></a></i>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </footer>
-                <!--Page Footer End-->
             </div>
         </main>
-        <!--Cover and Footer Main Div End-->
+        <!--Cover Div End-->
     </div>
-    <!--Entire Site Wrapper End-->
+    <!--Site Wrapper End-->
+
+    <!--Page Footer Start-->
+    <footer id="signInFooter">
+        <div class="container">
+            <div class="row mt-4">
+                <div class="col-12 col-sm-8 col-md-9 col-lg-10">
+                    <small id="copywrite" class="text-white">&copy;2017 Bootcamp27, Andela Nigeria. All rights reserved.</small>
+                </div>
+                <div class="col-12 col-sm-4 col-md-3 col-lg-2">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-github"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--Page Footer End-->
 
 
 
     <!-- jQuery -->
     <script src="public/jquery/jquery.min.js"></script>
-    Bootstrap Tether
+    <!-- Bootstrap Tether -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <!-- Bootstrap JavaScript -->
     <script src="./public/bootstrap4/js/bootstrap.min.js"></script>

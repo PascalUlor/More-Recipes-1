@@ -8,10 +8,11 @@
     <title>More Recipes | Sign Up</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="./public/bootstrap4/css/bootstrap.min.css">
-    <!-- Bootstrap Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Playball" rel="stylesheet">
     <!-- CSS Styles -->
     <link rel="stylesheet" href="./public/CSS/main.css">
+    <!-- Bootstrap Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -26,7 +27,7 @@
                         <figure class="figure">
                             <a href="./index.html"><img src="./public/images/logo.png" width="200" height="70" class="figure-img img-fluid rounded" alt="Site Logo.">
                                 <figcaption class="figure-caption text-center">
-                                    <h3>More Recipes</h3>
+                                    <h3 id="site-name">More Recipes</h3>
                                 </figcaption>
                             </a>
                         </figure>
@@ -37,12 +38,12 @@
                     <div class="col-8 col-sm-8 col-md-8 col-lg-8">
                         <h2>Sign Up</h2>
                         <p class="lead">Already have a More Recipes account? <a href="./signin.html">Sign In</a></p>
-                        <form role="form" action="#" method="post">
+                        <form role="form" action="./signin.html" method="post" class="pb-2">
                             <div class="form-group">
                                 <label for="user">Full name</label>
                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                                    <div class="input-group-addon"><i class=" fa fa-user-circle-o " aria-hidden="true "></i></div>
-                                    <input type="text" class="form-control form-control-sm" id="fullname" placeholder="firstname lastname">
+                                    <div class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
+                                    <input type="text" class="form-control form-control-sm" id="fullname" placeholder="enter full name">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -85,10 +86,22 @@
     <!--Page Main Content End-->
 
     <!--Page Footer Start-->
-    <footer id="copyright">
-        <hr>
+    <footer id="homeFooter">
         <div class="container">
-            <p class="text-center text-muted">&copy; 2017 More Recipes, Andela Nigeria. All rights reserved.</p>
+            <div class="row mt-4">
+                <div class="col-12 col-sm-8 col-md-9 col-lg-10">
+                    <small id="copywrite" class="text-white">&copy;2017 Bootcamp27, Andela Nigeria. All rights reserved.</small>
+                </div>
+                <div class="col-12 col-sm-4 col-md-3 col-lg-2">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-github"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </footer>
     <!--Page Footer End-->
