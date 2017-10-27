@@ -25,7 +25,7 @@ router.route('/recipes')
 
 // PUT and DELETE routes to modify/update and delete recipes
 router.route('/recipes/:recipeID')
-    .put(tokenAuth, RecipesController.UpdateRecipe)
+    .put(tokenAuth, RecipesController.updateRecipe)
     .delete(tokenAuth, RecipesController.deleteRecipe);
 
 // POST route to create/add a review for a recipe

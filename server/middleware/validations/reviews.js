@@ -15,12 +15,10 @@ export default class ReviewsValidation {
      * @returns {object} Validation error messages or content of req.body passed to controller
      */
     static addReviewsValidation(req, res, next) {
-        const {
-            reviewBody
-        } = req.body,
+        const { review } = req.body,
             errors = {};
         // check for undefined inputs
-        if (reviewBody === undefined) {
+        if (review === undefined) {
             res.status(400);
             res.json({
                 status: 'Failed',
@@ -28,13 +26,12 @@ export default class ReviewsValidation {
             });
         } else {
             // validation for review body
-            if (!validator.isEmpty(reviewBody)) {
-                if (!(validator.isLength(reviewBody, { min: 5, max: 1000 }))) {
-                    errors.reviewBody = 'Review provided must be between 5 and 100 characters';
+            if (!validator.isEmpty(review)) {
+                if (!(validator.isLength(review, { min: 5, max: 1000 }))) {
+                    errors.review = 'Review should be between 5 and 1000 characters';
                 }
-            } else {
-                errors.reviewBody = 'Review body is required';
-            }
+            } else { errors.review = 'Review body is required'; }
+
             const result = { isValid: isEmpty(errors) };
 
             if (!result.isValid) {

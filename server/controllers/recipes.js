@@ -1,5 +1,8 @@
 import models from '../models';
 
+const { Recipes } = models;
+
+
 /**
  * Class implementation for /api/v1/recipes routes
  * @class RecipesApiController
@@ -20,7 +23,8 @@ export default class RecipesApiController {
             upvotes,
             downvotes,
         } = req.body, { userId } = req.decoded;
-        models.Recipes.create({
+
+        Recipes.create({
                 title,
                 ingredients,
                 procedures,
@@ -35,8 +39,7 @@ export default class RecipesApiController {
                         message: 'Successfully added new recipe',
                         recipe
                     });
-            })
-            .catch((err) => {
+            }).catch((err) => {
                 if (err) {
                     res.status(500)
                         .json({
@@ -54,17 +57,20 @@ export default class RecipesApiController {
      * @param {obj} res
      * @returns {obj} insertion error messages or success messages
      */
-    static UpdateRecipe(req, res) {
-        const { userId } = req.decoded, { title, ingredients, procedures } = req.body,
+    static updateRecipe(req, res) {
+        const { userId } = req.decoded, {
+                title,
+                ingredients,
+                procedures
+            } = req.body,
             recipeId = req.params.recipeID;
 
         if (title || ingredients || procedures) {
-            models.Recipes
-                .findById(recipeId)
+            Recipes.findById(recipeId)
                 .then((recipe) => {
                     if (recipe) {
                         if (recipe.userId === userId) {
-                            models.Recipes.update({
+                            Recipes.update({
                                 title: (title) || recipe.title,
                                 ingredients: (ingredients) || recipe.ingredients,
                                 procedures: (procedures) || recipe.procedures
@@ -73,21 +79,24 @@ export default class RecipesApiController {
                                     id: recipeId
                                 }
                             }).then(() =>
-                                res.status(202).json({
+                                res.status(200)
+                                .json({
                                     status: 'Success',
                                     message: 'Successfully updated recipe'
                                 }));
                         } else {
-                            res.status(400).json({
-                                status: 'Failed',
-                                message: 'You can not perform an update on a recipe not created by you'
-                            });
+                            res.status(400)
+                                .json({
+                                    status: 'Failed',
+                                    message: 'You can not perform an update on a recipe not created by you'
+                                });
                         }
                     } else {
-                        res.status(404).json({
-                            status: 'Failed',
-                            message: `Recipe with id: ${recipeId}, is not available`
-                        });
+                        res.status(404)
+                            .json({
+                                status: 'Failed',
+                                message: `Recipe with id: ${recipeId}, is not available`
+                            });
                     }
                 }).catch((err) => {
                     if (err) {
@@ -99,10 +108,11 @@ export default class RecipesApiController {
                     }
                 });
         } else {
-            res.status(400).json({
-                status: 'Failed',
-                message: 'Provide a field to update'
-            });
+            res.status(400)
+                .json({
+                    status: 'Failed',
+                    message: 'Provide a field to update'
+                });
         }
     }
 
@@ -113,14 +123,14 @@ export default class RecipesApiController {
      * @returns {object} insertion error messages or success messages
      */
     static deleteRecipe(req, res) {
-        const { userId } = req.decoded, recipeId = req.params.recipeID;
+        const { userId } = req.decoded,
+            recipeId = req.params.recipeID;
 
-        models.Recipes
-            .findById(recipeId)
+        Recipes.findById(recipeId)
             .then((recipe) => {
                 if (recipe) {
                     if (recipe.userId === userId) {
-                        models.Recipes.destroy({
+                        Recipes.destroy({
                                 where: {
                                     id: recipeId
                                 },
@@ -162,8 +172,7 @@ export default class RecipesApiController {
      */
     static getRecipes(req, res) {
         if (!req.query.sort) {
-            models.Recipes
-                .findAll()
+            Recipes.findAll()
                 .then((recipes) => {
                     if (!recipes) {
                         return res.status(404).json({
@@ -179,7 +188,8 @@ export default class RecipesApiController {
                 })
                 .catch((err) => {
                     if (err) {
-                        res.status(500).json({ message: 'Server error' });
+                        res.status(500)
+                            .json({ message: 'Server error' });
                     }
                 });
         }
@@ -189,7 +199,7 @@ export default class RecipesApiController {
             if (req.query.order === 'desc') {
                 order = 'DESC';
             } else { order = 'ASC'; }
-            models.Recipes.findAll({
+            Recipes.findAll({
                     limit: 10,
                     order: [
                         ['upvotes', order]
@@ -197,16 +207,17 @@ export default class RecipesApiController {
                 })
                 .then((recipes) => {
                     if (!recipes) {
-                        return res.status(404).json({
+                        res.status(404).json({
                             status: 'Failed',
                             message: 'There are no available recipes'
                         });
+                    } else {
+                        res.status(200).json({
+                            status: 'Success',
+                            message: 'Recipes found',
+                            data: recipes
+                        });
                     }
-                    return res.status(200).json({
-                        status: 'Success',
-                        message: 'Recipes found',
-                        data: recipes
-                    });
                 })
                 .catch((err) => {
                     if (err) {
@@ -219,24 +230,24 @@ export default class RecipesApiController {
                 order = 'DESC';
             } else { order = 'ASC'; }
 
-            models.Recipes.findAll({
+            Recipes.findAll({
                     limit: 10,
                     order: [
                         ['downvotes', order]
                     ]
-                })
-                .then((recipes) => {
+                }).then((recipes) => {
                     if (!recipes) {
-                        return res.status(404).json({
+                        res.status(404).json({
                             status: 'Failed',
                             message: 'There are no available recipes'
                         });
+                    } else {
+                        res.status(200).json({
+                            status: 'Success',
+                            message: 'Recipes found',
+                            data: recipes
+                        });
                     }
-                    return res.status(200).json({
-                        status: 'Success',
-                        message: 'Recipes found',
-                        data: recipes
-                    });
                 })
                 .catch((err) => {
                     if (err) {
