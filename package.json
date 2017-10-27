@@ -1,6 +1,7 @@
 {
     "name": "more_recipes",
     "version": "1.0.0",
+    "private": true,
     "description": "more-recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.",
     "main": "server/app.js",
     "scripts": {
