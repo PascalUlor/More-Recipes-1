@@ -1,5 +1,7 @@
 import models from '../models';
 
+const { Users, Recipes, Favorites } = models;
+
 /**
  * Class Definition for the user's favorite recipes
  * @class FavoriteRecipes
@@ -15,12 +17,10 @@ export default class FavoriteRecipes {
         const { userId } = req.decoded;
         const recipeId = req.params.recipeID;
 
-        models.Recipes
-            .findById(recipeId)
+        Recipes.findById(recipeId)
             .then((recipeFound) => {
                 if (recipeFound) {
-                    models.Favorites
-                        .findOrCreate({ where: { userId, recipeId } })
+                    Favorites.findOrCreate({ where: { userId, recipeId } })
                         .spread((recipeAdded, created) => {
                             if (created) {
                                 res.status(201).json({
@@ -43,7 +43,7 @@ export default class FavoriteRecipes {
                             }
                         });
                 } else {
-                    return res.status(400).json({
+                    res.status(400).json({
                         status: 'Failed',
                         message: `Recipe with id: ${recipeId} is not available`
                     });
@@ -60,45 +60,49 @@ export default class FavoriteRecipes {
     static getFavoriteRecipes(req, res) {
         const userId = req.params.userID;
 
-        models.Users
-            .findById(userId)
+        Users.findById(userId)
             .then((userFound) => {
                 if (userFound) {
-                    models.Favorites
-                        .findAll({
-                            where: { userId },
-                            include: [
-                                { model: models.Recipes }
-                            ]
-                        })
-                        .then((favorites) => {
-                            if (favorites) {
-                                res.status(201).json({
-                                    status: 'Success',
-                                    message: 'Successfully retrieved user\'s favorite Recipe(s)',
-                                    favorites
-                                });
-                            } else {
-                                res.status(201).json({
+                    Favorites.findAll({
+                        where: { userId },
+                        include: [
+                            { model: models.Recipes }
+                        ]
+                    }).then((favorites) => {
+                        if (favorites) {
+                            res.status(200).json({
+                                status: 'Success',
+                                message: 'Successfully retrieved user\'s favorite Recipe(s)',
+                                favorites
+                            });
+                        } else {
+                            res.status(400).json({
+                                status: 'Failed',
+                                message: 'No available favorite recipe',
+                            });
+                        }
+                    }).catch((err) => {
+                        if (err) {
+                            res.status(500)
+                                .json({
                                     status: 'Failed',
-                                    message: 'No available favorite recipe',
+                                    message: 'Error retrieving user\'s favorite recipes'
                                 });
-                            }
-                        })
-                        .catch((err) => {
-                            if (err) {
-                                res.status(500)
-                                    .json({
-                                        status: 'Failed',
-                                        message: 'Error retrieving user\'s favorite recipes'
-                                    });
-                            }
-                        });
+                        }
+                    });
                 } else {
                     res.status(400)
                         .json({
                             status: 'Failed',
                             message: `User with id: ${userId} does not exist`
+                        });
+                }
+            }).catch((err) => {
+                if (err) {
+                    res.status(500)
+                        .json({
+                            status: 'Failed',
+                            message: 'Internal Server Error'
                         });
                 }
             });
