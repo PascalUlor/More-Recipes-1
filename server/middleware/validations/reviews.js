@@ -21,22 +21,25 @@ export default class ReviewsValidation {
             errors = {};
         // check for undefined inputs
         if (reviewBody === undefined) {
-            res.status(400)
-                .json({
-                    status: 'Failed',
-                    message: 'Review body field is not defined'
-                });
+            res.status(400);
+            res.json({
+                status: 'Failed',
+                message: 'Review body field is not defined'
+            });
         } else {
             // validation for review body
-            if (validator.isEmpty(reviewBody)) {
+            if (!validator.isEmpty(reviewBody)) {
+                if (!(validator.isLength(reviewBody, { min: 5, max: 1000 }))) {
+                    errors.reviewBody = 'Review provided must be between 5 and 100 characters';
+                }
+            } else {
                 errors.reviewBody = 'Review body is required';
             }
-
             const result = { isValid: isEmpty(errors) };
 
             if (!result.isValid) {
-                res.status(400)
-                    .json({ errors });
+                res.status(400);
+                res.json({ errors });
             } else {
                 next();
             }
