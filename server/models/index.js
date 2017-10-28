@@ -1,11 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
-import configs from '../config/db_url.json';
+import configs from '../config/db_url';
 
 const env = process.env.NODE_ENV || 'development';
 const basename = path.basename(module.filename);
-const config = configs[env];
+const config = configs[env] || 'production';
 const db = {};
 let sequelize;
 
