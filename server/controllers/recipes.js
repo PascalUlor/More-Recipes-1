@@ -1,16 +1,20 @@
 import models from '../models';
 
+const { Recipes } = models;
+
+
 /**
  * Class implementation for /api/v1/recipes routes
  * @class RecipesApiController
  */
 export default class RecipesApiController {
     /**
-     * Add a recipe to recipes table
+     * Add a recipe to recipes catalog
      * @static
      * @param {object} req
      * @param {object} res
-     * @returns {object} insertion error messages or success messages
+     * @returns {object} insertion error messages or success message
+     * @memberof RecipesApiController
      */
     static addRecipe(req, res) {
         const {
@@ -20,229 +24,186 @@ export default class RecipesApiController {
             upvotes,
             downvotes,
         } = req.body, { userId } = req.decoded;
-        models.Recipes.create({
+
+        return Recipes.findOne({ where: { title } }).then((found) => {
+            if (found && found.title === title) {
+                res.status(400).json({
+                    status: 'Failed',
+                    message: `Recipe with title:${title}, already exist in your catalog`
+                });
+            }
+
+            return Recipes.create({
                 title,
                 ingredients,
                 procedures,
                 upvotes,
                 downvotes,
                 userId
-            })
-            .then((recipe) => {
-                res.status(201)
-                    .json({
-                        status: 'Success',
-                        message: 'Successfully added new recipe',
-                        recipe
-                    });
-            })
-            .catch((err) => {
-                if (err) {
-                    res.status(500)
-                        .json({
-                            status: 'Failed',
-                            message: 'Error adding new recipe'
-                        });
-                }
-            });
+            }).then(recipe => res.status(201).json({
+                status: 'Success',
+                message: 'Successfully added new recipe',
+                recipe
+            })).catch(error => res.status(500).json({
+                status: 'Failed',
+                message: error.message
+            }));
+        }).catch(error => res.status(500).json({
+            status: 'Failed',
+            message: error.message
+        }));
     }
 
     /**
-     * Modify a recipe in the recipes table
+     * Modify a recipe in the recipes catalog
      * @static
-     * @param {obj} req
-     * @param {obj} res
-     * @returns {obj} insertion error messages or success messages
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} insertion error messages or success messages
+     * @memberof RecipesApiController
      */
-    static UpdateRecipe(req, res) {
-        const { userId } = req.decoded, { title, ingredients, procedures } = req.body,
+    static updateRecipe(req, res) {
+        const { title, ingredients, procedures } = req.body, { userId } = req.decoded,
             recipeId = req.params.recipeID;
 
-        if (title || ingredients || procedures) {
-            models.Recipes
-                .findById(recipeId)
-                .then((recipe) => {
-                    if (recipe) {
-                        if (recipe.userId === userId) {
-                            models.Recipes.update({
-                                title: (title) || recipe.title,
-                                ingredients: (ingredients) || recipe.ingredients,
-                                procedures: (procedures) || recipe.procedures
-                            }, {
-                                where: {
-                                    id: recipeId
-                                }
-                            }).then(() =>
-                                res.status(202).json({
-                                    status: 'Success',
-                                    message: 'Successfully updated recipe'
-                                }));
-                        } else {
-                            res.status(400).json({
-                                status: 'Failed',
-                                message: 'You can not perform an update on a recipe not created by you'
-                            });
-                        }
-                    } else {
-                        res.status(404).json({
-                            status: 'Failed',
-                            message: `Recipe with id: ${recipeId}, is not available`
-                        });
+        return Recipes.findById(recipeId).then((recipe) => {
+            if (recipe.userId === userId) {
+                return Recipes.update({
+                    title: (title) || recipe.title,
+                    ingredients: (ingredients) || recipe.ingredients,
+                    procedures: (procedures) || recipe.procedures
+                }, {
+                    where: {
+                        id: recipeId
                     }
-                }).catch((err) => {
-                    if (err) {
-                        res.status(500)
-                            .json({
-                                status: 'Failed',
-                                message: 'Error updating recipe'
-                            });
-                    }
-                });
-        } else {
-            res.status(400).json({
+                }).then(() => res.status(201).json({
+                    status: 'Success',
+                    message: 'Successfully updated recipe'
+                })).catch(error => res.status(500).json({
+                    status: 'Failed',
+                    message: error.message
+                }));
+            }
+            return res.status(400).json({
                 status: 'Failed',
-                message: 'Provide a field to update'
+                message: 'Can not update a recipe not created by you'
             });
-        }
+        }).catch(() => res.status(404).json({
+            status: 'Failed',
+            message: `Recipe with id: ${recipeId}, not found`
+        }));
     }
 
     /**
      * Deleting a recipe from the recipes catalog
-     * @param {obj} req
+     * @static
+     * @param {object} req
      * @param {object} res
-     * @returns {object} insertion error messages or success messages
+     * @returns {object} delete error messages or success messages
+     * @memberof RecipesApiController
      */
     static deleteRecipe(req, res) {
         const { userId } = req.decoded, recipeId = req.params.recipeID;
 
-        models.Recipes
-            .findById(recipeId)
-            .then((recipe) => {
-                if (recipe) {
-                    if (recipe.userId === userId) {
-                        models.Recipes.destroy({
-                                where: {
-                                    id: recipeId
-                                },
-                            })
-                            .then(() => res.status(200).json({
-                                status: 'Success',
-                                message: 'Successfully delected recipe'
-                            }));
-                    } else {
-                        res.status(401)
-                            .json({
-                                status: 'Failed',
-                                message: 'You can not delete a recipe not created by you'
-                            });
-                    }
-                } else {
-                    res.status(404)
-                        .json({
-                            status: 'Failed',
-                            message: `Recipe with id: ${recipeId}, is not available`
-                        });
-                }
-            }).catch((err) => {
-                if (err) {
-                    res.status(500)
-                        .json({
-                            status: 'Failed',
-                            message: 'Error deleting recipe'
-                        });
-                }
+        return Recipes.findById(recipeId).then((recipe) => {
+            if (recipe.userId === userId) {
+                return Recipes.destroy({
+                    where: {
+                        id: recipeId
+                    },
+                }).then(() => res.status(200).json({
+                    status: 'Success',
+                    message: 'Successfully delected recipe'
+                }));
+            }
+            return res.status(401).json({
+                status: 'Failed',
+                message: 'You can not delete a recipe not created by you'
             });
+        }).catch(() => res.status(404).json({
+            status: 'Failed',
+            message: `Recipe with id: ${recipeId}, not found`
+        }));
     }
 
     /**
-     * Deleting a recipe from the catalog
+     * Retrieve all recipes from the catalog either in sorted or non sorted format
+     * @static
      * @param {obj} req
      * @param {object} res
-     * @returns {object} insertion error messages or success messages
+     * @returns {object} retrival error messages or success message
+     * @memberof RecipesApiController
      */
     static getRecipes(req, res) {
         if (!req.query.sort) {
-            models.Recipes
-                .findAll()
-                .then((recipes) => {
-                    if (!recipes) {
-                        return res.status(404).json({
-                            status: 'Failed',
-                            message: 'There are no available recipes'
-                        });
-                    }
-                    return res.status(200).json({
+            return Recipes.findAll({
+                limit: 6,
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            }).then((recipes) => {
+                if (recipes) {
+                    res.status(200).json({
                         status: 'Success',
-                        message: 'Recipes found',
-                        data: recipes
+                        message: 'Successfully retrieved all recipes',
+                        recipes
                     });
-                })
-                .catch((err) => {
-                    if (err) {
-                        res.status(500).json({ message: 'Server error' });
-                    }
+                }
+                return res.status(404).json({
+                    status: 'Failed',
+                    message: 'There are no available recipes',
                 });
+            }).catch(error => res.status(404).json({
+                status: 'Failed',
+                message: error.message
+            }));
         }
 
-        let order;
+        const order = req.query.order.toUpperCase();
         if (req.query.sort === 'upvotes') {
-            if (req.query.order === 'desc') {
-                order = 'DESC';
-            } else { order = 'ASC'; }
-            models.Recipes.findAll({
-                    limit: 10,
-                    order: [
-                        ['upvotes', order]
-                    ]
-                })
-                .then((recipes) => {
-                    if (!recipes) {
-                        return res.status(404).json({
-                            status: 'Failed',
-                            message: 'There are no available recipes'
-                        });
-                    }
-                    return res.status(200).json({
+            return Recipes.findAll({
+                limit: 6,
+                order: [
+                    ['upvotes', order]
+                ]
+            }).then((recipes) => {
+                if (recipes) {
+                    res.status(200).json({
                         status: 'Success',
-                        message: 'Recipes found',
-                        data: recipes
+                        message: `Successfully retrieved all recipes by most upvotes in ${order.toLowerCase()}ending order`,
+                        recipes
                     });
-                })
-                .catch((err) => {
-                    if (err) {
-                        res.status(500).json({ message: 'Server error' });
-                    }
+                }
+                return res.status(404).json({
+                    status: 'Failed',
+                    message: 'There are no available recipes',
                 });
-        } else {
-            // Get least voted recipes
-            if (req.query.order === 'desc') {
-                order = 'DESC';
-            } else { order = 'ASC'; }
-
-            models.Recipes.findAll({
-                    limit: 10,
-                    order: [
-                        ['downvotes', order]
-                    ]
-                })
-                .then((recipes) => {
-                    if (!recipes) {
-                        return res.status(404).json({
-                            status: 'Failed',
-                            message: 'There are no available recipes'
-                        });
-                    }
-                    return res.status(200).json({
-                        status: 'Success',
-                        message: 'Recipes found',
-                        data: recipes
-                    });
-                })
-                .catch((err) => {
-                    if (err) {
-                        res.status(500).json({ message: 'Server error' });
-                    }
-                });
+            }).catch(error => res.status(404).json({
+                status: 'Failed',
+                message: error.message
+            }));
         }
+
+        return Recipes.findAll({
+            limit: 6,
+            order: [
+                ['downvotes', order]
+            ]
+        }).then((recipes) => {
+            if (recipes) {
+                res.status(200).json({
+                    status: 'Success',
+                    message: `Successfully retrieved all recipes by most downvotes in ${order.toLowerCase()}ending order`,
+                    recipes
+                });
+            }
+            return res.status(404).json({
+                status: 'Failed',
+                message: 'There are no available recipes',
+            });
+        }).catch(error => res.status(404).json({
+            status: 'Failed',
+            message: error.message
+        }));
     }
 }

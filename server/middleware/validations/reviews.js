@@ -13,30 +13,28 @@ export default class ReviewsValidation {
      * @param {object} res
      * @param {object} next
      * @returns {object} Validation error messages or content of req.body passed to controller
+     * @memberof ReviewsValidation
      */
-    static addReviewsValidation(req, res, next) {
+    static postReviewValidations(req, res, next) {
         const { reviewBody } = req.body,
             errors = {};
-        // check for undefined inputs
         if (reviewBody === undefined) {
-            res.status(400)
-                .json({
-                    status: 'Failed',
-                    message: 'Review body field is not defined'
-                });
+            return res.status(400).json({
+                status: 'Failed',
+                message: 'Review for recipe is not defined'
+            });
         }
-        // validation for review body
-        if (validator.isEmpty(reviewBody)) {
-            errors.reviewBody = 'Review body is required';
-        }
+        if (!validator.isEmpty(reviewBody)) {
+            if (!validator.isLength(reviewBody, { min: 4, max: undefined })) {
+                errors.reviewBody = 'Review provided must be more than 4 characters';
+            }
+        } else { errors.reviewBody = 'Review for recipe is required'; }
 
         const result = { isValid: isEmpty(errors) };
 
         if (!result.isValid) {
-            res.status(400)
-                .json({ errors });
-        } else {
-            next();
+            return res.status(400).json({ errors });
         }
+        next();
     }
 }
