@@ -24,6 +24,7 @@ export default class SignupForm extends Component {
         console.log(this.state);
     }
     render() {
+        const { fullname, username, email, password, repassword } = this.state;
         return (
             // <!--Form Section Start-->
             <div className="col-8 col-sm-8 col-md-8 col-lg-8">
@@ -42,7 +43,7 @@ export default class SignupForm extends Component {
                                 className="form-control form-control-sm"
                                 id="fullname"
                                 name="fullname"
-                                value={this.state.fullname}
+                                value={fullname}
                                 onChange = {this.onChange}
                                 placeholder="enter full name"/>
                         </div>
@@ -58,7 +59,7 @@ export default class SignupForm extends Component {
                                 className="form-control form-control-sm"
                                 id="username"
                                 name="username"
-                                value={this.state.username}
+                                value={username}
                                 onChange = {this.onChange}
                                 placeholder="enter username"/>
                         </div>
@@ -74,7 +75,7 @@ export default class SignupForm extends Component {
                                 className="form-control form-control-sm"
                                 id="email"
                                 name="email"
-                                value={this.state.email}
+                                value={email}
                                 onChange = {this.onChange}
                                 placeholder="enter email"/>
                         </div>
@@ -90,7 +91,7 @@ export default class SignupForm extends Component {
                                 className="form-control form-control-sm"
                                 id="password"
                                 name="password"
-                                value={this.state.password}
+                                value={password}
                                 onChange = {this.onChange}
                                 placeholder="enter password"/>
                         </div>
@@ -106,7 +107,7 @@ export default class SignupForm extends Component {
                                 className="form-control form-control-sm"
                                 id="repassword"
                                 name="repassword"
-                                value={this.state.repassword}
+                                value={repassword}
                                 onChange = {this.onChange}
                                 placeholder="re-enter password"/>
                         </div>
