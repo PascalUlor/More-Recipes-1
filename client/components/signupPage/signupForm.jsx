@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import TextFieldGroup from '../../common/textFieldGroup.jsx';
 import validateInputs from '../../shared/validations/signup';
 
 export default class SignupForm extends Component {
@@ -50,91 +51,21 @@ export default class SignupForm extends Component {
                 <p className="lead">Already have a More-Recipes account? <Link to="/api/v1/user/signin">Sign In</Link>
                 </p>
                 <form role="form" onSubmit={this.handleSubmit} className="pb-2">
-                    <div className='form-group'>
-                        <label htmlFor="user">Full name</label>
-                        <div className="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <div className="input-group-addon">
-                                <i className="fa fa-user-circle-o" aria-hidden="true"></i>
-                            </div>
-                            <input
-                                type="text"
-                                className="form-control form-control-sm"
-                                id="fullName"
-                                name="fullName"
-                                value={fullName}
-                                onChange = {this.onChange}
-                                placeholder="enter full name"/>
-                        </div>
-                        { errors.fullName && <span className="text-danger small">{errors.fullName}</span>}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="user">Username</label>
-                        <div className="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <div className="input-group-addon">
-                                <i className=" fa fa-user-circle-o " aria-hidden="true "></i>
-                            </div>
-                            <input
-                                type="text"
-                                className="form-control form-control-sm"
-                                id="username"
-                                name="username"
-                                value={username}
-                                onChange = {this.onChange}
-                                placeholder="enter username"/>
-                        </div>
-                        { errors.username && <span className="text-danger small">{errors.username}</span>}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="email">Email</label>
-                        <div className="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <div className="input-group-addon">
-                                <i className=" fa fa-envelope " aria-hidden="true "></i>
-                            </div>
-                            <input
-                                type="text"
-                                className="form-control form-control-sm"
-                                id="email"
-                                name="email"
-                                value={email}
-                                onChange = {this.onChange}
-                                placeholder="enter email"/>
-                        </div>
-                        { errors.email && <span className="text-danger small">{errors.email}</span>}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <div className="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <div className="input-group-addon">
-                                <i className=" fa fa-lock " aria-hidden="true "></i>
-                            </div>
-                            <input
-                                type="password"
-                                className="form-control form-control-sm"
-                                id="password"
-                                name="password"
-                                value={password}
-                                onChange = {this.onChange}
-                                placeholder="enter password"/>
-                        </div>
-                        { errors.password && <span className="text-danger small">{errors.password}</span>}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="repassword">Confirm password</label>
-                        <div className="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <div className="input-group-addon">
-                                <i className=" fa fa-lock " aria-hidden="true"></i>
-                            </div>
-                            <input
-                                type="password"
-                                className="form-control form-control-sm"
-                                id="repassword"
-                                name="repassword"
-                                value={repassword}
-                                onChange = {this.onChange}
-                                placeholder="re-enter password"/>
-                        </div>
-                        { errors.repassword && <span className="text-danger small">{errors.repassword}</span>}
-                    </div>
+                    <TextFieldGroup
+                        label='Full Name' font="fa fa-user-circle-o" name='fullName' value={fullName}
+                        error={errors.fullName} onChange={this.onChange} placeholder='enter full name'/>
+                    <TextFieldGroup
+                        label='Username' font="fa fa-user-circle-o" name='username' value={username}
+                        error={errors.username} onChange={this.onChange} placeholder='enter username'/>
+                    <TextFieldGroup
+                        label='Email' font="fa fa-envelope" name='email' value={email} error={errors.email}
+                        onChange={this.onChange} placeholder='enter email'/>
+                    <TextFieldGroup
+                        label='Password' font="fa fa-lock" name='password' type='password' value={password}
+                        error={errors.password} onChange={this.onChange} placeholder='enter password'/>
+                    <TextFieldGroup
+                        label='Confirm Password' font="fa fa-lock" name='repassword' type='password'
+                        value={repassword} error={errors.repassword} onChange={this.onChange} placeholder='re-enter password'/>
                     <p className="lead">By signing up you are agreeing to these <Link to="">terms and conditons</Link>
                     </p>
                     <button type="submit" className="btn btn-outline-success" disabled={isLoading}>Sign Up</button>
