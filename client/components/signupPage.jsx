@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { userSignupRequest } from '../../client/actions/actionCreators/signupActions.jsx';
 import SiginSignupImage from './siginSignupImage.jsx';
 import SignupForm from './signupPage/signupForm.jsx';
 import Footer from './footer.jsx';
 
-export default class App extends Component {
+class SignupPage extends Component {
     render() {
+        const { userSignupRequest } = this.props;
         return (
             <div>
                 <div id="site-wrapper">
@@ -13,7 +17,7 @@ export default class App extends Component {
                         <div className="col-sm-10 col-md-8 col-lg-8 offset-sm-1 offset-md-2 offset-lg-2">
                             <div className="row">
                                 <SiginSignupImage/>
-                                <SignupForm/>
+                                <SignupForm userSignupRequest={ userSignupRequest }/>
                             </div>
                         </div>
                     </div>
@@ -24,3 +28,19 @@ export default class App extends Component {
         );
     }
 }
+
+SignupPage.propTypes = {
+    userSignupRequest: PropTypes.func.isRequired
+};
+
+// function mapStateToProps(state) {
+//     return {};
+// }
+
+// function mapDispatchToProps(dispatch) {
+//     return {
+//          userSignupRequest, dispatch
+//         };
+// }
+
+export default connect((state) => { return {}; }, { userSignupRequest })(SignupPage);

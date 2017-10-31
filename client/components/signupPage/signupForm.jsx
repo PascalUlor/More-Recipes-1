@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default class SignupForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fullname: '',
+            fullName: '',
             username: '',
             email: '',
             password: '',
-            repassword: ''
+            repassword: '',
+            errors: {},
+            isLoading: false
         };
         this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,11 +23,15 @@ export default class SignupForm extends Component {
         });
     }
     handleSubmit(e) {
+        this.setState({ errors: {}, isLoading: true });
         e.preventDefault();
-        console.log(this.state);
+        this.props.userSignupRequest(this.state)
+        .then(() => {})
+        .catch(error => this.setState({ errors: error.response.data.errors, isLoading: false }));
     }
     render() {
-        const { fullname, username, email, password, repassword } = this.state;
+        const { fullName, username, email, password, repassword, errors, isLoading } = this.state;
+
         return (
             // <!--Form Section Start-->
             <div className="col-8 col-sm-8 col-md-8 col-lg-8">
@@ -32,7 +39,7 @@ export default class SignupForm extends Component {
                 <p className="lead">Already have a More-Recipes account? <Link to="/api/v1/user/signin">Sign In</Link>
                 </p>
                 <form role="form" onSubmit={this.handleSubmit} className="pb-2">
-                    <div className="form-group">
+                    <div className='form-group'>
                         <label htmlFor="user">Full name</label>
                         <div className="input-group mb-2 mr-sm-2 mb-sm-0">
                             <div className="input-group-addon">
@@ -41,12 +48,13 @@ export default class SignupForm extends Component {
                             <input
                                 type="text"
                                 className="form-control form-control-sm"
-                                id="fullname"
-                                name="fullname"
-                                value={fullname}
+                                id="fullName"
+                                name="fullName"
+                                value={fullName}
                                 onChange = {this.onChange}
                                 placeholder="enter full name"/>
                         </div>
+                        { errors.fullName && <span className="text-danger small">{errors.fullName}</span>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="user">Username</label>
@@ -63,6 +71,7 @@ export default class SignupForm extends Component {
                                 onChange = {this.onChange}
                                 placeholder="enter username"/>
                         </div>
+                        { errors.username && <span className="text-danger small">{errors.username}</span>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
@@ -79,6 +88,7 @@ export default class SignupForm extends Component {
                                 onChange = {this.onChange}
                                 placeholder="enter email"/>
                         </div>
+                        { errors.email && <span className="text-danger small">{errors.email}</span>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
@@ -95,6 +105,7 @@ export default class SignupForm extends Component {
                                 onChange = {this.onChange}
                                 placeholder="enter password"/>
                         </div>
+                        { errors.password && <span className="text-danger small">{errors.password}</span>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="repassword">Confirm password</label>
@@ -111,13 +122,18 @@ export default class SignupForm extends Component {
                                 onChange = {this.onChange}
                                 placeholder="re-enter password"/>
                         </div>
+                        { errors.repassword && <span className="text-danger small">{errors.repassword}</span>}
                     </div>
                     <p className="lead">By signing up you are agreeing to these <Link to="">terms and conditons</Link>
                     </p>
-                    <button type="submit" className="btn btn-outline-success">Sign Up</button>
+                    <button type="submit" className="btn btn-outline-success" disabled={isLoading}>Sign Up</button>
                 </form>
             </div>
         // <!--Form Section End-->
         );
     }
 }
+
+SignupForm.propTypes = {
+    userSignupRequest: PropTypes.func.isRequired
+};
