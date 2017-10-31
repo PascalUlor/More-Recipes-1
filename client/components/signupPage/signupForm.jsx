@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import validateInputs from '../../shared/validations/signup';
 
 export default class SignupForm extends Component {
     constructor(props) {
@@ -16,18 +17,28 @@ export default class SignupForm extends Component {
         };
         this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.isValid = this.isValid.bind(this);
     }
     onChange(e) {
         this.setState({
             [e.target.name]: e.target.value
         });
     }
+    isValid() {
+        const { errors, isValid } = validateInputs(this.state);
+        if (!isValid) {
+            this.setState({ errors });
+        }
+        return isValid;
+    }
     handleSubmit(e) {
-        this.setState({ errors: {}, isLoading: true });
         e.preventDefault();
+        if (this.isValid()) {
+        this.setState({ errors: {}, isLoading: true });
         this.props.userSignupRequest(this.state)
         .then(() => {})
         .catch(error => this.setState({ errors: error.response.data.errors, isLoading: false }));
+        }
     }
     render() {
         const { fullName, username, email, password, repassword, errors, isLoading } = this.state;
@@ -80,7 +91,7 @@ export default class SignupForm extends Component {
                                 <i className=" fa fa-envelope " aria-hidden="true "></i>
                             </div>
                             <input
-                                type="email"
+                                type="text"
                                 className="form-control form-control-sm"
                                 id="email"
                                 name="email"
