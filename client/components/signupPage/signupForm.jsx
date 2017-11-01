@@ -39,6 +39,10 @@ class SignupForm extends Component {
             this.props.userSignupRequest(this.state)
             .then((res) => {
                 console.log(res);
+                this.props.addFlashMessage({
+                    type: 'Success',
+                    text: 'Successfully Created Account'
+                });
                 this.context.router.history.push('/');
             })
             .catch(error => this.setState({ errors: error.response.data.errors, isLoading: false }));
@@ -80,7 +84,8 @@ class SignupForm extends Component {
 }
 
 SignupForm.propTypes = {
-    userSignupRequest: PropTypes.func.isRequired
+    userSignupRequest: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired
 };
 
 SignupForm.contextTypes = {
