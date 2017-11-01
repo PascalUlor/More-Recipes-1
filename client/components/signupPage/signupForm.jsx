@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import TextFieldGroup from '../../common/textFieldGroup.jsx';
 import validateInputs from '../../shared/validations/signup';
 
-export default class SignupForm extends Component {
+class SignupForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -35,10 +35,13 @@ export default class SignupForm extends Component {
     handleSubmit(e) {
         e.preventDefault();
         if (this.isValid()) {
-        this.setState({ errors: {}, isLoading: true });
-        this.props.userSignupRequest(this.state)
-        .then(() => {})
-        .catch(error => this.setState({ errors: error.response.data.errors, isLoading: false }));
+            this.setState({ errors: {}, isLoading: true });
+            this.props.userSignupRequest(this.state)
+            .then((res) => {
+                console.log(res);
+                this.context.router.history.push('/');
+            })
+            .catch(error => this.setState({ errors: error.response.data.errors, isLoading: false }));
         }
     }
     render() {
@@ -79,3 +82,9 @@ export default class SignupForm extends Component {
 SignupForm.propTypes = {
     userSignupRequest: PropTypes.func.isRequired
 };
+
+SignupForm.contextTypes = {
+    router: PropTypes.object.isRequired
+};
+
+export default SignupForm;
