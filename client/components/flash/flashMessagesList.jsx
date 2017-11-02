@@ -8,7 +8,7 @@ class FlashMessagesList extends React.Component {
     const messages = this.props.messages.map(message =>
         <FlashMessage key={message.id} message={message} />);
     return (
-      <div className='container-fluid text-center'>{messages}</div>
+      <div className='text-center'>{messages}</div>
     );
   }
 }
