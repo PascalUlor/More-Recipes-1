@@ -49,7 +49,7 @@ module.exports = {
     //         // hot: true
     // },
     node: {
-        fs: 'empty',
+        dns: 'empty',
         net: 'empty'
     },
     resolve: {

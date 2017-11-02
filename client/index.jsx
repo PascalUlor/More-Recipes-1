@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import jwt from 'jsonwebtoken';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
@@ -8,6 +9,8 @@ import HomePage from './components/homePage.jsx';
 import SignupPage from './components/signupPage.jsx';
 import SigninPage from './components/signinPage.jsx';
 import indexReducer from './reducers/index';
+import { setAuthorizationToken } from './utils/setAuthorizationToken';
+import { setCurrentUser } from './actions/actionCreators/signinActions';
 import '../template/public/scss/main.scss';
 
 const store = createStore(
@@ -15,6 +18,10 @@ const store = createStore(
 	compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f)
 );
 
+if (localStorage.jwtToken) {
+	setAuthorizationToken(localStorage.jwtToken);
+	store.dispatch(setCurrentUser(localStorage.jwtToken));
+}
 
 ReactDOM.render(
 <Provider store={store}>
