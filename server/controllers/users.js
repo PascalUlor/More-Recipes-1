@@ -37,16 +37,17 @@ export default class UsersApiController {
                 ]
             }
         }).then((foundUser) => {
-            let errorField;
+            const errors = {};
             if (foundUser) {
                 if (foundUser.username === username) {
-                    errorField = 'Username';
-                } else {
-                    errorField = 'Email';
+                    errors.username = 'Username already exist';
+                }
+                if (foundUser.email === email) {
+                    errors.email = 'Email already exist';
                 }
                 return res.status(400).json({
                     status: 'Failed',
-                    message: `${errorField} already exist`
+                    errors
                 });
             }
             const saltRounds = 10;
