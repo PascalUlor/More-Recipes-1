@@ -35,10 +35,10 @@ export default class HomeNavBar extends Component {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/api/v1/user/signin">Login</Link>
+                    <Link className="nav-link" to="/api/v1/users/signin">Login</Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/api/v1/user/signup">Register</Link>
+                    <Link className="nav-link" to="/api/v1/users/signup">Register</Link>
                   </li>
                 </ul>
                 <form className="form-inline form-group my-2 my-lg-0">
