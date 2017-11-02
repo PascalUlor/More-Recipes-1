@@ -84,7 +84,8 @@ export default class UsersApiController {
      * @memberof UsersApiController
      */
     static signin(req, res) {
-        const { username, password } = req.body;
+        const { username, password } = req.body,
+            errors = { form: 'Invalid username or password' };
 
         return Users.findOne({
             where: {
@@ -113,12 +114,12 @@ export default class UsersApiController {
                 }
                 return res.status(400).json({
                     status: 'Failed',
-                    message: 'Invalid username or password'
+                    errors
                 });
             }
-            return res.status(404).json({
+            return res.status(400).json({
                 status: 'Failed',
-                message: 'User not found'
+                errors
             });
         }).catch(error => res.status(500).json({
             status: 'Failed',
