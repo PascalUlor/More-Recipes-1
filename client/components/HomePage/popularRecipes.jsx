@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Recipes from './popularRecipes/recipes.jsx';
 
 export default class PopularRecipes extends Component {
@@ -16,7 +17,7 @@ export default class PopularRecipes extends Component {
                     <Recipes/>
                     <div className="row">
                         <div className="col text-center">
-                            <p className="lead font-weight-bold mb-4">Want to view more awesome recipes? <a href="./signup.html">Sign Up Now</a>
+                            <p className="lead font-weight-bold mb-4">Want to view more awesome recipes? <Link to="/api/v1/users/signup">Sign Up Now</Link>
                             </p>
                         </div>
                     </div>
