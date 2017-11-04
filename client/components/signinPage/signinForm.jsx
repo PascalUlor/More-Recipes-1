@@ -44,7 +44,7 @@ class SignupForm extends Component {
             // <!--Form Section Start-->
             <div className="col-8 col-sm-8 col-md-8 col-lg-8">
                 <h2>Sign In</h2>
-                <p className="lead">Don&#39;t have a More-Recipes account? <Link to="/api/v1/user/signup">Sign Up</Link>
+                <p className="lead">Don&#39;t have a More-Recipes account? <Link to="/api/v1/users/signup">Sign Up</Link>
                 </p>
                 {errors.form && <div className='alert alert-danger text-center'>{errors.form}</div>}
                 <form role="form" onSubmit={this.handleSubmit}>
