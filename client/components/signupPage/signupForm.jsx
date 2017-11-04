@@ -55,7 +55,7 @@ class SignupForm extends Component {
             // <!--Form Section Start-->
             <div className="col-8 col-sm-8 col-md-8 col-lg-8">
                 <h2>Sign Up</h2>
-                <p className="lead">Already have a More-Recipes account? <Link to="/api/v1/user/signin">Sign In</Link>
+                <p className="lead">Already have a More-Recipes account? <Link to="/api/v1/users/signin">Sign In</Link>
                 </p>
                 <form role="form" onSubmit={this.handleSubmit} className="pb-2">
                     <TextFieldGroup
