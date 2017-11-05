@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, browserHistory, Switch } from 'react-ro
 import HomePage from './components/homePage.jsx';
 import SignupPage from './components/signupPage.jsx';
 import SigninPage from './components/signinPage.jsx';
+import Dashboard from './components/dashboard.jsx';
 import indexReducer from './reducers/index';
 import { setAuthorizationToken } from './utils/setAuthorizationToken';
 import { setCurrentUser } from './actions/actionCreators/signinActions';
@@ -30,6 +31,7 @@ ReactDOM.render(
 			<Route exact path="/" component={HomePage} />
 			<Route path="/api/v1/users/signup" component={SignupPage} />
 			<Route path="/api/v1/users/signin" component={SigninPage} />
+			<Route path="/api/v1/users/dashboard" component={Dashboard} />
 		</Switch>
 	</Router>
 </Provider>,
