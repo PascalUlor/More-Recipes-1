@@ -3,24 +3,32 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
-// import isEmpty from 'lodash/isEmpty';
 import GuestNavBar from './homeNavBar/guestNavBar.jsx';
 import UserNavBar from './homeNavBar/userNavBar.jsx';
 import { logOutRequest } from '../../actions/actionCreators/logOutActions';
 
 class HomeNavBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: ''
+    };
+  }
   handleLogOut(e) {
-e.preventDefault();
-this.props.logOutRequest();
+    e.preventDefault();
+    this.props.logOutRequest();
+  }
+  componentDidMount() {
+    const userDecodedInfo = jwt.decode(localStorage.getItem('jwtToken'));
+    if (localStorage.getItem('jwtToken') && userDecodedInfo !== null) {
+      this.setState({ username: userDecodedInfo.username });
+    } else {
+      this.setState({ username: '' });
+    }
   }
   render() {
-    const { isAuthenticated, user } = this.props.authUser;
-    let userName;
-    if (jwt.decode(user) !== null) {
-      userName = jwt.decode(user).username;
-    } else {
-      userName = '';
-    }
+    const { username } = this.state,
+      { isAuthenticated } = this.props.authUser;
     return (
       //  <!--Header Container Start -->
        <div className="container">
@@ -45,7 +53,7 @@ this.props.logOutRequest();
                   alt="More Recipe Logo"/>
                 <span id="site-name">More Recipes</span>
               </Link>
-              { isAuthenticated ? <UserNavBar currentUsername={userName} logOut={this.handleLogOut.bind(this)}/> : <GuestNavBar/>}
+              { isAuthenticated ? <UserNavBar currentUsername={username} logOut={this.handleLogOut.bind(this)}/> : <GuestNavBar/>}
             </nav>
           </header>
         </div>
