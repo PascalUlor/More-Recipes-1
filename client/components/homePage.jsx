@@ -5,7 +5,7 @@ import PopularRecipes from './HomePage/popularRecipes.jsx';
 import FlashMessagesList from './flash/flashMessagesList.jsx';
 import Footer from './footer.jsx';
 
-export default class App extends Component {
+class Homepage extends Component {
 	render() {
 		return (
 			<div>
@@ -20,3 +20,5 @@ export default class App extends Component {
 		);
 	}
 }
+
+export default Homepage;
