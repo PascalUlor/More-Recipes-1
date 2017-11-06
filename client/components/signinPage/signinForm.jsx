@@ -33,7 +33,11 @@ class SignupForm extends Component {
             this.setState({ errors: {}, isLoading: true });
             this.props.userSigninRequest(this.state)
             .then(() => {
-                this.context.router.history.push('/');
+                this.props.addFlashMessage({
+                    type: 'Success',
+                    text: 'You are now logged in'
+                });
+                this.context.router.history.push('/api/v1/users/dashboard');
             })
             .catch(error => this.setState({ errors: error.response.data.errors, isLoading: false }));
         }
@@ -63,7 +67,8 @@ class SignupForm extends Component {
 }
 
 SignupForm.propTypes = {
-    userSigninRequest: PropTypes.func.isRequired
+    userSigninRequest: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired
 };
 
 SignupForm.contextTypes = {
