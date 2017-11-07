@@ -25,7 +25,7 @@ var port = process.env.PORT || 3000;
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.status(200);
     res.json({
         project: 'More-Recipes',
@@ -35,7 +35,7 @@ app.get('/', function(req, res) {
 
 app.use('/api/v1/', _apiRoutes2.default);
 
-app.use('*', function(req, res) {
+app.use('*', function (req, res) {
     res.status(404);
     res.json({
         status: 'Failed',
@@ -43,7 +43,7 @@ app.use('*', function(req, res) {
     });
 });
 
-app.listen(port, function() {
+app.listen(port, function () {
     return console.log('Application started on port ' + port);
 });
 
