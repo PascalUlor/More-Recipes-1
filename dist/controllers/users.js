@@ -46,97 +46,105 @@ var UsersApiController = function () {
         /**
          * Users details are captured and persisted on the database
          * @static
-         * @param {obj} req
-         * @param {obj} res
-         * @returns {obj} Failure message or Success message with the persisted database data
+         * @param {object} req
+         * @param {object} res
+         * @returns {object} Failure message or Success message with the persisted database data
          * @memberof UsersApiController
          */
         value: function signup(req, res) {
-            Users.findOne({
+            var _req$body = req.body,
+                fullName = _req$body.fullName,
+                username = _req$body.username,
+                email = _req$body.email;
+
+
+            return Users.findOne({
                 where: {
                     $or: [{
                         username: {
-                            $iLike: req.body.username
+                            $iLike: username
                         }
                     }, {
                         email: {
-                            $iLike: req.body.email
+                            $iLike: email
                         }
                     }]
                 }
             }).then(function (foundUser) {
                 var errorField = void 0;
                 if (foundUser) {
-                    if (foundUser.username === req.body.username) {
+                    if (foundUser.username === username) {
                         errorField = 'Username';
                     } else {
                         errorField = 'Email';
                     }
-                    res.status(400).json({
+                    return res.status(400).json({
                         status: 'Failed',
                         message: errorField + ' already exist'
                     });
-                } else {
-                    var saltRounds = 10;
-                    _bcryptjs2.default.genSalt(saltRounds, function (err, salt) {
-                        _bcryptjs2.default.hash(req.body.password, salt, function (err, hash) {
-                            Users.create({
-                                fullName: req.body.fullName,
-                                username: req.body.username,
-                                email: req.body.email,
-                                password: hash
-                            }).then(function (user) {
-                                res.status(201).json({
-                                    status: 'Success',
-                                    message: 'Successfully created account',
-                                    data: {
-                                        id: user.id,
-                                        username: user.username,
-                                        email: user.email
-                                    }
-                                });
+                }
+                var saltRounds = 10;
+                _bcryptjs2.default.genSalt(saltRounds, function (err, salt) {
+                    _bcryptjs2.default.hash(req.body.password, salt, function (err, hash) {
+                        Users.create({
+                            fullName: fullName,
+                            username: username,
+                            email: email,
+                            password: hash
+                        }).then(function (user) {
+                            return res.status(201).json({
+                                status: 'Success',
+                                message: 'Successfully created account',
+                                data: {
+                                    id: user.id,
+                                    username: user.username,
+                                    email: user.email
+                                }
                             });
                         });
                     });
-                }
-            }).catch(function (err) {
-                if (err) {
-                    res.status(500).json({
-                        status: 'Failed',
-                        message: 'Server error occurred'
-                    });
-                }
+                });
+            }).catch(function (error) {
+                return res.status(500).json({
+                    status: 'Failed',
+                    message: error.message
+                });
             });
         }
 
         /**
          * User details are captured and authenticated against persisted database data
          * @static
-         * @param {obj} req
-         * @param {obj} res
-         * @returns {obj} Failure message or Success message with persisted database data
+         * @param {object} req
+         * @param {object} res
+         * @returns {object} Failure message or Success message with persisted database data
          * @memberof UsersApiController
          */
 
     }, {
         key: 'signin',
         value: function signin(req, res) {
-            Users.findOne({
+            var _req$body2 = req.body,
+                username = _req$body2.username,
+                password = _req$body2.password;
+
+
+            return Users.findOne({
                 where: {
                     username: {
-                        $iLike: req.body.username
+                        $iLike: username
                     }
                 }
             }).then(function (user) {
-                if (user && user.username.toLowerCase === req.body.username.toLowerCase) {
-                    var check = _bcryptjs2.default.compareSync(req.body.password, user.password);
+                if (user && user.username.toLowerCase === username.toLowerCase) {
+                    var check = _bcryptjs2.default.compareSync(password, user.password);
                     if (check) {
                         var payload = { fullName: user.fullName, username: user.username, userId: user.id };
                         var token = _jsonwebtoken2.default.sign(payload, process.env.SECRET_KEY, {
                             expiresIn: 60 * 60 * 8
                         });
                         req.token = token;
-                        res.status(200).json({
+                        return res.status(200).json({
                             status: 'Success',
                             message: 'You are now logged In',
                             data: {
@@ -145,18 +153,21 @@ var UsersApiController = function () {
                             },
                             token: token
                         });
-                    } else {
-                        res.status(400).json({
-                            status: 'Failed',
-                            message: 'Invalid username or password'
-                        });
                     }
-                } else {
-                    res.status(404).json({
+                    return res.status(400).json({
                         status: 'Failed',
-                        message: 'User not found'
+                        message: 'Invalid username or password'
                     });
                 }
+                return res.status(404).json({
+                    status: 'Failed',
+                    message: 'User not found'
+                });
+            }).catch(function (error) {
+                return res.status(500).json({
+                    status: 'Failed',
+                    message: error.message
+                });
             });
         }
     }]);

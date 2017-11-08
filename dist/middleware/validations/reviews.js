@@ -28,7 +28,7 @@ var ReviewsValidation = function () {
     }
 
     _createClass(ReviewsValidation, null, [{
-        key: 'addReviewsValidation',
+        key: 'postReviewValidations',
 
         /**
          * Validates all reviews details before allowing access to controller class
@@ -36,29 +36,32 @@ var ReviewsValidation = function () {
          * @param {object} res
          * @param {object} next
          * @returns {object} Validation error messages or content of req.body passed to controller
+         * @memberof ReviewsValidation
          */
-        value: function addReviewsValidation(req, res, next) {
+        value: function postReviewValidations(req, res, next) {
             var reviewBody = req.body.reviewBody,
                 errors = {};
-            // check for undefined inputs
+
             if (reviewBody === undefined) {
-                res.status(400).json({
+                return res.status(400).json({
                     status: 'Failed',
-                    message: 'Review body field is not defined'
+                    message: 'Review for recipe is not defined'
                 });
             }
-            // validation for review body
-            if (_validator2.default.isEmpty(reviewBody)) {
-                errors.reviewBody = 'Review body is required';
+            if (!_validator2.default.isEmpty(reviewBody)) {
+                if (!_validator2.default.isLength(reviewBody, { min: 4, max: undefined })) {
+                    errors.reviewBody = 'Review provided must be more than 4 characters';
+                }
+            } else {
+                errors.reviewBody = 'Review for recipe is required';
             }
 
             var result = { isValid: (0, _isEmpty2.default)(errors) };
 
             if (!result.isValid) {
-                res.status(400).json({ errors: errors });
-            } else {
-                next();
+                return res.status(400).json({ errors: errors });
             }
+            next();
         }
     }]);
 

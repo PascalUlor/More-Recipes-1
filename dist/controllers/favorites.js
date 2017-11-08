@@ -14,65 +14,93 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var Users = _models2.default.Users,
+    Recipes = _models2.default.Recipes,
+    Favorites = _models2.default.Favorites;
+
 /**
  * Class Definition for the user's favorite recipes
- * @class FavoriteRecipes
+ * @class FavoritesApiController
  */
-var FavoriteRecipes = function () {
-    function FavoriteRecipes() {
-        _classCallCheck(this, FavoriteRecipes);
+
+var FavoritesApiController = function () {
+    function FavoritesApiController() {
+        _classCallCheck(this, FavoritesApiController);
     }
 
-    _createClass(FavoriteRecipes, null, [{
+    _createClass(FavoritesApiController, null, [{
         key: 'addToFavorite',
 
         /**
-         * Add a recipe to user's favorite table
+         * Add a recipe to user's favorite catalog
+         * @static
          * @param {object} req
          * @param {object} res
          * @returns {object} Failure response messages or Success message with data persisted to the database
+         * @memberof FavoritesApiController
          */
         value: function addToFavorite(req, res) {
-            var userId = req.decoded.userId;
+            var userId = req.decoded.userId,
+                recipeId = req.params.recipeID;
 
-            var recipeId = req.params.recipeID;
 
-            _models2.default.Recipes.findById(recipeId).then(function (recipeFound) {
-                if (recipeFound) {
-                    _models2.default.Favorites.findOrCreate({ where: { userId: userId, recipeId: recipeId } }).spread(function (recipeAdded, created) {
-                        if (created) {
-                            res.status(201).json({
-                                status: 'Success',
-                                message: 'Successfully added recipe to your favorites'
-                            });
-                        } else {
-                            res.status(400).json({
-                                status: 'Failed',
-                                message: 'Recipe with id: ' + recipeId + ' already added'
-                            });
-                        }
-                    }).catch(function (err) {
-                        if (err) {
-                            res.status(500).json({
-                                status: 'Failed',
-                                message: 'Error adding recipe to your favorites'
-                            });
-                        }
-                    });
-                } else {
-                    return res.status(400).json({
+            return Recipes.findById(recipeId).then(function (recipeFound) {
+                if (!recipeFound) {
+                    res.status(400).json({
                         status: 'Failed',
-                        message: 'Recipe with id: ' + recipeId + ' is not available'
+                        message: 'Recipe with id: ' + recipeId + ', not found'
                     });
                 }
+                if (recipeFound.userId === userId) {
+                    res.status(400).json({
+                        status: 'Failed',
+                        message: 'Can not favorite a recipe created by you'
+                    });
+                }
+                return Favorites.findOne({ where: { userId: userId, recipeId: recipeId } }).then(function (favorite) {
+                    if (favorite) {
+                        return res.status(400).json({
+                            status: 'Failed',
+                            message: 'Recipe with id: ' + recipeId + ' has already been favorited'
+                        });
+                    }
+
+                    return Favorites.create({
+                        userId: userId,
+                        recipeId: recipeId
+                    }).then(function (favoritedRecipe) {
+                        return res.status(201).json({
+                            status: 'Success',
+                            message: 'Successfully favorited recipe',
+                            favoritedRecipe: favoritedRecipe
+                        });
+                    }).catch(function (error) {
+                        return res.status(500).json({
+                            status: 'Failed',
+                            message: error.message
+                        });
+                    });
+                }).catch(function (error) {
+                    return res.status(500).json({
+                        status: 'Failed',
+                        message: error.message
+                    });
+                });
+            }).catch(function (error) {
+                return res.status(500).json({
+                    status: 'Failed',
+                    message: error.message
+                });
             });
         }
 
         /**
          * Get all user's favorite recipes
+         * @static
          * @param {object} req
          * @param {object} res
          * @returns {object} Failure response messages or Success message with persisted database data
+         * @memberof FavoritesApiController
          */
 
     }, {
@@ -80,43 +108,39 @@ var FavoriteRecipes = function () {
         value: function getFavoriteRecipes(req, res) {
             var userId = req.params.userID;
 
-            _models2.default.Users.findById(userId).then(function (userFound) {
-                if (userFound) {
-                    _models2.default.Favorites.findAll({
-                        where: { userId: userId },
-                        include: [{ model: _models2.default.Recipes }]
-                    }).then(function (favorites) {
-                        if (favorites) {
-                            res.status(201).json({
-                                status: 'Success',
-                                message: 'Successfully retrieved user\'s favorite Recipe(s)',
-                                favorites: favorites
-                            });
-                        } else {
-                            res.status(201).json({
-                                status: 'Failed',
-                                message: 'No available favorite recipe'
-                            });
-                        }
-                    }).catch(function (err) {
-                        if (err) {
-                            res.status(500).json({
-                                status: 'Failed',
-                                message: 'Error retrieving user\'s favorite recipes'
-                            });
-                        }
-                    });
-                } else {
+            return Users.findById(userId).then(function (userFound) {
+                if (!userFound) {
                     res.status(400).json({
                         status: 'Failed',
-                        message: 'User with id: ' + userId + ' does not exist'
+                        message: 'User with id: ' + userId + ', not found'
                     });
                 }
+                return Favorites.findAll({
+                    where: { userId: userId },
+                    include: [{ model: Recipes }]
+                }).then(function (favorites) {
+                    if (favorites.length === 0) {
+                        res.status(404).json({
+                            status: 'Failed',
+                            message: 'You have no available favorite recipes'
+                        });
+                    }
+                    res.status(200).json({
+                        status: 'Success',
+                        message: 'Successfully retrieved user favorite Recipe(s)',
+                        favorites: favorites
+                    });
+                }).catch(function (error) {
+                    return res.status(500).json({
+                        status: 'Failed',
+                        message: error.message
+                    });
+                });
             });
         }
     }]);
 
-    return FavoriteRecipes;
+    return FavoritesApiController;
 }();
 
-exports.default = FavoriteRecipes;
+exports.default = FavoritesApiController;

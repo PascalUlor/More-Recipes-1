@@ -22,20 +22,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * Validates users signup and signin operations
  * @class Validation
  */
-var Validation = function () {
-    function Validation() {
-        _classCallCheck(this, Validation);
+var UserValidations = function () {
+    function UserValidations() {
+        _classCallCheck(this, UserValidations);
     }
 
-    _createClass(Validation, null, [{
+    _createClass(UserValidations, null, [{
         key: 'signup',
 
         /**
          * Validates all User signup details before allowing access to controller class
-         * @param {obj} req
-         * @param {obj} res
-         * @param {obj} next
-         * @returns {obj} Validation error messages or Validation success
+         * @static
+         * @param {object} req
+         * @param {object} res
+         * @param {object} next
+         * @returns {object} Validation error messages or contents of req.body
+         * @memberof UserValidations
          */
         value: function signup(req, res, next) {
             var _req$body = req.body,
@@ -47,69 +49,71 @@ var Validation = function () {
                 errors = {};
 
             if (fullName === undefined || username === undefined || email === undefined || password === undefined || repassword === undefined) {
-                res.status(400);
-                res.json({
+                return res.status(400).json({
                     status: 'Failed',
                     message: 'All or some fields are not defined'
                 });
-            } else {
-                if (!_validator2.default.isEmpty(fullName)) {
-                    if (_validator2.default.toInt(fullName)) {
-                        errors.fullName = 'Full name should not start with number(s)';
-                    }
-                } else {
-                    errors.fullName = 'Full name is required';
-                }
-
-                if (!_validator2.default.isEmpty(username)) {
-                    if (_validator2.default.toInt(username)) {
-                        errors.username = 'Username should not start with number(s)';
-                    }
-                } else {
-                    errors.username = 'Username is required';
-                }
-
-                if (!_validator2.default.isEmpty(email)) {
-                    if (!_validator2.default.isEmail(email)) {
-                        errors.email = 'Email is invalid';
-                    }
-                } else {
-                    errors.email = 'Email is required';
-                }
-
-                if (!_validator2.default.isEmpty(password)) {
-                    if (_validator2.default.isLength(password, { min: 8, max: 30 })) {
-                        if (!_validator2.default.isEmpty(repassword)) {
-                            if (!_validator2.default.equals(_validator2.default.trim(repassword), _validator2.default.trim(password))) {
-                                errors.password = 'Password and confirm password fields mismatched';
-                            }
-                        } else {
-                            errors.password = 'Password reconfirmation is required';
-                        }
-                    } else {
-                        errors.password = 'Password length must be between 8 and 30';
-                    }
-                } else {
-                    errors.password = 'Password is required';
-                }
-
-                var result = { isValid: (0, _isEmpty2.default)(errors) };
-
-                if (!result.isValid) {
-                    res.status(400);
-                    res.json({ errors: errors });
-                } else {
-                    next();
-                }
             }
+
+            if (!_validator2.default.isEmpty(fullName)) {
+                for (var character = 0; character < fullName.length; character += 1) {
+                    if (_validator2.default.toInt(fullName[character])) {
+                        errors.fullName = 'Full name must not contain numbers';
+                        break;
+                    }
+                }
+            } else {
+                errors.fullName = 'Full name is required';
+            }
+
+            if (!_validator2.default.isEmpty(username)) {
+                if (_validator2.default.toInt(username)) {
+                    errors.username = 'Username must not start with number(s)';
+                }
+            } else {
+                errors.username = 'Username is required';
+            }
+
+            if (!_validator2.default.isEmpty(email)) {
+                if (!_validator2.default.isEmail(email)) {
+                    errors.email = 'Email is invalid';
+                }
+            } else {
+                errors.email = 'Email is required';
+            }
+
+            if (!_validator2.default.isEmpty(password)) {
+                if (!_validator2.default.isLength(password, { min: 8, max: 30 })) {
+                    errors.password = 'Password length must be between 8 and 30';
+                }
+            } else {
+                errors.password = 'Password is required';
+            }
+
+            if (!_validator2.default.isEmpty(repassword)) {
+                if (!_validator2.default.equals(_validator2.default.trim(repassword), _validator2.default.trim(password))) {
+                    errors.repassword = 'Password mismatched';
+                }
+            } else {
+                errors.repassword = 'Password confirmation is required';
+            }
+
+            var result = { isValid: (0, _isEmpty2.default)(errors) };
+
+            if (!result.isValid) {
+                return res.status(400).json({ errors: errors });
+            }
+            next();
         }
 
         /**
-         * Validates signin form input fields before allowing access to the database
-         * @param {obj} req
-         * @param {obj} res
-         * @param {obj} next
-         * @returns {json} Validation error messages or Validation success
+         * Validates signin form input fields before allowing access to controller class
+         * @static
+         * @param {object} req
+         * @param {object} res
+         * @param {object} next
+         * @returns {object} Validation error messages or contents of req.body
+         * @memberof UserValidations
          */
 
     }, {
@@ -121,33 +125,30 @@ var Validation = function () {
                 errors = {};
 
             if (username === undefined || password === undefined) {
-                res.status(400);
-                res.json({
+                return res.status(400).json({
                     status: 'Failed',
                     message: 'Username or(and) password field(s) is(are) not defined'
                 });
-            } else {
-                if (_validator2.default.isEmpty(username)) {
-                    errors.username = 'Username is required';
-                }
-
-                if (_validator2.default.isEmpty(password)) {
-                    errors.password = 'Password is required';
-                }
-
-                var result = { isValid: (0, _isEmpty2.default)(errors) };
-
-                if (!result.isValid) {
-                    res.status(400);
-                    res.json({ errors: errors });
-                } else {
-                    next();
-                }
             }
+
+            if (_validator2.default.isEmpty(username)) {
+                errors.username = 'Username is required';
+            }
+
+            if (_validator2.default.isEmpty(password)) {
+                errors.password = 'Password is required';
+            }
+
+            var result = { isValid: (0, _isEmpty2.default)(errors) };
+
+            if (!result.isValid) {
+                return res.status(400).json({ errors: errors });
+            }
+            next();
         }
     }]);
 
-    return Validation;
+    return UserValidations;
 }();
 
-exports.default = Validation;
+exports.default = UserValidations;

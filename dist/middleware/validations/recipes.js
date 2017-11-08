@@ -20,30 +20,31 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 /**
  * Validates POST and GET requests for recipes route
- * @class RecipeValidation
+ * @class RecipesValidation
  */
-var RecipeValidation = function () {
-    function RecipeValidation() {
-        _classCallCheck(this, RecipeValidation);
+var RecipesValidation = function () {
+    function RecipesValidation() {
+        _classCallCheck(this, RecipesValidation);
     }
 
-    _createClass(RecipeValidation, null, [{
-        key: 'addRecipeValidation',
+    _createClass(RecipesValidation, null, [{
+        key: 'addRecipeValidations',
 
         /**
          * Validates all recipe details before allowing access to controller class
+         * @static
          * @param {object} req
          * @param {object} res
          * @param {object} next
          * @returns {object} Validation error messages or contents of req.body
+         * @memberof RecipesValidation
          */
-        value: function addRecipeValidation(req, res, next) {
+        value: function addRecipeValidations(req, res, next) {
             var _req$body = req.body,
                 title = _req$body.title,
                 ingredients = _req$body.ingredients,
                 procedures = _req$body.procedures,
                 errors = {};
-            // check for undefined inputs
 
             if (title === undefined || ingredients === undefined || procedures === undefined) {
                 return res.status(400).json({
@@ -51,16 +52,18 @@ var RecipeValidation = function () {
                     message: 'All or some fields are not defined'
                 });
             }
-            // validation for recipe title
+
             if (!_validator2.default.isEmpty(title)) {
-                if (_validator2.default.toInt(title)) {
-                    errors.title = 'Title should not start with number(s)';
+                for (var character = 0; character < title.length; character += 1) {
+                    if (_validator2.default.toInt(title[character])) {
+                        errors.title = 'Recipe title must not contain numbers';
+                        break;
+                    }
                 }
             } else {
-                errors.title = 'Title of recipe is required';
+                errors.title = 'Recipe title is required';
             }
 
-            // validation for recipe ingredients
             if (!_validator2.default.isEmpty(ingredients)) {
                 if (!_validator2.default.isLength(ingredients, { min: 20, max: 1000 })) {
                     errors.ingredients = 'Recipe ingredients provided must be more than 20 characters';
@@ -69,30 +72,85 @@ var RecipeValidation = function () {
                 errors.ingredients = 'Recipe ingredients are required';
             }
 
-            // validation for recipe procedures
             if (!_validator2.default.isEmpty(procedures)) {
                 if (!_validator2.default.isLength(procedures, { min: 30, max: 1000 })) {
-                    errors.procedures = 'Procedures provided must be more than 20 characters';
+                    errors.procedures = 'Recipe procedures provided must be more than 30 characters';
                 }
             } else {
-                errors.procedures = 'Procedures for your recipe are required';
+                errors.procedures = 'Recipe procedures are required';
             }
 
             var result = { isValid: (0, _isEmpty2.default)(errors) };
 
             if (!result.isValid) {
-                res.status(400).json({ errors: errors });
-            } else {
-                next();
+                return res.status(400).json({ errors: errors });
             }
+            next();
+        }
+
+        /**
+         * Validates updated recipe detail(s) before allowing access to controller class
+         * @static
+         * @param {object} req
+         * @param {object} res
+         * @param {object} next
+         * @returns {object} Validation error messages or content(s) of req.body
+         * @memberof RecipesValidation
+         */
+
+    }, {
+        key: 'updateRecipeValidations',
+        value: function updateRecipeValidations(req, res, next) {
+            var _req$body2 = req.body,
+                title = _req$body2.title,
+                ingredients = _req$body2.ingredients,
+                procedures = _req$body2.procedures,
+                errors = {};
+
+            if (!(title || ingredients || procedures)) {
+                return res.status(400).json({
+                    status: 'Failed',
+                    message: 'Provide a field to update'
+                });
+            }
+
+            if (title) {
+                for (var character = 0; character < title.length; character += 1) {
+                    if (_validator2.default.toInt(title[character])) {
+                        errors.title = 'Recipe title must not contain numbers';
+                        break;
+                    }
+                }
+            }
+
+            if (ingredients) {
+                if (!_validator2.default.isLength(ingredients, { min: 20, max: 1000 })) {
+                    errors.ingredients = 'Recipe ingredients provided must be more than 20 characters';
+                }
+            }
+
+            if (procedures) {
+                if (!_validator2.default.isLength(procedures, { min: 30, max: 1000 })) {
+                    errors.procedures = 'Recipe procedures provided must be more than 30 characters';
+                }
+            }
+
+            var result = { isValid: (0, _isEmpty2.default)(errors) };
+
+            if (!result.isValid) {
+                return res.status(400).json({ errors: errors });
+            }
+            next();
         }
 
         /**
          * Validates query and non query routes before allowing access to controller class
+         * @static
          * @param {object} req
          * @param {object} res
          * @param {object} next
          * @returns {object} Validation error messages or contents of req.query(or nothing)
+         * @memberof RecipesValidation
          */
 
     }, {
@@ -106,12 +164,14 @@ var RecipeValidation = function () {
             if (!req.originalUrl.includes('?')) {
                 return next();
             }
+
             if (sort === undefined || order === undefined) {
                 return res.status(400).json({
                     status: 'Failed',
                     message: 'Sort or(and) order query parameter(s) is(are) not defined'
                 });
             }
+
             if (!_validator2.default.isEmpty(sort)) {
                 if (!(sort.toLowerCase() === 'upvotes' || sort.toLowerCase() === 'downvotes')) {
                     errors.sortType = 'Sort query must be either upvotes or downvotes';
@@ -131,14 +191,13 @@ var RecipeValidation = function () {
             var result = { isValid: (0, _isEmpty2.default)(errors) };
 
             if (!result.isValid) {
-                res.status(400).json({ errors: errors });
-            } else {
-                next();
+                return res.status(400).json({ errors: errors });
             }
+            next();
         }
     }]);
 
-    return RecipeValidation;
+    return RecipesValidation;
 }();
 
-exports.default = RecipeValidation;
+exports.default = RecipesValidation;
