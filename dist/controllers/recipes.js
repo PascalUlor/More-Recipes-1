@@ -193,7 +193,7 @@ var RecipesApiController = function () {
                     limit: 6,
                     order: [['createdAt', 'DESC']]
                 }).then(function (recipes) {
-                    if (recipes) {
+                    if (recipes && recipes.length !== 0) {
                         res.status(200).json({
                             status: 'Success',
                             message: 'Successfully retrieved all recipes',
@@ -218,7 +218,7 @@ var RecipesApiController = function () {
                     limit: 6,
                     order: [['upvotes', order]]
                 }).then(function (recipes) {
-                    if (recipes) {
+                    if (recipes && recipes.length !== 0) {
                         res.status(200).json({
                             status: 'Success',
                             message: 'Successfully retrieved all recipes by most upvotes in ' + order.toLowerCase() + 'ending order',
@@ -241,7 +241,7 @@ var RecipesApiController = function () {
                 limit: 6,
                 order: [['downvotes', order]]
             }).then(function (recipes) {
-                if (recipes) {
+                if (recipes && recipes.length !== 0) {
                     res.status(200).json({
                         status: 'Success',
                         message: 'Successfully retrieved all recipes by most downvotes in ' + order.toLowerCase() + 'ending order',
