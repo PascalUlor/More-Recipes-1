@@ -142,7 +142,7 @@ export default class RecipesApiController {
                     ['createdAt', 'DESC']
                 ]
             }).then((recipes) => {
-                if (recipes) {
+                if (recipes && recipes.length !== 0) {
                     res.status(200).json({
                         status: 'Success',
                         message: 'Successfully retrieved all recipes',
@@ -167,7 +167,7 @@ export default class RecipesApiController {
                     ['upvotes', order]
                 ]
             }).then((recipes) => {
-                if (recipes) {
+                if (recipes && recipes.length !== 0) {
                     res.status(200).json({
                         status: 'Success',
                         message: `Successfully retrieved all recipes by most upvotes in ${order.toLowerCase()}ending order`,
@@ -190,7 +190,7 @@ export default class RecipesApiController {
                 ['downvotes', order]
             ]
         }).then((recipes) => {
-            if (recipes) {
+            if (recipes && recipes.length !== 0) {
                 res.status(200).json({
                     status: 'Success',
                     message: `Successfully retrieved all recipes by most downvotes in ${order.toLowerCase()}ending order`,
