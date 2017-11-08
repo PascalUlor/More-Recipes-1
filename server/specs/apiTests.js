@@ -6,42 +6,49 @@
  import app from '../app';
  import models from '../models';
 
- const { expect } = chai,
+ const { expect } = chai, {
+     Users,
+     Recipes,
+     Favorites,
+     Reviews,
+     Upvotes,
+     Downvotes
+ } = models,
  wrongToken = 'wrongAccessToken',
      request = supertest(app);
  let pageToken1;
 
- models.Users.destroy({
+ Users.destroy({
      cascade: true,
      truncate: true,
      restartIdentity: true
  });
 
- models.Recipes.destroy({
+ Recipes.destroy({
      cascade: true,
      truncate: true,
      restartIdentity: true
  });
 
- models.Reviews.destroy({
+ Reviews.destroy({
      cascade: true,
      truncate: true,
      restartIdentity: true
  });
 
- models.Favorites.destroy({
+ Favorites.destroy({
      cascade: true,
      truncate: true,
      restartIdentity: true
  });
 
- models.Upvotes.destroy({
+ Upvotes.destroy({
      cascade: true,
      truncate: true,
      restartIdentity: true
  });
 
- models.Downvotes.destroy({
+ Downvotes.destroy({
      cascade: true,
      truncate: true,
      restartIdentity: true
@@ -113,14 +120,14 @@
          describe('SIGNUP POSITIVE TESTS', () => {
              it('should be able to create a new user account successfully', (done) => {
                  const user = {
-                     fullName: 'Hyginus Chinoke',
+                     fullName: 'Hyginus Chinwoke',
                      username: 'chyke',
                      email: 'chyke@gmail.com',
                      password: 'ilovecoding',
                      repassword: 'ilovecoding'
                  };
                  request.post('/api/v1/users/signup')
-                     .set('Content-Type', 'application/json')
+                     .set('Content-Type', 'application/x-www-form-urlencoded')
                      .send(user)
                      .expect(201)
                      .end((err, res) => {
@@ -198,7 +205,7 @@
                          done();
                      });
              });
-             it('Should not be able to create a new account when number(s) begins the fullname and username fields, email field is invalid and password length is not between 8 and 30', (done) => {
+             it('Should not be able to create a new account when fullname field contains number(s), username field starts with a number, email field is invalid and password length is not between 8 and 30', (done) => {
                  const user = {
                      fullName: '25Anna Jones',
                      username: '16_annie',
@@ -211,8 +218,8 @@
                      .send(user)
                      .expect(400)
                      .end((err, res) => {
-                         expect('Full name should not start with number(s)').to.equal(res.body.errors.fullName);
-                         expect('Username should not start with number(s)').to.equal(res.body.errors.username);
+                         expect('Full name must not contain numbers').to.equal(res.body.errors.fullName);
+                         expect('Username must not start with number(s)').to.equal(res.body.errors.username);
                          expect('Email is invalid').to.equal(res.body.errors.email);
                          expect('Password length must be between 8 and 30').to.equal(res.body.errors.password);
                          if (err) done(err);
@@ -232,7 +239,7 @@
                      .send(user)
                      .expect(400)
                      .end((err, res) => {
-                         expect('Password and confirm password fields mismatched').to.equal(res.body.errors.password);
+                         expect('Password mismatched').to.equal(res.body.errors.repassword);
                          if (err) done(err);
                          done();
                      });
@@ -413,23 +420,23 @@
                  .send(recipeBody)
                  .expect(400)
                  .end((err, res) => {
-                     expect('Title of recipe is required').to.equal(res.body.errors.title);
+                     expect('Recipe title is required').to.equal(res.body.errors.title);
                      expect('Recipe ingredients are required').to.equal(res.body.errors.ingredients);
-                     expect('Procedures for your recipe are required').to.equal(res.body.errors.procedures);
+                     expect('Recipe procedures are required').to.equal(res.body.errors.procedures);
                      if (err) done(err);
                      done();
                  });
          });
-         it('Should not be able to create recipe when number begins recipe title, ingredients characters length is less than 20 and procedures characters length is less than 20', (done) => {
+         it('Should not be able to create recipe when recipe title contains number(s), ingredients characters length is less than 20 and procedures characters length is less than 20', (done) => {
              const recipeBody = { title: '24African Salad', ingredients: 'onions', procedures: 'Boil water' };
              request.post('/api/v1/recipes')
                  .set('x-access-token', pageToken1)
                  .send(recipeBody)
                  .expect(400)
                  .end((err, res) => {
-                     expect('Title should not start with number(s)').to.equal(res.body.errors.title);
+                     expect('Recipe title must not contain numbers').to.equal(res.body.errors.title);
                      expect('Recipe ingredients provided must be more than 20 characters').to.equal(res.body.errors.ingredients);
-                     expect('Procedures provided must be more than 20 characters').to.equal(res.body.errors.procedures);
+                     expect('Recipe procedures provided must be more than 30 characters').to.equal(res.body.errors.procedures);
                      if (err) done(err);
                      done();
                  });

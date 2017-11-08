@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/chykehyman/More-Recipes.svg?branch=develop)](https://travis-ci.org/chykehyman/More-Recipes)
-[![Coverage Status](https://coveralls.io/repos/github/chykehyman/More-Recipes/badge.svg?branch=develop)](https://coveralls.io/github/chykehyman/More-Recipes?branch=develop)
+[![Build Status](https://travis-ci.org/chykehyman/More-Recipes.svg?branch=refactor_codebase)](https://travis-ci.org/chykehyman/More-Recipes)
+[![Coverage Status](https://coveralls.io/repos/github/chykehyman/More-Recipes/badge.svg?branch=refactor_codebase)](https://coveralls.io/github/chykehyman/More-Recipes?branch=refactor_codebase)
 [![Code Climate](https://codeclimate.com/github/chykehyman/More-Recipes/badges/gpa.svg)](https://codeclimate.com/github/chykehyman/More-Recipes)
 
 # More Recipes
