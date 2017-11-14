@@ -1,8 +1,33 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
+import { logOutRequest } from '../../actions/actionCreators/logOutActions';
 
 class DashboardNavBar extends Component {
+    constructor(props) {
+    super(props);
+    this.state = {
+      username: ''
+    };
+    this.handleLogOut = this.handleLogOut.bind(this);
+  }
+  handleLogOut(e) {
+    e.preventDefault();
+    this.props.logOutRequest();
+    this.context.router.history.push('/');
+  }
+  componentDidMount() {
+    const userDecodedInfo = jwt.decode(localStorage.getItem('jwtToken'));
+    if (localStorage.getItem('jwtToken') && userDecodedInfo !== null) {
+      this.setState({ username: userDecodedInfo.username });
+    } else {
+      this.setState({ username: '' });
+    }
+  }
     render() {
+        const { username } = this.state;
         return (
             <div className="container">
                 <header>
@@ -63,13 +88,18 @@ class DashboardNavBar extends Component {
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false">
-                                    <span className="beautify">Chyke</span>
+                                    <span className="beautify">{ username }</span>
                                 </button>
                                 <div className="dropdown-menu">
                                     <Link className="dropdown-item" to="./profile.html">View Profile</Link>
                                     <Link className="dropdown-item" to="#">Settings</Link>
                                     <div className="dropdown-divider"></div>
-                                    <Link className="dropdown-item" to="#">Log Out</Link>
+                                    <Link
+                                        className="dropdown-item"
+                                        to="#"
+                                        onClick= { this.handleLogOut }>
+                                        Log Out
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -82,4 +112,13 @@ class DashboardNavBar extends Component {
     }
 }
 
-export default DashboardNavBar;
+DashboardNavBar.propTypes = {
+  logOutRequest: PropTypes.func.isRequired
+};
+
+DashboardNavBar.contextTypes = {
+    router: PropTypes.object.isRequired
+};
+
+
+export default connect(null, { logOutRequest })(DashboardNavBar);
