@@ -43,7 +43,7 @@ class SignupForm extends Component {
                     type: 'Success',
                     text: 'Successfully Created Account'
                 });
-                this.context.router.history.push('/');
+                this.context.router.history.push('/api/v1/users/signin');
             })
             .catch(error => this.setState({ errors: error.response.data.errors, isLoading: false }));
         }
