@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import TextFieldGroup from '../../common/textFieldGroup.jsx';
 import validateInputs from '../../shared/validations/signin';
+import FlashMessagesList from '../flash/flashMessagesList.jsx';
 
 class SignupForm extends Component {
     constructor(props) {
@@ -50,6 +51,7 @@ class SignupForm extends Component {
                 <h2>Sign In</h2>
                 <p className="lead">Don&#39;t have a More-Recipes account? <Link to="/api/v1/users/signup">Sign Up</Link>
                 </p>
+				{ !errors.form && <FlashMessagesList/> }
                 {errors.form && <div className='alert alert-danger text-center'>{errors.form}</div>}
                 <form role="form" onSubmit={this.handleSubmit}>
                     <TextFieldGroup
