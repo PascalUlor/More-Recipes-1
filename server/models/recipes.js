@@ -17,6 +17,15 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        recipeImage: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        viewsCount: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue: 0
+        },
         upvotes: {
             type: DataTypes.INTEGER,
             allowNull: true,
@@ -47,10 +56,7 @@ export default (sequelize, DataTypes) => {
         Recipes.hasMany(models.Favorites, {
             foreignKey: 'recipeId'
         });
-        Recipes.hasMany(models.Upvotes, {
-            foreignKey: 'recipeId'
-        });
-        Recipes.hasMany(models.Downvotes, {
+        Recipes.hasMany(models.Votes, {
             foreignKey: 'recipeId'
         });
     };
