@@ -34,10 +34,7 @@ export default (sequelize, DataTypes) => {
         Users.hasMany(models.Favorites, {
             foreignKey: 'userId'
         });
-        Users.hasMany(models.Upvotes, {
-            foreignKey: 'userId'
-        });
-        Users.hasMany(models.Downvotes, {
+        Users.hasMany(models.Votes, {
             foreignKey: 'userId'
         });
     };
