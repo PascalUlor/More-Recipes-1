@@ -19,8 +19,8 @@ export default class UserValidations {
      * @returns {object} validation error messages object or contents of request.body object
      */
     static signup(request, response, next) {
-        if (request.body.fullName === undefined || request.body.username === undefined || request.body.email === undefined ||
-            request.body.password === undefined || request.body.repassword === undefined) {
+        if (typeof request.body.fullName === 'undefined' || typeof request.body.username === 'undefined' || typeof request.body.email === 'undefined' ||
+            typeof request.body.password === 'undefined' || typeof request.body.repassword === 'undefined') {
             return response.status(400).json({
                 status: 'Failed',
                 message: 'All or some fields are not defined'
@@ -83,7 +83,7 @@ export default class UserValidations {
      * @returns {object} validation error messages object or contents of request.body object
      */
     static signin(request, response, next) {
-        if (request.body.username === undefined || request.body.password === undefined) {
+        if (typeof request.body.username === 'undefined' || typeof request.body.password === 'undefined') {
             return response.status(400).json({
                 status: 'Failed',
                 message: 'Username or(and) password field(s) is(are) not defined'

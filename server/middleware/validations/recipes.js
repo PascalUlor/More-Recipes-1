@@ -19,7 +19,7 @@ export default class RecipesValidation {
      * @returns {object} validation error messages object or contents of request.body object
      */
     static addRecipeValidations(request, response, next) {
-        if (request.body.title === undefined || request.body.ingredients === undefined || request.body.procedures === undefined) {
+        if (typeof request.body.title === 'undefined' || typeof request.body.ingredients === 'undefined' || typeof request.body.procedures === 'undefined') {
             return response.status(400).json({
                 status: 'Failed',
                 message: 'All or some fields are not defined'
@@ -125,7 +125,7 @@ export default class RecipesValidation {
             return next();
         }
 
-        if (request.query.sort === undefined || request.query.order === undefined) {
+        if (typeof request.query.sort === 'undefined' || typeof request.query.order === 'undefined') {
             return response.status(400).json({
                 status: 'Failed',
                 message: 'Sort or(and) order query parameter(s) is(are) not defined'

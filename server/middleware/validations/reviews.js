@@ -19,7 +19,7 @@ export default class ReviewsValidation {
      * @returns {object} validation error messages object or content of request.body object passed to controller
      */
     static postReviewValidations(request, response, next) {
-        if (request.body.reviewBody === undefined) {
+        if (typeof request.body.reviewBody === 'undefined') {
             return response.status(400).json({
                 status: 'Failed',
                 message: 'Review for recipe is not defined or is missing'
