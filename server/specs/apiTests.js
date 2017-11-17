@@ -11,8 +11,7 @@
      Recipes,
      Favorites,
      Reviews,
-     Upvotes,
-     Downvotes
+     Votes,
  } = models,
  wrongToken = 'wrongAccessToken',
      request = supertest(app);
@@ -42,13 +41,7 @@
      restartIdentity: true
  });
 
- Upvotes.destroy({
-     cascade: true,
-     truncate: true,
-     restartIdentity: true
- });
-
- Downvotes.destroy({
+ Votes.destroy({
      cascade: true,
      truncate: true,
      restartIdentity: true
