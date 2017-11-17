@@ -5,7 +5,7 @@ import configs from '../config/db_url';
 
 const env = process.env.NODE_ENV || 'development';
 const basename = path.basename(module.filename);
-const config = configs[env] || 'production';
+const config = configs[env];
 const db = {};
 let sequelize;
 
