@@ -1,6 +1,6 @@
 import models from '../models';
 
-const { Recipes } = models;
+const { Users, Recipes } = models;
 
 
 /**
@@ -10,85 +10,97 @@ const { Recipes } = models;
 export default class RecipesApiController {
     /**
      * Add a recipe to recipes catalog
-     * @static
-     * @param {object} req
-     * @param {object} res
-     * @returns {object} insertion error messages or success message
      * @memberof RecipesApiController
+     * @static
+     *
+     * @param   {object} request   the server/http(s) request object
+     * @param   {object} response  the server/http(s) response object
+     *
+     * @returns {object} insertion error messages object or success message object
      */
-    static addRecipe(req, res) {
+    static addRecipe(request, response) {
         const {
             title,
             ingredients,
             procedures,
-            upvotes,
-            downvotes,
-        } = req.body, { userId } = req.decoded;
-
-        return Recipes.findOne({ where: { title } }).then((found) => {
-            if (found && found.title === title) {
-                res.status(400).json({
+            recipeImage
+        } = request.body, { userId } = request.decoded;
+        return Users.findById(userId).then((foundUser) => {
+            if (!foundUser) {
+                return response.status(400).json({
                     status: 'Failed',
-                    message: `Recipe with title:${title}, already exist in your catalog`
+                    message: 'User not found or may have been deleted'
                 });
             }
+            return Recipes.findOne({ where: { title, userId } }).then((found) => {
+                if (found && found.title === title) {
+                    return response.status(400).json({
+                        status: 'Failed',
+                        message: `Recipe with title:${title}, already exist in your catalog`
+                    });
+                }
 
-            return Recipes.create({
-                title,
-                ingredients,
-                procedures,
-                upvotes,
-                downvotes,
-                userId
-            }).then(recipe => res.status(201).json({
-                status: 'Success',
-                message: 'Successfully added new recipe',
-                recipe
-            })).catch(error => res.status(500).json({
+                return Recipes.create({
+                    title,
+                    ingredients,
+                    procedures,
+                    recipeImage,
+                    userId
+                }).then(recipe => response.status(201).json({
+                    status: 'Success',
+                    message: 'Successfully added new recipe',
+                    recipe
+                })).catch(error => response.status(500).json({
+                    status: 'Failed',
+                    message: error.message
+                }));
+            }).catch(error => response.status(500).json({
                 status: 'Failed',
                 message: error.message
             }));
-        }).catch(error => res.status(500).json({
-            status: 'Failed',
-            message: error.message
-        }));
+        });
     }
 
     /**
      * Modify a recipe in the recipes catalog
-     * @static
-     * @param {object} req
-     * @param {object} res
-     * @returns {object} insertion error messages or success messages
      * @memberof RecipesApiController
+     * @static
+     *
+     * @param   {object} request   the server/http(s) request object
+     * @param   {object} response  the server/http(s) response object
+     *
+     * @returns {object} insertion error messages object or success messages object
      */
-    static updateRecipe(req, res) {
-        const { title, ingredients, procedures } = req.body, { userId } = req.decoded,
-            recipeId = req.params.recipeID;
+    static updateRecipe(request, response) {
+        const {
+            title,
+            ingredients,
+            procedures,
+            recipeImage
+        } = request.body, { userId } = request.decoded,
+            recipeId = request.params.recipeID;
 
         return Recipes.findById(recipeId).then((recipe) => {
             if (recipe.userId === userId) {
-                return Recipes.update({
+                return recipe.updateAttributes({
                     title: (title) || recipe.title,
                     ingredients: (ingredients) || recipe.ingredients,
-                    procedures: (procedures) || recipe.procedures
-                }, {
-                    where: {
-                        id: recipeId
-                    }
-                }).then(() => res.status(201).json({
+                    procedures: (procedures) || recipe.procedures,
+                    recipeImage: (recipeImage) || recipe.recipeImage
+                }).then(() => response.status(200).json({
                     status: 'Success',
-                    message: 'Successfully updated recipe'
-                })).catch(error => res.status(500).json({
+                    message: 'Successfully updated recipe',
+                    recipe
+                })).catch(error => response.status(500).json({
                     status: 'Failed',
                     message: error.message
                 }));
             }
-            return res.status(400).json({
+            return response.status(400).json({
                 status: 'Failed',
                 message: 'Can not update a recipe not created by you'
             });
-        }).catch(() => res.status(404).json({
+        }).catch(() => response.status(404).json({
             status: 'Failed',
             message: `Recipe with id: ${recipeId}, not found`
         }));
@@ -96,14 +108,16 @@ export default class RecipesApiController {
 
     /**
      * Deleting a recipe from the recipes catalog
-     * @static
-     * @param {object} req
-     * @param {object} res
-     * @returns {object} delete error messages or success messages
      * @memberof RecipesApiController
+     * @static
+     *
+     * @param   {object} request   the server/http(s) request object
+     * @param   {object} response  the server/http(s) response object
+     *
+     * @returns {object} delete error messages object or success messages object with new recipe data
      */
-    static deleteRecipe(req, res) {
-        const { userId } = req.decoded, recipeId = req.params.recipeID;
+    static deleteRecipe(request, response) {
+        const { userId } = request.decoded, recipeId = request.params.recipeID;
 
         return Recipes.findById(recipeId).then((recipe) => {
             if (recipe.userId === userId) {
@@ -111,16 +125,17 @@ export default class RecipesApiController {
                     where: {
                         id: recipeId
                     },
-                }).then(() => res.status(200).json({
+                }).then(() => response.status(200).json({
                     status: 'Success',
-                    message: 'Successfully delected recipe'
+                    message: 'Successfully delected recipe',
+                    recipe
                 }));
             }
-            return res.status(401).json({
+            return response.status(401).json({
                 status: 'Failed',
                 message: 'You can not delete a recipe not created by you'
             });
-        }).catch(() => res.status(404).json({
+        }).catch(() => response.status(404).json({
             status: 'Failed',
             message: `Recipe with id: ${recipeId}, not found`
         }));
@@ -128,57 +143,59 @@ export default class RecipesApiController {
 
     /**
      * Retrieve all recipes from the catalog either in sorted or non sorted format
-     * @static
-     * @param {obj} req
-     * @param {object} res
-     * @returns {object} retrival error messages or success message
      * @memberof RecipesApiController
+     * @static
+     *
+     * @param   {object} request   the server/http(s) request object
+     * @param   {object} response  the server/http(s) response object
+     *
+     * @returns {object} recipes retrival error messages object or success message object with recipe data
      */
-    static getRecipes(req, res) {
-        if (!req.query.sort) {
+    static getRecipes(request, response) {
+        if (!request.query.sort) {
             return Recipes.findAll({
                 limit: 6,
                 order: [
                     ['createdAt', 'DESC']
                 ]
             }).then((recipes) => {
-                if (recipes && recipes.length !== 0) {
-                    res.status(200).json({
+                if (recipes.length !== 0) {
+                    return response.status(200).json({
                         status: 'Success',
                         message: 'Successfully retrieved all recipes',
                         recipes
                     });
                 }
-                return res.status(404).json({
+                return response.status(404).json({
                     status: 'Failed',
                     message: 'There are no available recipes',
                 });
-            }).catch(error => res.status(404).json({
+            }).catch(error => response.status(404).json({
                 status: 'Failed',
                 message: error.message
             }));
         }
 
-        const order = req.query.order.toUpperCase();
-        if (req.query.sort === 'upvotes') {
+        const order = request.query.order.toUpperCase();
+        if (request.query.sort === 'upvotes') {
             return Recipes.findAll({
                 limit: 6,
                 order: [
                     ['upvotes', order]
                 ]
             }).then((recipes) => {
-                if (recipes && recipes.length !== 0) {
-                    res.status(200).json({
+                if (recipes.length !== 0) {
+                    return response.status(200).json({
                         status: 'Success',
                         message: `Successfully retrieved all recipes by most upvotes in ${order.toLowerCase()}ending order`,
                         recipes
                     });
                 }
-                return res.status(404).json({
+                return response.status(404).json({
                     status: 'Failed',
                     message: 'There are no available recipes',
                 });
-            }).catch(error => res.status(404).json({
+            }).catch(error => response.status(404).json({
                 status: 'Failed',
                 message: error.message
             }));
@@ -190,18 +207,18 @@ export default class RecipesApiController {
                 ['downvotes', order]
             ]
         }).then((recipes) => {
-            if (recipes && recipes.length !== 0) {
-                res.status(200).json({
+            if (recipes.length !== 0) {
+                response.status(200).json({
                     status: 'Success',
                     message: `Successfully retrieved all recipes by most downvotes in ${order.toLowerCase()}ending order`,
                     recipes
                 });
             }
-            return res.status(404).json({
+            return response.status(404).json({
                 status: 'Failed',
                 message: 'There are no available recipes',
             });
-        }).catch(error => res.status(404).json({
+        }).catch(error => response.status(404).json({
             status: 'Failed',
             message: error.message
         }));

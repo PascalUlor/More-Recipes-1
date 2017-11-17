@@ -3,35 +3,38 @@ import isEmpty from 'lodash/isEmpty';
 
 
 /**
- * Validates POST and GET requests for recipes route
+ * Validates POST and GET requestuests for recipes route
  * @class RecipesValidation
  */
 export default class RecipesValidation {
     /**
      * Validates all recipe details before allowing access to controller class
-     * @static
-     * @param {object} req
-     * @param {object} res
-     * @param {object} next
-     * @returns {object} Validation error messages or contents of req.body
      * @memberof RecipesValidation
+     * @static
+     *
+     * @param   {object} request   the server/http(s) request object
+     * @param   {object} response  the server/http(s) response object
+     * @param   {object} next      the node/express middleware next object
+     *
+     * @returns {object} validation error messages object or contents of request.body object
      */
-    static addRecipeValidations(req, res, next) {
-        const { title, ingredients, procedures } = req.body,
-            errors = {};
-        if (title === undefined || ingredients === undefined || procedures === undefined) {
-            return res.status(400).json({
+    static addRecipeValidations(request, response, next) {
+        if (request.body.title === undefined || request.body.ingredients === undefined || request.body.procedures === undefined) {
+            return response.status(400).json({
                 status: 'Failed',
                 message: 'All or some fields are not defined'
             });
         }
 
+        const title = request.body.title.trim(),
+            ingredients = request.body.ingredients.trim(),
+            procedures = request.body.procedures.trim(),
+            errors = {};
+
         if (!validator.isEmpty(title)) {
-            for (let character = 0; character < title.length; character += 1) {
-                if (validator.toInt(title[character])) {
-                    errors.title = 'Recipe title must not contain numbers';
-                    break;
-                }
+            const containNumber = title.split('').filter(character => validator.toInt(character));
+            if (containNumber.length !== 0) {
+                errors.title = 'Recipe title must not contain numbers';
             }
         } else { errors.title = 'Recipe title is required'; }
 
@@ -50,36 +53,39 @@ export default class RecipesValidation {
         const result = { isValid: isEmpty(errors) };
 
         if (!result.isValid) {
-            return res.status(400).json({ errors });
+            return response.status(400).json({ errors });
         }
         next();
     }
 
     /**
      * Validates updated recipe detail(s) before allowing access to controller class
-     * @static
-     * @param {object} req
-     * @param {object} res
-     * @param {object} next
-     * @returns {object} Validation error messages or content(s) of req.body
      * @memberof RecipesValidation
+     * @static
+     *
+     * @param   {object} request   the server/http(s) request object
+     * @param   {object} response  the server/http(s) response object
+     * @param   {object} next      the node/express middleware next object
+     *
+     * @returns {object} validation error messages object or content(s) of request.body object
      */
-    static updateRecipeValidations(req, res, next) {
-        const { title, ingredients, procedures } = req.body,
+    static updateRecipeValidations(request, response, next) {
+        const title = request.body.title.trim(),
+            ingredients = request.body.ingredients.trim(),
+            procedures = request.body.procedures.trim(),
             errors = {};
+
         if (!(title || ingredients || procedures)) {
-            return res.status(400).json({
+            return response.status(400).json({
                 status: 'Failed',
                 message: 'Provide a field to update'
             });
         }
 
         if (title) {
-            for (let character = 0; character < title.length; character += 1) {
-                if (validator.toInt(title[character])) {
-                    errors.title = 'Recipe title must not contain numbers';
-                    break;
-                }
+            const containNumber = title.split('').filter(character => validator.toInt(character));
+            if (containNumber.length !== 0) {
+                errors.title = 'Recipe title must not contain numbers';
             }
         }
 
@@ -98,33 +104,37 @@ export default class RecipesValidation {
         const result = { isValid: isEmpty(errors) };
 
         if (!result.isValid) {
-            return res.status(400).json({ errors });
+            return response.status(400).json({ errors });
         }
         next();
     }
 
     /**
      * Validates query and non query routes before allowing access to controller class
-     * @static
-     * @param {object} req
-     * @param {object} res
-     * @param {object} next
-     * @returns {object} Validation error messages or contents of req.query(or nothing)
      * @memberof RecipesValidation
+     * @static
+     *
+     * @param   {object} request   the server/http(s) request object
+     * @param   {object} response  the server/http(s) response object
+     * @param   {object} next      the node/express middleware next object
+     *
+     * @returns {object} validation error messages object or contents of request.query(or nothing)
      */
-    static getSortdedRecipesValidation(req, res, next) {
-        const { sort, order } = req.query,
-            errors = {};
-        if (!req.originalUrl.includes('?')) {
+    static getSortdedRecipesValidation(request, response, next) {
+        if (!request.originalUrl.includes('?')) {
             return next();
         }
 
-        if (sort === undefined || order === undefined) {
-            return res.status(400).json({
+        if (request.query.sort === undefined || request.query.order === undefined) {
+            return response.status(400).json({
                 status: 'Failed',
                 message: 'Sort or(and) order query parameter(s) is(are) not defined'
             });
         }
+
+        const sort = request.query.sort.trim(),
+            order = request.query.order.trim(),
+            errors = {};
 
         if (!validator.isEmpty(sort)) {
             if (!(sort.toLowerCase() === 'upvotes' || sort.toLowerCase() === 'downvotes')) {
@@ -142,7 +152,7 @@ export default class RecipesValidation {
         const result = { isValid: isEmpty(errors) };
 
         if (!result.isValid) {
-            return res.status(400).json({ errors });
+            return response.status(400).json({ errors });
         }
         next();
     }
