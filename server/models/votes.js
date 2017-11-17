@@ -1,12 +1,13 @@
-/** Defines Downvotes database model and foreign associations
+/** Defines Upvotes database model and foreign associations
  * @param  {obj} sequelize
  * @param  {obj} DataTypes
- * @return {obj} The Downvotes model
+ * @returns {obj} The Upvotes model
  */
 export default (sequelize, DataTypes) => {
-    const Downvotes = sequelize.define('Downvotes', {
+    const Votes = sequelize.define('Votes', {
         userId: {
             type: DataTypes.INTEGER,
+            onDelete: 'CASCADE',
             references: {
                 model: 'Users',
                 key: 'id'
@@ -19,17 +20,21 @@ export default (sequelize, DataTypes) => {
                 model: 'Recipes',
                 key: 'id'
             }
+        },
+        vote: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     });
-    Downvotes.associate = (models) => {
-        Downvotes.belongsTo(models.Recipes, {
+    Votes.associate = (models) => {
+        Votes.belongsTo(models.Recipes, {
             foreignKey: 'recipeId',
             onDelete: 'CASCADE'
         });
-        Downvotes.belongsTo(models.Users, {
+        Votes.belongsTo(models.Users, {
             foreignKey: 'userId',
             onDelete: 'CASCADE'
         });
     };
-    return Downvotes;
+    return Votes;
 };
