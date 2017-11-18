@@ -40,9 +40,11 @@ export default class UserValidations {
         } else { errors.fullName = 'Full name is required'; }
 
         if (!validator.isEmpty(username)) {
-            if (validator.toInt(username)) {
-                errors.username = 'Username must not start with number(s)';
-            }
+            if (!validator.toInt(username)) {
+                if (!validator.isLength(username, { min: 4, max: 25 })) {
+                    errors.username = 'Username must be atleast 4 to 25 characters';
+                }
+            } else { errors.username = 'Username must not start with number(s)'; }
         } else { errors.username = 'Username is required'; }
 
         if (!validator.isEmpty(email)) {
