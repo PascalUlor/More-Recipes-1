@@ -31,7 +31,7 @@ export default class ReviewsValidation {
 
         if (!validator.isEmpty(reviewBody)) {
             if (!validator.isLength(reviewBody, { min: 4, max: undefined })) {
-                errors.reviewBody = 'Review provided must be more than 4 characters';
+                errors.reviewBody = 'Review provided must be atleast 4 characters';
             }
         } else { errors.reviewBody = 'Review for recipe is required'; }
 
