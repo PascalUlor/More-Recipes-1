@@ -23,7 +23,15 @@ export default (sequelize, DataTypes) => {
         },
         vote: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                isIn: {
+                    args: [
+                        ['upvote', 'downvote']
+                    ],
+                    msg: 'Must be a string of either upvote or downvote'
+                }
+            }
         }
     });
     Votes.associate = (models) => {
