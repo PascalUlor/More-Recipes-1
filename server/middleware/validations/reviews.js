@@ -40,6 +40,6 @@ export default class ReviewsValidation {
         if (!result.isValid) {
             return response.status(400).json({ errors });
         }
-        next();
+        return next();
     }
 }

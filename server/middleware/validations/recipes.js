@@ -55,7 +55,7 @@ export default class RecipesValidation {
         if (!result.isValid) {
             return response.status(400).json({ errors });
         }
-        next();
+        return next();
     }
 
     /**
@@ -106,7 +106,7 @@ export default class RecipesValidation {
         if (!result.isValid) {
             return response.status(400).json({ errors });
         }
-        next();
+        return next();
     }
 
     /**
@@ -154,6 +154,6 @@ export default class RecipesValidation {
         if (!result.isValid) {
             return response.status(400).json({ errors });
         }
-        next();
+        return next();
     }
 }

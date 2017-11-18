@@ -68,7 +68,7 @@ export default class UserValidations {
         if (!result.isValid) {
             return response.status(400).json({ errors });
         }
-        next();
+        return next();
     }
 
     /**
@@ -107,6 +107,6 @@ export default class UserValidations {
         if (!result.isValid) {
             return response.status(400).json({ errors });
         }
-        next();
+        return next();
     }
 }
