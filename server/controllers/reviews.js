@@ -20,7 +20,7 @@ export default class ReviewsApiController {
      */
     static postReview(request, response) {
         const { reviewBody } = request.body, { userId } = request.decoded,
-            recipeId = request.params.recipeID;
+            recipeId = parseInt(request.params.recipeID.trim(), 10);
 
         return Recipes.findById(recipeId).then((recipe) => {
             if (!recipe) {

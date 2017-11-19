@@ -19,8 +19,14 @@ export default class FavoritesApiController {
      * @returns {object} failure response messages object or success message object with data persisted to the database
      */
     static addToFavorite(request, response) {
-        const { userId } = request.decoded,
-            recipeId = request.params.recipeID;
+        const { userId } = request.decoded, recipeId = parseInt(request.params.recipeID.trim(), 10);
+
+        if (Number.isNaN(recipeId)) {
+            return response.status(400).json({
+                status: 'Failed',
+                message: 'Recipe ID must be a number'
+            });
+        }
 
         return Recipes.findById(recipeId).then((recipeFound) => {
             if (!recipeFound) {
@@ -75,7 +81,14 @@ export default class FavoritesApiController {
      * @returns {object} failure response messages object or success message object with persisted database data
      */
     static getFavoriteRecipes(request, response) {
-        const userId = request.params.userID;
+        const userId = parseInt(request.params.userID.trim(), 10);
+
+        if (Number.isNaN(userId)) {
+            return response.status(400).json({
+                status: 'Failed',
+                message: 'User ID must be a number'
+            });
+        }
 
         return Users.findById(userId).then((userFound) => {
             if (!userFound) {

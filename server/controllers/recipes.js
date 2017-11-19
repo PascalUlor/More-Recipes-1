@@ -78,7 +78,7 @@ export default class RecipesApiController {
             procedures,
             recipeImage
         } = request.body, { userId } = request.decoded,
-            recipeId = request.params.recipeID;
+            recipeId = parseInt(request.params.recipeID.trim(), 10);
 
         return Recipes.findById(recipeId).then((recipe) => {
             if (recipe.userId === userId) {
@@ -117,7 +117,14 @@ export default class RecipesApiController {
      * @returns {object} delete error messages object or success messages object with new recipe data
      */
     static deleteRecipe(request, response) {
-        const { userId } = request.decoded, recipeId = request.params.recipeID;
+        const { userId } = request.decoded, recipeId = parseInt(request.params.recipeID.trim(), 10);
+
+        if (Number.isNaN(recipeId)) {
+            return response.status(400).json({
+                status: 'Failed',
+                message: 'Recipe ID must be a number'
+            });
+        }
 
         return Recipes.findById(recipeId).then((recipe) => {
             if (recipe.userId === userId) {

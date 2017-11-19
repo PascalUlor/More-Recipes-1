@@ -27,6 +27,7 @@ export default class ReviewsValidation {
         }
 
         const reviewBody = request.body.reviewBody.trim(),
+            recipeId = parseInt(request.params.recipeID, 10),
             errors = {};
 
         if (!validator.isEmpty(reviewBody)) {
@@ -34,6 +35,10 @@ export default class ReviewsValidation {
                 errors.reviewBody = 'Review provided must be atleast 4 characters';
             }
         } else { errors.reviewBody = 'Review for recipe is required'; }
+
+        if (Number.isNaN(recipeId)) {
+            errors.recipeId = 'Recipe ID must be a number';
+        }
 
         const result = { isValid: isEmpty(errors) };
 

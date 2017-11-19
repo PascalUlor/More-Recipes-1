@@ -73,7 +73,12 @@ export default class RecipesValidation {
         const title = request.body.title.trim(),
             ingredients = request.body.ingredients.trim(),
             procedures = request.body.procedures.trim(),
+            recipeId = parseInt(request.params.recipeID.trim(), 10),
             errors = {};
+
+        if (Number.isNaN(recipeId)) {
+            errors.recipeId = 'Recipe ID must be a number';
+        }
 
         if (!(title || ingredients || procedures)) {
             return response.status(400).json({
