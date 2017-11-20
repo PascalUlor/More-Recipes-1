@@ -29,12 +29,6 @@ export default class ReviewsApiController {
                     message: `Recipe with id: ${recipeId}, not found`
                 });
             }
-            if (recipe.userId === userId) {
-                return response.status(400).json({
-                    status: 'Failed',
-                    message: 'Can not post a review for a recipe created by you'
-                });
-            }
             return Reviews.create({
                 reviewBody,
                 userId,
