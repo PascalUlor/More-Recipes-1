@@ -21,7 +21,7 @@ export default class UserValidations {
     static signup(request, response, next) {
         if (typeof request.body.fullName === 'undefined' || typeof request.body.username === 'undefined' || typeof request.body.email === 'undefined' ||
             typeof request.body.password === 'undefined' || typeof request.body.repassword === 'undefined') {
-            return response.status(400).json({
+            return response.status(422).json({
                 status: 'Failed',
                 message: 'All or some fields are not defined'
             });
@@ -86,7 +86,7 @@ export default class UserValidations {
      */
     static signin(request, response, next) {
         if (typeof request.body.username === 'undefined' || typeof request.body.password === 'undefined') {
-            return response.status(400).json({
+            return response.status(422).json({
                 status: 'Failed',
                 message: 'Username or(and) password field(s) is(are) not defined'
             });

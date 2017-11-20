@@ -27,14 +27,14 @@ export default class RecipesApiController {
         } = request.body, { userId } = request.decoded;
         return Users.findById(userId).then((foundUser) => {
             if (!foundUser) {
-                return response.status(400).json({
+                return response.status(404).json({
                     status: 'Failed',
                     message: 'User not found or may have been deleted'
                 });
             }
             return Recipes.findOne({ where: { title, userId } }).then((found) => {
                 if (found && found.title === title) {
-                    return response.status(400).json({
+                    return response.status(409).json({
                         status: 'Failed',
                         message: `Recipe with title:${title}, already exist in your catalog`
                     });
@@ -96,7 +96,7 @@ export default class RecipesApiController {
                     message: error.message
                 }));
             }
-            return response.status(400).json({
+            return response.status(401).json({
                 status: 'Failed',
                 message: 'Can not update a recipe not created by you'
             });
@@ -120,7 +120,7 @@ export default class RecipesApiController {
         const { userId } = request.decoded, recipeId = parseInt(request.params.recipeID.trim(), 10);
 
         if (Number.isNaN(recipeId)) {
-            return response.status(400).json({
+            return response.status(406).json({
                 status: 'Failed',
                 message: 'Recipe ID must be a number'
             });

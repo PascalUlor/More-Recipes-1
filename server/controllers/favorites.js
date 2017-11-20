@@ -22,7 +22,7 @@ export default class FavoritesApiController {
         const { userId } = request.decoded, recipeId = parseInt(request.params.recipeID.trim(), 10);
 
         if (Number.isNaN(recipeId)) {
-            return response.status(400).json({
+            return response.status(406).json({
                 status: 'Failed',
                 message: 'Recipe ID must be a number'
             });
@@ -30,13 +30,13 @@ export default class FavoritesApiController {
 
         return Recipes.findById(recipeId).then((recipeFound) => {
             if (!recipeFound) {
-                response.status(400).json({
+                response.status(404).json({
                     status: 'Failed',
                     message: `Recipe with id: ${recipeId}, not found`
                 });
             }
             if (recipeFound.userId === userId) {
-                response.status(400).json({
+                response.status(403).json({
                     status: 'Failed',
                     message: 'Can not favorite a recipe created by you'
                 });
@@ -84,7 +84,7 @@ export default class FavoritesApiController {
         const userId = parseInt(request.params.userID.trim(), 10);
 
         if (Number.isNaN(userId)) {
-            return response.status(400).json({
+            return response.status(406).json({
                 status: 'Failed',
                 message: 'User ID must be a number'
             });
@@ -92,7 +92,7 @@ export default class FavoritesApiController {
 
         return Users.findById(userId).then((userFound) => {
             if (!userFound) {
-                response.status(400).json({
+                response.status(404).json({
                     status: 'Failed',
                     message: `User with id: ${userId}, not found`
                 });

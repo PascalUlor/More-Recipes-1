@@ -24,7 +24,7 @@ export default class ReviewsApiController {
 
         return Recipes.findById(recipeId).then((recipe) => {
             if (!recipe) {
-                return response.status(400).json({
+                return response.status(404).json({
                     status: 'Failed',
                     message: `Recipe with id: ${recipeId}, not found`
                 });

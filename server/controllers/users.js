@@ -46,7 +46,7 @@ export default class UsersApiController {
                 } else {
                     errorField = 'Email';
                 }
-                return response.status(400).json({
+                return response.status(409).json({
                     status: 'Failed',
                     message: `${errorField} already exist`
                 });
@@ -122,7 +122,7 @@ export default class UsersApiController {
                         token
                     });
                 }
-                return response.status(400).json({
+                return response.status(401).json({
                     status: 'Failed',
                     message: 'Invalid username or password'
                 });

@@ -20,7 +20,7 @@ export default class RecipesValidation {
      */
     static addRecipeValidations(request, response, next) {
         if (typeof request.body.title === 'undefined' || typeof request.body.ingredients === 'undefined' || typeof request.body.procedures === 'undefined') {
-            return response.status(400).json({
+            return response.status(422).json({
                 status: 'Failed',
                 message: 'All or some fields are not defined'
             });
@@ -81,7 +81,7 @@ export default class RecipesValidation {
         }
 
         if (!(title || ingredients || procedures)) {
-            return response.status(400).json({
+            return response.status(422).json({
                 status: 'Failed',
                 message: 'Provide a field to update'
             });
@@ -131,7 +131,7 @@ export default class RecipesValidation {
         }
 
         if (typeof request.query.sort === 'undefined' || typeof request.query.order === 'undefined') {
-            return response.status(400).json({
+            return response.status(422).json({
                 status: 'Failed',
                 message: 'Sort or(and) order query parameter(s) is(are) not defined'
             });
