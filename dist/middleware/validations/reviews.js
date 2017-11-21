@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * Validates all requests for reviews route
+ * Validates all requestuests for reviews route
  * @class ReviewsValidation
  */
 var ReviewsValidation = function () {
@@ -32,36 +32,45 @@ var ReviewsValidation = function () {
 
         /**
          * Validates all reviews details before allowing access to controller class
-         * @param {object} req
-         * @param {object} res
-         * @param {object} next
-         * @returns {object} Validation error messages or content of req.body passed to controller
          * @memberof ReviewsValidation
+         * @static
+         *
+         * @param   {object} request   the server/http(s) request object
+         * @param   {object} response  the server/http(s) response object
+         * @param   {object} next      the node/express middleware next object
+         *
+         * @returns {object} validation error messages object or content of request.body object passed to controller
          */
-        value: function postReviewValidations(req, res, next) {
-            var reviewBody = req.body.reviewBody,
-                errors = {};
-
-            if (reviewBody === undefined) {
-                return res.status(400).json({
+        value: function postReviewValidations(request, response, next) {
+            if (typeof request.body.reviewBody === 'undefined') {
+                return response.status(422).json({
                     status: 'Failed',
-                    message: 'Review for recipe is not defined'
+                    message: 'Review for recipe is not defined or is missing'
                 });
             }
+
+            var reviewBody = request.body.reviewBody.trim(),
+                recipeId = parseInt(request.params.recipeID, 10),
+                errors = {};
+
             if (!_validator2.default.isEmpty(reviewBody)) {
                 if (!_validator2.default.isLength(reviewBody, { min: 4, max: undefined })) {
-                    errors.reviewBody = 'Review provided must be more than 4 characters';
+                    errors.reviewBody = 'Review provided must be atleast 4 characters';
                 }
             } else {
                 errors.reviewBody = 'Review for recipe is required';
             }
 
+            if (Number.isNaN(recipeId)) {
+                errors.recipeId = 'Recipe ID must be a number';
+            }
+
             var result = { isValid: (0, _isEmpty2.default)(errors) };
 
             if (!result.isValid) {
-                return res.status(400).json({ errors: errors });
+                return response.status(400).json({ errors: errors });
             }
-            next();
+            return next();
         }
     }]);
 

@@ -32,28 +32,24 @@ var ReviewsApiController = function () {
 
         /**
          * Post a review for a recipe
-         * @static
-         * @param {object} req
-         * @param {object} res
-         * @returns {object} insertion error messages or success message
          * @memberof ReviewsApiController
+         * @static
+         *
+         * @param   {object} request   the server/http(s) request object
+         * @param   {object} response  the server/http(s) response object
+         *
+         * @returns {object} insertion error messages object or success message object
          */
-        value: function postReview(req, res) {
-            var reviewBody = req.body.reviewBody,
-                userId = req.decoded.userId,
-                recipeId = req.params.recipeID;
+        value: function postReview(request, response) {
+            var reviewBody = request.body.reviewBody,
+                userId = request.decoded.userId,
+                recipeId = parseInt(request.params.recipeID.trim(), 10);
 
             return Recipes.findById(recipeId).then(function (recipe) {
                 if (!recipe) {
-                    res.status(400).json({
+                    return response.status(404).json({
                         status: 'Failed',
                         message: 'Recipe with id: ' + recipeId + ', not found'
-                    });
-                }
-                if (recipe.userId === userId) {
-                    res.status(400).json({
-                        status: 'Failed',
-                        message: 'Can not post a review for a recipe created by you'
                     });
                 }
                 return Reviews.create({
@@ -61,13 +57,13 @@ var ReviewsApiController = function () {
                     userId: userId,
                     recipeId: recipeId
                 }).then(function (postedReview) {
-                    return res.status(201).json({
+                    return response.status(201).json({
                         status: 'Success',
                         message: 'Successfully posted a review for recipe with id:' + recipeId,
                         postedReview: postedReview
                     });
                 }).catch(function (error) {
-                    return res.status(500).json({
+                    return response.status(500).json({
                         status: 'Failed',
                         message: error.message
                     });

@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * Validates POST and GET requests for recipes route
+ * Validates POST and GET requestuests for recipes route
  * @class RecipesValidation
  */
 var RecipesValidation = function () {
@@ -32,33 +32,34 @@ var RecipesValidation = function () {
 
         /**
          * Validates all recipe details before allowing access to controller class
-         * @static
-         * @param {object} req
-         * @param {object} res
-         * @param {object} next
-         * @returns {object} Validation error messages or contents of req.body
          * @memberof RecipesValidation
+         * @static
+         *
+         * @param   {object} request   the server/http(s) request object
+         * @param   {object} response  the server/http(s) response object
+         * @param   {object} next      the node/express middleware next object
+         *
+         * @returns {object} validation error messages object or contents of request.body object
          */
-        value: function addRecipeValidations(req, res, next) {
-            var _req$body = req.body,
-                title = _req$body.title,
-                ingredients = _req$body.ingredients,
-                procedures = _req$body.procedures,
-                errors = {};
-
-            if (title === undefined || ingredients === undefined || procedures === undefined) {
-                return res.status(400).json({
+        value: function addRecipeValidations(request, response, next) {
+            if (typeof request.body.title === 'undefined' || typeof request.body.ingredients === 'undefined' || typeof request.body.procedures === 'undefined') {
+                return response.status(422).json({
                     status: 'Failed',
                     message: 'All or some fields are not defined'
                 });
             }
 
+            var title = request.body.title.trim(),
+                ingredients = request.body.ingredients.trim(),
+                procedures = request.body.procedures.trim(),
+                errors = {};
+
             if (!_validator2.default.isEmpty(title)) {
-                for (var character = 0; character < title.length; character += 1) {
-                    if (_validator2.default.toInt(title[character])) {
-                        errors.title = 'Recipe title must not contain numbers';
-                        break;
-                    }
+                var containNumber = title.split('').filter(function (character) {
+                    return _validator2.default.toInt(character);
+                });
+                if (containNumber.length !== 0) {
+                    errors.title = 'Recipe title must not contain numbers';
                 }
             } else {
                 errors.title = 'Recipe title is required';
@@ -66,7 +67,7 @@ var RecipesValidation = function () {
 
             if (!_validator2.default.isEmpty(ingredients)) {
                 if (!_validator2.default.isLength(ingredients, { min: 20, max: 1000 })) {
-                    errors.ingredients = 'Recipe ingredients provided must be more than 20 characters';
+                    errors.ingredients = 'Recipe ingredients provided must be atleast 20 to 1000 characters';
                 }
             } else {
                 errors.ingredients = 'Recipe ingredients are required';
@@ -74,7 +75,7 @@ var RecipesValidation = function () {
 
             if (!_validator2.default.isEmpty(procedures)) {
                 if (!_validator2.default.isLength(procedures, { min: 30, max: 1000 })) {
-                    errors.procedures = 'Recipe procedures provided must be more than 30 characters';
+                    errors.procedures = 'Recipe procedures provided must be atleast 30 to 1000 characters';
                 }
             } else {
                 errors.procedures = 'Recipe procedures are required';
@@ -83,43 +84,49 @@ var RecipesValidation = function () {
             var result = { isValid: (0, _isEmpty2.default)(errors) };
 
             if (!result.isValid) {
-                return res.status(400).json({ errors: errors });
+                return response.status(400).json({ errors: errors });
             }
-            next();
+            return next();
         }
 
         /**
          * Validates updated recipe detail(s) before allowing access to controller class
-         * @static
-         * @param {object} req
-         * @param {object} res
-         * @param {object} next
-         * @returns {object} Validation error messages or content(s) of req.body
          * @memberof RecipesValidation
+         * @static
+         *
+         * @param   {object} request   the server/http(s) request object
+         * @param   {object} response  the server/http(s) response object
+         * @param   {object} next      the node/express middleware next object
+         *
+         * @returns {object} validation error messages object or content(s) of request.body object
          */
 
     }, {
         key: 'updateRecipeValidations',
-        value: function updateRecipeValidations(req, res, next) {
-            var _req$body2 = req.body,
-                title = _req$body2.title,
-                ingredients = _req$body2.ingredients,
-                procedures = _req$body2.procedures,
+        value: function updateRecipeValidations(request, response, next) {
+            var title = request.body.title.trim(),
+                ingredients = request.body.ingredients.trim(),
+                procedures = request.body.procedures.trim(),
+                recipeId = parseInt(request.params.recipeID.trim(), 10),
                 errors = {};
 
+            if (Number.isNaN(recipeId)) {
+                errors.recipeId = 'Recipe ID must be a number';
+            }
+
             if (!(title || ingredients || procedures)) {
-                return res.status(400).json({
+                return response.status(422).json({
                     status: 'Failed',
                     message: 'Provide a field to update'
                 });
             }
 
             if (title) {
-                for (var character = 0; character < title.length; character += 1) {
-                    if (_validator2.default.toInt(title[character])) {
-                        errors.title = 'Recipe title must not contain numbers';
-                        break;
-                    }
+                var containNumber = title.split('').filter(function (character) {
+                    return _validator2.default.toInt(character);
+                });
+                if (containNumber.length !== 0) {
+                    errors.title = 'Recipe title must not contain numbers';
                 }
             }
 
@@ -138,39 +145,40 @@ var RecipesValidation = function () {
             var result = { isValid: (0, _isEmpty2.default)(errors) };
 
             if (!result.isValid) {
-                return res.status(400).json({ errors: errors });
+                return response.status(400).json({ errors: errors });
             }
-            next();
+            return next();
         }
 
         /**
          * Validates query and non query routes before allowing access to controller class
-         * @static
-         * @param {object} req
-         * @param {object} res
-         * @param {object} next
-         * @returns {object} Validation error messages or contents of req.query(or nothing)
          * @memberof RecipesValidation
+         * @static
+         *
+         * @param   {object} request   the server/http(s) request object
+         * @param   {object} response  the server/http(s) response object
+         * @param   {object} next      the node/express middleware next object
+         *
+         * @returns {object} validation error messages object or contents of request.query(or nothing)
          */
 
     }, {
         key: 'getSortdedRecipesValidation',
-        value: function getSortdedRecipesValidation(req, res, next) {
-            var _req$query = req.query,
-                sort = _req$query.sort,
-                order = _req$query.order,
-                errors = {};
-
-            if (!req.originalUrl.includes('?')) {
+        value: function getSortdedRecipesValidation(request, response, next) {
+            if (!request.originalUrl.includes('?')) {
                 return next();
             }
 
-            if (sort === undefined || order === undefined) {
-                return res.status(400).json({
+            if (typeof request.query.sort === 'undefined' || typeof request.query.order === 'undefined') {
+                return response.status(422).json({
                     status: 'Failed',
                     message: 'Sort or(and) order query parameter(s) is(are) not defined'
                 });
             }
+
+            var sort = request.query.sort.trim(),
+                order = request.query.order.trim(),
+                errors = {};
 
             if (!_validator2.default.isEmpty(sort)) {
                 if (!(sort.toLowerCase() === 'upvotes' || sort.toLowerCase() === 'downvotes')) {
@@ -191,9 +199,9 @@ var RecipesValidation = function () {
             var result = { isValid: (0, _isEmpty2.default)(errors) };
 
             if (!result.isValid) {
-                return res.status(400).json({ errors: errors });
+                return response.status(400).json({ errors: errors });
             }
-            next();
+            return next();
         }
     }]);
 

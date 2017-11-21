@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var env = process.env.NODE_ENV || 'development';
 var basename = _path2.default.basename(module.filename);
-var config = _db_url2.default[env] || 'production';
+var config = _db_url2.default[env];
 var db = {};
 var sequelize = void 0;
 

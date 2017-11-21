@@ -32,42 +32,45 @@ var UserValidations = function () {
 
         /**
          * Validates all User signup details before allowing access to controller class
-         * @static
-         * @param {object} req
-         * @param {object} res
-         * @param {object} next
-         * @returns {object} Validation error messages or contents of req.body
          * @memberof UserValidations
+         * @static
+         *
+         * @param   {object} request   the server/http(s) request object
+         * @param   {object} response  the server/http(s) response object
+         * @param   {object} next      the node/express middleware next object
+         *
+         * @returns {object} validation error messages object or contents of request.body object
          */
-        value: function signup(req, res, next) {
-            var _req$body = req.body,
-                fullName = _req$body.fullName,
-                username = _req$body.username,
-                email = _req$body.email,
-                password = _req$body.password,
-                repassword = _req$body.repassword,
-                errors = {};
-
-            if (fullName === undefined || username === undefined || email === undefined || password === undefined || repassword === undefined) {
-                return res.status(400).json({
+        value: function signup(request, response, next) {
+            if (typeof request.body.fullName === 'undefined' || typeof request.body.username === 'undefined' || typeof request.body.email === 'undefined' || typeof request.body.password === 'undefined' || typeof request.body.repassword === 'undefined') {
+                return response.status(422).json({
                     status: 'Failed',
                     message: 'All or some fields are not defined'
                 });
             }
-
+            var fullName = request.body.fullName.trim(),
+                username = request.body.username.trim(),
+                email = request.body.email.trim(),
+                password = request.body.password.trim(),
+                repassword = request.body.repassword.trim(),
+                errors = {};
             if (!_validator2.default.isEmpty(fullName)) {
-                for (var character = 0; character < fullName.length; character += 1) {
-                    if (_validator2.default.toInt(fullName[character])) {
-                        errors.fullName = 'Full name must not contain numbers';
-                        break;
-                    }
+                var containNumber = fullName.split('').filter(function (character) {
+                    return _validator2.default.toInt(character);
+                });
+                if (containNumber.length !== 0) {
+                    errors.fullName = 'Full name must not contain numbers';
                 }
             } else {
                 errors.fullName = 'Full name is required';
             }
 
             if (!_validator2.default.isEmpty(username)) {
-                if (_validator2.default.toInt(username)) {
+                if (!_validator2.default.toInt(username)) {
+                    if (!_validator2.default.isLength(username, { min: 4, max: 25 })) {
+                        errors.username = 'Username must be atleast 4 to 25 characters';
+                    }
+                } else {
                     errors.username = 'Username must not start with number(s)';
                 }
             } else {
@@ -101,35 +104,36 @@ var UserValidations = function () {
             var result = { isValid: (0, _isEmpty2.default)(errors) };
 
             if (!result.isValid) {
-                return res.status(400).json({ errors: errors });
+                return response.status(400).json({ errors: errors });
             }
-            next();
+            return next();
         }
 
         /**
          * Validates signin form input fields before allowing access to controller class
-         * @static
-         * @param {object} req
-         * @param {object} res
-         * @param {object} next
-         * @returns {object} Validation error messages or contents of req.body
          * @memberof UserValidations
+         * @static
+         *
+         * @param   {object} request   the server/http(s) request object
+         * @param   {object} response  the server/http(s) response object
+         * @param   {object} next      the node/express middleware next object
+         *
+         * @returns {object} validation error messages object or contents of request.body object
          */
 
     }, {
         key: 'signin',
-        value: function signin(req, res, next) {
-            var _req$body2 = req.body,
-                username = _req$body2.username,
-                password = _req$body2.password,
-                errors = {};
-
-            if (username === undefined || password === undefined) {
-                return res.status(400).json({
+        value: function signin(request, response, next) {
+            if (typeof request.body.username === 'undefined' || typeof request.body.password === 'undefined') {
+                return response.status(422).json({
                     status: 'Failed',
                     message: 'Username or(and) password field(s) is(are) not defined'
                 });
             }
+
+            var username = request.body.username.trim(),
+                password = request.body.password.trim(),
+                errors = {};
 
             if (_validator2.default.isEmpty(username)) {
                 errors.username = 'Username is required';
@@ -142,9 +146,9 @@ var UserValidations = function () {
             var result = { isValid: (0, _isEmpty2.default)(errors) };
 
             if (!result.isValid) {
-                return res.status(400).json({ errors: errors });
+                return response.status(400).json({ errors: errors });
             }
-            next();
+            return next();
         }
     }]);
 

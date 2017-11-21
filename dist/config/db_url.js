@@ -6,20 +6,20 @@ dotenv.config();
 
 module.exports = {
     development: {
-        username: 'postgres',
-        password: 'richman',
-        database: 'more_recipes',
-        host: '127.0.0.1',
-        dialect: 'postgres'
+        username: process.env.USERNAME,
+        password: process.env.PASSWORD,
+        database: process.env.DATABASE_DEV,
+        host: process.env.HOST,
+        dialect: process.env.DIALECT
     },
     test: {
-        username: 'postgres',
-        password: 'richman',
-        database: 'travis_test_db',
-        host: '127.0.0.1',
-        dialect: 'postgres'
+        username: process.env.USERNAME,
+        password: process.env.PASSWORD,
+        database: process.env.DATABASE_TEST,
+        host: process.env.HOST,
+        dialect: process.env.DIALECT
     },
     production: {
-        use_env_variable: 'DB_URL'
+        use_env_variable: 'DATABASE_URL'
     }
 };

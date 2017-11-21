@@ -31,6 +31,15 @@ module.exports = {
                 allowNull: true,
                 defaultValue: 0
             },
+            recipeImage: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+            viewsCount: {
+                type: Sequelize.INTEGER,
+                allowNull: true,
+                defaultValue: 0
+            },
             userId: {
                 type: Sequelize.INTEGER,
                 onDelete: 'CASCADE',

@@ -45,17 +45,19 @@ var UsersApiController = function () {
 
         /**
          * Users details are captured and persisted on the database
-         * @static
-         * @param {object} req
-         * @param {object} res
-         * @returns {object} Failure message or Success message with the persisted database data
          * @memberof UsersApiController
+         * @static
+         *
+         * @param   {object} request   the server/http(s) request object
+         * @param   {object} response  the server/http(s) response object
+         *
+         * @returns {object} failure message object or success message object with the persisted database data
          */
-        value: function signup(req, res) {
-            var _req$body = req.body,
-                fullName = _req$body.fullName,
-                username = _req$body.username,
-                email = _req$body.email;
+        value: function signup(request, response) {
+            var _request$body = request.body,
+                fullName = _request$body.fullName,
+                username = _request$body.username,
+                email = _request$body.email;
 
 
             return Users.findOne({
@@ -78,34 +80,40 @@ var UsersApiController = function () {
                     } else {
                         errorField = 'Email';
                     }
-                    return res.status(400).json({
+                    return response.status(409).json({
                         status: 'Failed',
                         message: errorField + ' already exist'
                     });
                 }
                 var saltRounds = 10;
                 _bcryptjs2.default.genSalt(saltRounds, function (err, salt) {
-                    _bcryptjs2.default.hash(req.body.password, salt, function (err, hash) {
+                    _bcryptjs2.default.hash(request.body.password, salt, function (err, hash) {
                         Users.create({
                             fullName: fullName,
                             username: username,
                             email: email,
                             password: hash
                         }).then(function (user) {
-                            return res.status(201).json({
+                            var payload = { fullName: user.fullName, username: user.username, userId: user.id };
+                            var token = _jsonwebtoken2.default.sign(payload, process.env.SECRET_KEY, {
+                                expiresIn: 60 * 60 * 8
+                            });
+                            request.token = token;
+                            return response.status(201).json({
                                 status: 'Success',
                                 message: 'Successfully created account',
-                                data: {
+                                user: {
                                     id: user.id,
                                     username: user.username,
                                     email: user.email
-                                }
+                                },
+                                token: token
                             });
                         });
                     });
                 });
             }).catch(function (error) {
-                return res.status(500).json({
+                return response.status(500).json({
                     status: 'Failed',
                     message: error.message
                 });
@@ -114,19 +122,21 @@ var UsersApiController = function () {
 
         /**
          * User details are captured and authenticated against persisted database data
-         * @static
-         * @param {object} req
-         * @param {object} res
-         * @returns {object} Failure message or Success message with persisted database data
          * @memberof UsersApiController
+         * @static
+         *
+         * @param   {object} request   the server/http(s) request object
+         * @param   {object} response  the server/http(s) response object
+         *
+         * @returns {object} Failure message or Success message with persisted database data
          */
 
     }, {
         key: 'signin',
-        value: function signin(req, res) {
-            var _req$body2 = req.body,
-                username = _req$body2.username,
-                password = _req$body2.password;
+        value: function signin(request, response) {
+            var _request$body2 = request.body,
+                username = _request$body2.username,
+                password = _request$body2.password;
 
 
             return Users.findOne({
@@ -143,28 +153,28 @@ var UsersApiController = function () {
                         var token = _jsonwebtoken2.default.sign(payload, process.env.SECRET_KEY, {
                             expiresIn: 60 * 60 * 8
                         });
-                        req.token = token;
-                        return res.status(200).json({
+                        request.token = token;
+                        return response.status(200).json({
                             status: 'Success',
                             message: 'You are now logged In',
-                            data: {
+                            user: {
                                 id: user.id,
                                 username: user.username
                             },
                             token: token
                         });
                     }
-                    return res.status(400).json({
+                    return response.status(401).json({
                         status: 'Failed',
                         message: 'Invalid username or password'
                     });
                 }
-                return res.status(404).json({
+                return response.status(404).json({
                     status: 'Failed',
                     message: 'User not found'
                 });
             }).catch(function (error) {
-                return res.status(500).json({
+                return response.status(500).json({
                     status: 'Failed',
                     message: error.message
                 });

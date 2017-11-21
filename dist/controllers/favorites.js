@@ -32,34 +32,42 @@ var FavoritesApiController = function () {
         key: 'addToFavorite',
 
         /**
-         * Add a recipe to user's favorite catalog
-         * @static
-         * @param {object} req
-         * @param {object} res
-         * @returns {object} Failure response messages or Success message with data persisted to the database
+         * Add a recipe to user's favorite recipes catalog
          * @memberof FavoritesApiController
+         * @static
+         *
+         * @param   {object} request   the server/http(s) request object
+         * @param   {object} response  the server/http(s) response object
+         *
+         * @returns {object} failure response messages object or success message object with data persisted to the database
          */
-        value: function addToFavorite(req, res) {
-            var userId = req.decoded.userId,
-                recipeId = req.params.recipeID;
+        value: function addToFavorite(request, response) {
+            var userId = request.decoded.userId,
+                recipeId = parseInt(request.params.recipeID.trim(), 10);
 
+            if (Number.isNaN(recipeId)) {
+                return response.status(406).json({
+                    status: 'Failed',
+                    message: 'Recipe ID must be a number'
+                });
+            }
 
             return Recipes.findById(recipeId).then(function (recipeFound) {
                 if (!recipeFound) {
-                    res.status(400).json({
+                    response.status(404).json({
                         status: 'Failed',
                         message: 'Recipe with id: ' + recipeId + ', not found'
                     });
                 }
                 if (recipeFound.userId === userId) {
-                    res.status(400).json({
+                    response.status(403).json({
                         status: 'Failed',
                         message: 'Can not favorite a recipe created by you'
                     });
                 }
                 return Favorites.findOne({ where: { userId: userId, recipeId: recipeId } }).then(function (favorite) {
                     if (favorite) {
-                        return res.status(400).json({
+                        return response.status(400).json({
                             status: 'Failed',
                             message: 'Recipe with id: ' + recipeId + ' has already been favorited'
                         });
@@ -69,25 +77,25 @@ var FavoritesApiController = function () {
                         userId: userId,
                         recipeId: recipeId
                     }).then(function (favoritedRecipe) {
-                        return res.status(201).json({
+                        return response.status(201).json({
                             status: 'Success',
                             message: 'Successfully favorited recipe',
                             favoritedRecipe: favoritedRecipe
                         });
                     }).catch(function (error) {
-                        return res.status(500).json({
+                        return response.status(500).json({
                             status: 'Failed',
                             message: error.message
                         });
                     });
                 }).catch(function (error) {
-                    return res.status(500).json({
+                    return response.status(500).json({
                         status: 'Failed',
                         message: error.message
                     });
                 });
             }).catch(function (error) {
-                return res.status(500).json({
+                return response.status(500).json({
                     status: 'Failed',
                     message: error.message
                 });
@@ -95,22 +103,31 @@ var FavoritesApiController = function () {
         }
 
         /**
-         * Get all user's favorite recipes
-         * @static
-         * @param {object} req
-         * @param {object} res
-         * @returns {object} Failure response messages or Success message with persisted database data
+         * Get all user's favorite recipes from the catalog
          * @memberof FavoritesApiController
+         * @static
+         *
+         * @param   {object} request   the server/http(s) request object
+         * @param   {object} response  the server/http(s) response object
+         *
+         * @returns {object} failure response messages object or success message object with persisted database data
          */
 
     }, {
         key: 'getFavoriteRecipes',
-        value: function getFavoriteRecipes(req, res) {
-            var userId = req.params.userID;
+        value: function getFavoriteRecipes(request, response) {
+            var userId = parseInt(request.params.userID.trim(), 10);
+
+            if (Number.isNaN(userId)) {
+                return response.status(406).json({
+                    status: 'Failed',
+                    message: 'User ID must be a number'
+                });
+            }
 
             return Users.findById(userId).then(function (userFound) {
                 if (!userFound) {
-                    res.status(400).json({
+                    response.status(404).json({
                         status: 'Failed',
                         message: 'User with id: ' + userId + ', not found'
                     });
@@ -120,18 +137,18 @@ var FavoritesApiController = function () {
                     include: [{ model: Recipes }]
                 }).then(function (favorites) {
                     if (favorites.length === 0) {
-                        res.status(404).json({
+                        response.status(404).json({
                             status: 'Failed',
                             message: 'You have no available favorite recipes'
                         });
                     }
-                    res.status(200).json({
+                    response.status(200).json({
                         status: 'Success',
                         message: 'Successfully retrieved user favorite Recipe(s)',
                         favorites: favorites
                     });
                 }).catch(function (error) {
-                    return res.status(500).json({
+                    return response.status(500).json({
                         status: 'Failed',
                         message: error.message
                     });
