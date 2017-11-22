@@ -13,14 +13,16 @@ env.config();
 export default class UsersApiController {
     /**
      * Users details are captured and persisted on the database
-     * @static
-     * @param {object} req
-     * @param {object} res
-     * @returns {object} Failure message or Success message with the persisted database data
      * @memberof UsersApiController
+     * @static
+     *
+     * @param   {object} request   the server/http(s) request object
+     * @param   {object} response  the server/http(s) response object
+     *
+     * @returns {object} failure message object or success message object with the persisted database data
      */
-    static signup(req, res) {
-        const { fullName, username, email } = req.body;
+    static signup(request, response) {
+        const { fullName, username, email } = request.body;
 
         return Users.findOne({
             where: {
@@ -45,31 +47,39 @@ export default class UsersApiController {
                 if (foundUser.email === email) {
                     errors.email = 'Email already exist';
                 }
-                return res.status(400).json({
+                return response.status(409).json({
                     status: 'Failed',
                     errors
                 });
             }
             const saltRounds = 10;
             bcrypt.genSalt(saltRounds, (err, salt) => {
-                bcrypt.hash(req.body.password, salt, (err, hash) => {
+                bcrypt.hash(request.body.password, salt, (err, hash) => {
                     Users.create({
                         fullName,
                         username,
                         email,
                         password: hash
-                    }).then(user => res.status(201).json({
-                        status: 'Success',
-                        message: 'Successfully created account',
-                        data: {
-                            id: user.id,
-                            username: user.username,
-                            email: user.email
-                        }
-                    }));
+                    }).then((user) => {
+                        const payload = { fullName: user.fullName, username: user.username, userId: user.id };
+                        const token = jwt.sign(payload, process.env.SECRET_KEY, {
+                            expiresIn: 60 * 60 * 8
+                        });
+                        request.token = token;
+                        return response.status(201).json({
+                            status: 'Success',
+                            message: 'Successfully created account',
+                            user: {
+                                id: user.id,
+                                username: user.username,
+                                email: user.email
+                            },
+                            token
+                        });
+                    });
                 });
             });
-        }).catch(error => res.status(500).json({
+        }).catch(error => response.status(500).json({
             status: 'Failed',
             message: error.message
         }));
@@ -77,14 +87,16 @@ export default class UsersApiController {
 
     /**
      * User details are captured and authenticated against persisted database data
-     * @static
-     * @param {object} req
-     * @param {object} res
-     * @returns {object} Failure message or Success message with persisted database data
      * @memberof UsersApiController
+     * @static
+     *
+     * @param   {object} request   the server/http(s) request object
+     * @param   {object} response  the server/http(s) response object
+     *
+     * @returns {object} Failure message or Success message with persisted database data
      */
-    static signin(req, res) {
-        const { username, password } = req.body,
+    static signin(request, response) {
+        const { username, password } = request.body,
             errors = { form: 'Invalid username or password' };
 
         return Users.findOne({
@@ -101,27 +113,27 @@ export default class UsersApiController {
                     const token = jwt.sign(payload, process.env.SECRET_KEY, {
                         expiresIn: 60 * 60 * 8
                     });
-                    req.token = token;
-                    return res.status(200).json({
+                    request.token = token;
+                    return response.status(200).json({
                         status: 'Success',
                         message: 'You are now logged In',
-                        data: {
+                        user: {
                             id: user.id,
                             username: user.username
                         },
                         token
                     });
                 }
-                return res.status(400).json({
+                return response.status(401).json({
                     status: 'Failed',
                     errors
                 });
             }
-            return res.status(400).json({
+            return response.status(404).json({
                 status: 'Failed',
                 errors
             });
-        }).catch(error => res.status(500).json({
+        }).catch(error => response.status(500).json({
             status: 'Failed',
             message: error.message
         }));

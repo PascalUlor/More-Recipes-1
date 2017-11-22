@@ -2,11 +2,11 @@
 .vscode
 .nyc_output
 coverage
-
 .coveralls.yml
 
 #dependencies
 node_modules
+dist/
 
 # logs
 npm-debug.log
@@ -15,4 +15,4 @@ npm-debug.log
 .DS_Store
 
 .env
-
+package-lock.json

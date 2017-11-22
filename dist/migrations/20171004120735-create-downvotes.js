@@ -1,6 +1,8 @@
+'use strict';
+
 module.exports = {
-    up: (queryInterface, Sequelize) => {
-        queryInterface.createTable('Upvotes', {
+    up: function up(queryInterface, Sequelize) {
+        queryInterface.createTable('Downvotes', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -33,7 +35,7 @@ module.exports = {
             }
         });
     },
-    down: (queryInterface) => {
-        queryInterface.dropTable('Upvotes');
+    down: function down(queryInterface) {
+        queryInterface.dropTable('Downvotes');
     }
 };

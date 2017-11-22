@@ -1,5 +1,7 @@
+'use strict';
+
 module.exports = {
-    up: (queryInterface, Sequelize) => {
+    up: function up(queryInterface, Sequelize) {
         queryInterface.createTable('Recipes', {
             id: {
                 allowNull: false,
@@ -29,15 +31,6 @@ module.exports = {
                 allowNull: true,
                 defaultValue: 0
             },
-            recipeImage: {
-                type: Sequelize.STRING,
-                allowNull: false
-            },
-            viewsCount: {
-                type: Sequelize.INTEGER,
-                allowNull: true,
-                defaultValue: 0
-            },
             userId: {
                 type: Sequelize.INTEGER,
                 onDelete: 'CASCADE',
@@ -56,7 +49,7 @@ module.exports = {
             }
         });
     },
-    down: (queryInterface) => {
+    down: function down(queryInterface) {
         queryInterface.dropTable('Recipes');
     }
 };

@@ -9,42 +9,42 @@ import isEmpty from 'lodash/isEmpty';
 export default class UserValidations {
     /**
      * Validates all User signup details before allowing access to controller class
-     * @static
-     * @param {object} req
-     * @param {object} res
-     * @param {object} next
-     * @returns {object} Validation error messages or contents of req.body
      * @memberof UserValidations
+     * @static
+     *
+     * @param   {object} request   the server/http(s) request object
+     * @param   {object} response  the server/http(s) response object
+     * @param   {object} next      the node/express middleware next object
+     *
+     * @returns {object} validation error messages object or contents of request.body object
      */
-    static signup(req, res, next) {
-        const {
-            fullName,
-            username,
-            email,
-            password,
-            repassword
-        } = req.body,
-            errors = {};
-        if (fullName === undefined || username === undefined || email === undefined || password === undefined || repassword === undefined) {
-            return res.status(400).json({
+    static signup(request, response, next) {
+        if (typeof request.body.fullName === 'undefined' || typeof request.body.username === 'undefined' || typeof request.body.email === 'undefined' ||
+            typeof request.body.password === 'undefined' || typeof request.body.repassword === 'undefined') {
+            return response.status(422).json({
                 status: 'Failed',
                 message: 'All or some fields are not defined'
             });
         }
-
+        const fullName = request.body.fullName.trim(),
+            username = request.body.username.trim(),
+            email = request.body.email.trim(),
+            password = request.body.password.trim(),
+            repassword = request.body.repassword.trim(),
+            errors = {};
         if (!validator.isEmpty(fullName)) {
-            for (let character = 0; character < fullName.length; character += 1) {
-                if (validator.toInt(fullName[character])) {
-                    errors.fullName = 'Full name must not contain numbers';
-                    break;
-                }
+            const containNumber = fullName.split('').filter(character => validator.toInt(character));
+            if (containNumber.length !== 0) {
+                errors.fullName = 'Full name must not contain numbers';
             }
         } else { errors.fullName = 'Full name is required'; }
 
         if (!validator.isEmpty(username)) {
-            if (validator.toInt(username)) {
-                errors.username = 'Username must not start with number(s)';
-            }
+            if (!validator.toInt(username)) {
+                if (!validator.isLength(username, { min: 4, max: 25 })) {
+                    errors.username = 'Username must be atleast 4 to 25 characters';
+                }
+            } else { errors.username = 'Username must not start with number(s)'; }
         } else { errors.username = 'Username is required'; }
 
         if (!validator.isEmpty(email)) {
@@ -68,29 +68,33 @@ export default class UserValidations {
         const result = { isValid: isEmpty(errors) };
 
         if (!result.isValid) {
-            return res.status(400).json({ errors });
+            return response.status(400).json({ errors });
         }
-        next();
+        return next();
     }
 
     /**
      * Validates signin form input fields before allowing access to controller class
-     * @static
-     * @param {object} req
-     * @param {object} res
-     * @param {object} next
-     * @returns {object} Validation error messages or contents of req.body
      * @memberof UserValidations
+     * @static
+     *
+     * @param   {object} request   the server/http(s) request object
+     * @param   {object} response  the server/http(s) response object
+     * @param   {object} next      the node/express middleware next object
+     *
+     * @returns {object} validation error messages object or contents of request.body object
      */
-    static signin(req, res, next) {
-        const { username, password } = req.body,
-            errors = {};
-        if (username === undefined || password === undefined) {
-            return res.status(400).json({
+    static signin(request, response, next) {
+        if (typeof request.body.username === 'undefined' || typeof request.body.password === 'undefined') {
+            return response.status(422).json({
                 status: 'Failed',
                 message: 'Username or(and) password field(s) is(are) not defined'
             });
         }
+
+        const username = request.body.username.trim(),
+            password = request.body.password.trim(),
+            errors = {};
 
         if (validator.isEmpty(username)) {
             errors.username = 'Username is required';
@@ -103,8 +107,8 @@ export default class UserValidations {
         const result = { isValid: isEmpty(errors) };
 
         if (!result.isValid) {
-            return res.status(400).json({ errors });
+            return response.status(400).json({ errors });
         }
-        next();
+        return next();
     }
 }

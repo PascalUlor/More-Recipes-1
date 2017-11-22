@@ -1,22 +1,19 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 /** Define Review database model with foreign associations
  * @param  {obj} sequelize
  * @param  {obj} DataTypes
  * @returns {obj} Reviews model
  */
-export default (sequelize, DataTypes) => {
-    const Reviews = sequelize.define('Reviews', {
+exports.default = function (sequelize, DataTypes) {
+    var Reviews = sequelize.define('Reviews', {
         reviewBody: {
             type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: {
-                    msg: 'Review for recipe is required'
-                },
-                len: {
-                    args: [4, undefined],
-                    msg: 'Review provided must be atleast 4 characters'
-                }
-            }
+            allowNull: false
         },
         userId: {
             type: DataTypes.INTEGER,
@@ -36,7 +33,7 @@ export default (sequelize, DataTypes) => {
         }
     });
 
-    Reviews.associate = (models) => {
+    Reviews.associate = function (models) {
         Reviews.belongsTo(models.Users, {
             foreignKey: 'userId',
             onDelete: 'CASCADE'
