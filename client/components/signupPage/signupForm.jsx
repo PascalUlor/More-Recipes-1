@@ -37,25 +37,32 @@ class SignupForm extends Component {
         if (this.isValid()) {
             this.setState({ errors: {}, isLoading: true });
             this.props.userSignupRequest(this.state)
-            .then((res) => {
-                console.log(res);
+            .then(() => {
                 this.props.addFlashMessage({
                     type: 'Success',
-                    text: 'Successfully Created Account'
+                    text: 'Successfully Created Account.'
                 });
-                this.context.router.history.push('/api/v1/users/signin');
+                this.context.router.history.push('/dashboard');
             })
             .catch(error => this.setState({ errors: error.response.data.errors, isLoading: false }));
         }
     }
     render() {
-        const { fullName, username, email, password, repassword, errors, isLoading } = this.state;
+        const {
+            fullName,
+            username,
+            email,
+            password,
+            repassword,
+            errors,
+            isLoading
+        } = this.state;
 
         return (
             // <!--Form Section Start-->
             <div className="col-8 col-sm-8 col-md-8 col-lg-8">
                 <h2>Sign Up</h2>
-                <p className="lead">Already have a More-Recipes account? <Link to="/api/v1/users/signin">Sign In</Link>
+                <p className="lead">Already have a More-Recipes account? <Link to="/signin">Sign In</Link>
                 </p>
                 <form role="form" onSubmit={this.handleSubmit} className="pb-2">
                     <TextFieldGroup

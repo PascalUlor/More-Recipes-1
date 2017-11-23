@@ -38,18 +38,24 @@ class SignupForm extends Component {
                     type: 'Success',
                     text: 'You are now logged in'
                 });
-                this.context.router.history.push('/api/v1/users/dashboard');
+                this.context.router.history.push('/dashboard');
             })
             .catch(error => this.setState({ errors: error.response.data.errors, isLoading: false }));
         }
     }
     render() {
-        const { username, password, errors, isLoading } = this.state;
+        const {
+            username,
+            password,
+            errors,
+            isLoading
+        } = this.state;
+
         return (
             // <!--Form Section Start-->
             <div className="col-8 col-sm-8 col-md-8 col-lg-8">
                 <h2>Sign In</h2>
-                <p className="lead">Don&#39;t have a More-Recipes account? <Link to="/api/v1/users/signup">Sign Up</Link>
+                <p className="lead">Don&#39;t have a More-Recipes account? <Link to="/signup">Sign Up</Link>
                 </p>
 				{ !errors.form && <FlashMessagesList/> }
                 {errors.form && <div className='alert alert-danger text-center'>{errors.form}</div>}
