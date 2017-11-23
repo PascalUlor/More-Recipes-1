@@ -7,7 +7,16 @@ export default (sequelize, DataTypes) => {
     const Reviews = sequelize.define('Reviews', {
         reviewBody: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notEmpty: {
+                    msg: 'Review for recipe is required'
+                },
+                len: {
+                    args: [4, undefined],
+                    msg: 'Review provided must be atleast 4 characters'
+                }
+            }
         },
         userId: {
             type: DataTypes.INTEGER,

@@ -4,7 +4,7 @@
  * @returns {obj} The Upvotes model
  */
 export default (sequelize, DataTypes) => {
-    const Upvotes = sequelize.define('Upvotes', {
+    const Votes = sequelize.define('Votes', {
         userId: {
             type: DataTypes.INTEGER,
             onDelete: 'CASCADE',
@@ -20,17 +20,29 @@ export default (sequelize, DataTypes) => {
                 model: 'Recipes',
                 key: 'id'
             }
+        },
+        vote: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isIn: {
+                    args: [
+                        ['upvote', 'downvote']
+                    ],
+                    msg: 'Must be a string of either upvote or downvote'
+                }
+            }
         }
     });
-    Upvotes.associate = (models) => {
-        Upvotes.belongsTo(models.Recipes, {
+    Votes.associate = (models) => {
+        Votes.belongsTo(models.Recipes, {
             foreignKey: 'recipeId',
             onDelete: 'CASCADE'
         });
-        Upvotes.belongsTo(models.Users, {
+        Votes.belongsTo(models.Users, {
             foreignKey: 'userId',
             onDelete: 'CASCADE'
         });
     };
-    return Upvotes;
+    return Votes;
 };

@@ -37,6 +37,7 @@
         "indent": ["off", 2],
         "class-methods-use-this": 0,
         "no-tabs": 0,
+        "import/prefer-default-export": 0,
         "no-console": ["off", "always"],
         "max-len": [0, 200, 2],
         "one-var-declaration-per-line": 0,

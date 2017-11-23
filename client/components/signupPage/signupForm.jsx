@@ -1,122 +1,102 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import TextFieldGroup from '../../common/textFieldGroup.jsx';
+import validateInputs from '../../shared/validations/signup';
 
-export default class SignupForm extends Component {
+class SignupForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fullname: '',
+            fullName: '',
             username: '',
             email: '',
             password: '',
-            repassword: ''
+            repassword: '',
+            errors: {},
+            isLoading: false
         };
         this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.isValid = this.isValid.bind(this);
     }
     onChange(e) {
         this.setState({
             [e.target.name]: e.target.value
         });
     }
+    isValid() {
+        const { errors, isValid } = validateInputs(this.state);
+        if (!isValid) {
+            this.setState({ errors });
+        }
+        return isValid;
+    }
     handleSubmit(e) {
         e.preventDefault();
-        console.log(this.state);
+        if (this.isValid()) {
+            this.setState({ errors: {}, isLoading: true });
+            this.props.userSignupRequest(this.state)
+            .then(() => {
+                this.props.addFlashMessage({
+                    type: 'Success',
+                    text: 'Successfully Created Account.'
+                });
+                this.context.router.history.push('/dashboard');
+            })
+            .catch(error => this.setState({ errors: error.response.data.errors, isLoading: false }));
+        }
     }
     render() {
+        const {
+            fullName,
+            username,
+            email,
+            password,
+            repassword,
+            errors,
+            isLoading
+        } = this.state;
+
         return (
             // <!--Form Section Start-->
             <div className="col-8 col-sm-8 col-md-8 col-lg-8">
                 <h2>Sign Up</h2>
-                <p className="lead">Already have a More-Recipes account? <Link to="/api/v1/user/signin">Sign In</Link>
+                <p className="lead">Already have a More-Recipes account? <Link to="/signin">Sign In</Link>
                 </p>
                 <form role="form" onSubmit={this.handleSubmit} className="pb-2">
-                    <div className="form-group">
-                        <label htmlFor="user">Full name</label>
-                        <div className="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <div className="input-group-addon">
-                                <i className="fa fa-user-circle-o" aria-hidden="true"></i>
-                            </div>
-                            <input
-                                type="text"
-                                className="form-control form-control-sm"
-                                id="fullname"
-                                name="fullname"
-                                value={this.state.fullname}
-                                onChange = {this.onChange}
-                                placeholder="enter full name"/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="user">Username</label>
-                        <div className="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <div className="input-group-addon">
-                                <i className=" fa fa-user-circle-o " aria-hidden="true "></i>
-                            </div>
-                            <input
-                                type="text"
-                                className="form-control form-control-sm"
-                                id="username"
-                                name="username"
-                                value={this.state.username}
-                                onChange = {this.onChange}
-                                placeholder="enter username"/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="email">Email</label>
-                        <div className="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <div className="input-group-addon">
-                                <i className=" fa fa-envelope " aria-hidden="true "></i>
-                            </div>
-                            <input
-                                type="email"
-                                className="form-control form-control-sm"
-                                id="email"
-                                name="email"
-                                value={this.state.email}
-                                onChange = {this.onChange}
-                                placeholder="enter email"/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <div className="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <div className="input-group-addon">
-                                <i className=" fa fa-lock " aria-hidden="true "></i>
-                            </div>
-                            <input
-                                type="password"
-                                className="form-control form-control-sm"
-                                id="password"
-                                name="password"
-                                value={this.state.password}
-                                onChange = {this.onChange}
-                                placeholder="enter password"/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="repassword">Confirm password</label>
-                        <div className="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <div className="input-group-addon">
-                                <i className=" fa fa-lock " aria-hidden="true"></i>
-                            </div>
-                            <input
-                                type="password"
-                                className="form-control form-control-sm"
-                                id="repassword"
-                                name="repassword"
-                                value={this.state.repassword}
-                                onChange = {this.onChange}
-                                placeholder="re-enter password"/>
-                        </div>
-                    </div>
+                    <TextFieldGroup
+                        label='Full Name' font="fa fa-user-circle-o" name='fullName' value={fullName}
+                        error={errors.fullName} onChange={this.onChange} placeholder='enter full name'/>
+                    <TextFieldGroup
+                        label='Username' font="fa fa-user-circle-o" name='username' value={username}
+                        error={errors.username} onChange={this.onChange} placeholder='enter username'/>
+                    <TextFieldGroup
+                        label='Email' font="fa fa-envelope" name='email' value={email} error={errors.email}
+                        onChange={this.onChange} placeholder='enter email'/>
+                    <TextFieldGroup
+                        label='Password' font="fa fa-lock" name='password' type='password' value={password}
+                        error={errors.password} onChange={this.onChange} placeholder='enter password'/>
+                    <TextFieldGroup
+                        label='Confirm Password' font="fa fa-lock" name='repassword' type='password'
+                        value={repassword} error={errors.repassword} onChange={this.onChange} placeholder='re-enter password'/>
                     <p className="lead">By signing up you are agreeing to these <Link to="">terms and conditons</Link>
                     </p>
-                    <button type="submit" className="btn btn-outline-success">Sign Up</button>
+                    <button type="submit" className="btn btn-outline-success" disabled={isLoading}>Sign Up</button>
                 </form>
             </div>
         // <!--Form Section End-->
         );
     }
 }
+
+SignupForm.propTypes = {
+    userSignupRequest: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired
+};
+
+SignupForm.contextTypes = {
+    router: PropTypes.object.isRequired
+};
+
+export default SignupForm;

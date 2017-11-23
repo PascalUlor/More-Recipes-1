@@ -1,8 +1,34 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
+import GuestNavBar from './homeNavBar/guestNavBar.jsx';
+import UserNavBar from './homeNavBar/userNavBar.jsx';
+import { logOutRequest } from '../../actions/actionCreators/logOutActions';
 
-export default class HomeNavBar extends Component {
+class HomeNavBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: ''
+    };
+  }
+  handleLogOut(e) {
+    e.preventDefault();
+    this.props.logOutRequest();
+  }
+  componentDidMount() {
+    const userDecodedInfo = jwt.decode(localStorage.getItem('jwtToken'));
+    if (localStorage.getItem('jwtToken') && userDecodedInfo !== null) {
+      this.setState({ username: userDecodedInfo.username });
+    } else {
+      this.setState({ username: '' });
+    }
+  }
   render() {
+    const { username } = this.state,
+      { isAuthenticated } = this.props.authUser;
     return (
       //  <!--Header Container Start -->
        <div className="container">
@@ -27,37 +53,23 @@ export default class HomeNavBar extends Component {
                   alt="More Recipe Logo"/>
                 <span id="site-name">More Recipes</span>
               </Link>
-
-              <div className="collapse navbar-collapse" id="navbarItems">
-                <ul className="navbar-nav mr-auto text-center">
-                  <li className="nav-item active">
-                    <Link className="nav-link" style={{ color: 'skyblue' }} to="/">Home<span className="sr-only">(current)</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/api/v1/user/signin">Login</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/api/v1/user/signup">Register</Link>
-                  </li>
-                </ul>
-                <form className="form-inline form-group my-2 my-lg-0">
-                  <div className="input-group">
-                    <input
-                      className="form-control form-control-sm"
-                      type="text"
-                      placeholder="search recipe by name"/>
-                    <span className="input-group-btn">
-                      <button type="submit" className=" btn btn-md btn-outline-info">
-                        <i className="fa fa-search"></i>
-                      </button>
-                    </span>
-                  </div>
-                </form>
-              </div>
+              { isAuthenticated ? <UserNavBar currentUsername={username} logOut={this.handleLogOut.bind(this)}/> : <GuestNavBar/>}
             </nav>
           </header>
         </div>
     );
   }
 }
+
+HomeNavBar.propTypes = {
+  authUser: PropTypes.object.isRequired,
+  logOutRequest: PropTypes.func.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    authUser: state.authUser
+   };
+}
+
+export default connect(mapStateToProps, { logOutRequest })(HomeNavBar);

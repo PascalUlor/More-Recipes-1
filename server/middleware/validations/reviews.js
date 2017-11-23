@@ -3,38 +3,48 @@ import isEmpty from 'lodash/isEmpty';
 
 
 /**
- * Validates all requests for reviews route
+ * Validates all requestuests for reviews route
  * @class ReviewsValidation
  */
 export default class ReviewsValidation {
     /**
      * Validates all reviews details before allowing access to controller class
-     * @param {object} req
-     * @param {object} res
-     * @param {object} next
-     * @returns {object} Validation error messages or content of req.body passed to controller
      * @memberof ReviewsValidation
+     * @static
+     *
+     * @param   {object} request   the server/http(s) request object
+     * @param   {object} response  the server/http(s) response object
+     * @param   {object} next      the node/express middleware next object
+     *
+     * @returns {object} validation error messages object or content of request.body object passed to controller
      */
-    static postReviewValidations(req, res, next) {
-        const { reviewBody } = req.body,
-            errors = {};
-        if (reviewBody === undefined) {
-            return res.status(400).json({
+    static postReviewValidations(request, response, next) {
+        if (typeof request.body.reviewBody === 'undefined') {
+            return response.status(422).json({
                 status: 'Failed',
-                message: 'Review for recipe is not defined'
+                message: 'Review for recipe is not defined or is missing'
             });
         }
+
+        const reviewBody = request.body.reviewBody.trim(),
+            recipeId = parseInt(request.params.recipeID, 10),
+            errors = {};
+
         if (!validator.isEmpty(reviewBody)) {
             if (!validator.isLength(reviewBody, { min: 4, max: undefined })) {
-                errors.reviewBody = 'Review provided must be more than 4 characters';
+                errors.reviewBody = 'Review provided must be atleast 4 characters';
             }
         } else { errors.reviewBody = 'Review for recipe is required'; }
+
+        if (Number.isNaN(recipeId)) {
+            errors.recipeId = 'Recipe ID must be a number';
+        }
 
         const result = { isValid: isEmpty(errors) };
 
         if (!result.isValid) {
-            return res.status(400).json({ errors });
+            return response.status(400).json({ errors });
         }
-        next();
+        return next();
     }
 }
