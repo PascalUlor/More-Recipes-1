@@ -21,16 +21,16 @@ class UserNavBar extends Component {
                 </form>
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                        <Link className="nav-link" to="./index.html">Dashboard</Link>
+                        <Link className="nav-link" to="/dashboard">Dashboard</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="./recipes_list.html">My Recipes</Link>
+                        <Link className="nav-link" to="/user/recipes">My Recipes</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="./favourites.html">Favorites</Link>
+                        <Link className="nav-link" to="/user/favorites">Favorites</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="./recipes_list.html">All Recipes</Link>
+                        <Link className="nav-link" to="/recipes">All Recipes</Link>
                     </li>
                 </ul>
                 <div className="btn-group">
@@ -43,8 +43,8 @@ class UserNavBar extends Component {
                         <span className="beautify">{this.props.currentUsername}</span>
                     </button>
                     <div className="dropdown-menu">
-                        <Link className="dropdown-item" to="./profile.html">View Profile</Link>
-                        <Link className="dropdown-item" to="#">Settings</Link>
+                        <Link className="dropdown-item" to="/user/profile">View Profile</Link>
+                        <Link className="dropdown-item" to="">Settings</Link>
                         <div className="dropdown-divider"></div>
                         <Link className="dropdown-item" to="#" onClick={this.props.logOut}>Log Out</Link>
                     </div>

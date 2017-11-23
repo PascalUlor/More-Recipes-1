@@ -17,7 +17,7 @@ export default class PopularRecipes extends Component {
                     <Recipes/>
                     <div className="row">
                         <div className="col text-center">
-                            <p className="lead font-weight-bold mb-4">Want to view more awesome recipes? <Link to="/api/v1/users/signup">Sign Up Now</Link>
+                            <p className="lead font-weight-bold mb-4">Want to view more awesome recipes? <Link to="/signup">Sign Up Now</Link>
                             </p>
                         </div>
                     </div>

@@ -28,7 +28,7 @@ class MainContents extends Component {
                                         alt="Card image"/>
                                     <div className="card-img-overlay">
                                         <h5 className="card-title text">Create or View your special recipes</h5>
-                                        <Link to="./my_recipes.html" className="btn btn-success">Create/View recipes</Link>
+                                        <Link to="/user/recipes" className="btn btn-success">Create/View recipes</Link>
                                     </div>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@ class MainContents extends Component {
                                         alt="Card image"/>
                                     <div className="card-img-overlay">
                                         <h5 className="card-title text">View your favourite recipes</h5>
-                                        <Link to="./favourites.html" className="btn btn-info">Favourite Recipes</Link>
+                                        <Link to="/user/favorites" className="btn btn-info">Favourite Recipes</Link>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@ class MainContents extends Component {
                                         alt="Card image"/>
                                     <div className="card-img-overlay">
                                         <h5 className="card-title">Get a list of all available recipes</h5>
-                                        <Link to="./recipes_list.html" className="btn btn-warning">All Recipes</Link>
+                                        <Link to="/recipes" className="btn btn-warning">All Recipes</Link>
                                     </div>
                                 </div>
                             </div>

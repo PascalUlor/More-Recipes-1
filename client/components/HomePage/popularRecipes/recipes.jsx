@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import '../../../public/images/*.png';
 
 export default class Recipes extends Component {
     render() {
@@ -22,7 +21,7 @@ export default class Recipes extends Component {
                                         <small className="text-success pr-1">
                                             <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> 53</small>
                                         <Link
-                                            to="./recipe_details.html"
+                                            to="/user/recipes/recipe-details"
                                             role="button"
                                             className="btn btn-outline-info btn-sm">
                                             <small><i className="fa fa-eye"></i> View</small>
@@ -45,7 +44,7 @@ export default class Recipes extends Component {
                                     <div className="card-text text-center">
                                         <small className="text-success pr-1"><i className="fa fa-thumbs-o-up" aria-hidden="true"></i> 47</small>
                                         <Link
-                                            to="./recipe_details.html"
+                                            to="/user/recipes/recipe-details"
                                             role="button"
                                             className="btn btn-outline-info btn-sm">
                                             <small><i className="fa fa-eye"></i> View</small>
@@ -69,7 +68,7 @@ export default class Recipes extends Component {
                                         <small className="text-success pr-1"><i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                             42</small>
                                         <Link
-                                            to="./recipe_details.html"
+                                            to="/user/recipes/recipe-details"
                                             role="button"
                                             className="btn btn-outline-info btn-sm">
                                             <small><i className="fa fa-eye"></i> View</small>
@@ -94,7 +93,7 @@ export default class Recipes extends Component {
                                             <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                             35</small>
                                         <Link
-                                            to="./recipe_details.html"
+                                            to="/user/recipes/recipe-details"
                                             role="button"
                                             className="btn btn-outline-info btn-sm">
                                             <small>
@@ -123,7 +122,7 @@ export default class Recipes extends Component {
                                             <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                             33</small>
                                         <Link
-                                            to="./recipe_details.html"
+                                            to="/user/recipes/recipe-details"
                                             role="button"
                                             className="btn btn-outline-info btn-sm">
                                             <small>
@@ -152,7 +151,7 @@ export default class Recipes extends Component {
                                             <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                             26</small>
                                         <Link
-                                            to="./recipe_details.html"
+                                            to="/user/recipes/recipe-details"
                                             role="button"
                                             className="btn btn-outline-info btn-sm">
                                             <small>

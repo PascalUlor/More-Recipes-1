@@ -29,9 +29,9 @@ ReactDOM.render(
 	<Router history={browserHistory}>
 		<Switch>
 			<Route exact path="/" component={HomePage} />
-			<Route path="/api/v1/users/signup" component={SignupPage} />
-			<Route path="/api/v1/users/signin" component={SigninPage} />
-			<Route path="/api/v1/users/dashboard" component={Dashboard} />
+			<Route path="/signup" component={SignupPage} />
+			<Route path="/signin" component={SigninPage} />
+			<Route path="/dashboard" component={Dashboard} />
 		</Switch>
 	</Router>
 </Provider>,

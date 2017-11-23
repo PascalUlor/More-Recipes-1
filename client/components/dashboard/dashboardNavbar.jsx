@@ -72,13 +72,13 @@ class DashboardNavBar extends Component {
                                     <Link className="nav-link" to="/">Home</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="./my_recipes.html">My Recipes</Link>
+                                    <Link className="nav-link" to="/user/recipes">My Recipes</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="./favorites.html">Favorites</Link>
+                                    <Link className="nav-link" to="/user/favorites">Favorites</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="./recipes_list.html">All Recipes</Link>
+                                    <Link className="nav-link" to="/recipes">All Recipes</Link>
                                 </li>
                             </ul>
                             <div className="btn-group">
@@ -91,7 +91,7 @@ class DashboardNavBar extends Component {
                                     <span className="beautify">{ username }</span>
                                 </button>
                                 <div className="dropdown-menu">
-                                    <Link className="dropdown-item" to="./profile.html">View Profile</Link>
+                                    <Link className="dropdown-item" to="/user/profile">View Profile</Link>
                                     <Link className="dropdown-item" to="#">Settings</Link>
                                     <div className="dropdown-divider"></div>
                                     <Link
