@@ -12,16 +12,21 @@ import Dashboard from './components/dashboard.jsx';
 import indexReducer from './reducers/index';
 import { setAuthorizationToken } from './utils/setAuthorizationToken';
 import { setCurrentUser } from './actions/actionCreators/signinActions';
+import requireAuthentication from './utils/requireAuthentication.jsx';
 import '../template/public/scss/main.scss';
+
 
 const store = createStore(
 	indexReducer,
 	compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f)
 );
 
-if (localStorage.jwtToken) {
+if (jwt.decode(localStorage.jwtToken) !== null) {
 	setAuthorizationToken(localStorage.jwtToken);
-	store.dispatch(setCurrentUser(localStorage.jwtToken));
+	store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
+} else {
+	setAuthorizationToken('');
+	store.dispatch(setCurrentUser({}));
 }
 
 ReactDOM.render(
@@ -29,9 +34,9 @@ ReactDOM.render(
 	<Router history={browserHistory}>
 		<Switch>
 			<Route exact path="/" component={HomePage} />
-			<Route path="/signup" component={SignupPage} />
-			<Route path="/signin" component={SigninPage} />
-			<Route path="/dashboard" component={Dashboard} />
+			<Route exact path="/signup" component={SignupPage} />
+			<Route exact path="/signin" component={SigninPage} />
+			<Route exact path="/dashboard" component={requireAuthentication(Dashboard)} />
 		</Switch>
 	</Router>
 </Provider>,
