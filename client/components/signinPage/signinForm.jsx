@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import TextFieldGroup from '../../common/textFieldGroup.jsx';
@@ -12,11 +13,19 @@ class SignupForm extends Component {
             username: '',
             password: '',
             errors: {},
-            isLoading: false
+            isLoading: false,
+            showWarning: false
         };
         this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.isValid = this.isValid.bind(this);
+    }
+
+    componentWillMount() {
+        const { isAuthenticated, flashMessage } = this.props;
+        if (!isAuthenticated && typeof flashMessage.type !== 'undefined') {
+            this.setState({ showWarning: true });
+        }
     }
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
@@ -48,7 +57,8 @@ class SignupForm extends Component {
             username,
             password,
             errors,
-            isLoading
+            isLoading,
+            showWarning
         } = this.state;
 
         return (
@@ -57,7 +67,7 @@ class SignupForm extends Component {
                 <h2>Sign In</h2>
                 <p className="lead">Don&#39;t have a More-Recipes account? <Link to="/signup">Sign Up</Link>
                 </p>
-				{ !errors.form && <FlashMessagesList/> }
+				{ showWarning && <div className='alert alert-danger text-center p-0 m-0 mb-3'>{<FlashMessagesList/>}</div> }
                 {errors.form && <div className='alert alert-danger text-center'>{errors.form}</div>}
                 <form role="form" onSubmit={this.handleSubmit}>
                     <TextFieldGroup
@@ -76,11 +86,20 @@ class SignupForm extends Component {
 
 SignupForm.propTypes = {
     userSigninRequest: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired
+    addFlashMessage: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    flashMessage: PropTypes.object.isRequired
 };
 
 SignupForm.contextTypes = {
     router: PropTypes.object.isRequired
 };
 
-export default SignupForm;
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: state.authUser.isAuthenticated,
+        flashMessage: state.flashMessages
+    };
+}
+
+export default connect(mapStateToProps)(SignupForm);
