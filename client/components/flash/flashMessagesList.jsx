@@ -5,16 +5,16 @@ import FlashMessage from './flashMessage.jsx';
 
 class FlashMessagesList extends React.Component {
   render() {
-    const messages = this.props.messages.map(message =>
-        <FlashMessage key={message.id} message={message} />);
+    // const { messages } = this.props.messages,
+    const message = <FlashMessage message={this.props.messages} />;
     return (
-      <div className='text-center'>{messages}</div>
+      <div className='text-center'>{message}</div>
     );
   }
 }
 
 FlashMessagesList.propTypes = {
-  messages: PropTypes.array.isRequired
+  messages: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
