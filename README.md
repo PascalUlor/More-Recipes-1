@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/chykehyman/More-Recipes.svg?branch=develop)](https://travis-ci.org/chykehyman/More-Recipes)
 [![Coverage Status](https://coveralls.io/repos/github/chykehyman/More-Recipes/badge.svg?branch=develop)](https://coveralls.io/github/chykehyman/More-Recipes?branch=develop)
-[![Code Climate](https://codeclimate.com/github/chykehyman/More-Recipes/badges/gpa.svg)](https://codeclimate.com/github/chykehyman/More-Recipes)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b36cde19b8b50a231465/maintainability)](https://codeclimate.com/github/chykehyman/More-Recipes/maintainability)
 
 # More Recipes
 ### Share Your Special Recipe Ideas Instanly
