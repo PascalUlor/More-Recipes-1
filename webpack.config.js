@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     devtool: 'eval-source-map',
@@ -32,22 +31,11 @@ module.exports = {
         ]
     },
     plugins: [
-        // new HtmlWebpackPlugin({
-        //     template: 'client/index.html'
-        // }),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(), // enable HMR globally
         new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
     ],
-    // devServer: {
-    //     // contentBase: 'src',
-    //     // publicPath: '/src',
-    //     // inline: true,
-    //     // port: 8000,
-    //     historyApiFallback: true
-    //         // hot: true
-    // },
     node: {
         dns: 'empty',
         net: 'empty'
