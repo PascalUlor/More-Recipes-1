@@ -9,6 +9,7 @@ import HomePage from './components/homePage.jsx';
 import SignupPage from './components/signupPage.jsx';
 import SigninPage from './components/signinPage.jsx';
 import Dashboard from './components/dashboard.jsx';
+import UserRecipesPage from './components/userRecipesPage.jsx';
 import indexReducer from './reducers/index';
 import { setAuthorizationToken } from './utils/setAuthorizationToken';
 import { setCurrentUser } from './actions/actionCreators/signinActions';
@@ -37,6 +38,7 @@ ReactDOM.render(
 			<Route exact path="/signup" component={SignupPage} />
 			<Route exact path="/signin" component={SigninPage} />
 			<Route exact path="/dashboard" component={requireAuthentication(Dashboard)} />
+			<Route exact path="/user/recipes" component={requireAuthentication(UserRecipesPage)} />
 		</Switch>
 	</Router>
 </Provider>,
