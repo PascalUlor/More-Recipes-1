@@ -18,10 +18,10 @@ app.use(express.static(path.join(__dirname, '../template/public')));
 const compiler = webpack(webpackConfig);
 
 app.use(webpackMiddleware(compiler, {
-    hot: true,
-    publicpath: webpackConfig.output.publicPath,
-    stats: { colors: true },
-    noInfo: true
+  hot: true,
+  publicpath: webpackConfig.output.publicPath,
+  stats: { colors: true },
+  noInfo: true
 }));
 
 app.use(webpackHotMiddleware(compiler));
@@ -38,7 +38,7 @@ app.use(webpackHotMiddleware(compiler));
 app.use('/api/v1/', apiRoutes);
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/index.html'));
+  res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
 // app.use('*', (req, res) => {

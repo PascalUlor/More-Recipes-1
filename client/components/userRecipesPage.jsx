@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+/** ***************************** USER RECIPES COMPONENTS  *************************************** */
 import DashboardNavBar from './dashboard/dashboardNavbar.jsx';
 import PageHeader from './userRecipesPage/PageHeader.jsx';
 import MainContents from './userRecipesPage/mainContents/Index.jsx';
@@ -9,10 +13,13 @@ import CreateRecipeModal from './userRecipesPage/mainContents/CreateRecipeModal.
 import EditRecipeModal from './userRecipesPage/mainContents/EditRecipeModal.jsx';
 import DeleteRecipeModal from './deleteRecipeModal/Index.jsx';
 import Footer from './footer.jsx';
+/** ****************************** USER RECIPE ACTIONS  ****************************************** */
+import { doubleRecipeTitleCheck, createRecipeRequest } from '../actions/actionCreators/createRecipeActions';
 
 
 class UserRecipesPage extends Component {
     render() {
+        const { doubleRecipeTitleCheck, createRecipeRequest } = this.props;
         return (
             <div>
                 <div className="site-wrapper">
@@ -24,7 +31,7 @@ class UserRecipesPage extends Component {
                                 <CreateRecipeButton/>
                                 <MyRecipes/>
                                 <Pagination/>
-                                <CreateRecipeModal/>
+                                <CreateRecipeModal doubleRecipeTitleCheck={doubleRecipeTitleCheck} createRecipeRequest={createRecipeRequest}/>
                                 <EditRecipeModal/>
                                 <DeleteRecipeModal/>
                             </MainContents>
@@ -37,4 +44,9 @@ class UserRecipesPage extends Component {
     }
 }
 
-export default UserRecipesPage;
+CreateRecipeModal.propTypes = {
+    doubleRecipeTitleCheck: PropTypes.func.isRequired,
+    createRecipeRequest: PropTypes.func.isRequired
+};
+
+export default connect(null, { doubleRecipeTitleCheck, createRecipeRequest })(UserRecipesPage);
