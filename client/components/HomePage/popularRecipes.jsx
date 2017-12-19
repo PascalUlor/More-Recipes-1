@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Recipes from './popularRecipes/recipes.jsx';
+import Recipes from './popularRecipes/PopularRecipesList.jsx';
 
-export default class PopularRecipes extends Component {
+class PopularRecipes extends Component {
     render() {
         return (
             // <!--Section For Page Body Start-->
@@ -27,3 +27,5 @@ export default class PopularRecipes extends Component {
     );
   }
 }
+
+export default PopularRecipes;
