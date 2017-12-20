@@ -21,6 +21,12 @@ router.route('/users/signin')
   .post(UserValidation.signin, UserController.signin);
 
 /**
+ * User profileroutes
+ */
+router.route('/user/profile')
+  .get(tokenAuth, UserController.getUser);
+
+/**
  * Recipe routes
  */
 // POST route to check if recipe already exist before image file upload occurs
