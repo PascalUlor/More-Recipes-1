@@ -1,4 +1,4 @@
-/** Users database model with foreign associations
+/** @description Users database model with foreign associations
  * @param  {obj} sequelize
  * @param  {obj} DataTypes
  * @returns {obj} Users model
@@ -57,7 +57,6 @@ export default (sequelize, DataTypes) => {
     profileImage: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: 'http://res.cloudinary.com/chykebaba/image/upload/v1513779430/no-photo-available-icon_ghkwvb.jpg'
     },
     location: {
       type: DataTypes.STRING,

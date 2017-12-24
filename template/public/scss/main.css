@@ -69,6 +69,11 @@ hr#favorites {
   margin: 0 auto;
 }
 
+img#profileImage:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
 li.active {
   background-color: whitesmoke;
 }
@@ -117,7 +122,8 @@ section#home img {
   .display-3 {
     font-size: 3rem;
   }
+  h2 {
+    font-size: 1.7rem;
+  }
 }
- 
-
- /*# sourceMappingURL= main.css.map */
+/*# sourceMappingURL=main.css.map */

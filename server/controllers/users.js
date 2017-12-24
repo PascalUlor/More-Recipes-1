@@ -12,7 +12,7 @@ env.config();
  */
 export default class UsersApiController {
   /**
-   * Users details are captured and persisted on the database
+   * @description Users details are captured and persisted on the database
    * @memberof UsersApiController
    * @static
    *
@@ -86,7 +86,7 @@ export default class UsersApiController {
   }
 
   /**
-   * User details are captured and authenticated against persisted database data
+   * @description User details are captured and authenticated against persisted database data
    * @memberof UsersApiController
    * @static
    *
@@ -140,7 +140,7 @@ export default class UsersApiController {
   }
 
   /**
-   * User details are captured and authenticated against persisted database data
+   * @description Get user details from persisted database data
    * @memberof UsersApiController
    * @static
    *
@@ -170,6 +170,59 @@ export default class UsersApiController {
         status: 'Failed',
         message: 'User not found'
       });
+    });
+  }
+
+  /**
+   * @description Update user details and persist updated data to database
+   * @memberof UsersApiController
+   * @static
+   *
+   * @param   {object} request   the server/http(s) request object
+   * @param   {object} response  the server/http(s) response object
+   *
+   * @returns {object} Failure message or Success message with persisted database data
+   */
+  static updateUser(request, response) {
+    const {
+      fullName,
+      username,
+      email,
+      location,
+      aboutMe,
+      profileImage
+    } = request.body, { userId } = request.decoded;
+
+    Users.findOne({ where: { id: userId } }).then((foundUser) => {
+      if (!foundUser) {
+        return response.status(404).json({
+          status: 'Failed',
+          message: 'User not found'
+        });
+      }
+      return foundUser.updateAttributes({
+        fullName: (fullName) || foundUser.fullName,
+        username: (username) || foundUser.username,
+        email: (email) || foundUser.email,
+        location: (location) || foundUser.location,
+        aboutMe: (aboutMe) || foundUser.aboutMe,
+        profileImage: (profileImage) || foundUser.profileImage
+      }).then(() => {
+        Users.findOne({
+          where: { id: userId },
+          attributes: [
+            'id', 'fullName', 'username', 'email',
+            'profileImage', 'location', 'aboutMe'
+          ]
+        }).then(updatedUser => response.status(200).json({
+          status: 'Success',
+          message: 'User profile updated successfully',
+          updatedUser
+        }));
+      }).catch(() => response.status(500).json({
+        status: 'Failed',
+        message: 'Server error. Unable to update profile'
+      }));
     });
   }
 }

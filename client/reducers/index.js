@@ -3,10 +3,12 @@ import flashMessages from './flashmessages';
 import authUser from './authUser';
 import createRecipe from './createRecipe';
 import popularRecipes from './popularRecipes';
+import userProfile from './profile';
 
 export default combineReducers({
   flashMessages,
   authUser,
   createRecipe,
-  popularRecipes
+  popularRecipes,
+  userProfile
 });
