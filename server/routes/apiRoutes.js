@@ -13,7 +13,7 @@ const router = express.Router();
 
 
 /**
- * User signup and sign in routes
+ * @description User signup and sign in routes
  */
 router.route('/users/signup')
   .post(UserValidation.signup, UserController.signup);
@@ -21,13 +21,14 @@ router.route('/users/signin')
   .post(UserValidation.signin, UserController.signin);
 
 /**
- * User profileroutes
+ *@description  User profile routes
  */
 router.route('/user/profile')
-  .get(tokenAuth, UserController.getUser);
+  .get(tokenAuth, UserController.getUser)
+  .put(tokenAuth, UserValidation.updateUserValidations, UserController.updateUser);
 
 /**
- * Recipe routes
+ * @description Recipe routes
  */
 // POST route to check if recipe already exist before image file upload occurs
 router.route('/recipes/checkTitle')
@@ -42,14 +43,14 @@ router.route('/recipes/:recipeID')
   .delete(tokenAuth, RecipesController.deleteRecipe);
 
 /**
- * Recipe review routes
+ * @description Recipe review routes
  */
 // POST route to create/add a review for a recipe
 router.route('/recipes/:recipeID/reviews')
   .post(tokenAuth, ReviewsValidation.postReviewValidations, ReviewsController.postReview);
 
 /**
- * Recipe favorite routes
+ * @description Recipe favorite routes
  */
 // POST route to create/add user's favorite recipes
 router.route('/users/:recipeID/recipes')
