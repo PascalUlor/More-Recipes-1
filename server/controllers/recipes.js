@@ -233,4 +233,34 @@ export default class RecipesApiController {
       message: error.message
     }));
   }
+
+  static getUserRecipes(request, response) {
+    const { userId } = request.decoded;
+    Users.findById(userId).then((foundUser) => {
+      if (!foundUser) {
+        return response.status(404).json({
+          status: 'Failed',
+          message: 'User not found'
+        });
+      }
+      return Recipes.findAll({
+        where: { userId },
+        order: [
+          ['createdAt', 'DESC']
+        ]
+      }).then((recipes) => {
+        if (recipes.length === 0) {
+          return response.status(404).json({
+            status: 'Failed',
+            message: 'There are no available recipes in your catalog'
+          });
+        }
+        return response.status(200).json({
+          status: 'Success',
+          message: 'Successfully retrieved your recipe(s)',
+          recipes
+        });
+      });
+    });
+  }
 }

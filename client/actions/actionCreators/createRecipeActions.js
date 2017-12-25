@@ -7,6 +7,7 @@ import {
   CREATE_RECIPE_FAILURE
 }
 from '../actionTypes/actionTypes';
+import { fetchRecipesRequest } from './getUserRecipesActions';
 
 
 const isRecipeTitleDouble = bool => ({
@@ -78,6 +79,7 @@ export const createRecipe = (recipe, cloudImageUrl, callback) => (
         dispatch(createRecipeSuccess(response.data));
         dispatch(isRecipeCreating(false));
         callback();
+        dispatch(fetchRecipesRequest());
       }
     }).catch(() => {
       dispatch(createRecipeFailure('Unable to upload your recipe. Try again later'));

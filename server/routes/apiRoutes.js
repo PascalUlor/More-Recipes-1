@@ -37,6 +37,9 @@ router.route('/recipes/checkTitle')
 router.route('/recipes')
   .post(tokenAuth, RecipesValidation.addRecipeValidations, RecipesController.addRecipe)
   .get(RecipesValidation.getSortdedRecipesValidation, RecipesController.getRecipes);
+// GET route to get all recipes for a particular user
+router.route('/user/recipes')
+  .get(tokenAuth, RecipesController.getUserRecipes);
 // PUT and DELETE routes to modify/update and delete a recipe
 router.route('/recipes/:recipeID')
   .put(tokenAuth, RecipesValidation.updateRecipeValidations, RecipesController.updateRecipe)

@@ -14,7 +14,6 @@ class PopularRecipesList extends React.Component {
     componentDidMount() {
         let popularRecipes = '';
         this.props.fetchRecipeRequest(() => {
-            console.log(this.props.fetchedPopularRecipes.length, this.props.isRecipeFetching);
             if (this.props.fetchedPopularRecipes.length === 0) {
                 popularRecipes = <div className='display-4 text-center text-danger'>There are no available recipes to display</div>;
             } else {
@@ -26,8 +25,9 @@ class PopularRecipesList extends React.Component {
     }
 
   render() {
+      const { display } = this.state;
     return (
-      <div className='row'>{this.state.display}</div>
+      <div className='row'>{display}</div>
     );
   }
 }
@@ -38,11 +38,9 @@ PopularRecipesList.propTypes = {
     fetchRecipeRequest: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
-  return {
+const mapStateToProps = state => ({
     isRecipeFetching: state.popularRecipes.isPopularRecipesFetching,
     fetchedPopularRecipes: state.popularRecipes.fetchedPopularRecipes
-  };
-}
+});
 
 export default connect(mapStateToProps, { fetchRecipeRequest })(PopularRecipesList);
