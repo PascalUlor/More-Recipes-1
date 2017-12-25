@@ -36,7 +36,8 @@ class MyRecipes extends Component {
 MyRecipes.propTypes = {
     isRecipeFetching: PropTypes.bool.isRequired,
     fetchedUserRecipes: PropTypes.array.isRequired,
-    fetchRecipesRequest: PropTypes.func.isRequired
+    fetchRecipesRequest: PropTypes.func.isRequired,
+    setRecipeIdRequest: PropTypes.func
 };
 
 const mapStateToProps = state => ({
