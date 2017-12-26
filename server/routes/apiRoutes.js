@@ -40,10 +40,11 @@ router.route('/recipes')
 // GET route to get all recipes for a particular user
 router.route('/user/recipes')
   .get(tokenAuth, RecipesController.getUserRecipes);
-// PUT and DELETE routes to modify/update and delete a recipe
+// PUT, DELETE and GET routes to modify/update, delete and get a particular recipe
 router.route('/recipes/:recipeID')
   .put(tokenAuth, RecipesValidation.updateRecipeValidations, RecipesController.updateRecipe)
-  .delete(tokenAuth, RecipesController.deleteRecipe);
+  .delete(tokenAuth, RecipesController.deleteRecipe)
+  .get(RecipesController.getSingleRecipe);
 
 /**
  * @description Recipe review routes

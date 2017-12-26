@@ -16,11 +16,12 @@ import Footer from './footer.jsx';
 /** ****************************** USER RECIPE ACTIONS  ****************************************** */
 import { doubleRecipeTitleCheck, createRecipeRequest } from '../actions/actionCreators/createRecipeActions';
 import deleteRecipeRequest from '../actions/actionCreators/deleteRecipeActions';
+import updateRecipeRequest from '../actions/actionCreators/editRecipeActions';
 
 
 class UserRecipesPage extends Component {
     render() {
-        const { doubleRecipeTitleCheck, createRecipeRequest, deleteRecipeRequest } = this.props;
+        const { doubleRecipeTitleCheck, createRecipeRequest, deleteRecipeRequest, updateRecipeRequest } = this.props;
         return (
             <div>
                 <div className="site-wrapper">
@@ -33,7 +34,7 @@ class UserRecipesPage extends Component {
                                 <MyRecipes/>
                                 <Pagination/>
                                 <CreateRecipeModal doubleRecipeTitleCheck={doubleRecipeTitleCheck} createRecipeRequest={createRecipeRequest}/>
-                                <EditRecipeModal/>
+                                <EditRecipeModal doubleRecipeTitleCheck={doubleRecipeTitleCheck} updateRecipeRequest={updateRecipeRequest}/>
                                 <DeleteRecipeModal deleteRecipeRequest={deleteRecipeRequest}/>
                             </MainContents>
                         </div>
@@ -51,4 +52,4 @@ UserRecipesPage.propTypes = {
     deleteRecipeRequest: PropTypes.func.isRequired
 };
 
-export default connect(null, { doubleRecipeTitleCheck, createRecipeRequest, deleteRecipeRequest })(UserRecipesPage);
+export default connect(null, { doubleRecipeTitleCheck, createRecipeRequest, deleteRecipeRequest, updateRecipeRequest })(UserRecipesPage);

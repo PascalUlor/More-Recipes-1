@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import setRecipeIdRequest from '../../../../actions/actionCreators/setRecipeIdActions';
+import setCurrentRecipeRequest from '../../../../actions/actionCreators/setCurrentRecipeActions';
 
 class MyRecipe extends Component {
-    handleSetRecipeId() {
-        this.props.setRecipeIdRequest(this.props.myRecipe.id);
+    handleSetCurrentRecipe() {
+        this.props.setCurrentRecipeRequest(this.props.myRecipe.id);
     }
     render() {
         return (
@@ -26,10 +26,10 @@ class MyRecipe extends Component {
                             <small className="text-success pr-1">
                                 <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> {this.props.myRecipe.upvotes}
                             </small>
-                            <button className="btn btn-outline-danger btn-sm mr-1" onClick={this.handleSetRecipeId.bind(this)} data-toggle="modal" data-target="#deleteRecipeModal">
+                            <button className="btn btn-outline-danger btn-sm mr-1" onClick={this.handleSetCurrentRecipe.bind(this)} data-toggle="modal" data-target="#deleteRecipeModal">
                                 <small><i className="fa fa-trash"></i> Delete</small>
                             </button>
-                            <button className="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editRecipeModal">
+                            <button className="btn btn-outline-success btn-sm" onClick={this.handleSetCurrentRecipe.bind(this)} data-toggle="modal" data-target="#editRecipeModal">
                                 <small><i className="fa fa-edit"></i> Edit</small>
                             </button>
                             <small className="text-danger pl-1">
@@ -45,7 +45,7 @@ class MyRecipe extends Component {
 
 MyRecipe.propTypes = {
     myRecipe: PropTypes.object.isRequired,
-    setRecipeIdRequest: PropTypes.func
+    setCurrentRecipeRequest: PropTypes.func
 };
 
-export default connect(null, { setRecipeIdRequest })(MyRecipe);
+export default connect(null, { setCurrentRecipeRequest })(MyRecipe);

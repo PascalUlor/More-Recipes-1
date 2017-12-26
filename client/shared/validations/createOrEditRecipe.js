@@ -1,7 +1,7 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-const addRecipe = (data) => {
+const addOrUpdateRecipe = (data) => {
   const title = data.title.trim(),
     ingredients = data.ingredients.trim(),
     procedures = data.procedures.trim(),
@@ -29,4 +29,4 @@ const addRecipe = (data) => {
   return { errors, isValid: isEmpty(errors) };
 };
 
-export default addRecipe;
+export default addOrUpdateRecipe;

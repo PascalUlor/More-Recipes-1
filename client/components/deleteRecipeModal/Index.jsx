@@ -8,14 +8,13 @@ class Index extends Component {
 handleClick() {
     this.props.deleteRecipeRequest(this.props.recipeId, () => {
         if (this.props.deleteRecipeSuccess !== '') {
-            $('button[id=close]').click();
             toastr.clear();
             toastr.success(this.props.deleteRecipeSuccess);
         } else if (this.props.deleteRecipeError !== '') {
-            $('button[id=close]').click();
             toastr.clear();
             toastr.error(this.props.deleteRecipeError);
         }
+        $('button[id=close]').click();
     });
 }
     render() {
@@ -54,7 +53,7 @@ Index.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    recipeId: state.setRecipeId.currentSetRecipeId,
+    recipeId: state.setCurrentRecipe.currentSetRecipeId,
     deleteRecipeSuccess: state.deleteUserRecipe.deleteRecipeSuccess,
     deleteRecipeError: state.deleteUserRecipe.deleteRecipeError
 });

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from 'react-md-spinner';
-import validateInputs from '../../../shared/validations/createRecipe';
+import validateInputs from '../../../shared/validations/createOrEditRecipe';
 import imageFileChecker from '../../../shared/validations/imageFileChecker';
 
 
@@ -21,6 +21,7 @@ class CreateRecipeModal extends Component {
         this.onImageChange = this.onImageChange.bind(this);
         this.isValid = this.isValid.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
     onChange(event) {
         this.setState({
@@ -47,6 +48,11 @@ class CreateRecipeModal extends Component {
             this.setState({ imageSrc: '/images/noimageyet.jpg', imageFile: '' });
         }
     }
+    handleClick() {
+        this.setState({
+            title: '', ingredients: '', procedures: '', imageFile: {}, imageSrc: '/images/noimageyet.jpg', errors: {}
+        });
+    }
     isValid() {
         const { errors, isValid } = validateInputs(this.state);
         if (!isValid) {
@@ -66,12 +72,13 @@ class CreateRecipeModal extends Component {
 				} else {
 					this.props.createRecipeRequest(this.state, () => {
 						if (this.props.createRecipeError === '') {
-							toastr.clear();
+                            toastr.clear();
 							toastr.success(this.props.createdRecipe.message);
 						} else {
-							toastr.clear();
+                            toastr.clear();
 							toastr.error(this.props.createRecipeError);
-						}
+                        }
+                        $('button[id=close]').click();
 					});
 				}
 			});
@@ -96,7 +103,7 @@ class CreateRecipeModal extends Component {
                                 <img src="/images/logo.png" width="45" height="32" className="d-inline-block align-center" alt=" More Recipe Logo"/>
                                 <span id="site-name">More Recipes</span>
                             </span>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" onClick={this.handleClick} id="close" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><i className="fa fa-times-circle" aria-hidden="true"></i></span>
                             </button>
                         </div>
@@ -135,7 +142,7 @@ class CreateRecipeModal extends Component {
                                 {errors.image ? <span className="text-danger small">{errors.image}</span> : <small id="fileHelp" className="form-text text-warning text-left"><i>Maximum allowable image size is 3mb</i></small>}
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" onClick={this.handleClick} className="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" className="btn btn-info" disabled={isRecipeCreating}>
 								{ !isRecipeCreating ? 'Save Recipe' : <span>Saving... <Spinner size={20} /></span> }
 								</button>

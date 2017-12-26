@@ -6,7 +6,8 @@ import popularRecipes from './popularRecipes';
 import userProfile from './profile';
 import userRecipes from './fetchUserRecipes';
 import deleteUserRecipe from './deleteUserRecipe';
-import setRecipeId from './setRecipeId';
+import setCurrentRecipe from './setCurrentRecipe';
+import editUserRecipe from './editUserRecipe';
 
 export default combineReducers({
   flashMessages,
@@ -16,5 +17,6 @@ export default combineReducers({
   userProfile,
   userRecipes,
   deleteUserRecipe,
-  setRecipeId
+  setCurrentRecipe,
+  editUserRecipe
 });

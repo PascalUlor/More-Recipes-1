@@ -263,4 +263,39 @@ export default class RecipesApiController {
       });
     });
   }
+
+  /**
+   * @description Retrieves a particular recipe from the database
+   * @memberof RecipesApiController
+   * @static
+   *
+   * @param   {object} request   the server/http(s) request object
+   * @param   {object} response  the server/http(s) response object
+   *
+   * @returns {object} recipe retrival error message object or success message object with recipe data
+   */
+  static getSingleRecipe(request, response) {
+    const recipeId = parseInt(request.params.recipeID.trim(), 10);
+
+    if (Number.isNaN(recipeId)) {
+      return response.status(406).json({
+        status: 'Failed',
+        message: 'Recipe ID must be a number'
+      });
+    }
+    return Recipes.findById(recipeId, { include: [{ model: Users, attributes: ['fullName'] }] })
+      .then((recipe) => {
+        if (recipe) {
+          return response.status(200).json({
+            status: 'Success',
+            message: `Successfully retrieved recipe of ID ${recipeId}`,
+            recipe
+          });
+        }
+        return response.status(404).json({
+          status: 'Failed',
+          message: `Recipe with ID: ${recipeId}, not found`
+        });
+      });
+  }
 }
