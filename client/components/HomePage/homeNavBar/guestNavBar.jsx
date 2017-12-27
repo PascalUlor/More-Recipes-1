@@ -12,6 +12,9 @@ class GuestNavBar extends Component {
                         </Link>
                     </li>
                     <li className="nav-item">
+                        <Link className="nav-link" to="/recipes">All Recipes</Link>
+                    </li>
+                    <li className="nav-item">
                         <Link className="nav-link" to="/signin">Login</Link>
                     </li>
                     <li className="nav-item">
