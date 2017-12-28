@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PopularRecipe from './PopularRecipe.jsx';
-import { fetchRecipeRequest } from '../../../actions/actionCreators/popularRecipesActions';
+import { fetchPopularRecipesRequest } from '../../../actions/actionCreators/popularRecipesActions';
 
 class PopularRecipesList extends React.Component {
     constructor(props) {
@@ -13,7 +13,7 @@ class PopularRecipesList extends React.Component {
     }
     componentDidMount() {
         let popularRecipes = '';
-        this.props.fetchRecipeRequest(() => {
+        this.props.fetchPopularRecipesRequest(() => {
             if (this.props.fetchedPopularRecipes.length === 0) {
                 popularRecipes = <div className='display-4 text-center text-danger'>There are no available recipes to display</div>;
             } else {
@@ -35,7 +35,7 @@ class PopularRecipesList extends React.Component {
 PopularRecipesList.propTypes = {
     isRecipeFetching: PropTypes.bool.isRequired,
     fetchedPopularRecipes: PropTypes.array.isRequired,
-    fetchRecipeRequest: PropTypes.func.isRequired
+    fetchPopularRecipesRequest: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -43,4 +43,4 @@ const mapStateToProps = state => ({
     fetchedPopularRecipes: state.popularRecipes.fetchedPopularRecipes
 });
 
-export default connect(mapStateToProps, { fetchRecipeRequest })(PopularRecipesList);
+export default connect(mapStateToProps, { fetchPopularRecipesRequest })(PopularRecipesList);

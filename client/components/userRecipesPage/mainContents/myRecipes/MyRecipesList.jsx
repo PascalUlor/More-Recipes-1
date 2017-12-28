@@ -19,10 +19,7 @@ class MyRecipesList extends Component {
 }
 
 MyRecipesList.propTypes = {
-    myRecipes: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array
-  ]).isRequired
+    myRecipes: PropTypes.array.isRequired
 };
 
 export default MyRecipesList;

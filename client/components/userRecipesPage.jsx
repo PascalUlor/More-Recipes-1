@@ -32,7 +32,9 @@ class UserRecipesPage extends Component {
                             <MainContents>
                                 <CreateRecipeButton/>
                                 <MyRecipes/>
-                                <Pagination/>
+                                <div className="col-10 offset-1 offet-sm-1 offset-md-1 offset-lg-1">
+                                    <Pagination/>
+                                </div>
                                 <CreateRecipeModal doubleRecipeTitleCheck={doubleRecipeTitleCheck} createRecipeRequest={createRecipeRequest}/>
                                 <EditRecipeModal doubleRecipeTitleCheck={doubleRecipeTitleCheck} updateRecipeRequest={updateRecipeRequest}/>
                                 <DeleteRecipeModal deleteRecipeRequest={deleteRecipeRequest}/>
@@ -40,7 +42,7 @@ class UserRecipesPage extends Component {
                         </div>
                     </main>
                 </div>
-                <Footer id='footer'/>
+                <Footer id='homeFooter'/>
             </div>
         );
     }

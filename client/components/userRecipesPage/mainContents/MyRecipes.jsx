@@ -9,16 +9,18 @@ class MyRecipes extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            myRecipes: ''
+            myRecipes: []
         };
     }
     componentDidMount() {
         this.props.fetchRecipesRequest(() => {
-            this.setState({ myRecipes: this.props.fetchedUserRecipes });
+            if (this.props.fetchedUserRecipes.length !== 0) {
+                this.setState({ myRecipes: this.props.fetchedUserRecipes });
+            }
         });
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.fetchedUserRecipes.length !== this.state.myRecipes) {
+        if (nextProps.fetchedUserRecipes.length !== this.state.myRecipes.length) {
             this.setState({ myRecipes: nextProps.fetchedUserRecipes });
         }
     }

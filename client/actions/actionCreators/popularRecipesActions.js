@@ -6,7 +6,7 @@ import {
 }
 from '../actionTypes/actionTypes';
 
-const isPopularRecipeFetching = bool => ({
+const isPopularRecipesFetching = bool => ({
   type: IS_POPULAR_RECIPES_FETCHING,
   bool
 });
@@ -21,23 +21,20 @@ const fetchPopularRecipesFailure = error => ({
   error
 });
 
-export const fetchRecipeRequest = callback => (
+export const fetchPopularRecipesRequest = callback => (
   (dispatch) => {
-    dispatch(isPopularRecipeFetching(true));
+    dispatch(isPopularRecipesFetching(true));
     axios({
         method: 'GET',
-        headers: {
-          'x-access-token': window.localStorage.jwtToken
-        },
         url: '/api/v1/recipes?sort=upvotes&order=desc'
       })
       .then((response) => {
         dispatch(fetchPopularRecipesSuccess(response.data.recipes));
-        dispatch(isPopularRecipeFetching(false));
+        dispatch(isPopularRecipesFetching(false));
         callback();
       }).catch((errors) => {
         dispatch(fetchPopularRecipesFailure(errors));
-        dispatch(isPopularRecipeFetching(false));
+        dispatch(isPopularRecipesFetching(false));
         callback();
       });
   }

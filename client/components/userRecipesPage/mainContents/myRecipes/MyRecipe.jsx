@@ -10,11 +10,11 @@ class MyRecipe extends Component {
     }
     render() {
         return (
-            <div className="col-12 col-sm-12 col-md-12 col-lg-4 pt-2">
+            <div className="col-12 col-sm-6 col-md-6 col-lg-4 pt-2">
                 <div className="card">
                     <Link to={`recipes/${this.props.myRecipe.id}/recipe-details`}>
                         <img
-                            className="card-img-top img-fluid" style={{ width: '100%', height: '200px' }}
+                            className="card-img-top img-fluid" style={{ width: '100%', height: '10em' }}
                             src={this.props.myRecipe.recipeImage}
                             alt="Card image cap"/>
                     </Link>

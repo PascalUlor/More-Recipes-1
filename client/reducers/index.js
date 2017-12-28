@@ -8,12 +8,14 @@ import userRecipes from './fetchUserRecipes';
 import deleteUserRecipe from './deleteUserRecipe';
 import setCurrentRecipe from './setCurrentRecipe';
 import editUserRecipe from './editUserRecipe';
+import allRecipes from './allRecipes';
 
 export default combineReducers({
   flashMessages,
   authUser,
   createRecipe,
   popularRecipes,
+  allRecipes,
   userProfile,
   userRecipes,
   deleteUserRecipe,
