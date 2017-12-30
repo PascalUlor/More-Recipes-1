@@ -7,7 +7,7 @@ class PopularRecipe extends Component {
         return (
             <div className="col-sm-6 col-md-6 col-lg-4">
                 <div className="card mb-4">
-                    <Link to={`/user/recipes/${this.props.popularRecipe.id}/recipe-details`}>
+                    <Link to={`recipes/${this.props.popularRecipe.id}/recipe-details`}>
                         <img
                             className="card-img-top img-fluid" style={{ width: '100%', height: '200px' }}
                             src={this.props.popularRecipe.recipeImage}
@@ -23,7 +23,7 @@ class PopularRecipe extends Component {
                                   {this.props.popularRecipe.upvotes}
                             </small>
                             <Link
-                                to="/user/recipes/recipe-details"
+                                to={`/recipes/${this.props.popularRecipe.id}/recipe-details`}
                                 role="button"
                                 className="btn btn-outline-info btn-sm">
                                 <small><i className="fa fa-eye"></i>
