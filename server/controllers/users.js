@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import env from 'dotenv';
 import models from '../models';
 
-const { Users } = models;
+const { Users, Reviews } = models;
 
 env.config();
 
@@ -214,11 +214,23 @@ export default class UsersApiController {
             'id', 'fullName', 'username', 'email',
             'profileImage', 'location', 'aboutMe'
           ]
-        }).then(updatedUser => response.status(200).json({
-          status: 'Success',
-          message: 'User profile updated successfully',
-          updatedUser
-        }));
+        }).then((updatedUser) => {
+          Reviews.update({
+              username: updatedUser.username,
+              profileImage: updatedUser.profileImage
+            }, {
+              where: {
+                userId
+              }
+            })
+            .then(() => {
+              response.status(200).json({
+                status: 'Success',
+                message: 'User profile updated successfully',
+                updatedUser
+              });
+            });
+        });
       }).catch(() => response.status(500).json({
         status: 'Failed',
         message: 'Server error. Unable to update profile'

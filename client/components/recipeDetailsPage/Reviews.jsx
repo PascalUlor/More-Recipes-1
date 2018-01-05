@@ -1,34 +1,31 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import ReviewsList from './ReviewsList.jsx';
+
 
 class Reviews extends Component {
   render() {
+    const { reviews } = this.props;
     return (
       <section className="mb-5">
         <h5 className="text-muted mt-4 mb-3 pt-3">Reviews</h5>
-        <div className="card">
-          <div className="card-header pl-3 pt-0 m-0">
-            <div className="reviews">
-              <img src="/images/nophoto.jpg" id="profile_image" className="img-fluid figure-img rounded" alt="profile image"/>
-              <div className="d-inline-block mt-5 pl-2">
-                <small className="d-block font-weight-bold">cool_chyke</small>
-                <small className="font-italic text-muted">Posted - 2 hours ago</small>
-              </div>
-              <small className="d-block">I really loved your recipe. Great job.</small>
+        {
+          reviews.length === 0 ? <div className="mt-4 text-muted">There are no reviews yet, for this recipe</div> :
+          (
+           <div className="card">
+            <div className="card-header pl-3 pt-0 m-0">
+              <ReviewsList reviews={reviews}/>
             </div>
-            <hr className="mb-0 pb-0" />
-            <div className="reviews">
-              <img src="/images/nophoto.jpg" id="profile_image" className="img-fluid figure-img rounded" alt="profile image"/>
-              <div className="d-inline-block mt-5 pl-2">
-                <small className="d-block font-weight-bold">cool_chyke</small>
-                <small className="font-italic text-muted">Posted - 2 hours ago</small>
-              </div>
-              <small className="d-block">I really loved your recipe. Great jobI really loved your recipe. GreI really loved your recipe. Great jobI really loved your recipe. Great jobat jobI really loved your recipe. Great jobI really loved your recipe. Great job.</small>
-            </div>
-          </div>
-        </div>
+           </div>
+          )
+        }
       </section>
     );
   }
 }
+
+Reviews.propTypes = {
+  reviews: PropTypes.array.isRequired
+};
 
 export default Reviews;

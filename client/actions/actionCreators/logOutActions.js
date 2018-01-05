@@ -1,12 +1,6 @@
-import { setAuthorizationToken } from '../../utils/setAuthorizationToken';
-import { setCurrentUser } from './signinActions';
-import { addFlashMessage } from './flashmessages';
+const logOutRequest = () => {
+  localStorage.removeItem('jwtToken');
+  window.location.reload();
+};
 
-export function logOutRequest() {
-    return (dispatch) => {
-        localStorage.removeItem('jwtToken');
-        setAuthorizationToken(false);
-        dispatch(setCurrentUser({}));
-        dispatch(addFlashMessage({}));
-    };
-}
+export default logOutRequest;

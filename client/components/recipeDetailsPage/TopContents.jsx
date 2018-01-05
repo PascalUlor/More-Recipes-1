@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class TopContents extends Component {
   render() {
-    const { title, recipeImage, upvotes, downvotes } = this.props.details;
+    const { title, recipeImage, upvotes, downvotes, createdBy } = this.props.details;
     return (
       <div className="row mb-4">
         <div className="col-md-8 col-lg-8 mb-3">
@@ -42,6 +42,7 @@ class TopContents extends Component {
             <p className="lead mb-0 font-weight-bold text-success">Time To Prepare</p>
             <span className="maroon"><i className="fa fa-clock-o pl-1"></i><small className="text-muted font-italic" id="time"> 20 mins</small></span>
           </div>
+          <div className="pt-3 small"><span className="text-success">By: </span><span className="text-muted">{createdBy}</span></div>
         </div>
       </div>
     );

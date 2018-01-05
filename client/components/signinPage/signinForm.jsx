@@ -25,6 +25,8 @@ class SignupForm extends Component {
         const { isAuthenticated, flashMessage } = this.props;
         if (!isAuthenticated && typeof flashMessage.type !== 'undefined') {
             this.setState({ showWarning: true });
+        } else if (isAuthenticated && typeof flashMessage.type !== 'undefined') {
+            this.setState({ showWarning: true });
         }
     }
     onChange(e) {
@@ -50,6 +52,8 @@ class SignupForm extends Component {
                 this.context.router.history.push('/dashboard');
             })
             .catch(error => this.setState({ errors: error.response.data.errors, isLoading: false }));
+        } else {
+            this.setState
         }
     }
     render() {
@@ -67,7 +71,7 @@ class SignupForm extends Component {
                 <h2>Sign In</h2>
                 <p className="lead">Don&#39;t have a More-Recipes account? <Link to="/signup">Sign Up</Link>
                 </p>
-				{ showWarning && <div className='alert alert-danger text-center p-0 m-0 mb-3'>{<FlashMessagesList/>}</div> }
+        { showWarning && <div className='alert alert-danger text-center p-0 m-0 mb-3'>{<FlashMessagesList/>}</div> }
                 {errors.form && <div className='alert alert-danger text-center'>{errors.form}</div>}
                 <form role="form" onSubmit={this.handleSubmit}>
                     <TextFieldGroup
