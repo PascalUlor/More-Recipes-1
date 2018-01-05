@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addFlashMessage } from '../actions/actionCreators/flashmessages';
+import verifyToken from './verifyToken';
 
 export default (ProtectedComponent) => {
 	class Authenticate extends Component {
 		componentWillMount() {
-			if (!this.props.isAuthenticated) {
+			if (!verifyToken()) {
 				this.props.addFlashMessage({
 					type: 'failed',
-					text: 'You are logged out. Login to continue'
+					text: 'Sorry!!!. Please login to continue'
 				});
 				this.context.router.history.push('/signin');
 			}

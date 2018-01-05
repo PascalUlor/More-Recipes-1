@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import GuestNavBar from './homeNavBar/guestNavBar.jsx';
 import UserNavBar from './homeNavBar/userNavBar.jsx';
-import { logOutRequest } from '../../actions/actionCreators/logOutActions';
+import logOutRequest from '../../actions/actionCreators/logOutActions';
 
 class HomeNavBar extends Component {
   constructor(props) {
@@ -16,7 +16,8 @@ class HomeNavBar extends Component {
   }
   handleLogOut(e) {
     e.preventDefault();
-    this.props.logOutRequest();
+    logOutRequest();
+    this.context.router.history.push('/');
   }
   componentDidMount() {
     const userDecodedInfo = jwt.decode(localStorage.getItem('jwtToken'));
@@ -62,14 +63,15 @@ class HomeNavBar extends Component {
 }
 
 HomeNavBar.propTypes = {
-  authUser: PropTypes.object.isRequired,
-  logOutRequest: PropTypes.func.isRequired
+  authUser: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
-  return {
-    authUser: state.authUser
-   };
-}
+HomeNavBar.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
-export default connect(mapStateToProps, { logOutRequest })(HomeNavBar);
+const mapStateToProps = state => ({
+  authUser: state.authUser
+});
+
+export default connect(mapStateToProps)(HomeNavBar);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 /** ***************************** RECIPE DETAILS COMPONENTS  *************************************** */
-import NavBar from './dashboard/dashboardNavbar.jsx';
+import NavBar from './HomePage/homeNavbar.jsx';
 import TopContents from './recipeDetailsPage/TopContents.jsx';
 import Ingredients from './recipeDetailsPage/Ingredients.jsx';
 import Procedures from './recipeDetailsPage/Procedures.jsx';
@@ -11,30 +11,48 @@ import Reviews from './recipeDetailsPage/Reviews.jsx';
 import Footer from './footer.jsx';
 /** ****************************** RECIPE DETAILS ACTIONS  ****************************************** */
 import setCurrentRecipeRequest from '../actions/actionCreators/setCurrentRecipeActions';
+import postReviewRequest from '../actions/actionCreators/postReviewActions';
 
 class RecipeDetailsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       topContents: {
-        title: '', recipeImage: '', upvotes: 0, downvotes: 0
+        title: '', recipeImage: '', upvotes: 0, downvotes: 0, createdBy: '', lastUpdated: '',
       },
       ingredients: '',
-      procedures: ''
+      procedures: '',
+      reviews: [],
+      recipeId: 0
     };
   }
 
   componentDidMount() {
-    const recipeId = this.props.match.params.id;
+    const recipeId = parseInt(this.props.match.params.id, 10);
     this.props.setCurrentRecipeRequest(recipeId);
+    this.setState({ recipeId });
   }
   componentWillReceiveProps(nextProps) {
-    const { title, ingredients, procedures, recipeImage, upvotes, downvotes } = nextProps.recipeDetails.recipe;
+    const {
+      title, ingredients, procedures,
+      recipeImage, upvotes, downvotes,
+      User, updatedAt, Reviews
+     } = nextProps.recipeDetails.recipe;
     if (nextProps.recipeDetails.recipe.title) {
       this.setState({
-        topContents: { title, ingredients, procedures, recipeImage, upvotes, downvotes },
+        topContents: {
+          title,
+          ingredients,
+          procedures,
+          recipeImage,
+          upvotes,
+          downvotes,
+          lastUpdated: updatedAt,
+          createdBy: User.fullName
+        },
         ingredients,
-        procedures
+        procedures,
+        reviews: Reviews
       });
     }
   }
@@ -52,8 +70,8 @@ class RecipeDetailsPage extends Component {
                 <div className="col-1"></div>
                 <Procedures procedures={this.state.procedures}/>
               </div>
-              <ReviewsForm/>
-              <Reviews/>
+              <ReviewsForm postReview={this.props.postReviewRequest} recipeId={this.state.recipeId}/>
+              <Reviews reviews={this.state.reviews}/>
             </main>
           </div>
         </div>
@@ -66,7 +84,8 @@ class RecipeDetailsPage extends Component {
 RecipeDetailsPage.propTypes = {
   match: PropTypes.object.isRequired,
   setCurrentRecipeRequest: PropTypes.func.isRequired,
-  recipeDetails: PropTypes.object.isRequired
+  recipeDetails: PropTypes.object.isRequired,
+  postReviewRequest: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -74,4 +93,4 @@ const mapStateToProps = state => ({
   }
 );
 
-export default connect(mapStateToProps, { setCurrentRecipeRequest })(RecipeDetailsPage);
+export default connect(mapStateToProps, { setCurrentRecipeRequest, postReviewRequest })(RecipeDetailsPage);

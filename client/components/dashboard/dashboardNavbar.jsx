@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
-import { logOutRequest } from '../../actions/actionCreators/logOutActions';
+import logOutRequest from '../../actions/actionCreators/logOutActions';
 
 class DashboardNavBar extends Component {
     constructor(props) {
@@ -15,7 +14,7 @@ class DashboardNavBar extends Component {
   }
   handleLogOut(e) {
     e.preventDefault();
-    this.props.logOutRequest();
+    logOutRequest();
     this.context.router.history.push('/');
   }
   componentDidMount() {
@@ -112,13 +111,9 @@ class DashboardNavBar extends Component {
     }
 }
 
-DashboardNavBar.propTypes = {
-  logOutRequest: PropTypes.func.isRequired
-};
-
 DashboardNavBar.contextTypes = {
     router: PropTypes.object.isRequired
 };
 
 
-export default connect(null, { logOutRequest })(DashboardNavBar);
+export default DashboardNavBar;

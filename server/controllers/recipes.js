@@ -1,6 +1,6 @@
 import models from '../models';
 
-const { Users, Recipes } = models;
+const { Users, Recipes, Reviews } = models;
 
 
 /**
@@ -283,19 +283,28 @@ export default class RecipesApiController {
         message: 'Recipe ID must be a number'
       });
     }
-    return Recipes.findById(recipeId, { include: [{ model: Users, attributes: ['fullName'] }] })
-      .then((recipe) => {
-        if (recipe) {
-          return response.status(200).json({
-            status: 'Success',
-            message: `Successfully retrieved recipe of ID ${recipeId}`,
-            recipe
-          });
+    return Recipes.findById(recipeId, {
+      include: [
+        { model: Users, attributes: ['fullName'] },
+        {
+          model: Reviews,
+          attributes: [
+            'id', 'reviewBody', 'username', 'profileImage', 'createdAt'
+          ]
         }
-        return response.status(404).json({
-          status: 'Failed',
-          message: `Recipe with ID: ${recipeId}, not found`
+      ]
+    }).then((recipe) => {
+      if (recipe) {
+        return response.status(200).json({
+          status: 'Success',
+          message: `Successfully retrieved recipe of ID ${recipeId}`,
+          recipe
         });
+      }
+      return response.status(404).json({
+        status: 'Failed',
+        message: `Recipe with ID: ${recipeId}, not found`
       });
+    });
   }
 }

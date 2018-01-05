@@ -36,7 +36,7 @@ export const fetchRecipesRequest = callback => (
         dispatch(isUserRecipesFetching(false));
         callback();
       }).catch((errors) => {
-        dispatch(fetchUserRecipesFailure(errors));
+        dispatch(fetchUserRecipesFailure(errors.response.data.message));
         dispatch(isUserRecipesFetching(false));
       });
   }
