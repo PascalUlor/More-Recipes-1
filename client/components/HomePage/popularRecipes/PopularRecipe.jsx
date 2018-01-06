@@ -19,7 +19,7 @@ class PopularRecipe extends Component {
                             <i className="fa fa-user text-info" aria-hidden="true"></i> {this.props.popularRecipe.User.fullName}</p>
                         <div className="card-text text-center">
                             <small className="text-success pr-1">
-                                <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> 
+                                <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                   {this.props.popularRecipe.upvotes}
                             </small>
                             <Link

@@ -10,6 +10,7 @@ import SignupPage from './components/signupPage.jsx';
 import SigninPage from './components/signinPage.jsx';
 import Dashboard from './components/dashboard.jsx';
 import UserRecipesPage from './components/userRecipesPage.jsx';
+import FavoriteRecipesPage from './components/FavoriteRecipesPage.jsx';
 import RecipeDetailsPage from './components/RecipeDetailsPage.jsx';
 import Profile from './components/Profile.jsx';
 import AllRecipesPage from './components/AllRecipesPage.jsx';
@@ -43,6 +44,7 @@ ReactDOM.render(
 			<Route exact path="/recipes" component={AllRecipesPage} />
 			<Route exact path="/dashboard" component={requireAuthentication(Dashboard)} />
 			<Route exact path="/user/recipes" component={requireAuthentication(UserRecipesPage)} />
+			<Route exact path="/user/favorites" component={requireAuthentication(FavoriteRecipesPage)} />
 			<Route exact path="/recipes/:id/recipe-details" component={RecipeDetailsPage} />
 			<Route exact path="/user/profile" component={requireAuthentication(Profile)} />
 		</Switch>
