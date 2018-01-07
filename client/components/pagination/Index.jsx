@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 class Index extends Component {
     render() {
         return (
-            <nav aria-label="Page navigation" style={{ margin: '-0.7rem 0 2rem 0.8rem' }}>
+            <nav aria-label="Page navigation" style={{ margin: '-0.7rem 0 2rem 0.9rem' }}>
                 <ul className="pagination">
                     <li className="page-item disabled">
                         <a className="page-link" href="#" aria-label="Previous">
