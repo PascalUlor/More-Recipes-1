@@ -62,6 +62,9 @@ router.route('/recipes/:recipeID/favorites')
 // GET route to retrieve user's favorite recipes
 router.route('/user/favorites')
   .get(tokenAuth, FavoritesController.getFavoriteRecipes);
+// DELETE route to delete a user's favorite recipe
+router.route('/user/favorites/:recipeID')
+  .delete(tokenAuth, FavoritesController.deleteFavoriteRecipe);
 
 
 export default router;

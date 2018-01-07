@@ -123,4 +123,34 @@ export default class FavoritesApiController {
       })
     ));
   }
+
+  /**
+   * @description Delete a user favorite recipe
+   * @memberof FavoritesApiController
+   * @static
+   *
+   * @param   {object} request   the server/http(s) request object
+   * @param   {object} response  the server/http(s) response object
+   *
+   * @returns {object} failure response messages object or success message object
+   */
+  static deleteFavoriteRecipe(request, response) {
+    const { userId } = request.decoded, recipeId = parseInt(request.params.recipeID.trim(), 10);
+
+    if (Number.isNaN(recipeId)) {
+      return response.status(406).json({
+        status: 'Failed',
+        message: 'Recipe ID must be a number'
+      });
+    }
+    return Favorites.destroy({
+      where: { userId, recipeId }
+    }).then(() => response.status(200).json({
+      status: 'Success',
+      message: 'Recipe unfavorited'
+    })).catch(error => response.state(500).json({
+      status: 'Failed',
+      message: error.message
+    }));
+  }
 }
