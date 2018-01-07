@@ -57,10 +57,10 @@ router.route('/recipes/:recipeID/reviews')
  * @description Recipe favorite routes
  */
 // POST route to create/add user's favorite recipes
-router.route('/users/:recipeID/recipes')
+router.route('/recipes/:recipeID/favorites')
   .post(tokenAuth, FavoritesController.addToFavorite);
 // GET route to retrieve user's favorite recipes
-router.route('/users/:userID/recipes')
+router.route('/user/favorites')
   .get(tokenAuth, FavoritesController.getFavoriteRecipes);
 
 
