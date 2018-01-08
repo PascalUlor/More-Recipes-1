@@ -34,7 +34,8 @@ class ReviewsForm extends Component {
     if (verifyToken()) {
       if (this.isValid()) {
         this.setState({ errors: {} });
-        this.props.postReview(this.state.review, this.props.recipeId, () => {
+        this.props.postReview(this.state.review, this.props.recipeId)
+        .then(() => {
           if (this.props.reviewSuccessMessage) {
             this.setState({ review: '' });
             toastr.success(this.props.reviewSuccessMessage);
@@ -83,7 +84,7 @@ ReviewsForm.propTypes = {
 };
 
 ReviewsForm.contextTypes = {
-    router: PropTypes.object.isRequired
+    router: PropTypes.shape().isRequired
 };
 
 const mapStateToProps = state => ({

@@ -11,6 +11,7 @@ import editUserRecipe from './editUserRecipe';
 import allRecipes from './allRecipes';
 import postReview from './postReview';
 import favoriteRecipes from './fetchFavoriteRecipes';
+import addFavoriteRecipe from './addFavoriteRecipe';
 
 export default combineReducers({
   flashMessages,
@@ -24,5 +25,6 @@ export default combineReducers({
   setCurrentRecipe,
   editUserRecipe,
   postReview,
-  favoriteRecipes
+  favoriteRecipes,
+  addFavoriteRecipe
 });

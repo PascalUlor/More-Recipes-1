@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import toastr from 'toastr';
 /** ***************************** RECIPE DETAILS COMPONENTS  *************************************** */
 import NavBar from './HomePage/homeNavbar.jsx';
 import TopContents from './recipeDetailsPage/TopContents.jsx';
@@ -12,6 +13,9 @@ import Footer from './footer.jsx';
 /** ****************************** RECIPE DETAILS ACTIONS  ****************************************** */
 import setCurrentRecipeRequest from '../actions/actionCreators/setCurrentRecipeActions';
 import postReviewRequest from '../actions/actionCreators/postReviewActions';
+import { addFlashMessage } from '../actions/actionCreators/flashmessages';
+import verifyToken from '../utils/verifyToken';
+import addFavoriteRequest from '../actions/actionCreators/addFavoriteRecipeActions';
 
 class RecipeDetailsPage extends Component {
   constructor(props) {
@@ -25,8 +29,8 @@ class RecipeDetailsPage extends Component {
       reviews: [],
       recipeId: 0
     };
+    this.handleFavourite = this.handleFavourite.bind(this);
   }
-
   componentDidMount() {
     const recipeId = parseInt(this.props.match.params.id, 10);
     this.props.setCurrentRecipeRequest(recipeId);
@@ -56,6 +60,27 @@ class RecipeDetailsPage extends Component {
       });
     }
   }
+  handleFavourite() {
+    const { recipeId } = this.state;
+    if (verifyToken()) {
+      this.props.addFavoriteRequest(recipeId)
+      .then(() => {
+        if (this.props.addFavoriteSuccess) {
+          toastr.remove();
+          toastr.success(this.props.addFavoriteSuccess);
+        } else {
+          toastr.remove();
+          toastr.error(this.props.addFavoriteError);
+        }
+      });
+    } else {
+      this.props.addFlashMessage({
+        type: 'failed',
+        text: 'Sorry!!!. Please login to continue'
+      });
+      this.context.router.history.push('/signin');
+    }
+  }
 
   render() {
     return (
@@ -64,7 +89,10 @@ class RecipeDetailsPage extends Component {
           <NavBar/>
           <div className="container">
             <main className="pl-4 pr-3 mt-4">
-              <TopContents details={this.state.topContents}/>
+              <TopContents
+                details={this.state.topContents}
+                addFavorite={this.handleFavourite}
+                />
               <div className="row mb-4">
                 <Ingredients ingredients={this.state.ingredients}/>
                 <div className="col-1"></div>
@@ -82,15 +110,32 @@ class RecipeDetailsPage extends Component {
 }
 
 RecipeDetailsPage.propTypes = {
-  match: PropTypes.object.isRequired,
+  match: PropTypes.shape().isRequired,
   setCurrentRecipeRequest: PropTypes.func.isRequired,
-  recipeDetails: PropTypes.object.isRequired,
-  postReviewRequest: PropTypes.func.isRequired
+  recipeDetails: PropTypes.shape().isRequired,
+  postReviewRequest: PropTypes.func.isRequired,
+  addFlashMessage: PropTypes.func.isRequired,
+  addFavoriteRequest: PropTypes.func.isRequired,
+  addFavoriteSuccess: PropTypes.string.isRequired,
+  addFavoriteError: PropTypes.string.isRequired
+};
+
+RecipeDetailsPage.contextTypes = {
+  router: PropTypes.shape().isRequired
 };
 
 const mapStateToProps = state => ({
-    recipeDetails: state.setCurrentRecipe.currentSetRecipe
+    recipeDetails: state.setCurrentRecipe.currentSetRecipe,
+    addFavoriteSuccess: state.addFavoriteRecipe.addFavoriteSuccess,
+    addFavoriteError: state.addFavoriteRecipe.addFavoriteError
   }
 );
 
-export default connect(mapStateToProps, { setCurrentRecipeRequest, postReviewRequest })(RecipeDetailsPage);
+const mapDispatchToProps = dispatch => ({
+  setCurrentRecipeRequest: recipeId => dispatch(setCurrentRecipeRequest(recipeId)),
+  postReviewRequest: (review, recipeId) => dispatch(postReviewRequest(review, recipeId)),
+  addFlashMessage: message => dispatch(addFlashMessage(message)),
+  addFavoriteRequest: recipeId => dispatch(addFavoriteRequest(recipeId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetailsPage);

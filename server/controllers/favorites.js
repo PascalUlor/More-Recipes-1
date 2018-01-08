@@ -41,20 +41,21 @@ export default class FavoritesApiController {
           message: 'Can not favorite a recipe created by you'
         });
       }
-      return Favorites.findOne({ where: { userId, recipeId } }).then((favorite) => {
+      Favorites.findOne({ where: { userId, recipeId } }).then((favorite) => {
         if (favorite) {
-          return response.status(400).json({
-            status: 'Failed',
-            message: 'Recipe already favorited'
-          });
+          return Favorites.destroy({
+            where: { userId, recipeId }
+          }).then(() => response.status(200).json({
+            status: 'Success',
+            message: 'Recipe has been unfavorited'
+          }));
         }
-
         return Favorites.create({
           userId,
           recipeId
         }).then(favoritedRecipe => response.status(201).json({
           status: 'Success',
-          message: 'Recipe favorited',
+          message: 'Recipe has been favorited',
           favoritedRecipe
         })).catch(error => response.status(500).json({
           status: 'Failed',
@@ -147,7 +148,7 @@ export default class FavoritesApiController {
       where: { userId, recipeId }
     }).then(() => response.status(200).json({
       status: 'Success',
-      message: 'Recipe unfavorited'
+      message: 'Recipe has been deleted'
     })).catch(error => response.state(500).json({
       status: 'Failed',
       message: error.message

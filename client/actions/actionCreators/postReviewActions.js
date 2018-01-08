@@ -17,28 +17,26 @@ const postReviewFailure = error => ({
   error
 });
 
-const postReviewRequest = (review, recipeId, callback) => (
-  (dispatch) => {
+const postReviewRequest = (review, recipeId) => (
+  dispatch => (
     axios({
-        method: 'POST',
-        headers: {
-          'x-access-token': window.localStorage.jwtToken
-        },
-        url: `/api/v1/recipes/${recipeId}/reviews`,
-        data: {
-          reviewBody: review
-        }
-      })
-      .then((response) => {
-        dispatch(PostReviewSuccessMessage(response.data.message));
-        dispatch(postReviewSuccess(response.data.postedReview));
-        callback();
-      })
-      .catch((error) => {
-        dispatch(postReviewFailure(error.response.data.message));
-        callback();
-      });
-  }
+      method: 'POST',
+      headers: {
+        'x-access-token': window.localStorage.jwtToken
+      },
+      url: `/api/v1/recipes/${recipeId}/reviews`,
+      data: {
+        reviewBody: review
+      }
+    })
+    .then((response) => {
+      dispatch(PostReviewSuccessMessage(response.data.message));
+      dispatch(postReviewSuccess(response.data.postedReview));
+    })
+    .catch((error) => {
+      dispatch(postReviewFailure(error.response.data.message));
+    })
+  )
 );
 
 export default postReviewRequest;
