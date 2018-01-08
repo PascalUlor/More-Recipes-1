@@ -295,6 +295,12 @@ export default class RecipesApiController {
       ]
     }).then((recipe) => {
       if (recipe) {
+        if (request.decoded && request.decoded.userId !== recipe.userId) {
+          recipe.increment('viewsCount');
+        }
+        if (!request.decoded) {
+          recipe.increment('viewsCount');
+        }
         return response.status(200).json({
           status: 'Success',
           message: `Successfully retrieved recipe of ID ${recipeId}`,

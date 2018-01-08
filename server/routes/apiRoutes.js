@@ -8,6 +8,7 @@ import ReviewsValidation from '../middleware/validations/reviews';
 import ReviewsController from '../controllers/reviews';
 import FavoritesController from '../controllers/favorites';
 import tokenAuth from '../middleware/authToken';
+import checkToken from '../middleware/checkToken';
 
 const router = express.Router();
 
@@ -44,7 +45,7 @@ router.route('/user/recipes')
 router.route('/recipes/:recipeID')
   .put(tokenAuth, RecipesValidation.updateRecipeValidations, RecipesController.updateRecipe)
   .delete(tokenAuth, RecipesController.deleteRecipe)
-  .get(RecipesController.getSingleRecipe);
+  .get(checkToken, RecipesController.getSingleRecipe);
 
 /**
  * @description Recipe review routes
