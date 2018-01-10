@@ -7,6 +7,7 @@ import RecipesController from '../controllers/recipes';
 import ReviewsValidation from '../middleware/validations/reviews';
 import ReviewsController from '../controllers/reviews';
 import FavoritesController from '../controllers/favorites';
+import VotesController from '../controllers/votes';
 import tokenAuth from '../middleware/authToken';
 import checkToken from '../middleware/checkToken';
 
@@ -67,5 +68,11 @@ router.route('/user/favorites')
 router.route('/user/favorites/:recipeID')
   .delete(tokenAuth, FavoritesController.deleteFavoriteRecipe);
 
+/**
+ * @description Recipe voting route
+ */
+// POST route to upvote and downvote recipes
+router.route('/recipes/:recipeID/vote')
+  .post(tokenAuth, VotesController.votes);
 
 export default router;
