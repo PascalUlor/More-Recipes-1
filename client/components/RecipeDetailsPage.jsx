@@ -16,6 +16,7 @@ import postReviewRequest from '../actions/actionCreators/postReviewActions';
 import { addFlashMessage } from '../actions/actionCreators/flashmessages';
 import verifyToken from '../utils/verifyToken';
 import addFavoriteRequest from '../actions/actionCreators/addFavoriteRecipeActions';
+import voteRecipeRequest from '../actions/actionCreators/voteRecipeActions';
 
 class RecipeDetailsPage extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class RecipeDetailsPage extends Component {
       recipeId: 0
     };
     this.handleFavourite = this.handleFavourite.bind(this);
+    this.handleVote = this.handleVote.bind(this);
   }
   componentDidMount() {
     const recipeId = parseInt(this.props.match.params.id, 10);
@@ -81,6 +83,31 @@ class RecipeDetailsPage extends Component {
       this.context.router.history.push('/signin');
     }
   }
+  handleVote(event) {
+    const { recipeId } = this.state;
+    let voteType = null;
+    if (event.target.id === 'upvote') {
+      voteType = 'upvote';
+    } else { voteType = 'downvote'; }
+    if (verifyToken()) {
+      this.props.voteRecipeRequest(recipeId, voteType)
+      .then(() => {
+        if (this.props.voteSuccessMessage) {
+          toastr.remove();
+          toastr.success(this.props.voteSuccessMessage);
+        } else {
+          toastr.remove();
+          toastr.error(this.props.voteFailureMessage);
+        }
+      });
+    } else {
+      this.props.addFlashMessage({
+        type: 'failed',
+        text: 'Sorry!!!. Please login to continue'
+      });
+      this.context.router.history.push('/signin');
+    }
+  }
 
   render() {
     return (
@@ -92,6 +119,7 @@ class RecipeDetailsPage extends Component {
               <TopContents
                 details={this.state.topContents}
                 addFavorite={this.handleFavourite}
+                voteRecipe={this.handleVote}
                 />
               <div className="row mb-4">
                 <Ingredients ingredients={this.state.ingredients}/>
@@ -117,7 +145,10 @@ RecipeDetailsPage.propTypes = {
   addFlashMessage: PropTypes.func.isRequired,
   addFavoriteRequest: PropTypes.func.isRequired,
   addFavoriteSuccess: PropTypes.string.isRequired,
-  addFavoriteError: PropTypes.string.isRequired
+  addFavoriteError: PropTypes.string.isRequired,
+  voteRecipeRequest: PropTypes.func.isRequired,
+  voteSuccessMessage: PropTypes.string.isRequired,
+  voteFailureMessage: PropTypes.string.isRequired
 };
 
 RecipeDetailsPage.contextTypes = {
@@ -127,7 +158,9 @@ RecipeDetailsPage.contextTypes = {
 const mapStateToProps = state => ({
     recipeDetails: state.setCurrentRecipe.currentSetRecipe,
     addFavoriteSuccess: state.addFavoriteRecipe.addFavoriteSuccess,
-    addFavoriteError: state.addFavoriteRecipe.addFavoriteError
+    addFavoriteError: state.addFavoriteRecipe.addFavoriteError,
+    voteSuccessMessage: state.setCurrentRecipe.voteSuccessMessage,
+    voteFailureMessage: state.setCurrentRecipe.voteFailureMessage
   }
 );
 
@@ -135,7 +168,8 @@ const mapDispatchToProps = dispatch => ({
   setCurrentRecipeRequest: recipeId => dispatch(setCurrentRecipeRequest(recipeId)),
   postReviewRequest: (review, recipeId) => dispatch(postReviewRequest(review, recipeId)),
   addFlashMessage: message => dispatch(addFlashMessage(message)),
-  addFavoriteRequest: recipeId => dispatch(addFavoriteRequest(recipeId))
+  addFavoriteRequest: recipeId => dispatch(addFavoriteRequest(recipeId)),
+  voteRecipeRequest: (recipeId, voteType) => dispatch(voteRecipeRequest(recipeId, voteType))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetailsPage);

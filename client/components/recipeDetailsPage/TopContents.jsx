@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 
 class TopContents extends Component {
   render() {
-    const { title, recipeImage, upvotes, downvotes, createdBy } = this.props.details,
-    { addFavorite } = this.props;
+    const {
+      title, recipeImage, upvotes, downvotes, createdBy
+    } = this.props.details,
+    { addFavorite, voteRecipe } = this.props;
     return (
       <div className="row mb-4">
         <div className="col-md-8 col-lg-8 mb-3">
@@ -17,12 +19,15 @@ class TopContents extends Component {
                     <div className="row">
                       <div className="col-3 p-1">
                         <span className="text-success">
-                          <i className="fa fa-thumbs-o-up fa-2x action" id="upvote" aria-hidden="true"></i> {upvotes}
+                          <i className="fa fa-thumbs-o-up fa-2x action" id="upvote"
+                            onClick={voteRecipe} aria-hidden="true">
+                          </i> {upvotes}
                         </span>
                       </div>
                       <div className="col-3 p-1">
                         <span className="text-danger">
-                          <i className="fa fa-thumbs-o-down fa-2x action" id="downvote" aria-hidden="true"></i> {downvotes}
+                          <i className="fa fa-thumbs-o-down fa-2x action" id="downvote"
+                           onClick={voteRecipe} aria-hidden="true"></i> {downvotes}
                         </span>
                       </div>
                       <div className="col-6 p-1 text-right text-warning">
@@ -54,7 +59,8 @@ class TopContents extends Component {
 
 TopContents.propTypes = {
   details: PropTypes.shape().isRequired,
-  addFavorite: PropTypes.func.isRequired
+  addFavorite: PropTypes.func.isRequired,
+  voteRecipe: PropTypes.func.isRequired
 };
 
 export default TopContents;
