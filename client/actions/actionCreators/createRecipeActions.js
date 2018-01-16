@@ -7,7 +7,6 @@ import {
   CREATE_RECIPE_FAILURE
 }
 from '../actionTypes/actionTypes';
-import { fetchRecipesRequest } from './getUserRecipesActions';
 
 
 const isRecipeTitleDouble = bool => ({
@@ -25,9 +24,10 @@ const isRecipeCreating = bool => ({
   bool
 });
 
-const createRecipeSuccess = createdRecipe => ({
+const createRecipeSuccess = (createdRecipe, message) => ({
   type: CREATE_RECIPE_SUCCESS,
-  createdRecipe
+  createdRecipe,
+  message
 });
 
 const createRecipeFailure = error => ({
@@ -56,13 +56,13 @@ export const doubleRecipeTitleCheck = recipeTitle => (
   }).catch(error => console.log('error block: >>>', error))
 );
 
-export const createRecipe = (recipe, cloudImageUrl, callback) => (
+const createRecipe = (recipe, cloudImageUrl) => (
   (dispatch) => {
     if (axios.defaults.headers.common['x-access-token'] === '') {
       axios.defaults.headers.common['x-access-token'] = window.localStorage.jwtToken;
     }
 
-    axios({
+    return axios({
       method: 'POST',
       url: '/api/v1/recipes',
       headers: {
@@ -75,21 +75,17 @@ export const createRecipe = (recipe, cloudImageUrl, callback) => (
         recipeImage: cloudImageUrl
       }
     }).then((response) => {
-      if (response) {
-        dispatch(createRecipeSuccess(response.data));
-        dispatch(isRecipeCreating(false));
-        callback();
-        dispatch(fetchRecipesRequest());
-      }
+      const { message } = response.data;
+      dispatch(createRecipeSuccess(response.data.recipe, message));
+      dispatch(isRecipeCreating(false));
     }).catch(() => {
       dispatch(createRecipeFailure('Unable to upload your recipe. Try again later'));
       dispatch(isRecipeCreating(false));
-      callback();
     });
   }
 );
 
-export const createRecipeRequest = (recipe, callback) => (
+export const createRecipeRequest = recipe => (
   (dispatch) => {
     let cloudImageUrl = process.env.DEFAULT_IMAGE_URL;
 
@@ -100,17 +96,15 @@ export const createRecipeRequest = (recipe, callback) => (
       imageData.append('file', recipe.imageFile);
       imageData.append('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET);
 
-      axios.post(process.env.CLOUDINARY_URL, imageData)
+      return axios.post(process.env.CLOUDINARY_URL, imageData)
         .then((response) => {
           cloudImageUrl = response.data.url;
-          dispatch(createRecipe(recipe, cloudImageUrl, callback));
+          return dispatch(createRecipe(recipe, cloudImageUrl));
         }).catch(() => {
           dispatch(isRecipeCreating(false));
           dispatch(createRecipeFailure('Unable to upload your recipe. Try again later'));
-          callback();
         });
-    } else {
-      dispatch(createRecipe(recipe, cloudImageUrl, callback));
     }
+    return dispatch(createRecipe(recipe, cloudImageUrl));
   }
 );

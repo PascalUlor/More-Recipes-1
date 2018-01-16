@@ -5,6 +5,7 @@ import {
   FETCH_ALL_RECIPES_FAILURE
 }
 from '../actionTypes/actionTypes';
+import { paginationDetails, setPaginationDetails } from './setPaginationDetailsAction';
 
 
 const isAllRecipesFetching = bool => ({
@@ -22,21 +23,20 @@ const fetchAllRecipesFailure = error => ({
   error
 });
 
-export const fetchAllRecipesRequest = callback => (
+export const fetchAllRecipesRequest = page => (
   (dispatch) => {
     dispatch(isAllRecipesFetching(true));
-    axios({
+    return axios({
         method: 'GET',
-        url: '/api/v1/recipes'
+        url: `/api/v1/recipes?page=${page}`
       })
       .then((response) => {
         dispatch(fetchAllRecipesSuccess(response.data.recipes));
+        dispatch(setPaginationDetails(paginationDetails(response)));
         dispatch(isAllRecipesFetching(false));
-        callback();
-      }).catch((errors) => {
-        dispatch(fetchAllRecipesFailure(errors));
+      }).catch((error) => {
+        dispatch(fetchAllRecipesFailure(error.response.data.message));
         dispatch(isAllRecipesFetching(false));
-        callback();
       });
   }
 );

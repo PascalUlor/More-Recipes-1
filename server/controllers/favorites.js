@@ -1,4 +1,6 @@
 import models from '../models';
+import checkId from '../utils/checkId';
+import fetchRecipes from '../utils/recipes';
 
 const { Users, Recipes, Favorites } = models;
 
@@ -83,46 +85,11 @@ export default class FavoritesApiController {
    */
   static getFavoriteRecipes(request, response) {
     const { userId } = request.decoded;
+    checkId.userId(response, Users, userId);
 
-    Users.findById(userId).then((userFound) => {
-      if (!userFound) {
-        return response.status(404).json({
-          status: 'Failed',
-          message: 'Sorry!!! User not found or has been deleted'
-        });
-      }
-    });
-    Favorites.findAll({
-      where: { userId },
-      include: [{
-        model: Recipes,
-        attributes: ['id', 'title', 'recipeImage', 'viewsCount', 'userId'],
-        include: [{
-          model: Users,
-          attributes: ['fullName']
-        }]
-      }],
-      order: [
-        ['createdAt', 'DESC']
-      ]
-    }).then((favorites) => {
-      if (favorites.length === 0) {
-        return response.status(404).json({
-          status: 'Failed',
-          message: 'You have no available favorite recipes',
-        });
-      }
-      return response.status(200).json({
-        status: 'Success',
-        message: 'Successfully retrieved your favorite Recipe(s)',
-        favorites
-      });
-    }).catch(error => (
-      response.status(500).json({
-        status: 'Failed',
-        message: error.message
-      })
-    ));
+    const message1 = 'You have no favorited recipes',
+      message2 = 'Successfully retrieved your favorite Recipe(s)';
+    fetchRecipes(request, response, Recipes, Users, Favorites, userId, 'updatedAt', 'DESC', message1, message2);
   }
 
   /**

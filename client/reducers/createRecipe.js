@@ -12,7 +12,7 @@ const initialState = {
   doubleRecipeTitleError: '',
   isRecipeCreating: false,
   createRecipeError: '',
-  createdRecipe: {}
+  createRecipeSuccess: ''
 };
 export default (state = initialState, action = {}) => {
   switch (action.type) {
@@ -23,7 +23,7 @@ export default (state = initialState, action = {}) => {
     case IS_RECIPE_CREATING:
       return Object.assign({}, state, { isRecipeCreating: action.bool });
     case CREATE_RECIPE_SUCCESS:
-      return Object.assign({}, state, { createdRecipe: action.createdRecipe });
+      return Object.assign({}, state, { createRecipeSuccess: action.message });
     case CREATE_RECIPE_FAILURE:
       return Object.assign({}, state, { createRecipeError: action.error });
     default:

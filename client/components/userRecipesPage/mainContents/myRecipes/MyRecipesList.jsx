@@ -10,8 +10,10 @@ class MyRecipesList extends Component {
                     <div className='display-4 text-center text-danger'>
                         There are no available recipes to display
                     </div> :
-                    this.props.myRecipes.map(myRecipe =>
-                        <MyRecipe key={myRecipe.id} myRecipe={myRecipe} />)
+                    this.props.myRecipes
+                    .sort((a, b) => b.id - a.id)
+                    .map((myRecipe, index) =>
+                        (index <= 5) && <MyRecipe key={myRecipe.id} myRecipe={myRecipe} />)
                 }
             </div>
         );

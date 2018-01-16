@@ -22,7 +22,7 @@ module.exports = {
         exclude: /(node_modules|server|.vscode)/
       },
       {
-        test: /\.(scss)$/,
+        test: /\.(css|scss)$/,
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
