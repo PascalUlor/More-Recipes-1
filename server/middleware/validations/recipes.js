@@ -126,7 +126,7 @@ export default class RecipesValidation {
    * @returns {object} validation error messages object or contents of request.query(or nothing)
    */
   static getSortdedRecipesValidation(request, response, next) {
-    if (!request.originalUrl.includes('?')) {
+    if (!request.query.sort) {
       return next();
     }
 

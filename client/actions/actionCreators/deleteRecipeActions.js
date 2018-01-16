@@ -4,15 +4,15 @@ import {
   DELETE_RECIPE_SUCCESS,
   DELETE_RECIPE_FAILURE
 } from '../actionTypes/actionTypes';
-import { fetchRecipesRequest } from './getUserRecipesActions';
 
 const isRecipeDeleting = bool => ({
   type: IS_RECIPE_DELETING,
   bool
 });
 
-const deleteRecipeSuccess = message => ({
+const deleteRecipeSuccess = (recipeId, message) => ({
   type: DELETE_RECIPE_SUCCESS,
+  recipeId,
   message
 });
 
@@ -21,10 +21,10 @@ const deleteRecipeError = error => ({
   error
 });
 
-const deleteRecipeRequest = (recipeId, callback) => (
+const deleteRecipeRequest = recipeId => (
   (dispatch) => {
     dispatch(isRecipeDeleting(true));
-    axios({
+    return axios({
         method: 'DELETE',
         headers: {
           'x-access-token': window.localStorage.jwtToken
@@ -32,14 +32,11 @@ const deleteRecipeRequest = (recipeId, callback) => (
         url: `/api/v1/recipes/${recipeId}`
       })
       .then((response) => {
-        dispatch(deleteRecipeSuccess(response.data.message));
+        dispatch(deleteRecipeSuccess(recipeId, response.data.message));
         dispatch(isRecipeDeleting(false));
-        callback();
-        dispatch(fetchRecipesRequest());
       }).catch((errors) => {
         dispatch(deleteRecipeError(errors.message));
         dispatch(isRecipeDeleting(false));
-        callback();
       });
   }
 );

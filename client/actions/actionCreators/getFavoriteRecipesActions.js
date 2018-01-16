@@ -4,6 +4,7 @@ import {
   FETCH_FAVORITE_RECIPES_SUCCESS,
   FETCH_FAVORITE_RECIPES_FAILURE
 } from '../actionTypes/actionTypes';
+import { paginationDetails, setPaginationDetails } from './setPaginationDetailsAction';
 
 const isFavoriteRecipesFetching = bool => ({
   type: IS_FAVORITE_RECIPES_FETCHING,
@@ -20,7 +21,7 @@ const favoriteRecipesFailure = error => ({
   error
 });
 
-const fetchFavoriteRecipesRequest = () => (
+const fetchFavoriteRecipesRequest = page => (
   (dispatch) => {
     dispatch(isFavoriteRecipesFetching(true));
     return axios({
@@ -28,10 +29,11 @@ const fetchFavoriteRecipesRequest = () => (
         headers: {
           'x-access-token': window.localStorage.jwtToken
         },
-        url: '/api/v1/user/favorites'
+        url: `/api/v1/user/favorites?page=${page}`
       })
       .then((response) => {
-        dispatch(favoriteRecipesSuccess(response.data));
+        dispatch(favoriteRecipesSuccess(response.data.recipes));
+        dispatch(setPaginationDetails(paginationDetails(response)));
         dispatch(isFavoriteRecipesFetching(false));
       })
       .catch((error) => {

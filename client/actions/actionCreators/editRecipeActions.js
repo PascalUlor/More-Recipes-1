@@ -4,15 +4,15 @@ import {
   UPDATE_RECIPE_SUCCESS,
   UPDATE_RECIPE_FAILURE
 } from '../actionTypes/actionTypes';
-import { fetchRecipesRequest } from './getUserRecipesActions';
 
 const isRecipeUpdating = bool => ({
   type: IS_RECIPE_UPDATING,
   bool
 });
 
-const updateRecipeSuccess = message => ({
+const updateRecipeSuccess = (updatedRecipe, message) => ({
   type: UPDATE_RECIPE_SUCCESS,
+  updatedRecipe,
   message
 });
 
@@ -21,13 +21,13 @@ const updateRecipeFailure = error => ({
   error
 });
 
-const updateRecipe = (recipe, cloudImageUrl, callback) => (
+const updateRecipe = (recipe, cloudImageUrl) => (
   (dispatch) => {
     if (axios.defaults.headers.common['x-access-token'] === '') {
       axios.defaults.headers.common['x-access-token'] = window.localStorage.jwtToken;
     }
 
-    axios({
+    return axios({
       method: 'PUT',
       url: `/api/v1/recipes/${recipe.id}`,
       headers: {
@@ -41,20 +41,18 @@ const updateRecipe = (recipe, cloudImageUrl, callback) => (
       }
     }).then((response) => {
       if (response) {
-        dispatch(updateRecipeSuccess(response.data.message));
+        const { message } = response.data;
+        dispatch(updateRecipeSuccess(response.data.recipe, message));
         dispatch(isRecipeUpdating(false));
-        callback();
-        dispatch(fetchRecipesRequest());
       }
     }).catch(() => {
       dispatch(updateRecipeFailure('Unable to upload your recipe. Try again later'));
       dispatch(isRecipeUpdating(false));
-      callback();
     });
   }
 );
 
-const updateRecipeRequest = (recipe, callback) => (
+const updateRecipeRequest = recipe => (
   (dispatch) => {
     let cloudImageUrl = recipe.initialImageSrc;
     dispatch(isRecipeUpdating(true));
@@ -65,18 +63,16 @@ const updateRecipeRequest = (recipe, callback) => (
       imageData.append('file', recipe.imageFile);
       imageData.append('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET);
 
-      axios.post(process.env.CLOUDINARY_URL, imageData)
+      return axios.post(process.env.CLOUDINARY_URL, imageData)
         .then((response) => {
           cloudImageUrl = response.data.url;
-          dispatch(updateRecipe(recipe, cloudImageUrl, callback));
+          return dispatch(updateRecipe(recipe, cloudImageUrl));
         }).catch(() => {
           dispatch(isRecipeUpdating(false));
           dispatch(updateRecipeFailure('Unable to upload your recipe. Try again later'));
-          callback();
         });
-    } else {
-      dispatch(updateRecipe(recipe, cloudImageUrl, callback));
     }
+    return dispatch(updateRecipe(recipe, cloudImageUrl));
   }
 );
 

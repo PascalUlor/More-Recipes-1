@@ -5,8 +5,9 @@ import FavoriteRecipe from './FavoriteRecipe.jsx';
 
 class FavoriteRecipesList extends Component {
   render() {
-    const display = this.props.favorites.map(favorite =>
-      <FavoriteRecipe favorite={favorite} key={favorite.id}/>);
+    const display = this.props.favorites
+      .map((favorite, index) => (index <= 5) &&
+        <FavoriteRecipe favorite={favorite} key={favorite.id}/>);
     return (
       <div className="row">
         { display }

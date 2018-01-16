@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter as Router, Route, browserHistory, Switch } from 'react-router-dom';
+import 'rc-pagination/assets/index.css';
 import HomePage from './components/homePage.jsx';
 import SignupPage from './components/signupPage.jsx';
 import SigninPage from './components/signinPage.jsx';

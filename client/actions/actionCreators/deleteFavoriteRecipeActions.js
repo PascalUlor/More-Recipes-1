@@ -2,17 +2,12 @@ import axios from 'axios';
 
 import {
   DELETE_FAVORITE_RECIPE_SUCCESS,
-  DELETE_FAVORITE_RECIPE_SUCCESS_MESSAGE,
   DELETE_FAVORITE_RECIPE_FAILURE
 } from '../actionTypes/actionTypes';
 
-const deleteFavouriteSuccess = recipeId => ({
+const deleteFavouriteSuccess = (recipeId, message) => ({
   type: DELETE_FAVORITE_RECIPE_SUCCESS,
-  recipeId
-});
-
-const deleteFavouriteSuccessMessage = message => ({
-  type: DELETE_FAVORITE_RECIPE_SUCCESS_MESSAGE,
+  recipeId,
   message
 });
 
@@ -30,10 +25,8 @@ const deleteFavouriteRecipeRequest = recipeId => (
       },
       url: `/api/v1/user/favorites/${recipeId}`,
     })
-    .then((response) => {
-      dispatch(deleteFavouriteSuccess(recipeId));
-      dispatch(deleteFavouriteSuccessMessage(response.data.message));
-    })
+    .then(response => dispatch(deleteFavouriteSuccess(recipeId, response.data.message)))
     .catch(error => dispatch(deleteFavouriteFailure(error.response.data.message)))
   ));
+
 export default deleteFavouriteRecipeRequest;

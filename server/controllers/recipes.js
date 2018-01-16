@@ -1,4 +1,6 @@
 import models from '../models';
+import checkId from '../utils/checkId';
+import fetchRecipes from '../utils/recipes';
 
 const { Users, Recipes, Reviews } = models;
 
@@ -159,109 +161,33 @@ export default class RecipesApiController {
    * @returns {object} recipes retrival error messages object or success message object with recipe data
    */
   static getRecipes(request, response) {
+    const message1 = 'There are no available recipes';
     if (!request.query.sort) {
-      return Recipes.findAll({
-        limit: 6,
-        order: [
-          ['createdAt', 'DESC']
-        ],
-        include: [{ model: Users, attributes: ['fullName'] }]
-      }).then((recipes) => {
-        if (recipes.length !== 0) {
-          return response.status(200).json({
-            status: 'Success',
-            message: 'Successfully retrieved all recipes',
-            recipes
-          });
-        }
-        return response.status(404).json({
-          status: 'Failed',
-          message: 'There are no available recipes',
-        });
-      }).catch(error => response.status(404).json({
-        status: 'Failed',
-        message: error.message
-      }));
+      const message2 = 'Successfully retrieved all recipes';
+      return fetchRecipes(request, response, Recipes, Users, null, 0, 'updatedAt', 'DESC', message1, message2);
     }
-
-    const order = request.query.order.toUpperCase();
-    if (request.query.sort === 'upvotes') {
-      return Recipes.findAll({
-        limit: 6,
-        order: [
-          ['upvotes', order]
-        ],
-        include: [{ model: Users, attributes: ['fullName'] }]
-      }).then((recipes) => {
-        if (recipes.length !== 0) {
-          return response.status(200).json({
-            status: 'Success',
-            message: `Successfully retrieved all recipes by most upvotes in ${order.toLowerCase()}ending order`,
-            recipes
-          });
-        }
-        return response.status(404).json({
-          status: 'Failed',
-          message: 'There are no available recipes',
-        });
-      }).catch(error => response.status(404).json({
-        status: 'Failed',
-        message: error.message
-      }));
-    }
-
-    return Recipes.findAll({
-      limit: 6,
-      order: [
-        ['downvotes', order]
-      ],
-      include: [{ model: Users, attributes: ['fullName'] }]
-    }).then((recipes) => {
-      if (recipes.length !== 0) {
-        response.status(200).json({
-          status: 'Success',
-          message: `Successfully retrieved all recipes by most downvotes in ${order.toLowerCase()}ending order`,
-          recipes
-        });
-      }
-      return response.status(404).json({
-        status: 'Failed',
-        message: 'There are no available recipes',
-      });
-    }).catch(error => response.status(404).json({
-      status: 'Failed',
-      message: error.message
-    }));
+    const orderBy = request.query.sort.toUpperCase(),
+      orderType = request.query.order.toUpperCase(),
+      message2 = `Successfully retrieved all recipes by most ${orderBy.toLowerCase()} in ${orderType.toLowerCase()}ending order`;
+    return fetchRecipes(request, response, Recipes, Users, null, 0, orderBy.toLowerCase(), orderType.toLowerCase(), message1, message2);
   }
 
+  /**
+   * @description Retrieves all user recipes from their recipes catalog
+   * @memberof RecipesApiController
+   * @static
+   *
+   * @param   {object} request   the server/http(s) request object
+   * @param   {object} response  the server/http(s) response object
+   *
+   * @returns {object} recipes retrival error messages object or success messages object with recipe data
+   */
   static getUserRecipes(request, response) {
     const { userId } = request.decoded;
-    Users.findById(userId).then((foundUser) => {
-      if (!foundUser) {
-        return response.status(404).json({
-          status: 'Failed',
-          message: 'User not found'
-        });
-      }
-      return Recipes.findAll({
-        where: { userId },
-        order: [
-          ['createdAt', 'DESC']
-        ]
-      }).then((recipes) => {
-        if (recipes.length === 0) {
-          return response.status(404).json({
-            status: 'Failed',
-            message: 'There are no available recipes in your catalog'
-          });
-        }
-        return response.status(200).json({
-          status: 'Success',
-          message: 'Successfully retrieved your recipe(s)',
-          recipes
-        });
-      });
-    });
+    checkId.userId(response, Users, userId);
+
+    const message = 'Successfully retrieved your recipe(s)';
+    fetchRecipes(request, response, Recipes, Users, null, userId, 'createdAt', 'DESC', message);
   }
 
   /**
@@ -277,40 +203,36 @@ export default class RecipesApiController {
   static getSingleRecipe(request, response) {
     const recipeId = parseInt(request.params.recipeID.trim(), 10);
 
-    if (Number.isNaN(recipeId)) {
-      return response.status(406).json({
-        status: 'Failed',
-        message: 'Recipe ID must be a number'
+    if (checkId.recipeId(response, recipeId)) {
+      Recipes.findById(recipeId, {
+        include: [
+          { model: Users, attributes: ['fullName'] },
+          {
+            model: Reviews,
+            attributes: [
+              'id', 'reviewBody', 'username', 'profileImage', 'createdAt'
+            ]
+          }
+        ]
+      }).then((recipe) => {
+        if (recipe) {
+          if (request.decoded && request.decoded.userId !== recipe.userId) {
+            recipe.increment('viewsCount');
+          }
+          if (!request.decoded) {
+            recipe.increment('viewsCount');
+          }
+          return response.status(200).json({
+            status: 'Success',
+            message: `Successfully retrieved recipe of ID ${recipeId}`,
+            recipe
+          });
+        }
+        return response.status(404).json({
+          status: 'Failed',
+          message: 'Recipe not found or has been deleted'
+        });
       });
     }
-    return Recipes.findById(recipeId, {
-      include: [
-        { model: Users, attributes: ['fullName'] },
-        {
-          model: Reviews,
-          attributes: [
-            'id', 'reviewBody', 'username', 'profileImage', 'createdAt'
-          ]
-        }
-      ]
-    }).then((recipe) => {
-      if (recipe) {
-        if (request.decoded && request.decoded.userId !== recipe.userId) {
-          recipe.increment('viewsCount');
-        }
-        if (!request.decoded) {
-          recipe.increment('viewsCount');
-        }
-        return response.status(200).json({
-          status: 'Success',
-          message: `Successfully retrieved recipe of ID ${recipeId}`,
-          recipe
-        });
-      }
-      return response.status(404).json({
-        status: 'Failed',
-        message: `Recipe with ID: ${recipeId}, not found`
-      });
-    });
   }
 }
