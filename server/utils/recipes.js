@@ -1,3 +1,5 @@
+import requestFeedback from './requestFeedback';
+
 const fetchRecipes = (request, response, modelR, modelU, modelF, userId, orderBy, orderType, message1, message2) => {
   let recipeQuery = {};
   const model = modelF !== null ? modelF : modelR;
@@ -6,19 +8,14 @@ const fetchRecipes = (request, response, modelR, modelU, modelF, userId, orderBy
   }
   model.findAndCountAll(recipeQuery).then((allRecipes) => {
     if (allRecipes.count === 0) {
-      return response.status(404).json({
-        status: 'Failed',
-        message: message1
-      });
+      return requestFeedback.error(response, 404, message1);
     }
 
     const pageQuery = request.query.page || 1;
     if (pageQuery && pageQuery === '0') {
-      return response.status(422).json({
-        status: 'Failed',
-        message: 'Page query of 0 is invalid'
-      });
+      return requestFeedback.error(response, 422, 'Page query of 0 is invalid');
     }
+
     let offset = 0;
     const limit = 6,
       currentPage = parseInt(pageQuery, 10),
@@ -61,20 +58,17 @@ const fetchRecipes = (request, response, modelR, modelU, modelF, userId, orderBy
 
     model.findAll(query).then((recipes) => {
       if (recipes.length === 0) {
-        return response.status(404).json({
-          status: 'Failed',
-          message: 'Requested page is not available'
-        });
+        return requestFeedback.error(response, 404, 'Requested page is not available');
       }
-      return response.status(200).json({
-        status: 'Success',
-        message: message2,
+
+      const payload = {
         numberOfRecipes,
         limit,
         totalPages,
         currentPage,
         recipes
-      });
+      };
+      return requestFeedback.success(response, 200, message2, payload);
     });
   });
 };

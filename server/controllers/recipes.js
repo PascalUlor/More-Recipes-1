@@ -1,6 +1,7 @@
 import models from '../models';
 import checkId from '../utils/checkId';
 import fetchRecipes from '../utils/recipes';
+import requestFeedback from '../utils/requestFeedback';
 
 const { Users, Recipes, Reviews } = models;
 
@@ -29,37 +30,22 @@ export default class RecipesApiController {
     } = request.body, { userId } = request.decoded;
     return Users.findById(userId).then((foundUser) => {
       if (!foundUser) {
-        return response.status(404).json({
-          status: 'Failed',
-          message: 'User not found or may have been deleted'
-        });
+        return requestFeedback.error(response, 404, 'User not found or has been deleted');
       }
       return Recipes.findOne({ where: { title, userId } }).then((found) => {
         if (found && found.title === title) {
-          return response.status(409).json({
-            status: 'Failed',
-            message: `Recipe with title:${title}, already exist in your catalog`
-          });
+          return requestFeedback.error(response, 409, `Recipe with title:${title}, already exist in your catalog`);
         }
 
         return Recipes.create({
-          title,
-          ingredients,
-          procedures,
-          recipeImage,
-          userId
-        }).then(recipe => response.status(201).json({
-          status: 'Success',
-          message: 'Successfully added new recipe',
-          recipe
-        })).catch(error => response.status(500).json({
-          status: 'Failed',
-          message: error.message
-        }));
-      }).catch(error => response.status(500).json({
-        status: 'Failed',
-        message: error.message
-      }));
+            title,
+            ingredients,
+            procedures,
+            recipeImage,
+            userId
+          }).then(recipe => requestFeedback.success(response, 201, 'Successfully added new recipe', { recipe }))
+          .catch(error => requestFeedback.error(response, 500, error.message));
+      }).catch(error => requestFeedback.error(response, 500, error.message));
     });
   }
 
@@ -82,30 +68,20 @@ export default class RecipesApiController {
     } = request.body, { userId } = request.decoded,
       recipeId = parseInt(request.params.recipeID.trim(), 10);
 
-    return Recipes.findById(recipeId).then((recipe) => {
-      if (recipe.userId === userId) {
-        return recipe.updateAttributes({
-          title: (title) || recipe.title,
-          ingredients: (ingredients) || recipe.ingredients,
-          procedures: (procedures) || recipe.procedures,
-          recipeImage: (recipeImage) || recipe.recipeImage
-        }).then(() => response.status(200).json({
-          status: 'Success',
-          message: 'Successfully updated recipe',
-          recipe
-        })).catch(error => response.status(500).json({
-          status: 'Failed',
-          message: error.message
-        }));
-      }
-      return response.status(401).json({
-        status: 'Failed',
-        message: 'Can not update a recipe not created by you'
-      });
-    }).catch(() => response.status(404).json({
-      status: 'Failed',
-      message: `Recipe with id: ${recipeId}, not found`
-    }));
+    if (checkId.recipeId(response, recipeId)) {
+      return Recipes.findById(recipeId).then((recipe) => {
+        if (recipe.userId === userId) {
+          return recipe.updateAttributes({
+              title: (title) || recipe.title,
+              ingredients: (ingredients) || recipe.ingredients,
+              procedures: (procedures) || recipe.procedures,
+              recipeImage: (recipeImage) || recipe.recipeImage
+            }).then(() => requestFeedback.success(response, 200, 'Successfully updated recipe', { recipe }))
+            .catch(error => requestFeedback.error(response, 500, error.message));
+        }
+        return requestFeedback.error(response, 401, 'Can not update a recipe not created by you');
+      }).catch(() => requestFeedback.error(response, 401, 'Recipe not found or has been deleted'));
+    }
   }
 
   /**
@@ -121,33 +97,18 @@ export default class RecipesApiController {
   static deleteRecipe(request, response) {
     const { userId } = request.decoded, recipeId = parseInt(request.params.recipeID.trim(), 10);
 
-    if (Number.isNaN(recipeId)) {
-      return response.status(406).json({
-        status: 'Failed',
-        message: 'Recipe ID must be a number'
-      });
+    if (checkId.recipeId(response, recipeId)) {
+      return Recipes.findById(recipeId).then((recipe) => {
+        if (recipe.userId === userId) {
+          return Recipes.destroy({
+            where: {
+              id: recipeId
+            },
+          }).then(() => requestFeedback.success(response, 200, 'Successfully delected recipe', { recipe }));
+        }
+        return requestFeedback.error(response, 401, 'You can not delete a recipe not created by you');
+      }).catch(() => requestFeedback.error(response, 404, 'Recipe not found or has been deleted'));
     }
-
-    return Recipes.findById(recipeId).then((recipe) => {
-      if (recipe.userId === userId) {
-        return Recipes.destroy({
-          where: {
-            id: recipeId
-          },
-        }).then(() => response.status(200).json({
-          status: 'Success',
-          message: 'Successfully delected recipe',
-          recipe
-        }));
-      }
-      return response.status(401).json({
-        status: 'Failed',
-        message: 'You can not delete a recipe not created by you'
-      });
-    }).catch(() => response.status(404).json({
-      status: 'Failed',
-      message: `Recipe with id: ${recipeId}, not found`
-    }));
   }
 
   /**
@@ -222,16 +183,9 @@ export default class RecipesApiController {
           if (!request.decoded) {
             recipe.increment('viewsCount');
           }
-          return response.status(200).json({
-            status: 'Success',
-            message: `Successfully retrieved recipe of ID ${recipeId}`,
-            recipe
-          });
+          return requestFeedback.success(response, 200, `Successfully retrieved recipe of ID ${recipeId}`, { recipe });
         }
-        return response.status(404).json({
-          status: 'Failed',
-          message: 'Recipe not found or has been deleted'
-        });
+        return requestFeedback.error(response, 404, 'Recipe not found or has been deleted');
       });
     }
   }

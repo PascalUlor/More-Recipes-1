@@ -1,5 +1,6 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
+import requestFeedback from '../../utils/requestFeedback';
 
 
 /**
@@ -20,10 +21,7 @@ export default class RecipesValidation {
    */
   static addRecipeValidations(request, response, next) {
     if (typeof request.body.title === 'undefined' || typeof request.body.ingredients === 'undefined' || typeof request.body.procedures === 'undefined') {
-      return response.status(422).json({
-        status: 'Failed',
-        message: 'All or some fields are not defined'
-      });
+      return requestFeedback.error(response, 422, 'All or some fields are not defined');
     }
 
     const title = request.body.title.trim(),
@@ -81,10 +79,7 @@ export default class RecipesValidation {
     }
 
     if (!(title || ingredients || procedures)) {
-      return response.status(422).json({
-        status: 'Failed',
-        message: 'Provide a field to update'
-      });
+      return requestFeedback.error(response, 422, 'Provide a field to update');
     }
 
     if (title) {
@@ -131,10 +126,7 @@ export default class RecipesValidation {
     }
 
     if (typeof request.query.sort === 'undefined' || typeof request.query.order === 'undefined') {
-      return response.status(422).json({
-        status: 'Failed',
-        message: 'Sort or(and) order query parameter(s) is(are) not defined'
-      });
+      return requestFeedback.error(response, 422, 'Sort or(and) order query parameter(s) is(are) not defined');
     }
 
     const sort = request.query.sort.trim(),

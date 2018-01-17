@@ -1,4 +1,6 @@
 import models from '../models';
+import checkId from '../utils/checkId';
+import requestFeedback from '../utils/requestFeedback';
 
 const { Recipes, Reviews, Users } = models;
 
@@ -22,42 +24,25 @@ export default class ReviewsApiController {
     const { reviewBody } = request.body, { userId } = request.decoded,
       recipeId = parseInt(request.params.recipeID.trim(), 10);
 
-    Users.findById(userId)
-      .then((foundUser) => {
-        if (!foundUser) {
-          return response.status(404).json({
-            status: 'Failed',
-            message: 'Sorry!!! User not found or has been deleted'
-          });
-        }
-        if (Number.isNaN(recipeId)) {
-          return response.status(406).json({
-            status: 'Failed',
-            message: 'Recipe ID must be a number'
-          });
-        }
+    Users.findById(userId).then((foundUser) => {
+      if (!foundUser) {
+        return requestFeedback.error(response, 404, 'User not found or has been deleted');
+      }
+      if (checkId.recipeId(response, recipeId)) {
         return Recipes.findById(recipeId).then((recipe) => {
           if (!recipe) {
-            return response.status(404).json({
-              status: 'Failed',
-              message: 'Sorry!!! Recipe not found or has been deleted'
-            });
+            return requestFeedback.error(response, 404, 'Recipe not found or has been deleted');
           }
           return Reviews.create({
-            reviewBody,
-            username: foundUser.username,
-            profileImage: foundUser.profileImage,
-            userId,
-            recipeId
-          }).then(postedReview => response.status(201).json({
-            status: 'Success',
-            message: 'Successfully posted review',
-            postedReview
-          })).catch(error => response.status(500).json({
-            status: 'Failed',
-            message: error.message
-          }));
+              reviewBody,
+              username: foundUser.username,
+              profileImage: foundUser.profileImage,
+              userId,
+              recipeId
+            }).then(postedReview => requestFeedback.success(response, 201, 'Successfully posted review', { postedReview }))
+            .catch(error => requestFeedback.error(response, 500, error.message));
         });
-      });
+      }
+    });
   }
 }

@@ -1,5 +1,6 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
+import requestFeedback from '../../utils/requestFeedback';
 
 
 /**
@@ -21,10 +22,7 @@ export default class UserValidations {
   static signup(request, response, next) {
     if (typeof request.body.fullName === 'undefined' || typeof request.body.username === 'undefined' || typeof request.body.email === 'undefined' ||
       typeof request.body.password === 'undefined' || typeof request.body.repassword === 'undefined') {
-      return response.status(422).json({
-        status: 'Failed',
-        message: 'All or some fields are not defined'
-      });
+      return requestFeedback.error(response, 422, 'All or some fields are not defined');
     }
     const fullName = request.body.fullName.trim(),
       username = request.body.username.trim(),
@@ -86,10 +84,7 @@ export default class UserValidations {
    */
   static signin(request, response, next) {
     if (typeof request.body.username === 'undefined' || typeof request.body.password === 'undefined') {
-      return response.status(422).json({
-        status: 'Failed',
-        message: 'Username or(and) password field(s) is(are) not defined'
-      });
+      return requestFeedback.error(response, 422, 'Username or(and) password field(s) is(are) not defined');
     }
 
     const username = request.body.username.trim(),
@@ -127,10 +122,7 @@ export default class UserValidations {
     if (typeof request.body.fullName === 'undefined' || typeof request.body.username === 'undefined' ||
       typeof request.body.email === 'undefined' || typeof request.body.location === 'undefined' ||
       typeof request.body.aboutMe === 'undefined') {
-      return response.status(422).json({
-        status: 'Failed',
-        message: 'All or some fields are not defined'
-      });
+      return requestFeedback.error(response, 422, 'All or some fields are not defined');
     }
 
     const fullName = request.body.fullName.trim(),

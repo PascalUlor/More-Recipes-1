@@ -1,4 +1,5 @@
 import models from '../../models';
+import requestFeedback from '../../utils/requestFeedback';
 
 const { Recipes } = models;
 
@@ -22,14 +23,9 @@ export default class ValidateDoubleRecipeTitle {
     const { title } = request.body, { userId } = request.decoded;
     return Recipes.findOne({ where: { title, userId } }).then((found) => {
       if (found && found.title === title) {
-        return response.json({
-          status: 'Failed',
-          message: `Recipe with title: ${title}, already exist in your catalog`
-        });
+        return requestFeedback.error(response, 409, `Recipe with title: ${title}, already exist in your catalog`);
       }
-      return response.json({
-        status: 'Success'
-      });
+      return requestFeedback.success(response, 200, 'This title does not exit in your catalog');
     });
   }
 }

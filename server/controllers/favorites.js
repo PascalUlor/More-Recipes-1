@@ -1,6 +1,7 @@
 import models from '../models';
 import checkId from '../utils/checkId';
 import fetchRecipes from '../utils/recipes';
+import requestFeedback from '../utils/requestFeedback';
 
 const { Users, Recipes, Favorites } = models;
 
@@ -23,54 +24,28 @@ export default class FavoritesApiController {
   static addToFavorite(request, response) {
     const { userId } = request.decoded, recipeId = parseInt(request.params.recipeID.trim(), 10);
 
-    if (Number.isNaN(recipeId)) {
-      return response.status(406).json({
-        status: 'Failed',
-        message: 'Recipe ID must be a number'
-      });
-    }
-
-    Recipes.findById(recipeId).then((recipeFound) => {
-      if (!recipeFound) {
-        return response.status(404).json({
-          status: 'Failed',
-          message: 'Sorry!!! Recipe not found or has been deleted'
-        });
-      }
-      if (recipeFound.userId === userId) {
-        return response.status(403).json({
-          status: 'Failed',
-          message: 'Can not favorite a recipe created by you'
-        });
-      }
-      Favorites.findOne({ where: { userId, recipeId } }).then((favorite) => {
-        if (favorite) {
-          return Favorites.destroy({
-            where: { userId, recipeId }
-          }).then(() => response.status(200).json({
-            status: 'Success',
-            message: 'Recipe has been unfavorited'
-          }));
+    if (checkId.recipeId(response, recipeId)) {
+      Recipes.findById(recipeId).then((recipeFound) => {
+        if (!recipeFound) {
+          return requestFeedback.error(response, 404, 'Recipe not found or has been deleted');
         }
-        return Favorites.create({
-          userId,
-          recipeId
-        }).then(favoritedRecipe => response.status(201).json({
-          status: 'Success',
-          message: 'Recipe has been favorited',
-          favoritedRecipe
-        })).catch(error => response.status(500).json({
-          status: 'Failed',
-          message: error.message
-        }));
-      }).catch(error => response.status(500).json({
-        status: 'Failed',
-        message: error.message
-      }));
-    }).catch(error => response.status(500).json({
-      status: 'Failed',
-      message: error.message
-    }));
+        if (recipeFound.userId === userId) {
+          return requestFeedback.error(response, 403, 'Can not favorite a recipe created by you');
+        }
+        Favorites.findOne({ where: { userId, recipeId } }).then((favorite) => {
+          if (favorite) {
+            return Favorites.destroy({
+              where: { userId, recipeId }
+            }).then(() => requestFeedback.success(response, 200, 'Recipe has been unfavorited'));
+          }
+          return Favorites.create({
+              userId,
+              recipeId
+            }).then(favoritedRecipe => requestFeedback.success(response, 201, 'Recipe has been favorited', { favoritedRecipe }))
+            .catch(error => requestFeedback.error(response, 500, error.message));
+        }).catch(error => requestFeedback.error(response, 500, error.message));
+      }).catch(error => requestFeedback.error(response, 500, error.message));
+    }
   }
 
   /**
@@ -105,20 +80,16 @@ export default class FavoritesApiController {
   static deleteFavoriteRecipe(request, response) {
     const { userId } = request.decoded, recipeId = parseInt(request.params.recipeID.trim(), 10);
 
-    if (Number.isNaN(recipeId)) {
-      return response.status(406).json({
-        status: 'Failed',
-        message: 'Recipe ID must be a number'
+    if (checkId.recipeId(response, recipeId)) {
+      Favorites.findOne({ where: { userId, recipeId } }).then((recipeFound) => {
+        if (!recipeFound) {
+          return requestFeedback.error(response, 404, 'Recipe not found or has already been deleted by the author');
+        }
+        return Favorites.destroy({
+            where: { userId, recipeId }
+          }).then(recipe => requestFeedback.success(response, 200, 'Recipe has been deleted', { recipe }))
+          .catch(error => requestFeedback.error(response, 500, error.message));
       });
     }
-    return Favorites.destroy({
-      where: { userId, recipeId }
-    }).then(() => response.status(200).json({
-      status: 'Success',
-      message: 'Recipe has been deleted'
-    })).catch(error => response.state(500).json({
-      status: 'Failed',
-      message: error.message
-    }));
   }
 }

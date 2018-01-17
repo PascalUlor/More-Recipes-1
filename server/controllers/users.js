@@ -1,11 +1,10 @@
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import env from 'dotenv';
 import models from '../models';
+import requestFeedback from '../utils/requestFeedback';
+import generateTokenAndSendFeedback from '../utils/users';
 
 const { Users, Reviews } = models;
 
-env.config();
 
 /**
  * @class UsersApiController
@@ -60,29 +59,10 @@ export default class UsersApiController {
             username,
             email,
             password: hash
-          }).then((user) => {
-            const payload = { fullName: user.fullName, username: user.username, userId: user.id };
-            const token = jwt.sign(payload, process.env.SECRET_KEY, {
-              expiresIn: 60 * 60 * 8
-            });
-            request.token = token;
-            return response.status(201).json({
-              status: 'Success',
-              message: 'Successfully created account',
-              user: {
-                id: user.id,
-                username: user.username,
-                email: user.email
-              },
-              token
-            });
-          });
+          }).then(user => (generateTokenAndSendFeedback(request, response, 201, 'Successfully created account', user)));
         });
       });
-    }).catch(error => response.status(500).json({
-      status: 'Failed',
-      message: error.message
-    }));
+    }).catch(error => requestFeedback.error(response, 500, error.message));
   }
 
   /**
@@ -109,20 +89,7 @@ export default class UsersApiController {
       if (user && user.username.toLowerCase === username.toLowerCase) {
         const check = bcrypt.compareSync(password, user.password);
         if (check) {
-          const payload = { fullName: user.fullName, username: user.username, userId: user.id };
-          const token = jwt.sign(payload, process.env.SECRET_KEY, {
-            expiresIn: 60 * 60 * 8
-          });
-          request.token = token;
-          return response.status(200).json({
-            status: 'Success',
-            message: 'You are now logged In',
-            user: {
-              id: user.id,
-              username: user.username
-            },
-            token
-          });
+          return generateTokenAndSendFeedback(request, response, 200, 'You are now logged In', user);
         }
         return response.status(401).json({
           status: 'Failed',
@@ -133,10 +100,7 @@ export default class UsersApiController {
         status: 'Failed',
         errors
       });
-    }).catch(error => response.status(500).json({
-      status: 'Failed',
-      message: error.message
-    }));
+    }).catch(error => requestFeedback.error(response, 500, error.message));
   }
 
   /**
@@ -160,16 +124,9 @@ export default class UsersApiController {
       ]
     }).then((user) => {
       if (user) {
-        return response.status(200).json({
-          status: 'Success',
-          message: 'User found',
-          user
-        });
+        return requestFeedback.success(response, 200, 'User found', { user });
       }
-      return response.status(404).json({
-        status: 'Failed',
-        message: 'User not found'
-      });
+      return requestFeedback.error(response, 404, 'User not found or has been deleted');
     });
   }
 
@@ -195,10 +152,7 @@ export default class UsersApiController {
 
     Users.findOne({ where: { id: userId } }).then((foundUser) => {
       if (!foundUser) {
-        return response.status(404).json({
-          status: 'Failed',
-          message: 'User not found'
-        });
+        return requestFeedback.error(response, 404, 'User not found or has been deleted');
       }
       return foundUser.updateAttributes({
         fullName: (fullName) || foundUser.fullName,
@@ -215,26 +169,23 @@ export default class UsersApiController {
             'profileImage', 'location', 'aboutMe'
           ]
         }).then((updatedUser) => {
-          Reviews.update({
-              username: updatedUser.username,
-              profileImage: updatedUser.profileImage
-            }, {
-              where: {
-                userId
-              }
-            })
-            .then(() => {
-              response.status(200).json({
-                status: 'Success',
-                message: 'User profile updated successfully',
-                updatedUser
-              });
-            });
+          const feedback = requestFeedback.success(response, 200, 'User profile updated successfully', { updatedUser });
+          Reviews.findOne({ where: { userId } }).then((review) => {
+            if (review) {
+              Reviews.update({
+                  username: updatedUser.username,
+                  profileImage: updatedUser.profileImage
+                }, {
+                  where: {
+                    userId
+                  }
+                })
+                .then(() => (feedback));
+            }
+            return feedback;
+          });
         });
-      }).catch(() => response.status(500).json({
-        status: 'Failed',
-        message: 'Server error. Unable to update profile'
-      }));
+      }).catch(error => requestFeedback.error(response, 500, error.message));
     });
   }
 }

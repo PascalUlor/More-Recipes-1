@@ -1,5 +1,6 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
+import requestFeedback from '../../utils/requestFeedback';
 
 
 /**
@@ -20,10 +21,7 @@ export default class ReviewsValidation {
    */
   static postReviewValidations(request, response, next) {
     if (typeof request.body.reviewBody === 'undefined') {
-      return response.status(422).json({
-        status: 'Failed',
-        message: 'Review for recipe is not defined or is missing'
-      });
+      return requestFeedback.error(response, 422, 'Review for recipe is not defined or is missing');
     }
 
     const reviewBody = request.body.reviewBody.trim(),
