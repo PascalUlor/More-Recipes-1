@@ -33,14 +33,14 @@ export default class UserValidations {
     if (!validator.isEmpty(fullName)) {
       const containNumber = fullName.split('').filter(character => validator.toInt(character));
       if (containNumber.length !== 0) {
-        errors.fullName = 'Full name must not contain numbers';
+        errors.fullName = 'Full name must not contain number(s)';
       }
     } else { errors.fullName = 'Full name is required'; }
 
     if (!validator.isEmpty(username)) {
       if (!validator.toInt(username)) {
-        if (!validator.isLength(username, { min: 4, max: 25 })) {
-          errors.username = 'Username must be atleast 4 to 25 characters';
+        if (!validator.isLength(username, { min: 3, max: 25 })) {
+          errors.username = 'Username must be atleast 3 to 25 characters';
         }
       } else { errors.username = 'Username must not start with number(s)'; }
     } else { errors.username = 'Username is required'; }
@@ -59,7 +59,7 @@ export default class UserValidations {
 
     if (!validator.isEmpty(repassword)) {
       if (!validator.equals(validator.trim(repassword), validator.trim(password))) {
-        errors.repassword = 'Password mismatched';
+        errors.repassword = 'Passwords does not matched';
       }
     } else { errors.repassword = 'Password confirmation is required'; }
 
@@ -141,8 +141,8 @@ export default class UserValidations {
 
     if (!validator.isEmpty(username)) {
       if (!validator.toInt(username)) {
-        if (!validator.isLength(username, { min: 4, max: 25 })) {
-          errors.username = 'Username must be atleast 4 to 25 characters';
+        if (!validator.isLength(username, { min: 3, max: 25 })) {
+          errors.username = 'Username must be atleast 3 to 25 characters';
         }
       } else { errors.username = 'Username must not start with number(s)'; }
     } else { errors.username = 'Username is required'; }
@@ -158,13 +158,13 @@ export default class UserValidations {
       if (containNumber.length !== 0) {
         errors.location = 'Provided location must not contain number(s)';
       }
-    }
+    } else { errors.location = ''; }
 
     if (aboutMe) {
       if (!validator.isLength(aboutMe, { min: 4, max: undefined })) {
         errors.aboutMe = 'Provided description must be atleast 4 characters';
       }
-    }
+    } else { errors.aboutMe = ''; }
 
     const result = { isValid: isEmpty(errors) };
 

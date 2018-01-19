@@ -96,7 +96,7 @@ export default class UsersApiController {
           errors
         });
       }
-      return response.status(404).json({
+      return response.status(401).json({
         status: 'Failed',
         errors
       });
@@ -117,17 +117,13 @@ export default class UsersApiController {
     const { userId } = request.decoded;
 
     Users.findOne({
-      where: { id: userId },
-      attributes: [
-        'id', 'fullName', 'username', 'email',
-        'profileImage', 'location', 'aboutMe'
-      ]
-    }).then((user) => {
-      if (user) {
-        return requestFeedback.success(response, 200, 'User found', { user });
-      }
-      return requestFeedback.error(response, 404, 'User not found or has been deleted');
-    });
+        where: { id: userId },
+        attributes: [
+          'id', 'fullName', 'username', 'email',
+          'profileImage', 'location', 'aboutMe'
+        ]
+      }).then(user => (requestFeedback.success(response, 200, 'User found', { user })))
+      .catch(error => requestFeedback.error(response, 500, error.message));
   }
 
   /**
@@ -151,41 +147,39 @@ export default class UsersApiController {
     } = request.body, { userId } = request.decoded;
 
     Users.findOne({ where: { id: userId } }).then((foundUser) => {
-      if (!foundUser) {
-        return requestFeedback.error(response, 404, 'User not found or has been deleted');
-      }
-      return foundUser.updateAttributes({
-        fullName: (fullName) || foundUser.fullName,
-        username: (username) || foundUser.username,
-        email: (email) || foundUser.email,
-        location: (location) || foundUser.location,
-        aboutMe: (aboutMe) || foundUser.aboutMe,
-        profileImage: (profileImage) || foundUser.profileImage
-      }).then(() => {
-        Users.findOne({
-          where: { id: userId },
-          attributes: [
-            'id', 'fullName', 'username', 'email',
-            'profileImage', 'location', 'aboutMe'
-          ]
-        }).then((updatedUser) => {
-          const feedback = requestFeedback.success(response, 200, 'User profile updated successfully', { updatedUser });
-          Reviews.findOne({ where: { userId } }).then((review) => {
-            if (review) {
-              Reviews.update({
+      if (foundUser) {
+        return foundUser.updateAttributes({
+          fullName: (fullName) || foundUser.fullName,
+          username: (username) || foundUser.username,
+          email: (email) || foundUser.email,
+          location: (location) || foundUser.location,
+          aboutMe: (aboutMe) || foundUser.aboutMe,
+          profileImage: (profileImage) || foundUser.profileImage
+        }).then(() => {
+          Users.findOne({
+            where: { id: userId },
+            attributes: [
+              'id', 'fullName', 'username', 'email',
+              'profileImage', 'location', 'aboutMe'
+            ]
+          }).then((updatedUser) => {
+            Reviews.findAll({ where: { userId } }).then((review) => {
+              const feedback = requestFeedback.success(response, 200, 'User profile updated successfully', { updatedUser });
+              if (review.length !== 0) {
+                return Reviews.update({
                   username: updatedUser.username,
                   profileImage: updatedUser.profileImage
                 }, {
                   where: {
                     userId
                   }
-                })
-                .then(() => (feedback));
-            }
-            return feedback;
+                }).then(() => (feedback));
+              }
+              return feedback;
+            });
           });
-        });
-      }).catch(error => requestFeedback.error(response, 500, error.message));
+        }).catch(error => requestFeedback.error(response, 500, error.message));
+      }
     });
   }
 }

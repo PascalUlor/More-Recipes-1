@@ -1,6 +1,6 @@
 import models from '../models';
-import checkId from '../utils/checkId';
 import requestFeedback from '../utils/requestFeedback';
+import reviewNotifier from '../utils/reviewNotifier';
 
 const { Recipes, Reviews, Users } = models;
 
@@ -25,24 +25,23 @@ export default class ReviewsApiController {
       recipeId = parseInt(request.params.recipeID.trim(), 10);
 
     Users.findById(userId).then((foundUser) => {
-      if (!foundUser) {
-        return requestFeedback.error(response, 404, 'User not found or has been deleted');
-      }
-      if (checkId.recipeId(response, recipeId)) {
-        return Recipes.findById(recipeId).then((recipe) => {
-          if (!recipe) {
-            return requestFeedback.error(response, 404, 'Recipe not found or has been deleted');
-          }
-          return Reviews.create({
-              reviewBody,
-              username: foundUser.username,
-              profileImage: foundUser.profileImage,
-              userId,
-              recipeId
-            }).then(postedReview => requestFeedback.success(response, 201, 'Successfully posted review', { postedReview }))
-            .catch(error => requestFeedback.error(response, 500, error.message));
-        });
-      }
+      Recipes.findById(recipeId).then((recipe) => {
+        if (!recipe) {
+          return requestFeedback.error(response, 404, 'Recipe not found or has been deleted');
+        }
+        return Reviews.create({
+            reviewBody,
+            username: foundUser.username,
+            profileImage: foundUser.profileImage,
+            userId,
+            recipeId
+          }).then((postedReview) => {
+            const { username } = postedReview;
+            reviewNotifier(Recipes, Users, recipeId, postedReview.reviewBody, username);
+            return requestFeedback.success(response, 201, 'Successfully posted review', { postedReview });
+          })
+          .catch(error => (requestFeedback.error(response, 500, error.message)));
+      });
     });
   }
 }

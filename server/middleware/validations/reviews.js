@@ -1,5 +1,6 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
+import checkId from '../../utils/checkId';
 import requestFeedback from '../../utils/requestFeedback';
 
 
@@ -27,22 +28,19 @@ export default class ReviewsValidation {
     const reviewBody = request.body.reviewBody.trim(),
       recipeId = parseInt(request.params.recipeID, 10),
       errors = {};
+    if (checkId.recipeId(response, recipeId)) {
+      if (!validator.isEmpty(reviewBody)) {
+        if (!validator.isLength(reviewBody, { min: 3, max: undefined })) {
+          errors.reviewBody = 'Review provided must be atleast 3 characters';
+        }
+      } else { errors.reviewBody = 'Review for recipe is required'; }
 
-    if (!validator.isEmpty(reviewBody)) {
-      if (!validator.isLength(reviewBody, { min: 4, max: undefined })) {
-        errors.reviewBody = 'Review provided must be atleast 4 characters';
+      const result = { isValid: isEmpty(errors) };
+
+      if (!result.isValid) {
+        return response.status(400).json({ errors });
       }
-    } else { errors.reviewBody = 'Review for recipe is required'; }
-
-    if (Number.isNaN(recipeId)) {
-      errors.recipeId = 'Recipe ID must be a number';
+      return next();
     }
-
-    const result = { isValid: isEmpty(errors) };
-
-    if (!result.isValid) {
-      return response.status(400).json({ errors });
-    }
-    return next();
   }
 }

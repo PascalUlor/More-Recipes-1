@@ -38,10 +38,10 @@ export default class VotesApiController {
                   where: { userId, recipeId }
                 }).then(() => {
                   Recipes.update({
-                      upvotes: (recipe.upvotes + 1),
-                      downvotes: (recipe.downvotes === 0) ? 0 : (recipe.downvotes - 1)
+                      upvotes: recipe.upvotes + 1,
+                      downvotes: recipe.downvotes - 1
                     }, { where: { id: recipeId } })
-                    .then(() => (voteResponse(Recipes, recipeId, response, 'You upvoted')));
+                    .then(() => (voteResponse(Recipes, recipeId, response, 200, 'You upvoted')));
                 });
               }
               if (foundVote.vote === 'downvote') {
@@ -53,16 +53,16 @@ export default class VotesApiController {
                 where: { userId, recipeId }
               }).then(() => {
                 Recipes.update({
-                    upvotes: (recipe.upvotes === 0) ? 0 : (recipe.upvotes - 1),
-                    downvotes: (recipe.downvotes + 1)
+                    upvotes: recipe.upvotes - 1,
+                    downvotes: recipe.downvotes + 1
                   }, { where: { id: recipeId } })
-                  .then(() => (voteResponse(Recipes, recipeId, response, 'You downvoted')));
+                  .then(() => (voteResponse(Recipes, recipeId, response, 200, 'You downvoted')));
               });
             }
             if (request.query.vote === 'upvote') {
-              return createVote(Recipes, Votes, response, userId, recipeId, 'upvote', recipe, 'Thanks for upvoting');
+              return createVote(Recipes, Votes, response, userId, recipeId, 'upvote', recipe, 201, 'Thanks for upvoting');
             }
-            return createVote(Recipes, Votes, response, userId, recipeId, 'downvote', recipe, 'Thanks for downvoting');
+            return createVote(Recipes, Votes, response, userId, recipeId, 'downvote', recipe, 201, 'Thanks for downvoting');
           });
         }
         return requestFeedback.error(response, 404, 'Recipe Not found or has been deleted');
