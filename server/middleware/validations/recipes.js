@@ -1,5 +1,6 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
+import checkId from '../../utils/checkId';
 import requestFeedback from '../../utils/requestFeedback';
 
 
@@ -32,19 +33,19 @@ export default class RecipesValidation {
     if (!validator.isEmpty(title)) {
       const containNumber = title.split('').filter(character => validator.toInt(character));
       if (containNumber.length !== 0) {
-        errors.title = 'Recipe title must not contain numbers';
+        errors.title = 'Recipe title must not contain number(s)';
       }
     } else { errors.title = 'Recipe title is required'; }
 
     if (!validator.isEmpty(ingredients)) {
-      if (!validator.isLength(ingredients, { min: 20, max: 1000 })) {
-        errors.ingredients = 'Recipe ingredients provided must be atleast 20 to 1000 characters';
+      if (!validator.isLength(ingredients, { min: 20, max: undefined })) {
+        errors.ingredients = 'Recipe ingredients provided must be atleast 20 characters';
       }
     } else { errors.ingredients = 'Recipe ingredients are required'; }
 
     if (!validator.isEmpty(procedures)) {
-      if (!validator.isLength(procedures, { min: 30, max: 1000 })) {
-        errors.procedures = 'Recipe procedures provided must be atleast 30 to 1000 characters';
+      if (!validator.isLength(procedures, { min: 20, max: undefined })) {
+        errors.procedures = 'Recipe procedures provided must be atleast 20 characters';
       }
     } else { errors.procedures = 'Recipe procedures are required'; }
 
@@ -68,45 +69,41 @@ export default class RecipesValidation {
    * @returns {object} validation error messages object or content(s) of request.body object
    */
   static updateRecipeValidations(request, response, next) {
-    const title = request.body.title.trim(),
-      ingredients = request.body.ingredients.trim(),
-      procedures = request.body.procedures.trim(),
+    const { title, ingredients, procedures } = request.body,
       recipeId = parseInt(request.params.recipeID.trim(), 10),
       errors = {};
 
-    if (Number.isNaN(recipeId)) {
-      errors.recipeId = 'Recipe ID must be a number';
-    }
-
-    if (!(title || ingredients || procedures)) {
-      return requestFeedback.error(response, 422, 'Provide a field to update');
-    }
-
-    if (title) {
-      const containNumber = title.split('').filter(character => validator.toInt(character));
-      if (containNumber.length !== 0) {
-        errors.title = 'Recipe title must not contain numbers';
+    if (checkId.recipeId(response, recipeId)) {
+      if (!(title || ingredients || procedures)) {
+        return requestFeedback.error(response, 422, 'Provide a field to update');
       }
-    }
 
-    if (ingredients) {
-      if (!validator.isLength(ingredients, { min: 20, max: 1000 })) {
-        errors.ingredients = 'Recipe ingredients provided must be more than 20 characters';
+      if (title) {
+        const containNumber = title.split('').filter(character => validator.toInt(character));
+        if (containNumber.length !== 0) {
+          errors.title = 'Recipe title must not contain number(s)';
+        }
       }
-    }
 
-    if (procedures) {
-      if (!validator.isLength(procedures, { min: 30, max: 1000 })) {
-        errors.procedures = 'Recipe procedures provided must be more than 30 characters';
+      if (ingredients) {
+        if (!validator.isLength(ingredients, { min: 20, max: undefined })) {
+          errors.ingredients = 'Recipe ingredients provided must be atleast 20 characters';
+        }
       }
-    }
 
-    const result = { isValid: isEmpty(errors) };
+      if (procedures) {
+        if (!validator.isLength(procedures, { min: 20, max: undefined })) {
+          errors.procedures = 'Recipe procedures provided must be atleast 20 characters';
+        }
+      }
 
-    if (!result.isValid) {
-      return response.status(400).json({ errors });
+      const result = { isValid: isEmpty(errors) };
+
+      if (!result.isValid) {
+        return response.status(400).json({ errors });
+      }
+      return next();
     }
-    return next();
   }
 
   /**
@@ -121,7 +118,7 @@ export default class RecipesValidation {
    * @returns {object} validation error messages object or contents of request.query(or nothing)
    */
   static getSortdedRecipesValidation(request, response, next) {
-    if (!request.query.sort) {
+    if (!request.query.sort && !request.query.order) {
       return next();
     }
 

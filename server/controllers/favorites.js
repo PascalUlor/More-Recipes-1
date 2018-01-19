@@ -60,7 +60,6 @@ export default class FavoritesApiController {
    */
   static getFavoriteRecipes(request, response) {
     const { userId } = request.decoded;
-    checkId.userId(response, Users, userId);
 
     const message1 = 'You have no favorited recipes',
       message2 = 'Successfully retrieved your favorite Recipe(s)';
@@ -83,11 +82,11 @@ export default class FavoritesApiController {
     if (checkId.recipeId(response, recipeId)) {
       Favorites.findOne({ where: { userId, recipeId } }).then((recipeFound) => {
         if (!recipeFound) {
-          return requestFeedback.error(response, 404, 'Recipe not found or has already been deleted by the author');
+          return requestFeedback.error(response, 404, 'Recipe not found or has been deleted');
         }
         return Favorites.destroy({
             where: { userId, recipeId }
-          }).then(recipe => requestFeedback.success(response, 200, 'Recipe has been deleted', { recipe }))
+          }).then(recipe => requestFeedback.success(response, 200, 'Successfully deleted Recipe', { recipe }))
           .catch(error => requestFeedback.error(response, 500, error.message));
       });
     }

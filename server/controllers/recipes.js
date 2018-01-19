@@ -28,25 +28,20 @@ export default class RecipesApiController {
       procedures,
       recipeImage
     } = request.body, { userId } = request.decoded;
-    return Users.findById(userId).then((foundUser) => {
-      if (!foundUser) {
-        return requestFeedback.error(response, 404, 'User not found or has been deleted');
+    Recipes.findOne({ where: { title, userId } }).then((found) => {
+      if (found && found.title === title) {
+        return requestFeedback.error(response, 409, `Recipe with title:${title}, already exist in your catalog`);
       }
-      return Recipes.findOne({ where: { title, userId } }).then((found) => {
-        if (found && found.title === title) {
-          return requestFeedback.error(response, 409, `Recipe with title:${title}, already exist in your catalog`);
-        }
 
-        return Recipes.create({
-            title,
-            ingredients,
-            procedures,
-            recipeImage,
-            userId
-          }).then(recipe => requestFeedback.success(response, 201, 'Successfully added new recipe', { recipe }))
-          .catch(error => requestFeedback.error(response, 500, error.message));
-      }).catch(error => requestFeedback.error(response, 500, error.message));
-    });
+      return Recipes.create({
+          title,
+          ingredients,
+          procedures,
+          recipeImage,
+          userId
+        }).then(recipe => requestFeedback.success(response, 201, 'Successfully added new recipe', { recipe }))
+        .catch(error => requestFeedback.error(response, 500, error.message));
+    }).catch(error => requestFeedback.error(response, 500, error.message));
   }
 
   /**
@@ -66,22 +61,20 @@ export default class RecipesApiController {
       procedures,
       recipeImage
     } = request.body, { userId } = request.decoded,
-      recipeId = parseInt(request.params.recipeID.trim(), 10);
+      recipeId = request.params.recipeID;
 
-    if (checkId.recipeId(response, recipeId)) {
-      return Recipes.findById(recipeId).then((recipe) => {
-        if (recipe.userId === userId) {
-          return recipe.updateAttributes({
-              title: (title) || recipe.title,
-              ingredients: (ingredients) || recipe.ingredients,
-              procedures: (procedures) || recipe.procedures,
-              recipeImage: (recipeImage) || recipe.recipeImage
-            }).then(() => requestFeedback.success(response, 200, 'Successfully updated recipe', { recipe }))
-            .catch(error => requestFeedback.error(response, 500, error.message));
-        }
-        return requestFeedback.error(response, 401, 'Can not update a recipe not created by you');
-      }).catch(() => requestFeedback.error(response, 401, 'Recipe not found or has been deleted'));
-    }
+    return Recipes.findById(recipeId).then((recipe) => {
+      if (recipe.userId === userId) {
+        return recipe.updateAttributes({
+            title: (title) || recipe.title,
+            ingredients: (ingredients) || recipe.ingredients,
+            procedures: (procedures) || recipe.procedures,
+            recipeImage: (recipeImage) || recipe.recipeImage
+          }).then(() => (requestFeedback.success(response, 200, 'Successfully updated recipe', { recipe })))
+          .catch(error => (requestFeedback.error(response, 500, error.message)));
+      }
+      return requestFeedback.error(response, 401, 'Can not update a recipe not created by you');
+    }).catch(() => requestFeedback.error(response, 404, 'Recipe not found or has been deleted'));
   }
 
   /**
@@ -145,10 +138,10 @@ export default class RecipesApiController {
    */
   static getUserRecipes(request, response) {
     const { userId } = request.decoded;
-    checkId.userId(response, Users, userId);
 
-    const message = 'Successfully retrieved your recipe(s)';
-    fetchRecipes(request, response, Recipes, Users, null, userId, 'createdAt', 'DESC', message);
+    const message1 = 'You have no available recipes',
+      message2 = 'Successfully retrieved your recipe(s)';
+    fetchRecipes(request, response, Recipes, Users, null, userId, 'createdAt', 'DESC', message1, message2);
   }
 
   /**

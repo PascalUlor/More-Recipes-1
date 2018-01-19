@@ -5,10 +5,10 @@
   "description": "more-recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.",
   "main": "server/app.js",
   "scripts": {
-    "test": "NODE_ENV=test && nyc --reporter=html --reporter=text mocha --timeout 500000 --compilers js:babel-core/register server/specs/apiTests.js",
+    "test": "export NODE_ENV=test && nyc --reporter=html --reporter=text mocha --timeout 500000 --compilers js:babel-core/register server/specs/*test.js",
     "start": "sequelize db:migrate && node ./dist/app.js",
     "build": "babel ./server -d ./dist",
-    "start:dev": "nodemon --watch server --exec babel-node -- server/app.js",
+    "start:dev": "export NODE_ENV=development && nodemon --watch server --exec babel-node -- server/app.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
