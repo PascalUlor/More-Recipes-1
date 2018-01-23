@@ -2,7 +2,7 @@ export default {
   validData1: {
     fullName: 'Hyginus Chinwoke',
     username: 'chyke',
-    email: 'chyke@gmail.com',
+    email: 'hyginuschinwoke@gmail.com',
     password: 'ilovecoding',
     repassword: 'ilovecoding'
   },
