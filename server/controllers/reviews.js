@@ -1,6 +1,6 @@
 import models from '../models';
-import checkId from '../utils/checkId';
 import requestFeedback from '../utils/requestFeedback';
+import reviewNotifier from '../utils/reviewNotifier';
 
 const { Recipes, Reviews, Users } = models;
 
@@ -35,7 +35,11 @@ export default class ReviewsApiController {
             profileImage: foundUser.profileImage,
             userId,
             recipeId
-          }).then(postedReview => (requestFeedback.success(response, 201, 'Successfully posted review', { postedReview })))
+          }).then((postedReview) => {
+            const { username } = postedReview;
+            reviewNotifier(Recipes, Users, recipeId, postedReview.reviewBody, username);
+            return requestFeedback.success(response, 201, 'Successfully posted review', { postedReview });
+          })
           .catch(error => (requestFeedback.error(response, 500, error.message)));
       });
     });
