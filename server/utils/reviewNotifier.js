@@ -8,17 +8,17 @@
   * @description function for sending notification email when a user's recipe gets a review
   * @function
   *
-  * @param   {object} modelR       - Recipes model
-  * @param   {object} modelU       - Users model
-  * @param   {number} recipeId     - ID of the recipe been reviewed
-  * @param   {object} postedReview - Object content of the review post
+  * @param   {object} recipesModel     - Recipes model
+  * @param   {object} usersModel       - Users model
+  * @param   {number} recipeId         - ID of the recipe been reviewed
+  * @param   {object} postedReview     - Object content of the review post
   *
-  *@returns {function}           - The nodemailer function that sends mail the user
+  *@returns  {function}                - The nodemailer function that sends mail the user
   */
- const reviewNotifier = (modelR, modelU, recipeId, postedReview) => {
-   modelR.findOne({ where: { id: recipeId } })
+ const reviewNotifier = (recipesModel, usersModel, recipeId, postedReview) => {
+   recipesModel.findOne({ where: { id: recipeId } })
      .then((recipe) => {
-       modelU.findOne({ where: { id: recipe.userId } })
+       usersModel.findOne({ where: { id: recipe.userId } })
          .then((user) => {
            const mailOptions = {
              from: `"More-Recipes" <${process.env.AUTHORIZED_EMAIL}>`,
