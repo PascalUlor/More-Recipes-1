@@ -79,9 +79,9 @@ class EditRecipeModal extends Component {
     .then(() => {
       if (this.props.updateRecipeSuccess !== '') {
         toastr.remove();
-        toastr.remove(this.props.updateRecipeSuccess);
+        toastr.success(this.props.updateRecipeSuccess);
       } else if (this.props.updateRecipeError !== '') {
-        toastr.clear();
+        toastr.remove();
         toastr.error(this.props.updateRecipeError);
       }
       $('button[id=close]').click();

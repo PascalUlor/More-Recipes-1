@@ -36,8 +36,7 @@ export default class ReviewsApiController {
             userId,
             recipeId
           }).then((postedReview) => {
-            const { username } = postedReview;
-            reviewNotifier(Recipes, Users, recipeId, postedReview.reviewBody, username);
+            reviewNotifier(Recipes, Users, recipeId, postedReview);
             return requestFeedback.success(response, 201, 'Successfully posted review', { postedReview });
           })
           .catch(error => (requestFeedback.error(response, 500, error.message)));

@@ -2,8 +2,14 @@ import models from '../models';
 import checkId from '../utils/checkId';
 import fetchRecipes from '../utils/recipes';
 import requestFeedback from '../utils/requestFeedback';
+import modifiedFavoriteNotifier from '../utils/modifiedFavoriteNotifier';
 
-const { Users, Recipes, Reviews } = models;
+const {
+  Users,
+  Recipes,
+  Reviews,
+  Favorites
+} = models;
 
 
 /**
@@ -66,12 +72,30 @@ export default class RecipesApiController {
     return Recipes.findById(recipeId).then((recipe) => {
       if (recipe.userId === userId) {
         return recipe.updateAttributes({
-            title: (title) || recipe.title,
-            ingredients: (ingredients) || recipe.ingredients,
-            procedures: (procedures) || recipe.procedures,
-            recipeImage: (recipeImage) || recipe.recipeImage
-          }).then(() => (requestFeedback.success(response, 200, 'Successfully updated recipe', { recipe })))
-          .catch(error => (requestFeedback.error(response, 500, error.message)));
+          title: (title) || recipe.title,
+          ingredients: (ingredients) || recipe.ingredients,
+          procedures: (procedures) || recipe.procedures,
+          recipeImage: (recipeImage) || recipe.recipeImage
+        }).then(() => {
+          Favorites.findAll({
+            where: { recipeId: recipe.id },
+            attributes: ['userId']
+          }).then((favorites) => {
+            if (favorites.length === 0) {
+              return requestFeedback.success(response, 200, 'Successfully updated recipe', { recipe });
+            }
+
+            const allFoundUserIds = favorites.map(favorite => favorite.userId);
+
+            return Users.findAll({
+              where: { id: allFoundUserIds },
+              attributes: ['username', 'email']
+            }).then((allFoundRecipeUsers) => {
+              requestFeedback.success(response, 200, 'Successfully updated recipe', { recipe });
+              modifiedFavoriteNotifier(Users, userId, recipe, allFoundRecipeUsers);
+            });
+          });
+        }).catch(error => (requestFeedback.error(response, 500, error.message)));
       }
       return requestFeedback.error(response, 401, 'Can not update a recipe not created by you');
     }).catch(() => requestFeedback.error(response, 404, 'Recipe not found or has been deleted'));

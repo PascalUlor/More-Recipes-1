@@ -155,14 +155,14 @@ export default class UsersApiController {
           location: (location) || foundUser.location,
           aboutMe: (aboutMe) || foundUser.aboutMe,
           profileImage: (profileImage) || foundUser.profileImage
-        }).then(() => {
+        }).then(() => (
           Users.findOne({
             where: { id: userId },
             attributes: [
               'id', 'fullName', 'username', 'email',
               'profileImage', 'location', 'aboutMe'
             ]
-          }).then((updatedUser) => {
+          }).then(updatedUser => (
             Reviews.findAll({ where: { userId } }).then((review) => {
               const feedback = requestFeedback.success(response, 200, 'User profile updated successfully', { updatedUser });
               if (review.length !== 0) {
@@ -176,9 +176,9 @@ export default class UsersApiController {
                 }).then(() => (feedback));
               }
               return feedback;
-            });
-          });
-        }).catch(error => requestFeedback.error(response, 500, error.message));
+            })
+          ))
+        )).catch(error => requestFeedback.error(response, 500, error.message));
       }
     });
   }
