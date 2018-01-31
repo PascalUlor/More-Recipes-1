@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import FlashMessage from './flashMessage.jsx';
+import FlashMessage from './FlashMessage.jsx';
 
-class FlashMessagesList extends React.Component {
+class FlashMessagesList extends Component {
   render() {
-    // const { messages } = this.props.messages,
-    const message = <FlashMessage message={this.props.messages} />;
+    const message = <FlashMessage message={this.props.message} />;
     return (
       <div className='text-center'>{message}</div>
     );
@@ -14,13 +13,14 @@ class FlashMessagesList extends React.Component {
 }
 
 FlashMessagesList.propTypes = {
-  messages: PropTypes.object.isRequired
+  message: PropTypes.shape({
+    type: PropTypes.string,
+    text: PropTypes.string
+  }).isRequired
 };
 
-function mapStateToProps(state) {
-  return {
-    messages: state.flashMessages
-  };
-}
+const mapStateToProps = state => ({
+  message: state.flashMessage
+});
 
 export default connect(mapStateToProps)(FlashMessagesList);

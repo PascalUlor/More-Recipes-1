@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Spinner from 'react-md-spinner';
 import toastr from 'toastr';
 import validateInputs from '../../../shared/validations/createOrEditRecipe';
-import imageFileChecker from '../../../shared/validations/imageFileChecker';
+import checkImageFile from '../../../shared/validations/checkImageFile';
 
 
 class CreateRecipeModal extends Component {
@@ -19,21 +19,27 @@ class CreateRecipeModal extends Component {
       errors: {}
     };
     this.onChange = this.onChange.bind(this);
+    this.handleOnFocus = this.handleOnFocus.bind(this);
     this.onImageChange = this.onImageChange.bind(this);
     this.isValid = this.isValid.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClearState = this.handleClearState.bind(this);
   }
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
+  handleOnFocus(event) {
+    this.setState({
+      errors: Object.assign({}, this.state.errors, { [event.target.name]: '' })
+    });
+  }
   onImageChange(event) {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       const filereader = new FileReader();
-      imageFileChecker(filereader, file, (fileType) => {
+      checkImageFile(filereader, file, (fileType) => {
         if (fileType === 'image/png' || fileType === 'image/gif' || fileType === 'image/jpeg') {
           this.setState({ imageFile: file });
           filereader.onload = (e) => {
@@ -49,9 +55,14 @@ class CreateRecipeModal extends Component {
       this.setState({ imageSrc: '/images/noimageyet.jpg', imageFile: '' });
     }
   }
-  handleClick() {
+  handleClearState() {
     this.setState({
-        title: '', ingredients: '', procedures: '', imageFile: {}, imageSrc: '/images/noimageyet.jpg', errors: {}
+        title: '',
+        ingredients: '',
+        procedures: '',
+        imageFile: {},
+        imageSrc: '/images/noimageyet.jpg',
+        errors: {}
     });
   }
   isValid() {
@@ -63,24 +74,32 @@ class CreateRecipeModal extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
+    const {
+      checkDoubleRecipeTitle, createRecipe
+    } = this.props;
     if (this.isValid()) {
       this.setState({ errors: {} });
-      this.props.doubleRecipeTitleCheck(this.state.title)
+      checkDoubleRecipeTitle(this.state.title)
       .then(() => {
-        if (this.props.isRecipeTitleDouble) {
+        const {
+          isTitleDouble, doubleTitleError
+        } = this.props;
+        if (isTitleDouble) {
           toastr.remove();
-          toastr.warning(this.props.doubleRecipeTitleError);
+          toastr.warning(doubleTitleError);
         } else {
-          this.props.createRecipeRequest(this.state)
+          createRecipe(this.state)
           .then(() => {
-            if (this.props.createRecipeError === '') {
+            const { createSuccess, createError } = this.props;
+            if (createError === '') {
               toastr.remove();
-              toastr.success(this.props.createRecipeSuccess);
+              toastr.success(createSuccess);
             } else {
               toastr.remove();
-              toastr.error(this.props.createRecipeError);
+              toastr.error(createError);
             }
             $('button[id=close]').click();
+            this.handleClearState();
           });
         }
       });
@@ -105,10 +124,10 @@ class CreateRecipeModal extends Component {
             <div className="modal-header">
               <span className="navbar-brand text-gray-dark">
                 <img src="/images/logo.png" width="45" height="32"
-                  className="d-inline-block align-center" alt=" More Recipe Logo"/>
+                  className="d-inline-block align-center" alt="More Recipes Logo"/>
                 <span id="site-name">More Recipes</span>
               </span>
-              <button type="button" onClick={this.handleClick} id="close"
+              <button type="button" onClick={this.handleClearState} id="close"
                 className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">
                   <i className="fa fa-times-circle" aria-hidden="true"></i>
@@ -121,35 +140,42 @@ class CreateRecipeModal extends Component {
                   <div className="modal-body">
                     <div className="form-row text-muted">
                       <div className="col p-1">
-                        <input type="text" name="title" onChange={this.onChange}
-                          value={title} className="form-control" placeholder="enter recipe title"/>
+                        <input type="text" name="title" value={title}
+                        onChange={this.onChange} onFocus={this.handleOnFocus}
+                        className="form-control" placeholder="enter recipe title"/>
                       </div>
                       <div className="text-danger small text-left p-1">
                         {errors.title && <em>{errors.title}</em>}
                       </div>
-                      <h6 className="text-info p-2">Ingredients</h6>
                       <div className="col p-1">
-                        <textarea rows="5" name="ingredients" onChange={this.onChange} value={ingredients}
-                          className="form-control" placeholder="enter recipe ingredients" aria-describedby="help">
+                        <textarea rows="5" name="ingredients" value={ingredients}
+                          onChange={this.onChange} onFocus={this.handleOnFocus}
+                          className="form-control" placeholder="enter recipe ingredients"
+                          aria-describedby="help">
                         </textarea>
                       </div>
                       {errors.ingredients
                         ? <div className="text-danger small text-left p-1">
                             <em>{errors.ingredients}</em>
                           </div>
-                        : <small id="help" name="procedures" className="form-text text-warning text-left p-1">
-                            <i>Separate each ingredient with a comma</i>
+                        : <small id="help" name="ingredients" className="form-text text-warning text-left p-1">
+                           <i>separate each ingredient with a full stop (.)</i>
                           </small>
                       }
-                      <h6 className="text-center text-info p-2">Procedures</h6>
                       <div className="col p-1 mb-0">
-                        <textarea rows="5" name="procedures" onChange={this.onChange}
-                          value={procedures} className="form-control" placeholder="enter procedures or steps taken">
+                        <textarea rows="5" name="procedures" value={procedures}
+                          onChange={this.onChange} onFocus={this.handleOnFocus}
+                          className="form-control" placeholder="enter procedures or steps taken">
                         </textarea>
                       </div>
-                      {errors.procedures && <div className="text-danger small text-left p-1">
-                        <em>{errors.procedures}</em>
-                      </div>}
+                      {errors.procedures
+                        ? <div className="text-danger small text-left p-1">
+                            <em>{errors.procedures}</em>
+                          </div>
+                        : <small id="help" name="procedures" className="form-text text-warning text-left p-1">
+                           <i>separate each step taken with a full stop (.)</i>
+                          </small>
+                      }
                     </div>
                   </div>
                 </div>
@@ -169,7 +195,8 @@ class CreateRecipeModal extends Component {
                   }
               </div>
               <div className="modal-footer">
-                <button type="button" onClick={this.handleClick} className="btn btn-secondary"
+                <button type="button" onClick={this.handleClearState}
+                className="btn btn-secondary"
                 data-dismiss="modal">Close</button>
                 <button type="submit" className="btn btn-info" disabled={isRecipeCreating}>
                   {!isRecipeCreating
@@ -187,23 +214,21 @@ class CreateRecipeModal extends Component {
 }
 
 CreateRecipeModal.propTypes = {
-	doubleRecipeTitleCheck: PropTypes.func.isRequired,
-	createRecipeRequest: PropTypes.func.isRequired,
-	isRecipeTitleDouble: PropTypes.bool.isRequired,
-	doubleRecipeTitleError: PropTypes.string.isRequired,
+	checkDoubleRecipeTitle: PropTypes.func.isRequired,
+  isTitleDouble: PropTypes.bool.isRequired,
+  createRecipe: PropTypes.func.isRequired,
+	doubleTitleError: PropTypes.string.isRequired,
 	isRecipeCreating: PropTypes.bool.isRequired,
-	createRecipeSuccess: PropTypes.string.isRequired,
-	createRecipeError: PropTypes.string.isRequired
+	createSuccess: PropTypes.string.isRequired,
+	createError: PropTypes.string.isRequired
 };
 
-function mapStateToProps(state) {
-  return {
-  isRecipeTitleDouble: state.createRecipe.isRecipeTitleDouble,
-  doubleRecipeTitleError: state.createRecipe.doubleRecipeTitleError,
+const mapStateToProps = state => ({
+  isTitleDouble: state.checkDoubleRecipeTitle.isRecipeTitleDouble,
+  doubleTitleError: state.checkDoubleRecipeTitle.doubleRecipeTitleError,
   isRecipeCreating: state.createRecipe.isRecipeCreating,
-  createRecipeSuccess: state.createRecipe.createRecipeSuccess,
-  createRecipeError: state.createRecipe.createRecipeError
-  };
-}
+  createSuccess: state.createRecipe.createRecipeSuccess,
+  createError: state.createRecipe.createRecipeError
+});
 
 export default connect(mapStateToProps)(CreateRecipeModal);

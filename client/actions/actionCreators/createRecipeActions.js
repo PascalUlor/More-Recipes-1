@@ -1,61 +1,57 @@
 import axios from 'axios';
 import {
-  IS_RECIPE_TITLE_DOUBLE,
-  DOUBLE_RECIPE_TITLE_ERROR,
   IS_RECIPE_CREATING,
   CREATE_RECIPE_SUCCESS,
   CREATE_RECIPE_FAILURE
 }
 from '../actionTypes/actionTypes';
 
-
-const isRecipeTitleDouble = bool => ({
-  type: IS_RECIPE_TITLE_DOUBLE,
-  bool
-});
-
-const doubleRecipeTitleError = error => ({
-  type: DOUBLE_RECIPE_TITLE_ERROR,
-  error
-});
-
+/**
+ * @description handles recipe creation loading
+ *
+ * @param { boolean } bool - contains recipe creating state boolean
+ *
+ * @returns { object } create recipe loader - returns create recipe action
+ */
 const isRecipeCreating = bool => ({
   type: IS_RECIPE_CREATING,
   bool
 });
 
+/**
+ * @description handles create recipe success
+ *
+ * @param { object } createdRecipe - contains object of created recipe
+ * @param { string } message - contains success message
+ *
+ * @returns { object } created recipe - returns create recipe success action
+ */
 const createRecipeSuccess = (createdRecipe, message) => ({
   type: CREATE_RECIPE_SUCCESS,
   createdRecipe,
   message
 });
 
+/**
+ * @description handles create recipe failure
+ *
+ * @param { string } error - contains failure message
+ *
+ * @returns { object } failure object - returns create recipe failure action
+ */
 const createRecipeFailure = error => ({
   type: CREATE_RECIPE_FAILURE,
   error
 });
 
-export const doubleRecipeTitleCheck = recipeTitle => (
-  dispatch =>
-  axios({
-    method: 'POST',
-    headers: {
-      'x-access-token': window.localStorage.jwtToken
-    },
-    url: '/api/v1/recipes/checkTitle',
-    data: { title: recipeTitle }
-  })
-  .then((response) => {
-    if (response.data.status === 'Failed') {
-      dispatch(isRecipeTitleDouble(true));
-      dispatch(doubleRecipeTitleError(response.data.message));
-    } else {
-      dispatch(isRecipeTitleDouble(false));
-      dispatch(doubleRecipeTitleError(''));
-    }
-  }).catch(error => console.log('error block: >>>', error))
-);
-
+/**
+ * @description handles recipe creation
+ *
+ * @param { object } recipe - contains object of recipe details
+ * @param { string } cloudImageUrl - contains string of uploaded image
+ *
+ * @returns { object } created recipe - returns created recipe action
+ */
 const createRecipe = (recipe, cloudImageUrl) => (
   (dispatch) => {
     if (axios.defaults.headers.common['x-access-token'] === '') {
@@ -79,13 +75,20 @@ const createRecipe = (recipe, cloudImageUrl) => (
       dispatch(createRecipeSuccess(response.data.recipe, message));
       dispatch(isRecipeCreating(false));
     }).catch(() => {
-      dispatch(createRecipeFailure('Unable to upload your recipe. Try again later'));
+      dispatch(createRecipeFailure('Upload failed. Try again later'));
       dispatch(isRecipeCreating(false));
     });
   }
 );
 
-export const createRecipeRequest = recipe => (
+/**
+ * @description handles recipe creation request
+ *
+ * @param { object } recipe - contains object of recipe details
+ *
+ * @returns { function } create recipe action - returns created recipe action
+ */
+const createRecipeRequest = recipe => (
   (dispatch) => {
     let cloudImageUrl = process.env.DEFAULT_IMAGE_URL;
 
@@ -102,9 +105,11 @@ export const createRecipeRequest = recipe => (
           return dispatch(createRecipe(recipe, cloudImageUrl));
         }).catch(() => {
           dispatch(isRecipeCreating(false));
-          dispatch(createRecipeFailure('Unable to upload your recipe. Try again later'));
+          dispatch(createRecipeFailure('Upload failed. Try again later'));
         });
     }
     return dispatch(createRecipe(recipe, cloudImageUrl));
   }
 );
+
+export default createRecipeRequest;

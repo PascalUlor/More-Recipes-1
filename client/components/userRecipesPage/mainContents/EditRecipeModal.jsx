@@ -4,16 +4,18 @@ import PropTypes from 'prop-types';
 import Spinner from 'react-md-spinner';
 import toastr from 'toastr';
 import validateInputs from '../../../shared/validations/createOrEditRecipe';
-import imageFileChecker from '../../../shared/validations/imageFileChecker';
-import updateRecipeRequest from '../../../actions/actionCreators/editRecipeActions';
+import checkImageFile from '../../../shared/validations/checkImageFile';
 
 
 class EditRecipeModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentState: 0,
       initialTitle: '',
       title: '',
+      isTitleDouble: false,
+      doubleTitleError: '',
       ingredients: '',
       procedures: '',
       imageFile: {},
@@ -23,14 +25,18 @@ class EditRecipeModal extends Component {
       errors: {}
     };
     this.onChange = this.onChange.bind(this);
+    this.handleOnFocus = this.handleOnFocus.bind(this);
     this.onImageChange = this.onImageChange.bind(this);
     this.isValid = this.isValid.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    const { currentRecipeDetails, currentSetRecipeId } = nextProps;
-    if (typeof currentRecipeDetails !== 'undefined' && currentRecipeDetails.id === currentSetRecipeId) {
+    const {
+      currentRecipeDetails, currentSetRecipeId
+      } = nextProps,
+      { currentState } = this.state;
+    if (typeof currentRecipeDetails !== 'undefined' && currentRecipeDetails.id === currentSetRecipeId && !currentState) {
       this.setState({
         initialTitle: currentRecipeDetails.title,
         title: currentRecipeDetails.title,
@@ -38,20 +44,27 @@ class EditRecipeModal extends Component {
         procedures: currentRecipeDetails.procedures,
         currentImageSrc: currentRecipeDetails.recipeImage,
         initialImageSrc: currentRecipeDetails.recipeImage,
-        id: currentRecipeDetails.id
-      });
+        id: currentRecipeDetails.id,
+        currentState: 1
+        });
     }
   }
+
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value
+    });
+  }
+  handleOnFocus(event) {
+    this.setState({
+      errors: Object.assign({}, this.state.errors, { [event.target.name]: '' })
     });
   }
   onImageChange(event) {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       const filereader = new FileReader();
-      imageFileChecker(filereader, file, (fileType) => {
+      checkImageFile(filereader, file, (fileType) => {
         if (fileType === 'image/png' || fileType === 'image/gif' || fileType === 'image/jpeg') {
           this.setState({ imageFile: file });
           filereader.onload = (e) => {
@@ -75,30 +88,33 @@ class EditRecipeModal extends Component {
     return isValid;
   }
   handleUpdate() {
-    this.props.updateRecipeRequest(this.state)
+    this.props.updateRecipe(this.state)
     .then(() => {
-      if (this.props.updateRecipeSuccess !== '') {
+      if (this.props.updateSuccess !== '') {
         toastr.remove();
-        toastr.success(this.props.updateRecipeSuccess);
-      } else if (this.props.updateRecipeError !== '') {
+        toastr.success(this.props.updateSuccess);
+      } else if (this.props.updateError !== '') {
         toastr.remove();
-        toastr.error(this.props.updateRecipeError);
+        toastr.error(this.props.updateError);
       }
       $('button[id=close]').click();
     });
   }
   handleSubmit(event) {
     event.preventDefault();
+    const { initialTitle, title } = this.state,
+    { checkDoubleRecipeTitle } = this.props;
     if (this.isValid()) {
       this.setState({ errors: {} });
-      if (this.state.initialTitle.trim() === this.state.title.trim()) {
+      if (initialTitle.trim() === title.trim()) {
         this.handleUpdate();
       } else {
-        this.props.doubleRecipeTitleCheck(this.state.title)
+        checkDoubleRecipeTitle(title)
         .then(() => {
-          if (this.props.isRecipeTitleDouble) {
+          const { isTitleDouble, doubleTitleError } = this.props;
+          if (isTitleDouble) {
             toastr.remove();
-            toastr.warning(this.props.doubleRecipeTitleError);
+            toastr.warning(doubleTitleError);
           } else {
             this.handleUpdate();
           }
@@ -134,35 +150,43 @@ class EditRecipeModal extends Component {
                   <div className="modal-body">
                     <div className="form-row text-muted">
                       <div className="col p-1">
-                        <input type="text" name="title" onChange={this.onChange} value={title}
-                          className="form-control" placeholder="enter recipe title"/>
+                        <input type="text" name="title" onChange={this.onChange}
+                          value={title} className="form-control"
+                          onFocus={this.handleOnFocus}
+                          placeholder="enter recipe title"/>
                       </div>
                       <div className="text-danger small text-left p-1">
                         {errors.title && <em>{errors.title}</em>}
                       </div>
-                      <h6 className="text-info p-2">Ingredients</h6>
                       <div className="col p-1">
-                        <textarea rows="5" name="ingredients" onChange={this.onChange} value={ingredients}
-                          className="form-control" placeholder="enter recipe ingredients" aria-describedby="help">
+                        <textarea rows="5" name="ingredients" value={ingredients}
+                          onChange={this.onChange} onFocus={this.handleOnFocus}
+                          className="form-control" placeholder="enter recipe ingredients"
+                          aria-describedby="help">
                         </textarea>
                       </div>
                       {errors.ingredients
                         ? <div className="text-danger small text-left p-1">
                             <em>{errors.ingredients}</em>
                           </div>
-                        : <small id="help" name="procedures" className="form-text text-warning text-left p-1">
-                           <i>Separate each ingredient with a comma</i>
+                        : <small id="help" name="ingredients" className="form-text text-warning text-left p-1">
+                           <i>separate each ingredient with a full stop (.)</i>
                           </small>
                       }
-                      <h6 className="text-center text-info p-2">Procedures</h6>
                       <div className="col p-1 mb-0">
-                        <textarea rows="5" name="procedures" onChange={this.onChange} value={procedures}
+                        <textarea rows="5" name="procedures" value={procedures}
+                          onChange={this.onChange} onFocus={this.handleOnFocus}
                           className="form-control" placeholder="enter procedures or steps taken">
                         </textarea>
                       </div>
-                      {errors.procedures && <div className="text-danger small text-left p-1">
-                        <em>{errors.procedures}</em>
-                      </div>}
+                      {errors.procedures
+                        ? <div className="text-danger small text-left p-1">
+                            <em>{errors.procedures}</em>
+                          </div>
+                        : <small id="help" name="procedures" className="form-text text-warning text-left p-1">
+                           <i>separate each procedure with a full stop (.)</i>
+                          </small>
+                      }
                     </div>
                   </div>
                 </div>
@@ -201,27 +225,25 @@ class EditRecipeModal extends Component {
 }
 
 EditRecipeModal.propTypes = {
-  isRecipeTitleDouble: PropTypes.bool.isRequired,
-  doubleRecipeTitleCheck: PropTypes.func.isRequired,
-  doubleRecipeTitleError: PropTypes.string.isRequired,
-  updateRecipeRequest: PropTypes.func.isRequired,
+  isTitleDouble: PropTypes.bool.isRequired,
+  checkDoubleRecipeTitle: PropTypes.func.isRequired,
+  doubleTitleError: PropTypes.string.isRequired,
+  updateRecipe: PropTypes.func.isRequired,
   isRecipeUpdating: PropTypes.bool.isRequired,
-  updateRecipeSuccess: PropTypes.string.isRequired,
-  updateRecipeError: PropTypes.string.isRequired,
+  updateSuccess: PropTypes.string.isRequired,
+  updateError: PropTypes.string.isRequired,
   currentSetRecipeId: PropTypes.number,
   currentRecipeDetails: PropTypes.object
 };
 
-function mapStateToProps(state) {
-  return {
-    isRecipeTitleDouble: state.createRecipe.isRecipeTitleDouble,
-    doubleRecipeTitleError: state.createRecipe.doubleRecipeTitleError,
-    isRecipeUpdating: state.editUserRecipe.isRecipeUpdating,
-    updateRecipeSuccess: state.editUserRecipe.updateRecipeSuccess,
-    updateRecipeError: state.editUserRecipe.updateRecipeError,
-    currentSetRecipeId: state.setCurrentRecipe.currentSetRecipeId,
-    currentRecipeDetails: state.setCurrentRecipe.currentSetRecipe.recipe
-  };
-}
+const mapStateToProps = state => ({
+  isTitleDouble: state.checkDoubleRecipeTitle.isRecipeTitleDouble,
+  doubleTitleError: state.checkDoubleRecipeTitle.doubleRecipeTitleError,
+  isRecipeUpdating: state.editUserRecipe.isRecipeUpdating,
+  updateSuccess: state.editUserRecipe.updateRecipeSuccess,
+  updateError: state.editUserRecipe.updateRecipeError,
+  currentSetRecipeId: state.setCurrentRecipe.currentSetRecipeId,
+  currentRecipeDetails: state.setCurrentRecipe.currentSetRecipe.recipe
+});
 
-export default connect(mapStateToProps, { updateRecipeRequest })(EditRecipeModal);
+export default connect(mapStateToProps)(EditRecipeModal);

@@ -2,49 +2,32 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Pagination from 'rc-pagination';
-import NavBar from './HomePage/homeNavbar.jsx';
+import Spinner from 'react-md-spinner';
+import NavBar from './NavBar.jsx';
 import PageHeader from './allRecipesPage/PageHeader.jsx';
-import AllRecipes from './allRecipesPage/allRecipes.jsx';
-import PopularRecipes from './allRecipesPage/popularRecipes.jsx';
-import Footer from './footer.jsx';
-import { fetchPopularRecipesRequest } from '../actions/actionCreators/popularRecipesActions';
+import AllRecipesList from './allRecipesPage/AllRecipesList.jsx';
+import PopularRecipesList from './allRecipesPage/PopularRecipesList.jsx';
+import Footer from './Footer.jsx';
+import fetchPopularRecipesRequest from '../actions/actionCreators/popularRecipesActions';
 import { fetchAllRecipesRequest } from '../actions/actionCreators/getAllRecipesActions';
 
 class AllRecipesPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      allRecipes: [],
-      popularRecipes: [],
       numberOfRecipes: 0,
       pageSize: 0,
       currentPage: 1
     };
     this.handlePageChange = this.handlePageChange.bind(this);
   }
-  componentWillMount() {
-    this.props.fetchAllRecipesRequest(1)
-    .then(() => {
-      if (this.props.fetchedAllRecipes.length !== 0) {
-        const { currentPage, limit, numberOfRecipes } = this.props.paginationDetails;
-        this.setState({
-          allRecipes: this.props.fetchedAllRecipes,
-          currentPage,
-          numberOfRecipes,
-          pageSize: limit
-        });
-      }
-    });
-    this.props.fetchPopularRecipesRequest(() => {
-      if (this.props.fetchedPopularRecipes.length !== 0) {
-        this.setState({ popularRecipes: this.props.fetchedPopularRecipes });
-      }
-    });
+  componentDidMount() {
+    this.props.fetchAllRecipes(1);
+    this.props.fetchPopularRecipes();
   }
   componentWillReceiveProps(nextProps) {
     const { currentPage, limit, numberOfRecipes } = nextProps.paginationDetails;
     this.setState({
-      allRecipes: nextProps.fetchedAllRecipes,
       currentPage,
       numberOfRecipes,
       pageSize: limit
@@ -52,62 +35,75 @@ class AllRecipesPage extends Component {
   }
 
   handlePageChange(page) {
-    this.props.fetchAllRecipesRequest(page);
+    this.props.fetchAllRecipes(page);
   }
 render() {
   const {
-    allRecipes, popularRecipes, currentPage, pageSize, numberOfRecipes
-  } = this.state;
+    currentPage, pageSize, numberOfRecipes
+  } = this.state,
+  {
+    isAllFetching, isPopularFetching,
+    fetchedAllRecipes, fetchedPopularRecipes
+  } = this.props;
   return (
-    <div>
+    <div className="bg-faded">
       <div className="site-wrapper">
         <NavBar/>
         <div className="container">
-          <main id="main-wrapper">
-            <div className="col">
+          <main className="main-wrapper pt-3">
               <PageHeader/>
-              <div className="row">
-                <div className="col-sm-7 col-md-9 col-lg-9">
-                  <AllRecipes allRecipes={allRecipes}/>
-                  <Pagination
-                    onChange={this.handlePageChange}
-                    current={currentPage}
-                    pageSize={pageSize || 0}
-                    total={numberOfRecipes}
-                    style={{ marginLeft: '0.86rem', marginTop: '-0.6rem', color: 'black' }}
-                    showSizeChanger={true}
-                  />
-                </div>
-                <div className="col-sm-5 col-md-3 col-lg-3">
-                  <h6 className="card-title text-info mt-2">Popular Recipes</h6>
-                  <PopularRecipes popularRecipes={popularRecipes}/>
-                </div>
-              </div>
-            </div>
+                {isAllFetching || isPopularFetching ?
+                  <div className="text-center">
+                    <Spinner size={50} className="mt-5 mb-5"/>
+                  </div>
+                :
+                <div className="row">
+                    <div className="col-sm-7 col-md-9 col-lg-9">
+                      <AllRecipesList allRecipes={fetchedAllRecipes}/>
+                      <Pagination
+                        onChange={this.handlePageChange}
+                        current={currentPage}
+                        pageSize={pageSize || 0}
+                        total={numberOfRecipes}
+                        className="pagination"
+                      />
+                    </div>
+                    <div className="col-sm-5 col-md-3 col-lg-3">
+                      <h6 className="card-title page-text text-center mt-2">Popular Recipes</h6>
+                      <PopularRecipesList popularRecipes={fetchedPopularRecipes}/>
+                    </div>
+                  </div>
+                }
           </main>
         </div>
       </div>
-      <Footer id="homeFooter"/>
+      <Footer/>
     </div>
   );
 }
 }
 
 AllRecipesPage.propTypes = {
-    isRecipesFetching: PropTypes.bool.isRequired,
-    fetchedPopularRecipes: PropTypes.array.isRequired,
-    fetchedAllRecipes: PropTypes.array.isRequired,
-    paginationDetails: PropTypes.shape().isRequired,
-    fetchPopularRecipesRequest: PropTypes.func.isRequired,
-    fetchAllRecipesRequest: PropTypes.func.isRequired
+  isPopularFetching: PropTypes.bool.isRequired,
+  isAllFetching: PropTypes.bool.isRequired,
+  fetchedPopularRecipes: PropTypes.array.isRequired,
+  fetchedAllRecipes: PropTypes.array.isRequired,
+  paginationDetails: PropTypes.shape().isRequired,
+  fetchPopularRecipes: PropTypes.func.isRequired,
+  fetchAllRecipes: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-    isRecipesFetching: state.popularRecipes.isPopularRecipesFetching,
-    fetchedPopularRecipes: state.popularRecipes.fetchedPopularRecipes,
-    isAllRecipesFetching: state.allRecipes.isAllRecipesFetching,
-    fetchedAllRecipes: state.allRecipes.fetchedAllRecipes,
-    paginationDetails: state.allRecipes.paginationDetails
+  isPopularFetching: state.popularRecipes.isPopularRecipesFetching,
+  isAllFetching: state.allRecipes.isAllRecipesFetching,
+  fetchedPopularRecipes: state.popularRecipes.fetchedPopularRecipes,
+  fetchedAllRecipes: state.allRecipes.fetchedAllRecipes,
+  paginationDetails: state.allRecipes.paginationDetails
 });
 
-export default connect(mapStateToProps, { fetchPopularRecipesRequest, fetchAllRecipesRequest })(AllRecipesPage);
+const mapDispatchToProps = dispatch => ({
+  fetchPopularRecipes: () => (dispatch(fetchPopularRecipesRequest())),
+  fetchAllRecipes: page => (dispatch(fetchAllRecipesRequest(page)))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllRecipesPage);

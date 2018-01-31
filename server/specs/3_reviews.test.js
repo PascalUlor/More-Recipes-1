@@ -64,7 +64,7 @@ describe('test cases for reviewing a recipe', () => {
     });
   });
   describe('test cases for reviewing a recipe postive operations', () => {
-    it('should be able to create a review with valid information and toke', (done) => {
+    it('should be able to create a review with valid information and token', (done) => {
       request.post('/api/v1/recipes/3/reviews')
         .set('x-access-token', userOneToken.token)
         .send(data.validData)
@@ -81,7 +81,7 @@ describe('test cases for reviewing a recipe', () => {
         .send(userData.validUpdateData1)
         .end((error, response) => {
           expect(response.status).to.equal(200);
-          expect('User profile updated successfully').to.equal(response.body.message);
+          expect('Successfully updated profile').to.equal(response.body.message);
           if (error) done(error);
           done();
         });

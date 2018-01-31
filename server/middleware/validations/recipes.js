@@ -31,9 +31,8 @@ export default class RecipesValidation {
       errors = {};
 
     if (!validator.isEmpty(title)) {
-      const containNumber = title.split('').filter(character => validator.toInt(character));
-      if (containNumber.length !== 0) {
-        errors.title = 'Recipe title must not contain number(s)';
+      if (title.search(/[^A-Za-z\s]/) !== -1) {
+        errors.title = 'Recipe title must contain only alphabets';
       }
     } else { errors.title = 'Recipe title is required'; }
 
@@ -79,9 +78,8 @@ export default class RecipesValidation {
       }
 
       if (title) {
-        const containNumber = title.split('').filter(character => validator.toInt(character));
-        if (containNumber.length !== 0) {
-          errors.title = 'Recipe title must not contain number(s)';
+        if (title.search(/[^A-Za-z\s]/) !== -1) {
+          errors.title = 'Recipe title must contain only alphabets';
         }
       }
 

@@ -2,22 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-class FlashMessage extends React.Component {
-  render() {
-    const { type, text } = this.props.message;
-    return (
-      <div className={classnames('alert', {
-        'alert-success': type === 'Success',
-        'alert-danger': type === 'error'
-      })}>
-      {text}
-      </div>
-    );
-  }
-}
+const FlashMessage = ({ message }) => (
+  <div className={classnames('alert', {
+    'alert-success': message.type === 'Success',
+    'alert-danger': message.type === 'error'
+  })}>
+    {message.text}
+  </div>
+);
 
 FlashMessage.propTypes = {
-  message: PropTypes.object.isRequired
+  message: PropTypes.shape({
+    type: PropTypes.string,
+    text: PropTypes.string
+  }).isRequired
 };
 
 export default FlashMessage;
