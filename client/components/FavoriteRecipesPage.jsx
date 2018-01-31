@@ -3,14 +3,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import toastr from 'toastr';
 import Pagination from 'rc-pagination';
-import NavBar from './HomePage/homeNavbar.jsx';
-import Header from './favoriteRecipesPage/Header.jsx';
-import FavoriteRecipes from './favoriteRecipesPage/FavoriteRecipes.jsx';
-import DeleteFavoriteRecipeModal from './favoriteRecipesPage/DeleteFavoriteRecipeModal.jsx';
-import Footer from './footer.jsx';
+import Spinner from 'react-md-spinner';
+import NavBar from './NavBar.jsx';
+import PageHeader from './favoriteRecipesPage/PageHeader.jsx';
+import FavoriteRecipesList from './favoriteRecipesPage/FavoriteRecipesList.jsx';
+import DeleteRecipeModal from './DeleteRecipeModal.jsx';
+import Footer from './Footer.jsx';
 import fetchFavoriteRecipesRequest from '../actions/actionCreators/getFavoriteRecipesActions';
 import deleteFavoriteRecipeRequest from '../actions/actionCreators/deleteFavoriteRecipeActions';
-import { handleRecipeDelete, fetchCurrentPageRecipes } from '../utils/handleDeleteRecipe';
+import setCurrentRecipeRequest from '../actions/actionCreators/setCurrentRecipeActions';
+import { deleteSelectedRecipe, fetchCurrentPageRecipes } from '../utils/deleteSelectedRecipe';
 
 class FavoriteRecipesPage extends Component {
   constructor(props) {
@@ -22,97 +24,114 @@ class FavoriteRecipesPage extends Component {
       pageSize: 0,
       currentPage: 1
     };
-    this.handleFavoriteRecipeDelete = this.handleFavoriteRecipeDelete.bind(this);
+    this.handleDeleteFavoriteRecipe = this.handleDeleteFavoriteRecipe.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
   }
   componentDidMount() {
-    this.props.fetchFavoriteRecipesRequest(1);
+    const { fetchFavoriteRecipes } = this.props;
+    fetchFavoriteRecipes(1);
   }
   componentWillReceiveProps(nextProps) {
-    const { favoriteRecipes } = nextProps,
-    { currentPage, limit, numberOfRecipes } = nextProps.paginationDetails;
+    const { favoriteRecipes, paginationDetails, currentRecipeId } = nextProps,
+    { currentPage, limit, numberOfRecipes } = paginationDetails;
       this.setState({
         favoriteRecipes,
         currentPage,
         numberOfRecipes,
-        pageSize: limit
+        pageSize: limit,
+        recipeId: currentRecipeId
       });
-    if (nextProps.currentRecipeId !== 0) {
-      this.setState({ recipeId: nextProps.currentRecipeId });
-    }
   }
-  handleFavoriteRecipeDelete() {
-    const deleteFavoriteRequest = this.props.deleteFavoriteRecipeRequest,
-      fetchFavoritesRequest = this.props.fetchFavoriteRecipesRequest,
+  handleDeleteFavoriteRecipe() {
+    const { deleteFavoriteRecipe, fetchFavoriteRecipes } = this.props,
       { currentPage, recipeId } = this.state;
-    handleRecipeDelete(deleteFavoriteRequest, recipeId)
+    deleteSelectedRecipe(deleteFavoriteRecipe, recipeId)
     .then(() => {
       const {
-        deleteSuccess, deleteError, isFavoritesFetching, favoriteRecipes
+        deleteSuccess, deleteError, isFetching, favoriteRecipes
       } = this.props;
       fetchCurrentPageRecipes(
-        deleteSuccess, deleteError, fetchFavoritesRequest,
-        isFavoritesFetching, favoriteRecipes, currentPage, toastr
+        deleteSuccess, deleteError, fetchFavoriteRecipes,
+        isFetching, favoriteRecipes, currentPage, toastr
       );
     });
   }
   handlePageChange(page) {
-    this.props.fetchFavoriteRecipesRequest(page);
+    const { fetchFavoriteRecipes } = this.props;
+    fetchFavoriteRecipes(page);
   }
 
   render() {
     const {
     favoriteRecipes, currentPage, pageSize, numberOfRecipes
-  } = this.state;
+  } = this.state,
+  { isFetching } = this.props;
     return (
-      <div>
+      <div className="bg-faded">
         <div className="site-wrapper">
           <NavBar/>
-          <main id="main-wrapper">
+          <main className="main-wrapper text-center">
             <div className="container">
-              <Header/>
-              <div className="col-10 offset-1 offet-sm-1 offset-md-1 offset-lg-1">
-                <FavoriteRecipes favorites={favoriteRecipes}/>
-                <DeleteFavoriteRecipeModal handleDelete={this.handleFavoriteRecipeDelete}/>
+              <PageHeader/>
+              {isFetching ?
+                <div style={{ textAlign: 'center' }}>
+                  <Spinner size={50} className="mt-5 mb-5"/>
+                </div>
+              :
+                <div>
+                  <div className="col-10 offset-1 offet-sm-1 offset-md-1 offset-lg-1">
+                    <FavoriteRecipesList
+                      favorites={favoriteRecipes}
+                      setCurrentRecipe={this.props.setCurrentRecipe}/>
+                    <DeleteRecipeModal handleDelete={this.handleDeleteFavoriteRecipe}/>
+                  </div>
+                  <div className="col-11 offset-1 pl-0">
+                  { (numberOfRecipes > 6 && typeof numberOfRecipes !== 'undefined') &&
+                    <Pagination
+                      onChange={this.handlePageChange}
+                      current={currentPage}
+                      pageSize={pageSize || 0}
+                      total={numberOfRecipes}
+                      className="pagination"
+                    />
+                  }
+                  </div>
               </div>
-              <div className="col-11 offset-1 pl-0">
-              { (numberOfRecipes > 6 && typeof numberOfRecipes !== 'undefined') &&
-                <Pagination
-                  onChange={this.handlePageChange}
-                  current={currentPage}
-                  pageSize={pageSize || 0}
-                  total={numberOfRecipes}
-                  style={{ marginLeft: '0.86rem', marginTop: '-0.6rem', color: 'black' }}
-                />
               }
-              </div>
             </div>
           </main>
         </div>
-        <Footer id="footer"/>
+        <Footer/>
       </div>
     );
   }
 }
 
 FavoriteRecipesPage.propTypes = {
-  fetchFavoriteRecipesRequest: PropTypes.func.isRequired,
+  fetchFavoriteRecipes: PropTypes.func.isRequired,
   favoriteRecipes: PropTypes.array.isRequired,
   currentRecipeId: PropTypes.number.isRequired,
   paginationDetails: PropTypes.shape().isRequired,
-  deleteFavoriteRecipeRequest: PropTypes.func.isRequired,
-  isFavoritesFetching: PropTypes.bool.isRequired,
+  setCurrentRecipe: PropTypes.func.isRequired,
+  deleteFavoriteRecipe: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   deleteSuccess: PropTypes.string,
   deleteError: PropTypes.string
 };
 
 const mapStateToProps = state => ({
  favoriteRecipes: state.favoriteRecipes.fetchedFavoriteRecipes,
- isFavoritesFetching: state.favoriteRecipes.isFavoriteRecipesFetching,
+ isFetching: state.favoriteRecipes.isFavoriteRecipesFetching,
  deleteSuccess: state.favoriteRecipes.deleteFavoriteSuccessMessage,
  deleteError: state.favoriteRecipes.deleteFavoriteError,
  currentRecipeId: state.setCurrentRecipe.currentSetRecipeId,
  paginationDetails: state.favoriteRecipes.paginationDetails
 });
 
-export default connect(mapStateToProps, { fetchFavoriteRecipesRequest, deleteFavoriteRecipeRequest })(FavoriteRecipesPage);
+const mapDispatchToProps = dispatch => ({
+  fetchFavoriteRecipes: page => dispatch(fetchFavoriteRecipesRequest(page)),
+  deleteFavoriteRecipe: recipeId => dispatch(deleteFavoriteRecipeRequest(recipeId)),
+  setCurrentRecipe: recipeId => dispatch(setCurrentRecipeRequest(recipeId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavoriteRecipesPage);

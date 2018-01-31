@@ -4,50 +4,13 @@
 import supertest from 'supertest';
 import chai from 'chai';
 import app from '../app';
-import models from '../models';
 import data from './testData/user.data';
 
 export const request = supertest(app);
 export const { expect } = chai;
 export const wrongToken = 'ThisIsAWrongToken';
-const {
-  Users,
-  Recipes,
-  Favorites,
-  Reviews,
-  Votes,
-} = models;
+
 const userOneToken = { token: null };
-
-Users.destroy({
-  cascade: true,
-  truncate: true,
-  restartIdentity: true
-});
-
-Recipes.destroy({
-  cascade: true,
-  truncate: true,
-  restartIdentity: true
-});
-
-Reviews.destroy({
-  cascade: true,
-  truncate: true,
-  restartIdentity: true
-});
-
-Favorites.destroy({
-  cascade: true,
-  truncate: true,
-  restartIdentity: true
-});
-
-Votes.destroy({
-  cascade: true,
-  truncate: true,
-  restartIdentity: true
-});
 
 describe('test cases for user sign up and sign in operations', () => {
   describe('sign up positive test cases', () => {
@@ -106,7 +69,7 @@ describe('test cases for user sign up and sign in operations', () => {
         .send(data.improperData)
         .end((error, response) => {
           expect(response.status).to.equal(400);
-          expect('Full name must not contain number(s)').to.equal(response.body.errors.fullName);
+          expect('Full name must contain only alphabets').to.equal(response.body.errors.fullName);
           expect('Username must not start with number(s)').to.equal(response.body.errors.username);
           expect('Email is invalid').to.equal(response.body.errors.email);
           expect('Password length must be between 8 and 30').to.equal(response.body.errors.password);
@@ -244,12 +207,13 @@ describe('test cases for user sign up and sign in operations', () => {
     it('should not be able to access the profile page with a wrong security token', (done) => {
       request.get('/api/v1/user/profile')
         .set('x-access-token', wrongToken)
-        .end((err, res) => {
-          expect(res.body).deep.equal({
+        .end((error, response) => {
+          expect(response.status).to.equal(401);
+          expect(response.body).deep.equal({
             status: 'Failed',
             message: 'Authentication failed. Token is invalid or expired'
           });
-          if (err) done(err);
+          if (error) done(error);
           done();
         });
     });
@@ -296,7 +260,7 @@ describe('test cases for user sign up and sign in operations', () => {
         .send(data.improperUpdateData2)
         .end((error, response) => {
           expect(response.status).to.equal(400);
-          expect('Full name must not contain number(s)').to.equal(response.body.errors.fullName);
+          expect('Full name must contain only alphabets').to.equal(response.body.errors.fullName);
           expect('Username must not start with number(s)').to.equal(response.body.errors.username);
           expect('Email is invalid').to.equal(response.body.errors.email);
           expect('Provided location must not contain number(s)').to.equal(response.body.errors.location);
@@ -321,6 +285,7 @@ describe('test cases for user sign up and sign in operations', () => {
         .send(data.validUpdateData1)
         .end((error, response) => {
           expect(response.status).to.equal(200);
+          expect('Successfully updated profile').to.equal(response.body.message);
           if (error) done(error);
           done();
         });

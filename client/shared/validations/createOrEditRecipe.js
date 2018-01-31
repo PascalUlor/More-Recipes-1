@@ -1,16 +1,15 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-const addOrUpdateRecipe = (data) => {
+const createOrEditRecipe = (data) => {
   const title = data.title.trim(),
     ingredients = data.ingredients.trim(),
     procedures = data.procedures.trim(),
     errors = {};
 
   if (!validator.isEmpty(title)) {
-    const containNumber = title.split('').filter(character => validator.toInt(character));
-    if (containNumber.length !== 0) {
-      errors.title = 'Recipe title must not contain numbers';
+    if (title.search(/[^A-Za-z\s]/) !== -1) {
+      errors.title = 'Recipe title must contain only alphabets';
     }
   } else { errors.title = 'Recipe title is required'; }
 
@@ -29,4 +28,4 @@ const addOrUpdateRecipe = (data) => {
   return { errors, isValid: isEmpty(errors) };
 };
 
-export default addOrUpdateRecipe;
+export default createOrEditRecipe;

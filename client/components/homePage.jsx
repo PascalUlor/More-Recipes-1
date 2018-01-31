@@ -1,22 +1,33 @@
 import React, { Component } from 'react';
-import HomeNavBar from './HomePage/homeNavbar.jsx';
-import MainCover from './HomePage/mainCover.jsx';
-import PopularRecipes from './HomePage/popularRecipes.jsx';
-import Footer from './footer.jsx';
+import PropTypes from 'prop-types';
+import NavBar from './NavBar.jsx';
+import MainCover from './homePage/MainCover.jsx';
+import PopularRecipes from './homePage/PopularRecipes.jsx';
+import Footer from './Footer.jsx';
+import verifyToken from '../utils/verifyToken';
 
 class Homepage extends Component {
+	componentWillMount() {
+		if (verifyToken()) {
+			this.context.router.history.push('/dashboard');
+		}
+	}
 	render() {
 		return (
-			<div>
+			<div className="bg-faded">
 				<div className="site-wrapper">
-					<HomeNavBar/>
+					<NavBar/>
 					<MainCover/>
 					<PopularRecipes/>
 				</div>
-				<Footer id="homeFooter"/>
+				<Footer/>
 			</div>
 		);
 	}
 }
+
+Homepage.contextTypes = {
+  router: PropTypes.shape().isRequired
+};
 
 export default Homepage;

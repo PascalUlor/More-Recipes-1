@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
-import DashboardNavBar from './dashboard/dashboardNavbar.jsx';
-import FlashMessagesList from './flash/flashMessagesList.jsx';
-import MainContents from './dashboard/mainContents.jsx';
-import Footer from './footer.jsx';
+import NavBar from './NavBar.jsx';
+import FlashMessagesList from './flash/FlashMessagesList.jsx';
+import MainContents from './dashboard/MainContents.jsx';
+import Footer from './Footer.jsx';
 
 
 class Dashboard extends Component {
-    render() {
-        return (
-            <div>
-                <DashboardNavBar/>
-                <FlashMessagesList/>
-                <MainContents/>
-                <Footer id='footer'/>
-            </div>
-        );
-    }
+	render() {
+		return (
+			<div className="bg-faded">
+				<div>
+					<NavBar/>
+					<div className="main-wrapper text-center p-0">
+						<FlashMessagesList/>
+						<MainContents/>
+					</div>
+				</div>
+				<Footer/>
+			</div>
+		);
+	}
 }
 
 export default Dashboard;

@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import toastr from 'toastr';
 /** ***************************** RECIPE DETAILS COMPONENTS  *************************************** */
-import NavBar from './HomePage/homeNavbar.jsx';
+import NavBar from './NavBar.jsx';
 import TopContents from './recipeDetailsPage/TopContents.jsx';
 import Ingredients from './recipeDetailsPage/Ingredients.jsx';
 import Procedures from './recipeDetailsPage/Procedures.jsx';
 import ReviewsForm from './recipeDetailsPage/ReviewsForm.jsx';
 import Reviews from './recipeDetailsPage/Reviews.jsx';
-import Footer from './footer.jsx';
+import Footer from './Footer.jsx';
 /** ****************************** RECIPE DETAILS ACTIONS  ****************************************** */
 import setCurrentRecipeRequest from '../actions/actionCreators/setCurrentRecipeActions';
 import postReviewRequest from '../actions/actionCreators/postReviewActions';
-import { addFlashMessage } from '../actions/actionCreators/flashmessages';
+import addFlashMessage from '../actions/actionCreators/flashMessage';
 import verifyToken from '../utils/verifyToken';
 import addFavoriteRequest from '../actions/actionCreators/addFavoriteRecipeActions';
 import voteRecipeRequest from '../actions/actionCreators/voteRecipeActions';
@@ -23,7 +23,12 @@ class RecipeDetailsPage extends Component {
     super(props);
     this.state = {
       topContents: {
-        title: '', recipeImage: '', upvotes: 0, downvotes: 0, createdBy: '', lastUpdated: '',
+        title: '',
+        recipeImage: '',
+        upvotes: 0,
+        downvotes: 0,
+        createdBy: '',
+        lastUpdated: '',
       },
       ingredients: '',
       procedures: '',
@@ -35,7 +40,7 @@ class RecipeDetailsPage extends Component {
   }
   componentDidMount() {
     const recipeId = parseInt(this.props.match.params.id, 10);
-    this.props.setCurrentRecipeRequest(recipeId);
+    this.props.setCurrentRecipe(recipeId);
     this.setState({ recipeId });
   }
   componentWillReceiveProps(nextProps) {
@@ -65,7 +70,7 @@ class RecipeDetailsPage extends Component {
   handleFavourite() {
     const { recipeId } = this.state;
     if (verifyToken()) {
-      this.props.addFavoriteRequest(recipeId)
+      this.props.addFavorite(recipeId)
       .then(() => {
         if (this.props.addFavoriteSuccess) {
           toastr.remove();
@@ -84,13 +89,14 @@ class RecipeDetailsPage extends Component {
     }
   }
   handleVote(event) {
-    const { recipeId } = this.state;
+    const { recipeId } = this.state,
+    { voteRecipe } = this.props;
     let voteType = null;
     if (event.target.id === 'upvote') {
       voteType = 'upvote';
     } else { voteType = 'downvote'; }
     if (verifyToken()) {
-      this.props.voteRecipeRequest(recipeId, voteType)
+      voteRecipe(recipeId, voteType)
       .then(() => {
         if (this.props.voteSuccessMessage) {
           toastr.remove();
@@ -111,10 +117,10 @@ class RecipeDetailsPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="bg-faded">
         <div className="site-wrapper">
           <NavBar/>
-          <div className="container">
+          <div className="container main-wrapper">
             <main className="pl-4 pr-3 mt-4">
               <TopContents
                 details={this.state.topContents}
@@ -126,12 +132,12 @@ class RecipeDetailsPage extends Component {
                 <div className="col-1"></div>
                 <Procedures procedures={this.state.procedures}/>
               </div>
-              <ReviewsForm postReview={this.props.postReviewRequest} recipeId={this.state.recipeId}/>
+              <ReviewsForm postReview={this.props.postReview} recipeId={this.state.recipeId}/>
               <Reviews reviews={this.state.reviews}/>
             </main>
           </div>
         </div>
-        <Footer id="homeFooter"/>
+        <Footer/>
       </div>
     );
   }
@@ -139,14 +145,14 @@ class RecipeDetailsPage extends Component {
 
 RecipeDetailsPage.propTypes = {
   match: PropTypes.shape().isRequired,
-  setCurrentRecipeRequest: PropTypes.func.isRequired,
+  setCurrentRecipe: PropTypes.func.isRequired,
   recipeDetails: PropTypes.shape().isRequired,
-  postReviewRequest: PropTypes.func.isRequired,
+  postReview: PropTypes.func.isRequired,
   addFlashMessage: PropTypes.func.isRequired,
-  addFavoriteRequest: PropTypes.func.isRequired,
+  addFavorite: PropTypes.func.isRequired,
   addFavoriteSuccess: PropTypes.string.isRequired,
   addFavoriteError: PropTypes.string.isRequired,
-  voteRecipeRequest: PropTypes.func.isRequired,
+  voteRecipe: PropTypes.func.isRequired,
   voteSuccessMessage: PropTypes.string.isRequired,
   voteFailureMessage: PropTypes.string.isRequired
 };
@@ -165,11 +171,11 @@ const mapStateToProps = state => ({
 );
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentRecipeRequest: recipeId => dispatch(setCurrentRecipeRequest(recipeId)),
-  postReviewRequest: (review, recipeId) => dispatch(postReviewRequest(review, recipeId)),
+  setCurrentRecipe: recipeId => dispatch(setCurrentRecipeRequest(recipeId)),
+  postReview: (review, recipeId) => dispatch(postReviewRequest(review, recipeId)),
   addFlashMessage: message => dispatch(addFlashMessage(message)),
-  addFavoriteRequest: recipeId => dispatch(addFavoriteRequest(recipeId)),
-  voteRecipeRequest: (recipeId, voteType) => dispatch(voteRecipeRequest(recipeId, voteType))
+  addFavorite: recipeId => dispatch(addFavoriteRequest(recipeId)),
+  voteRecipe: (recipeId, voteType) => dispatch(voteRecipeRequest(recipeId, voteType))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetailsPage);

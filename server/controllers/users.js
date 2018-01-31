@@ -164,7 +164,7 @@ export default class UsersApiController {
             ]
           }).then(updatedUser => (
             Reviews.findAll({ where: { userId } }).then((review) => {
-              const feedback = requestFeedback.success(response, 200, 'User profile updated successfully', { updatedUser });
+              const feedback = requestFeedback.success(response, 200, 'Successfully updated profile', { updatedUser });
               if (review.length !== 0) {
                 return Reviews.update({
                   username: updatedUser.username,

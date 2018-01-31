@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addFlashMessage } from '../actions/actionCreators/flashmessages';
+import addFlashMessage from '../actions/actionCreators/flashMessage';
 import verifyToken from './verifyToken';
 
 export default (ProtectedComponent) => {
@@ -29,14 +29,12 @@ Authenticate.propTypes = {
 };
 
 Authenticate.contextTypes = {
-    router: PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
-	return {
-		isAuthenticated: state.authUser.isAuthenticated
-	};
-}
+const mapStateToProps = state => ({
+	isAuthenticated: state.authenticatedUser.isAuthenticated
+});
 
 return connect(mapStateToProps, { addFlashMessage })(Authenticate);
 };

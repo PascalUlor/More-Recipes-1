@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import toastr from 'toastr';
 import validateInputs from '../../shared/validations/review';
 import verifyToken from '../../utils/verifyToken';
-import { addFlashMessage } from '../../actions/actionCreators/flashmessages';
+import addFlashMessage from '../../actions/actionCreators/flashMessage';
 
 class ReviewsForm extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class ReviewsForm extends Component {
       errors: {}
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleOnFocus = this.handleOnFocus.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.isValid = this.isValid.bind(this);
   }
@@ -27,6 +28,11 @@ class ReviewsForm extends Component {
   handleChange(event) {
     this.setState({
       review: event.target.value
+    });
+  }
+  handleOnFocus(event) {
+    this.setState({
+      errors: Object.assign({}, this.state.errors, { [event.target.name]: '' })
     });
   }
   handleSubmit(event) {
@@ -57,13 +63,15 @@ class ReviewsForm extends Component {
     const { errors } = this.state;
     return (
       <div>
-        <h5 className="mt-3 text-success">Post Your Review</h5>
+        <h5 className="mt-3 page-text font-weight-bold">Post Your Review</h5>
         <form onSubmit={this.handleSubmit}>
           <div className="col p-0 mb-2">
             <textarea rows="7"
               className="form-control"
+              name="reviewBody"
               value={this.state.review}
               onChange={this.handleChange}
+              onFocus={this.handleOnFocus}
               placeholder="enter your review for this recipe">
             </textarea>
             {errors.reviewBody && <span className="text-danger small">{errors.reviewBody}</span>}
@@ -84,12 +92,12 @@ ReviewsForm.propTypes = {
 };
 
 ReviewsForm.contextTypes = {
-    router: PropTypes.shape().isRequired
+  router: PropTypes.shape().isRequired
 };
 
 const mapStateToProps = state => ({
-    reviewSuccessMessage: state.postReview.postReviewMessage,
-    reviewFailureMessage: state.postReview.postReviewError
+  reviewSuccessMessage: state.postReview.postReviewMessage,
+  reviewFailureMessage: state.postReview.postReviewError
 });
 
 export default connect(mapStateToProps, { addFlashMessage })(ReviewsForm);

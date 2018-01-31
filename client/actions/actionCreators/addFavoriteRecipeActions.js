@@ -5,16 +5,37 @@ import {
 }
 from '../actionTypes/actionTypes';
 
+/**
+ * @description handles success for adding favorite recipe
+ *
+ * @param { string } message - contains success message
+ *
+ * @returns { object } success message - returns add favorite success action
+ */
 const addFavoriteSuccess = message => ({
   type: ADD_FAVORITE_RECIPE_SUCCESS,
   message
 });
 
+/**
+ * @description handles error for adding favorite recipe
+ *
+ * @param { string } error - contains error message
+ *
+ * @returns { object } error message - returns add favorite failure action
+ */
 const addFavoriteError = error => ({
   type: ADD_FAVORITE_RECIPE_FAILURE,
   error
 });
 
+/**
+ * @description handles add favorite recipe
+ *
+ * @param { number } recipeId - contains ID of recipe to favorite
+ *
+ * @returns { object } add favorite success/error - returns add favorite actions
+ */
 const addFavoriteRequest = recipeId => (
   dispatch => (
     axios({

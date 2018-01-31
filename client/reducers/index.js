@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import flashMessages from './flashmessages';
-import authUser from './authUser';
+import flashMessage from './flashmessage';
+import authenticatedUser from './authenticatedUser';
 import createRecipe from './createRecipe';
 import popularRecipes from './popularRecipes';
 import userProfile from './profile';
@@ -12,10 +12,11 @@ import allRecipes from './allRecipes';
 import postReview from './postReview';
 import favoriteRecipes from './fetchFavoriteRecipes';
 import addFavoriteRecipe from './addFavoriteRecipe';
+import checkDoubleRecipeTitle from './checkDoubleRecipeTitle';
 
 export default combineReducers({
-  flashMessages,
-  authUser,
+  flashMessage,
+  authenticatedUser,
   createRecipe,
   popularRecipes,
   allRecipes,
@@ -26,5 +27,6 @@ export default combineReducers({
   editUserRecipe,
   postReview,
   favoriteRecipes,
-  addFavoriteRecipe
+  addFavoriteRecipe,
+  checkDoubleRecipeTitle
 });

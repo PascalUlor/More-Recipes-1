@@ -31,9 +31,8 @@ export default class UserValidations {
       repassword = request.body.repassword.trim(),
       errors = {};
     if (!validator.isEmpty(fullName)) {
-      const containNumber = fullName.split('').filter(character => validator.toInt(character));
-      if (containNumber.length !== 0) {
-        errors.fullName = 'Full name must not contain number(s)';
+      if (fullName.search(/[^A-Za-z\s]/) !== -1) {
+        errors.fullName = 'Full name must contain only alphabets';
       }
     } else { errors.fullName = 'Full name is required'; }
 
@@ -133,9 +132,8 @@ export default class UserValidations {
       errors = {};
 
     if (!validator.isEmpty(fullName)) {
-      const containNumber = fullName.split('').filter(character => validator.toInt(character));
-      if (containNumber.length !== 0) {
-        errors.fullName = 'Full name must not contain number(s)';
+      if (fullName.search(/[^A-Za-z\s]/) !== -1) {
+        errors.fullName = 'Full name must contain only alphabets';
       }
     } else { errors.fullName = 'Full name is required'; }
 

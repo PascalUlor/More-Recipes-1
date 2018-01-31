@@ -68,7 +68,7 @@ describe('test cases for creating, updating, deleting and retrieving all or user
         .send(data.improperData1)
         .end((error, response) => {
           expect(response.status).to.equal(400);
-          expect('Recipe title must not contain number(s)').to.equal(response.body.errors.title);
+          expect('Recipe title must contain only alphabets').to.equal(response.body.errors.title);
           expect('Recipe ingredients provided must be atleast 20 characters').to.equal(response.body.errors.ingredients);
           expect('Recipe procedures provided must be atleast 20 characters').to.equal(response.body.errors.procedures);
           if (error) done(error);
@@ -123,7 +123,7 @@ describe('test cases for creating, updating, deleting and retrieving all or user
         .send(data.improperData2)
         .end((error, response) => {
           expect(response.status).to.equal(400);
-          expect('Recipe title must not contain number(s)').to.equal(response.body.errors.title);
+          expect('Recipe title must contain only alphabets').to.equal(response.body.errors.title);
           expect('Recipe ingredients provided must be atleast 20 characters').to.equal(response.body.errors.ingredients);
           expect('Recipe procedures provided must be atleast 20 characters').to.equal(response.body.errors.procedures);
           if (error) done(error);
@@ -377,7 +377,6 @@ describe('test cases for creating, updating, deleting and retrieving all or user
       });
     });
   });
-  // /////////
   describe('test cases for retrieving a single user recipe', () => {
     describe('test cases for retrieving a single user recipe negative operations', () => {
       it('should not be able to retrieve a recipe when recipe id is not a number', (done) => {
