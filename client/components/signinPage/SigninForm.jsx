@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Spinner from 'react-md-spinner';
-import TextFieldGroup from '../../common/textFieldGroup.jsx';
+import TextFieldGroup from '../../common/TextFieldGroup.jsx';
 import FlashMessagesList from '../flash/FlashMessagesList.jsx';
 
 const SigninForm = (props) => {
