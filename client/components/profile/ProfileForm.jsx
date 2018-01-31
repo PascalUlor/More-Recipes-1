@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Spinner from 'react-md-spinner';
-import TextFieldGroup from '../../common/textFieldGroup.jsx';
+import TextFieldGroup from '../../common/TextFieldGroup.jsx';
 
 const ProfileForm = (props) => {
   const {
