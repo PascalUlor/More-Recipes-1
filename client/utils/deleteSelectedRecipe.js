@@ -1,8 +1,27 @@
+/**
+ * @description performs recipe deletion operation
+ * @function
+ *
+ * @param   {function} deleteRecipe - performs recipe deletion operation
+ * @param   {number} recipeId -  ID of recipe to be deleted
+ *
+ * @returns {*} null
+ */
 export const deleteSelectedRecipe = (deleteRecipe, recipeId) => (
   deleteRecipe(recipeId)
 );
 
-export const fetchCurrentPageRecipes = (deleteSuccess, deleteError, fetchRecipes, isFetching, fetchedRecipes, currentPage, toastr) => {
+/**
+ * @description performs recipe deletion operation
+ * @function
+ *
+ * @param   {function} deleteRecipe - performs recipe deletion operation
+ * @param   {number} recipeId -  ID of recipe to be deleted
+ *
+ * @returns {*} null
+ */
+export const fetchCurrentPageRecipes = (deleteSuccess, deleteError,
+  fetchRecipes, isFetching, fetchedRecipes, currentPage, toastr) => {
   if (deleteSuccess !== '') {
     toastr.remove();
     toastr.success(deleteSuccess);

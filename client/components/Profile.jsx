@@ -5,12 +5,32 @@ import toastr from 'toastr';
 import Spinner from 'react-md-spinner';
 import NavBar from './NavBar.jsx';
 import ProfileForm from './profile/ProfileForm.jsx';
+import PageHeader from './profile/PageHeader.jsx'
 import Footer from './Footer.jsx';
-import { fetchProfileRequest, updateProfileRequest } from '../actions/actionCreators/profileActions';
+import {
+  fetchProfileRequest,
+  updateProfileRequest
+} from '../actions/actionCreators/profileActions';
 import checkImageFile from '../shared/validations/checkImageFile';
 import validateInputs from '../shared/validations/profile';
 
+
+/**
+ * @description HOC for user profile component
+ *
+ * @class Profile
+ *
+ * @extends Component
+ */
 class Profile extends Component {
+  /**
+   * @description creates an instance of Profile page
+   * 
+   * @constructor
+   *
+   * @param { props } props - contains all user profile component properties
+   *
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -31,9 +51,24 @@ class Profile extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.isValid = this.isValid.bind(this);
   }
+  /**
+   * @description handles fetching user profile details
+   * 
+   * @method componentDidMount
+   *
+   * @returns {*} null
+   */
   componentDidMount() {
     this.props.fetchProfile();
   }
+  /**
+   * @description receives update on lastest updates
+   * @method componentWillReceiveProps
+   * 
+   * @param {object} nextProps - object of new incoming property
+   * 
+   * @returns {*} null
+   */
   componentWillReceiveProps(nextProps) {
     let userProfile = {};
     if (typeof nextProps.updatedProfile.updatedUser !== 'undefined') {
@@ -55,17 +90,46 @@ class Profile extends Component {
       initialImage: profileImage
     });
   }
+  /**
+   * @description handles on state change
+   * @method handleChange
+   * 
+   * @param { object } event - event object containing profile details
+   *
+   * @returns { object } new user profile state
+   */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+  /**
+   * @description handles clicking of hidden input of type file
+   * @method handleClick
+   * 
+   * @returns {*} null 
+   */
   handleClick() {
     $('input[type=file]').click();
   }
+  /**
+   * @description handles on focus event
+   * @method handleOnFocus
+   * @param { object } event - event object containing profile details
+   *
+   * @returns { object } new user profile state
+   */
   handleOnFocus(event) {
     this.setState({
       errors: Object.assign({}, this.state.errors, { [event.target.name]: '' })
     });
   }
+  /**
+   * @description handles on image change
+   * @method handleImageChange
+   * 
+   * @param { object } event - event object containing profile details
+   *
+   * @returns { object } profile image - new updated user image state
+   */
   handleImageChange(event) {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -87,6 +151,12 @@ class Profile extends Component {
       this.setState({ profileImage: this.state.initialImage, imageFile: '' });
     }
   }
+  /**
+   * @description handles client validation checks
+   * @method isValid
+   * 
+   * @returns { bool } true/false when form is submitted
+   */
   isValid() {
     const { errors, isValid } = validateInputs(this.state);
     if (!isValid) {
@@ -94,6 +164,13 @@ class Profile extends Component {
     }
     return isValid;
   }
+  /**
+   * @description handles on submit event for updating user profile
+   *
+   * @param { object } event - event object containing user details
+   *
+   * @returns { * } null
+   */
   handleSubmit(event) {
     event.preventDefault();
     if (this.isValid()) {
@@ -110,32 +187,35 @@ class Profile extends Component {
       });
     }
   }
-
+  /**
+   * @description renders user profile form
+   *
+   * @returns { jsx } jsx - renders Profile
+   */
   render() {
     const { isFetching } = this.props;
     return (
-      <div>
+      <div className="bg-faded">
         <NavBar/>
+        <div className="pt-5">
+          <PageHeader/>
+        </div> 
+        <div className="container main-wrapper pt-0 mt-4">
         {isFetching ?
           <div className="text-center">
-            <Spinner size={50} style={{ margin: '21.8% 50%' }}/>
+            <Spinner size={50} className="text-center mt-5"/>
           </div>
         :
-          <div className="container-fluid main-wrapper">
-            <div className="row">
-              <div className="col-sm-10 col-md-8 col-lg-8 offset-sm-1 offset-md-2 offset-lg-2">
-                <ProfileForm
-                  handleChange={this.handleChange}
-                  handleFocus={this.handleOnFocus}
-                  handleClick={this.handleClick}
-                  handleImageChange={this.handleImageChange}
-                  profile={this.state}
-                  handleSubmit={this.handleSubmit}
-                  isUpdating={this.props.isProfileUpdating}/>
-              </div>
-            </div>
-          </div>
+          <ProfileForm
+            handleChange={this.handleChange}
+            handleFocus={this.handleOnFocus}
+            handleClick={this.handleClick}
+            handleImageChange={this.handleImageChange}
+            profile={this.state}
+            handleSubmit={this.handleSubmit}
+            isUpdating={this.props.isProfileUpdating}/>
         }
+        </div>
         <Footer/>
       </div>
     );
@@ -151,7 +231,13 @@ Profile.propTypes = {
   updateProfileError: PropTypes.string,
   updateProfile: PropTypes.func.isRequired
 };
-
+/**
+ * @description maps redux state to props
+ *
+ * @param { object } state - holds user profile state
+ *
+ * @return { object } props - returns mapped props from state
+ */
 const mapStateToProps = state => ({
   isFetching: state.userProfile.isProfileFetching,
   fetchedProfile: state.userProfile.fetchedProfile.user,
@@ -159,10 +245,17 @@ const mapStateToProps = state => ({
   updatedProfile: state.userProfile.updatedProfile,
   updateProfileError: state.userProfile.updateProfileError,
 });
-
+/**
+ * @description maps action dispatch to props
+ *
+ * @param { object } dispatch - holds dispatchable actions
+ *
+ * @return { object } props - returns mapped props from dispatch action
+ */
 const mapDispatchToProps = dispatch => ({
-  fetchProfile: () => (dispatch(fetchProfileRequest())),
-  updateProfile: profileDetails => (dispatch(updateProfileRequest(profileDetails)))
+  fetchProfile: () => dispatch(fetchProfileRequest()),
+  updateProfile: profileDetails =>
+  dispatch(updateProfileRequest(profileDetails))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

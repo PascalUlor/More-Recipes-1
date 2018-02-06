@@ -48,7 +48,8 @@ const voteRecipeRequest = (recipeId, voteType) => (
     })
     .then((response) => {
       dispatch(voteRecipeSuccess(response.data));
-    }).catch((error) => {
+    })
+    .catch((error) => {
       dispatch(voteRecipeFailure(error.response.data.message));
     })
   )

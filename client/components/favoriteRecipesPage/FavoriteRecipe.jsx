@@ -3,6 +3,15 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 
+/**
+ * @description displays a single favorite recipe
+ * @method FavoriteRecipe
+ * 
+ * @param { object } favorite - object of a single favorite recipe
+ * @param { function } setCurrentRecipe - sets currently selected recipe
+ * 
+ * @returns { jsx } jsx - renders FavoriteRecipe component
+ */
 const FavoriteRecipe = ({ favorite, setCurrentRecipe }) => (
   <div className="col-12 col-sm-12 col-md-6 col-lg-4 pt-2">
     <div className="card">

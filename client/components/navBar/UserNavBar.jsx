@@ -2,6 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, NavLink } from 'react-router-dom';
 
+
+/**
+ * @description displays authenticated user's navigaton bar
+ * @method UserNavBar
+ * 
+ * @param { string } currentUsername - username of current logged in user
+ * @param { function } logOut - logs/signs out users
+ * 
+ * @returns { jsx } jsx - renders UserNavBar component
+ */
 const UserNavBar = ({ currentUsername, logOut }) => (
   <div className="collapse navbar-collapse text-center" id="navbarItems">
     <ul className="navbar-nav ml-auto">

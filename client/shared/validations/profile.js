@@ -28,9 +28,8 @@ const updateProfileValidations = (data) => {
   } else { errors.email = 'Email is required'; }
 
   if (location) {
-    const containNumber = location.split('').filter(character => validator.toInt(character));
-    if (containNumber.length !== 0) {
-      errors.location = 'Provided location must not contain number(s)';
+    if (location.search(/[^A-Za-z\s]/) !== -1) {
+      errors.location = 'Provided location must contain only alphabets';
     }
   }
 

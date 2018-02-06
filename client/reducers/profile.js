@@ -16,6 +16,17 @@ const initialState = {
   updatedProfile: {},
   updateProfileError: ''
 };
+
+/**
+ * @description holds success and failure states for fetching and updating a
+ * user profile
+ * @function
+ *
+ * @param { object } state - contains reducer initial state
+ * @param { object } action - contains actions to be performed
+ *
+ * @returns { object } the user profile details state
+ */
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case IS_PROFILE_FETCHING:

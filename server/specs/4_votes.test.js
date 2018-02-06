@@ -15,7 +15,8 @@ describe('test cases for voting a recipe', () => {
           expect(response.body).deep.equal({
             status: 'Success',
             message: 'Thanks for upvoting',
-            voteLog: { upvotes: 1, downvotes: 0 }
+            voteLog: { upvotes: 1, downvotes: 0 },
+            userVote: 'upvote'
           });
           if (error) done(error);
           done();
@@ -29,7 +30,8 @@ describe('test cases for voting a recipe', () => {
           expect(response.body).deep.equal({
             status: 'Success',
             message: 'You downvoted',
-            voteLog: { upvotes: 0, downvotes: 1 }
+            voteLog: { upvotes: 0, downvotes: 1 },
+            userVote: 'downvote'
           });
           if (error) done(error);
           done();
@@ -43,7 +45,8 @@ describe('test cases for voting a recipe', () => {
           expect(response.body).deep.equal({
             status: 'Success',
             message: 'Thanks for downvoting',
-            voteLog: { upvotes: 0, downvotes: 2 }
+            voteLog: { upvotes: 0, downvotes: 2 },
+            userVote: 'downvote'
           });
           if (error) done(error);
           done();
@@ -57,7 +60,8 @@ describe('test cases for voting a recipe', () => {
           expect(response.body).deep.equal({
             status: 'Success',
             message: 'You upvoted',
-            voteLog: { upvotes: 1, downvotes: 1 }
+            voteLog: { upvotes: 1, downvotes: 1 },
+            userVote: 'upvote'
           });
           if (error) done(error);
           done();

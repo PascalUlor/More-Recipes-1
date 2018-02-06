@@ -27,8 +27,8 @@ export default (sequelize, DataTypes) => {
           msg: 'Username is required'
         },
         len: {
-          args: [4, 25],
-          msg: 'Username must be atleast 4 to 25 characters'
+          args: [3, 25],
+          msg: 'Username must be atleast 3 to 25 characters'
         }
       }
     },

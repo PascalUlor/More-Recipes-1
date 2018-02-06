@@ -9,7 +9,7 @@
 html,
 body {
   display: flex;
-  // min-height: 100vh;
+  min-height: 100vh;
   flex-direction: column;
   font-weight: 300;
   text-rendering: optimizeLegibility;
@@ -37,13 +37,18 @@ p#sub-title.lead {
   }
   img#recipe_image {
     width: 100%;
-    height: 19rem;
+    height: 15.625rem;
   }
 }
 
+img.recipe-image {
+  width: 100%;
+  height: 15.625rem;
+}
+
 img#profile-image {
-  width: 250px;
-  height: 250px;
+  width: 15.625rem;
+  height: 15.625rem;
   &:hover {
     cursor: pointer;
     opacity: 0.7;
@@ -60,8 +65,10 @@ img#profile-image {
   color: darkcyan;
 }
 
-.cover-caption p {
-  padding: 1.4rem;
+.cover-caption {
+  p {
+    padding: 1.4rem;
+  }
 }
 
 .container-fluid {
@@ -96,8 +103,7 @@ header {
 
 h1.display-3 {
   color: wheat;
-  padding-top: 1.5rem;
-  margin-top: 1.7rem;
+  padding-top: 4rem;
 }
 
 h1,
@@ -149,11 +155,10 @@ main.landing {
   align-content: center;
   display: block;
   width: 100%;
-  min-height: 70vh;
+  min-height: 75vh;
   margin-top: 60px;
   background: url("../images/coverImage.jpg") 0 0 repeat;
   background-size: cover;
-  position: relative;
   -webkit-animation: animate_background 10s linear 0s infinite;
   -moz-animation: animate_background 10s linear 0s infinite;
   -o-animation: animate_background 10s linear 0s infinite;
@@ -164,11 +169,12 @@ main.landing {
   background-color: white;
 }
 
-.overlay {
-  position: absolute;
-  width: 100%;
-  min-height: 70vh;
-  background: rgba(0, 0, 0, 0.5);
+.not-found {
+  text-align: center;
+  color: darkcyan;
+  padding: 3rem;
+  font-weight: 400;
+  word-spacing: 0.7rem;
 }
 
 
@@ -236,8 +242,8 @@ main.landing {
 }
 
 .pagination {
-  margin-left: 0.86rem; 
-  margin-top: -0.6rem; 
+  margin-left: 0.86rem;
+  margin-top: -0.6rem;
   color: 'black';
 }
 
@@ -274,6 +280,10 @@ section#home img {
   font-weight: 600;
 }
 
+.site-wrapper {
+  flex: 1 0 auto
+}
+
 textarea:focus {
   border-color: darkcyan !important;
 }
@@ -287,20 +297,46 @@ ul.details li {
   padding: 0.77rem 0.2rem;
 }
 
-@media screen and (max-width: 1000px) and (min-width: 150px) {
-  .display-3 {
+@media screen and (max-width: 1024px) and (min-width: 150px) {
+  h1.display-3 {
     font-size: 2rem;
+    padding-top: 2rem;
   }
   h2 {
     font-size: 1.7rem;
   }
-  main.landing,
-  .overlay {
-    min-height: 80vh;
+  main.landing {
+    min-height: 30vh;
   }
- 
   p#sub-title {
     font-size: 1rem;
     padding-bottom: 5px;
+  }
+}
+
+@media screen and (max-width: 575px) and (min-width: 120px) {
+  img#profile-image {
+    width: 300px;
+    height: 160px;
+  }
+  .figure {
+    margin: 2px auto 20px;
+  }
+  .profile-text {
+    margin: 2px auto 30px;
+  }
+}
+
+@media screen and (max-width: 991px) and (min-width: 767px) {
+  img.recipe-image {
+    width: 170px;
+    margin-left: -30px;
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 2000px) and (min-width: 992px) {
+  img.recipe-image {
+    margin-left: -40px;
   }
 }

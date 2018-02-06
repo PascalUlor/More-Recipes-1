@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
+import favicon from 'serve-favicon';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -17,27 +18,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.disable('x-powered-by');
 app.use(express.static(path.join(__dirname, '../client/assets')));
+app.use(favicon(path.join(__dirname, '../client/favicon.ico')));
 
 let compiler;
 if (env === 'production') {
   compiler = webpack(webpackConfigProd);
+  app.use(webpackMiddleware(compiler));
 } else {
- compiler = webpack(webpackConfigDev);
+  compiler = webpack(webpackConfigDev);
+  app.use(webpackMiddleware(compiler, {
+    hot: true,
+    publicpath: '/',
+    stats: { colors: true },
+    noInfo: true
+  }));
+
+  app.use(webpackHotMiddleware(compiler));
 }
 
 app.use('/api/v1/', apiRoutes);
 
-app.use(webpackMiddleware(compiler, {
-  hot: true,
-  publicpath: '/',
-  stats: { colors: true },
-  noInfo: true
-}));
-
-app.use(webpackHotMiddleware(compiler));
-
-app.use('/', express.static('build'));
-app.use('*', express.static('build'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 app.listen(port, () => console.log(`Application started on port ${port}`));
 

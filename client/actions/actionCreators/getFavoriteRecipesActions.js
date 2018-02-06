@@ -4,10 +4,6 @@ import {
   FETCH_FAVORITE_RECIPES_SUCCESS,
   FETCH_FAVORITE_RECIPES_FAILURE
 } from '../actionTypes/actionTypes';
-import {
-  paginationDetails,
-  setPaginationDetails
-} from './setPaginationDetailsAction';
 
 /**
  * @description handles fetch user favorite recipes loader
@@ -63,8 +59,7 @@ const fetchFavoriteRecipesRequest = page => (
         url: `/api/v1/user/favorites?page=${page}`
       })
       .then((response) => {
-        dispatch(favoriteRecipesSuccess(response.data.recipes));
-        dispatch(setPaginationDetails(paginationDetails(response)));
+        dispatch(favoriteRecipesSuccess(response.data));
         dispatch(isFavoriteRecipesFetching(false));
       })
       .catch((error) => {

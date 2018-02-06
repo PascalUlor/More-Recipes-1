@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import toastr from 'toastr';
-/** ***************************** RECIPE DETAILS COMPONENTS  *************************************** */
+/** *************** RECIPE DETAILS COMPONENTS  ********************** */
 import NavBar from './NavBar.jsx';
 import TopContents from './recipeDetailsPage/TopContents.jsx';
 import Ingredients from './recipeDetailsPage/Ingredients.jsx';
@@ -10,15 +10,33 @@ import Procedures from './recipeDetailsPage/Procedures.jsx';
 import ReviewsForm from './recipeDetailsPage/ReviewsForm.jsx';
 import Reviews from './recipeDetailsPage/Reviews.jsx';
 import Footer from './Footer.jsx';
-/** ****************************** RECIPE DETAILS ACTIONS  ****************************************** */
-import setCurrentRecipeRequest from '../actions/actionCreators/setCurrentRecipeActions';
+/** ***************** RECIPE DETAILS ACTIONS  *************************/
+import setCurrentRecipeRequest from
+'../actions/actionCreators/setCurrentRecipeActions';
 import postReviewRequest from '../actions/actionCreators/postReviewActions';
-import addFlashMessage from '../actions/actionCreators/flashMessage';
 import verifyToken from '../utils/verifyToken';
-import addFavoriteRequest from '../actions/actionCreators/addFavoriteRecipeActions';
+import addFavoriteRequest from 
+'../actions/actionCreators/addFavoriteRecipeActions';
 import voteRecipeRequest from '../actions/actionCreators/voteRecipeActions';
+import redirect from '../utils/redirect';
 
+
+/**
+ * @description HOC for rendering a single recipe component
+ *
+ * @class RecipeDetailsPage
+ *
+ * @extends Component
+ */
 class RecipeDetailsPage extends Component {
+  /**
+   * @description creates an instance of RecipeDetailsPage page
+   * 
+   * @constructor
+   *
+   * @param { props } props - contains recipe details component properties
+   *
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -29,6 +47,8 @@ class RecipeDetailsPage extends Component {
         downvotes: 0,
         createdBy: '',
         lastUpdated: '',
+        isFavorited: false,
+        vote: ''
       },
       ingredients: '',
       procedures: '',
@@ -38,11 +58,26 @@ class RecipeDetailsPage extends Component {
     this.handleFavourite = this.handleFavourite.bind(this);
     this.handleVote = this.handleVote.bind(this);
   }
+  /**
+   * @description handles fetching details of seleted recipe
+   * 
+   * @method componentDidMount
+   *
+   * @returns {*} null
+   */
   componentDidMount() {
     const recipeId = parseInt(this.props.match.params.id, 10);
     this.props.setCurrentRecipe(recipeId);
     this.setState({ recipeId });
   }
+   /**
+   * @description receives update on lastest updates
+   * @method componentWillReceiveProps
+   * 
+   * @param {object} nextProps - object of new incoming property
+   * 
+   * @returns {object} new state
+   */
   componentWillReceiveProps(nextProps) {
     const {
       title, ingredients, procedures,
@@ -59,7 +94,9 @@ class RecipeDetailsPage extends Component {
           upvotes,
           downvotes,
           lastUpdated: updatedAt,
-          createdBy: User.fullName
+          createdBy: User.fullName,
+          isFavorited: nextProps.recipeDetails.isFavorited,
+          vote: nextProps.recipeDetails.vote
         },
         ingredients,
         procedures,
@@ -67,6 +104,12 @@ class RecipeDetailsPage extends Component {
       });
     }
   }
+  /**
+   * @description handles on favoriting a recipe
+   * @method handleFavourite
+   *
+   * @returns {*} null
+   */
   handleFavourite() {
     const { recipeId } = this.state;
     if (verifyToken()) {
@@ -81,13 +124,15 @@ class RecipeDetailsPage extends Component {
         }
       });
     } else {
-      this.props.addFlashMessage({
-        type: 'failed',
-        text: 'Sorry!!!. Please login to continue'
-      });
-      this.context.router.history.push('/signin');
+      redirect(this.props);
     }
   }
+  /**
+   * @description handles on voting a recipe
+   * @method handleVote
+   *
+   * @returns {*} null
+   */
   handleVote(event) {
     const { recipeId } = this.state,
     { voteRecipe } = this.props;
@@ -107,14 +152,14 @@ class RecipeDetailsPage extends Component {
         }
       });
     } else {
-      this.props.addFlashMessage({
-        type: 'failed',
-        text: 'Sorry!!!. Please login to continue'
-      });
-      this.context.router.history.push('/signin');
+      redirect(this.props);
     }
   }
-
+  /**
+   * @description renders single recipe details
+   *
+   * @returns { jsx } jsx - renders single recipe details
+   */
   render() {
     return (
       <div className="bg-faded">
@@ -132,7 +177,10 @@ class RecipeDetailsPage extends Component {
                 <div className="col-1"></div>
                 <Procedures procedures={this.state.procedures}/>
               </div>
-              <ReviewsForm postReview={this.props.postReview} recipeId={this.state.recipeId}/>
+              <ReviewsForm
+                postReview={this.props.postReview}
+                recipeId={this.state.recipeId}
+                {...this.props}/>
               <Reviews reviews={this.state.reviews}/>
             </main>
           </div>
@@ -148,7 +196,6 @@ RecipeDetailsPage.propTypes = {
   setCurrentRecipe: PropTypes.func.isRequired,
   recipeDetails: PropTypes.shape().isRequired,
   postReview: PropTypes.func.isRequired,
-  addFlashMessage: PropTypes.func.isRequired,
   addFavorite: PropTypes.func.isRequired,
   addFavoriteSuccess: PropTypes.string.isRequired,
   addFavoriteError: PropTypes.string.isRequired,
@@ -160,7 +207,13 @@ RecipeDetailsPage.propTypes = {
 RecipeDetailsPage.contextTypes = {
   router: PropTypes.shape().isRequired
 };
-
+/**
+ * @description maps redux state to props
+ *
+ * @param { object } state - holds recipe details state
+ *
+ * @return { object } props - returns mapped props from state
+ */
 const mapStateToProps = state => ({
     recipeDetails: state.setCurrentRecipe.currentSetRecipe,
     addFavoriteSuccess: state.addFavoriteRecipe.addFavoriteSuccess,
@@ -169,13 +222,22 @@ const mapStateToProps = state => ({
     voteFailureMessage: state.setCurrentRecipe.voteFailureMessage
   }
 );
-
+/**
+  * @description maps action dispatch to props
+  *
+  * @param { object } dispatch - holds dispatchable actions
+  *
+  * @return { object } props - returns mapped props from dispatch action
+  */
 const mapDispatchToProps = dispatch => ({
-  setCurrentRecipe: recipeId => dispatch(setCurrentRecipeRequest(recipeId)),
-  postReview: (review, recipeId) => dispatch(postReviewRequest(review, recipeId)),
-  addFlashMessage: message => dispatch(addFlashMessage(message)),
-  addFavorite: recipeId => dispatch(addFavoriteRequest(recipeId)),
-  voteRecipe: (recipeId, voteType) => dispatch(voteRecipeRequest(recipeId, voteType))
+  setCurrentRecipe: recipeId =>
+    dispatch(setCurrentRecipeRequest(recipeId)),
+  postReview: (review, recipeId) =>
+    dispatch(postReviewRequest(review, recipeId)),
+  addFavorite: recipeId =>
+    dispatch(addFavoriteRequest(recipeId)),
+  voteRecipe: (recipeId, voteType) =>
+    dispatch(voteRecipeRequest(recipeId, voteType))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetailsPage);

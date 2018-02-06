@@ -2,6 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AllRecipe from './allRecipesList/AllRecipe.jsx';
 
+
+/**
+ * @description displays a list of all recipes
+ * @method AllRecipesList
+ * 
+ * @param { array } allRecipes - array of all recipes
+ * 
+ * @returns { jsx } jsx - renders AllRecipesList component
+ */
 const AllRecipesList = ({ allRecipes }) => (
   <div className="card-deck mb-3 mt-3">
     {allRecipes.length === 0 ?

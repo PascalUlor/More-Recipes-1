@@ -1,3 +1,11 @@
+/**
+ * @description gets mimetype of images
+ * @function getMimetype
+ *
+ * @param   { string } signature - first 8 bytes of a buffer image
+ *
+ * @returns { string } original image mimetype
+ */
 const getMimetype = (signature) => {
   switch (signature) {
     case '89504E47':
@@ -17,9 +25,20 @@ const getMimetype = (signature) => {
   }
 };
 
+/**
+ * @description extract first 8 characters of the uploaded file
+ * @function imageFileChecker
+ *
+ * @param   { function } filereader - javascript gbobal function for
+ * reading input files
+ * @param   { object } file - upload file
+ * @param   { function } callback - collects output for use elsewhere
+ *
+ * @returns { * } null
+ */
 const imageFileChecker = (filereader, file, callback) => {
-  filereader.onload = (evt) => {
-    const uint = new Uint8Array(evt.target.result);
+  filereader.onload = (event) => {
+    const uint = new Uint8Array(event.target.result);
     const bytes = [];
     uint.forEach((byte) => {
       bytes.push(byte.toString(16));

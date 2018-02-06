@@ -263,7 +263,7 @@ describe('test cases for user sign up and sign in operations', () => {
           expect('Full name must contain only alphabets').to.equal(response.body.errors.fullName);
           expect('Username must not start with number(s)').to.equal(response.body.errors.username);
           expect('Email is invalid').to.equal(response.body.errors.email);
-          expect('Provided location must not contain number(s)').to.equal(response.body.errors.location);
+          expect('Provided location must contain only alphabets').to.equal(response.body.errors.location);
           expect('Provided description must be atleast 4 characters').to.equal(response.body.errors.aboutMe);
           if (error) done(error);
           done();

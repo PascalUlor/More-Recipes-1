@@ -10,13 +10,11 @@ module.exports = {
     publicPath: '/'
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.s?css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [
-            {
+          use: [{
               loader: 'css-loader'
             },
             {
@@ -41,14 +39,10 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin('./css/styles.css'),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(), // enable HMR globally
-    new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
     new Dotenv({
       path: './.env', // Path to .env file
       systemvars: true // load all system variables
-                       // as well (useful for CI purposes)
+        // as well (useful for CI purposes)
     })
   ],
   resolve: {

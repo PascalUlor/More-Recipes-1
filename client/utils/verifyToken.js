@@ -1,5 +1,12 @@
 import jwt from 'jsonwebtoken';
 
+
+/**
+ * @description verifies/authentication token
+ * @function
+ *
+ * @returns { number } 1 or 0, representing valid or invalid token
+ */
 const verifyToken = () => {
   const token = window.localStorage.jwtToken;
   let verified;

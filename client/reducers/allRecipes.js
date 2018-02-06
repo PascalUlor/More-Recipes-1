@@ -12,6 +12,17 @@ const initialState = {
   paginationDetails: {},
   allRecipesError: ''
 };
+
+/**
+ * @description holds pagination, success and failure states for fetching all
+ * recipes action
+ * @function
+ *
+ * @param { object } state - contains reducer initial state
+ * @param { object } action - contains actions to be performed
+ *
+ * @returns { object } the new fetch all recipes action state
+ */
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case IS_ALL_RECIPES_FETCHING:

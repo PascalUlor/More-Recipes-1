@@ -75,4 +75,14 @@ router.route('/user/favorites/:recipeID')
 router.route('/recipes/:recipeID/vote')
   .post(tokenAuth, VotesController.votes);
 
+/**
+ * @description Page Not Found route
+ */
+router.all('*', (request, response) => {
+  response.status(404).json({
+    status: 'Failed',
+    message: 'Page not found'
+  });
+});
+
 export default router;

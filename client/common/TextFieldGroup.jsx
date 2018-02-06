@@ -16,9 +16,9 @@ const TextFieldGroup = (props) => {
   } = props;
   return (
     <div className='form-group'>
-      <label htmlFor={name}>{label}</label>
+      <label className="page-text" htmlFor={name}>{label}</label>
       <div className="input-group mb-2 mr-sm-2 mb-sm-0">
-        <div className="input-group-addon">
+        <div className="input-group-addon page-text">
           <i className={font} aria-hidden="true"></i>
         </div>
         <input

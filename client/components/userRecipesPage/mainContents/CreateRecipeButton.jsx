@@ -1,6 +1,12 @@
 import React from 'react';
 
 
+/**
+ * @description displays a button for creating recipe
+ * @method CreateRecipeButton
+ *
+ * @returns { jsx } jsx - renders CreateRecipeButton component
+ */
 const CreateRecipeButton = () => (
   <div className="text-left">
     <button
