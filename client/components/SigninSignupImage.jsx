@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
+/**
+ * @description displays site logo
+ *
+ * @returns { jsx } jsx - renders site logo component
+ */
 const SigninSignupImage = () => (
 	<div className= "col-4 col-sm-4 col-md-4 col-lg-4">
 		<figure className="figure">

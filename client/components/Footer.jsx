@@ -1,11 +1,18 @@
 import React from 'react';
 
+
+/**
+ * @description displays page footer
+ *
+ * @returns { jsx } jsx - renders page footer component
+ */
 const Footer = () => (
-  <footer>
+  <footer className="footer">
     <div className="container">
       <div className="row mt-4">
         <div className="col-12 col-sm-8 col-md-9 col-lg-10">
-          <small id="copywrite" className="text-white"><span className="text-warning">&copy;2018 </span>
+          <small id="copywrite" className="text-white">
+            <span className="text-warning">&copy;2018 </span>
           Bootcamp27, Andela Nigeria. All rights reserved.</small>
         </div>
         <div className="col-12 col-sm-4 col-md-3 col-lg-2 text-center">

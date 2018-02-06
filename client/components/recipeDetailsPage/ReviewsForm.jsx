@@ -4,9 +4,25 @@ import { connect } from 'react-redux';
 import toastr from 'toastr';
 import validateInputs from '../../shared/validations/review';
 import verifyToken from '../../utils/verifyToken';
-import addFlashMessage from '../../actions/actionCreators/flashMessage';
+import redirect from '../../utils/redirect';
 
+
+/**
+ * @description HOC for ReviewsForm component
+ *
+ * @class ReviewsForm
+ *
+ * @extends Component
+ */
 class ReviewsForm extends Component {
+  /**
+   * @description creates an instance of ReviewsForm
+   * 
+   * @constructor
+   *
+   * @param { props } props - contains review form component properties
+   *
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -15,9 +31,16 @@ class ReviewsForm extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleOnFocus = this.handleOnFocus.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.isValid = this.isValid.bind(this);
   }
+  /**
+   * @description handles client validation checks
+   * @method isValid
+   * 
+   * @returns { bool } true/false when form is submitted
+   */
   isValid() {
     const { errors, isValid } = validateInputs(this.state.review);
     if (!isValid) {
@@ -25,16 +48,51 @@ class ReviewsForm extends Component {
     }
     return isValid;
   }
+  /**
+   * @description handles on state change
+   * @method handleChange
+   * 
+   * @param { object } event - event object containing review detail
+   *
+   * @returns { object } new review detail state
+   */
   handleChange(event) {
     this.setState({
       review: event.target.value
     });
   }
+  /**
+   * @description handles on focus event
+   * @method handleOnFocus
+   * 
+   * @param { object } event - event object containing review detail
+   *
+   * @returns { object } new review detail state
+   */
   handleOnFocus(event) {
     this.setState({
       errors: Object.assign({}, this.state.errors, { [event.target.name]: '' })
     });
   }
+   /**
+   * @description handles on focus event
+   * @method handleKeyPress
+   *
+   * @returns { * } null
+   */
+  handleKeyUp() {
+    if (!verifyToken()) {
+      this.setState({ review: '' });
+      redirect(this.props);
+    }
+  }
+  /**
+   * @description handles on submit event for posting a review
+   *
+   * @param { object } event - event object containing review detail
+   *
+   * @returns { * } null
+   */
   handleSubmit(event) {
     event.preventDefault();
     if (verifyToken()) {
@@ -51,14 +109,14 @@ class ReviewsForm extends Component {
         });
       }
     } else {
-      this.props.addFlashMessage({
-        type: 'failed',
-        text: 'Sorry!!!. Please login to continue'
-      });
-      this.context.router.history.push('/signin');
+      redirect(this.props);
     }
   }
-
+  /**
+   * @description displays recipe review form
+   *
+   * @returns { jsx } jsx - renders ReviewsForm component
+   */
   render() {
     const { errors } = this.state;
     return (
@@ -72,11 +130,20 @@ class ReviewsForm extends Component {
               value={this.state.review}
               onChange={this.handleChange}
               onFocus={this.handleOnFocus}
+              onKeyUp={this.handleKeyUp}
               placeholder="enter your review for this recipe">
             </textarea>
-            {errors.reviewBody && <span className="text-danger small">{errors.reviewBody}</span>}
+            {
+              errors.reviewBody &&
+              <span className="text-danger small">
+                {errors.reviewBody}
+              </span>
+            }
           </div>
-          <button className="btn btn-outline-success" type="submit">Post Review</button>
+          <button className="btn btn-outline-success"
+            type="submit">
+              Post Review
+            </button>
         </form>
       </div>
     );
@@ -86,7 +153,6 @@ class ReviewsForm extends Component {
 ReviewsForm.propTypes = {
   recipeId: PropTypes.number.isRequired,
   postReview: PropTypes.func.isRequired,
-  addFlashMessage: PropTypes.func.isRequired,
   reviewSuccessMessage: PropTypes.string,
   reviewFailureMessage: PropTypes.string
 };
@@ -95,9 +161,16 @@ ReviewsForm.contextTypes = {
   router: PropTypes.shape().isRequired
 };
 
+/**
+ * @description maps redux state to props
+ *
+ * @param { object } state - holds recipe review state
+ *
+ * @return { object } props - returns mapped props from state
+ */
 const mapStateToProps = state => ({
   reviewSuccessMessage: state.postReview.postReviewMessage,
   reviewFailureMessage: state.postReview.postReviewError
 });
 
-export default connect(mapStateToProps, { addFlashMessage })(ReviewsForm);
+export default connect(mapStateToProps)(ReviewsForm);

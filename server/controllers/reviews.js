@@ -15,20 +15,22 @@ export default class ReviewsApiController {
    * @memberof ReviewsApiController
    * @static
    *
-   * @param   {object} request   the server/http(s) request object
-   * @param   {object} response  the server/http(s) response object
+   * @param   {object} request  - the server/http(s) request object
+   * @param   {object} response - the server/http(s) response object
    *
-   * @returns {object} insertion error messages object or success message object
+   * @returns {object} insertion error message object or success message object
    */
   static postReview(request, response) {
     const { reviewBody } = request.body, { userId } = request.decoded,
       recipeId = parseInt(request.params.recipeID.trim(), 10);
 
     Users.findById(userId).then((foundUser) => {
-      Recipes.findById(recipeId).then((recipe) => {
-        if (!recipe) {
-          return requestFeedback.error(response, 404, 'Recipe not found or has been deleted');
+      Recipes.findById(recipeId).then((foundRecipe) => {
+        if (!foundRecipe) {
+          return requestFeedback.error(
+            response, 404, 'Recipe not found or has been deleted');
         }
+
         return Reviews.create({
             reviewBody,
             username: foundUser.username,
@@ -36,10 +38,14 @@ export default class ReviewsApiController {
             userId,
             recipeId
           }).then((postedReview) => {
-            reviewNotifier(Recipes, Users, recipeId, postedReview);
-            return requestFeedback.success(response, 201, 'Successfully posted review', { postedReview });
+            if (postedReview.userId !== foundRecipe.userId) {
+              reviewNotifier(Recipes, Users, recipeId, postedReview, request);
+            }
+            return requestFeedback.success(response, 201,
+              'Successfully posted review', { postedReview });
           })
-          .catch(error => (requestFeedback.error(response, 500, error.message)));
+          .catch(error => (
+            requestFeedback.error(response, 500, error.message)));
       });
     });
   }

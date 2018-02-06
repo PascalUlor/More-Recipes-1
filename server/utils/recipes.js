@@ -1,9 +1,11 @@
 import requestFeedback from './requestFeedback';
 import checkId from './checkId';
 
-const fetchRecipes = (request, response, modelR, modelU, modelF, userId, orderBy, orderType, message1, message2) => {
+const fetchRecipes = (request, response, recipesModel, usersModel,
+  favoritesModel, userId, orderBy, orderType, message1, message2) => {
+
   let recipeQuery = {};
-  const model = modelF !== null ? modelF : modelR;
+  const model = favoritesModel !== null ? favoritesModel : recipesModel;
   if (userId) {
     recipeQuery = { where: { userId } };
   }
@@ -32,13 +34,13 @@ const fetchRecipes = (request, response, modelR, modelU, modelF, userId, orderBy
           [orderBy, orderType]
         ]
       };
-      if (userId && modelF !== null) {
+      if (userId && favoritesModel !== null) {
         query = {
           where: { userId },
           include: [{
-            model: modelR,
+            model: recipesModel,
             attributes: ['id', 'title', 'recipeImage', 'viewsCount', 'userId'],
-            include: [{ model: modelU, attributes: ['fullName'] }]
+            include: [{ model: usersModel, attributes: ['fullName'] }]
           }],
           limit,
           offset,
@@ -49,7 +51,7 @@ const fetchRecipes = (request, response, modelR, modelU, modelF, userId, orderBy
       }
       if (!userId) {
         query = {
-          include: [{ model: modelU, attributes: ['fullName'] }],
+          include: [{ model: usersModel, attributes: ['fullName'] }],
           limit,
           offset,
           order: [

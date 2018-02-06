@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const common = require('./webpack.config.common');
@@ -10,7 +11,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = merge(common, {
-  devtool: 'eval',
+  devtool: 'cheap-module-eval',
   entry: [
     'babel-polyfill',
     'webpack/hot/dev-server',
@@ -19,13 +20,17 @@ module.exports = merge(common, {
   ],
   module: {
     rules: [{
-        test: /\.(js?x)$/,
-        use: ['react-hot-loader/webpack', 'babel-loader'],
-        include: path.join(__dirname, '/client'),
-        exclude: /(node_modules|server|.vscode)/
-      }]
+      test: /\.(js?x)$/,
+      use: ['react-hot-loader/webpack', 'babel-loader'],
+      include: path.join(__dirname, '/client'),
+      exclude: /(node_modules|server|.vscode)/
+    }]
   },
   plugins: [
-    HtmlWebpackPluginConfig
+    HtmlWebpackPluginConfig,
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(), // enable HMR globally
+    new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
   ]
 });

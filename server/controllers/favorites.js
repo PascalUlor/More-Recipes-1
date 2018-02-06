@@ -86,7 +86,7 @@ export default class FavoritesApiController {
         }
         return Favorites.destroy({
             where: { userId, recipeId }
-          }).then(recipe => requestFeedback.success(response, 200, 'Successfully deleted Recipe', { recipe }))
+          }).then(recipe => requestFeedback.success(response, 200, 'Successfully deleted Recipe'))
           .catch(error => requestFeedback.error(response, 500, error.message));
       });
     }

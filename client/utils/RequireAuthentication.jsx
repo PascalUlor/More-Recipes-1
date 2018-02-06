@@ -5,8 +5,22 @@ import addFlashMessage from '../actions/actionCreators/flashMessage';
 import verifyToken from './verifyToken';
 
 export default (ProtectedComponent) => {
+	/**
+	 * @description HOC for authenticating protected components
+	 *
+	 * @class Authenticate
+	 *
+	 * @extends Component
+	 */
 	class Authenticate extends Component {
-		componentWillMount() {
+		 /**
+			* @description handles route authentication
+			* 
+			* @method componentDidMount
+			*
+			* @returns { * } null
+			*/
+		componentDidMount() {
 			if (!verifyToken()) {
 				this.props.addFlashMessage({
 					type: 'failed',
@@ -15,7 +29,12 @@ export default (ProtectedComponent) => {
 				this.context.router.history.push('/signin');
 			}
 		}
-
+		/**
+		 * @description displays protected component
+		 *
+		 * @returns { jsx } jsx - protected components with their
+		 * associated properties
+		 */
 		render() {
 			return (
 				<ProtectedComponent { ...this.props }/>
@@ -29,9 +48,15 @@ Authenticate.propTypes = {
 };
 
 Authenticate.contextTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.shape().isRequired
 };
-
+/**
+ * @description maps redux state to props
+ *
+ * @param { object } state - holds Authentication state
+ *
+ * @return { object } props - returns mapped props from state
+ */
 const mapStateToProps = state => ({
 	isAuthenticated: state.authenticatedUser.isAuthenticated
 });

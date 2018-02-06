@@ -1,6 +1,13 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
+
+/**
+ * @description displays non-authenticated user's navigation bar
+ * @method GuestNavBar
+ * 
+ * @returns { jsx } jsx - renders GuestNavBar component
+ */
 const GuestNavBar = () => (
   <div className="collapse navbar-collapse" id="navbarItems">
     <ul className="navbar-nav ml-auto text-center">

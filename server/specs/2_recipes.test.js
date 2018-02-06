@@ -243,7 +243,7 @@ describe('test cases for creating, updating, deleting and retrieving all or user
         request.get('/api/v1/recipes?page=1&&sort=upvotes&&order=desc')
           .end((error, response) => {
             expect(response.status).to.equal(200);
-            expect('Successfully retrieved all recipes by most upvotes in descending order').to.equal(response.body.message);
+            expect('Successfully retrieved all recipes by upvote or downvote').to.equal(response.body.message);
             done();
           });
       });
@@ -251,7 +251,7 @@ describe('test cases for creating, updating, deleting and retrieving all or user
         request.get('/api/v1/recipes?page=1&&sort=upvotes&&order=asc')
           .end((error, response) => {
             expect(response.status).to.equal(200);
-            expect('Successfully retrieved all recipes by most upvotes in ascending order').to.equal(response.body.message);
+            expect('Successfully retrieved all recipes by upvote or downvote').to.equal(response.body.message);
             done();
           });
       });
@@ -406,7 +406,7 @@ describe('test cases for creating, updating, deleting and retrieving all or user
           .set('x-access-token', userOneToken.token)
           .end((error, response) => {
             expect(response.status).to.equal(200);
-            expect('Successfully retrieved recipe of ID 3').to.equal(response.body.message);
+            expect('Successfully retrieved recipe').to.equal(response.body.message);
             if (error) done(error);
             done();
           });
@@ -416,7 +416,7 @@ describe('test cases for creating, updating, deleting and retrieving all or user
           .set('x-access-token', userTwoToken.token)
           .end((error, response) => {
             expect(response.status).to.equal(200);
-            expect('Successfully retrieved recipe of ID 3').to.equal(response.body.message);
+            expect('Successfully retrieved recipe').to.equal(response.body.message);
             if (error) done(error);
             done();
           });
@@ -426,7 +426,7 @@ describe('test cases for creating, updating, deleting and retrieving all or user
           .set('x-access-token', wrongToken)
           .end((error, response) => {
             expect(response.status).to.equal(200);
-            expect('Successfully retrieved recipe of ID 4').to.equal(response.body.message);
+            expect('Successfully retrieved recipe').to.equal(response.body.message);
             if (error) done(error);
             done();
           });
@@ -435,7 +435,7 @@ describe('test cases for creating, updating, deleting and retrieving all or user
         request.get('/api/v1/recipes/4')
           .end((error, response) => {
             expect(response.status).to.equal(200);
-            expect('Successfully retrieved recipe of ID 4').to.equal(response.body.message);
+            expect('Successfully retrieved recipe').to.equal(response.body.message);
             if (error) done(error);
             done();
           });

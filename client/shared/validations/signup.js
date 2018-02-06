@@ -29,7 +29,8 @@ const signup = (data) => {
   } else { errors.password = 'Password is required'; }
 
   if (!validator.isEmpty(data.repassword)) {
-    if (!validator.equals(validator.trim(data.repassword), validator.trim(data.password))) {
+    if (!validator.equals(validator.trim(data.repassword),
+        validator.trim(data.password))) {
       errors.repassword = 'Password mismatched';
     }
   } else { errors.repassword = 'Password confirmation is required'; }

@@ -94,7 +94,6 @@ describe('test cases for favorite recipes route', () => {
         .end((error, response) => {
           expect(response.status).to.equal(200);
           expect('Successfully deleted Recipe').to.equal(response.body.message);
-          expect(1).to.equal(response.body.recipe);
           if (error) done(error);
           done();
         });

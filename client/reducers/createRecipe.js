@@ -10,6 +10,16 @@ const initialState = {
   createRecipeError: '',
   createRecipeSuccess: ''
 };
+
+/**
+ * @description holds success and failure states for creating a new recipe
+ * @function
+ *
+ * @param { object } state - contains reducer initial state
+ * @param { object } action - contains actions to be performed
+ *
+ * @returns { object } the new create recipe action state
+ */
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case IS_RECIPE_CREATING:

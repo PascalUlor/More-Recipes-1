@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom';
 import Spinner from 'react-md-spinner';
 import TextFieldGroup from '../../common/TextFieldGroup.jsx';
 
+
+/**
+ * @description displays sign in form
+ * @method SignupForm
+ * 
+ * @param { object } props - object of functions and user details state
+ * 
+ * @returns { jsx } jsx - renders SignupForm component
+ */
 const SignupForm = (props) => {
   const {
     fullName, username, email, password, repassword,
@@ -12,7 +21,9 @@ const SignupForm = (props) => {
   return (
     <div className="col-8 col-sm-8 col-md-8 col-lg-8">
       <h2>Sign Up</h2>
-      <p className="lead">Already have a More-Recipes account? <Link to="/signin">Sign In</Link></p>
+      <p className="lead">Already have a More-Recipes account?
+        <Link to="/signin">Sign In</Link>
+      </p>
       <form role="form" onSubmit={handleSubmit} className="pb-2">
         <TextFieldGroup
           label='Full Name' font="fa fa-user" name='fullName'
@@ -27,14 +38,17 @@ const SignupForm = (props) => {
           error={errors.email} onChange={handleChange}
           onFocus={handleFocus} placeholder='enter email'/>
         <TextFieldGroup
-          label='Password' font="fa fa-lock" name='password' type='password' value={password}
-          error={errors.password} onChange={handleChange}
-          onFocus={handleFocus} placeholder='enter password'/>
+          label='Password' font="fa fa-lock" name='password'
+          type='password' value={password} error={errors.password}
+          onChange={handleChange} onFocus={handleFocus}
+          placeholder='enter password'/>
         <TextFieldGroup
-          label='Confirm Password' font="fa fa-lock" name='repassword' type='password'
-          value={repassword} error={errors.repassword} onChange={handleChange}
-          onFocus={handleFocus} placeholder='re-enter password'/>
-        <button type="submit" className="btn btn-outline-success" disabled={isLoading}>
+          label='Confirm Password' font="fa fa-lock" name='repassword'
+          type='password' value={repassword} error={errors.repassword}
+          onChange={handleChange} onFocus={handleFocus}
+          placeholder='re-enter password'/>
+        <button type="submit" className="btn btn-outline-success"
+          disabled={isLoading}>
           Sign Up {isLoading && <Spinner size={20} className="ml-2"/>}
         </button>
       </form>

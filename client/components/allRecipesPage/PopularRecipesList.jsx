@@ -3,8 +3,21 @@ import PropTypes from 'prop-types';
 import PopularRecipe from './popularRecipesList/PopularRecipe.jsx';
 
 
+/**
+ * @description renders a list of popular recipes
+ * @method PopularRecipesList
+ * 
+ * @param { array } popularRecipes - array of popular recipes
+ * 
+ * @returns { jsx } jsx - renders PopularRecipesList component
+ */
 const PopularRecipesList = ({ popularRecipes }) => {
   if (popularRecipes.length > 0) {
+    /**
+     * @description displays a list of available popular recipes
+     *
+     * @returns { jsx } jsx - renders popular recipes component
+     */
     return (
       <div className="card mb-5">
         <div className="card-body">

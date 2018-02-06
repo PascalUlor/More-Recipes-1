@@ -10,6 +10,16 @@ const initialState = {
   deleteRecipeSuccess: '',
   deleteRecipeError: ''
 };
+
+/**
+ * @description holds success and failure states for deleting a user recipe
+ * @function
+ *
+ * @param { object } state - contains reducer initial state
+ * @param { object } action - contains actions to be performed
+ *
+ * @returns { object } the new delete user recipe action state
+ */
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case IS_RECIPE_DELETING:

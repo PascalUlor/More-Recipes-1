@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const common = require('./webpack.config.common');
@@ -17,46 +18,42 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   }
 });
 
-const webpackoptimizeUglifyJsPluginConfig = new webpack.optimize.UglifyJsPlugin({
-  compressor: {
-    warnings: false,
-    screw_ie8: true,
-    conditionals: true,
-    unused: true,
-    comparisons: true,
-    sequences: true,
-    dead_code: true,
-    evaluate: true,
-    if_return: true,
-    join_vars: true
-  },
-  output: {
-    comments: false
+const UglifyJsPluginConfig = new UglifyJsPlugin({
+  uglifyOptions: {
+    ie8: false,
+    ecma: 8,
+    parallel: true,
+    compress: {
+      drop_console: true,
+      passes: 3
+    },
+    output: {
+      comments: false,
+      beautify: false,
+    }
   }
 });
 
 module.exports = merge(common, {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
   entry: [
     'babel-polyfill',
     path.join(__dirname, '/client/Index.jsx')
   ],
   module: {
-    rules: [
-      {
-        test: /\.(js?x)$/,
-        use: 'babel-loader',
-        include: path.join(__dirname, '/client'),
-        exclude: /(node_modules|.vscode)/
-      }
-    ]
+    rules: [{
+      test: /\.(js?x)$/,
+      use: 'babel-loader',
+      include: path.join(__dirname, '/client'),
+      exclude: /(node_modules|server|.vscode)/
+    }]
   },
   plugins: [
     HtmlWebpackPluginConfig,
-    webpackoptimizeUglifyJsPluginConfig,
+    UglifyJsPluginConfig,
     new webpack.HashedModuleIdsPlugin(),
     new CompressionPlugin({
-      asset: '[path].gz[query]',
+      assets: '[path].gz[query]',
       algorithm: 'gzip',
       test: /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
       threshold: 10240,

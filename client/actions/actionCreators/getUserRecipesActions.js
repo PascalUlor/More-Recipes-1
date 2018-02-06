@@ -5,10 +5,7 @@ import {
   FETCH_USER_RECIPES_FAILURE
 }
 from '../actionTypes/actionTypes';
-import {
-  paginationDetails,
-  setPaginationDetails
-} from './setPaginationDetailsAction';
+
 
 /**
  * @description handles fetch user recipes loader
@@ -64,8 +61,7 @@ const fetchUserRecipesRequest = page => (
         url: `/api/v1/user/recipes?page=${page}`
       })
       .then((response) => {
-        dispatch(fetchUserRecipesSuccess(response.data.recipes));
-        dispatch(setPaginationDetails(paginationDetails(response)));
+        dispatch(fetchUserRecipesSuccess(response.data));
         dispatch(isUserRecipesFetching(false));
       }).catch((errors) => {
         dispatch(fetchUserRecipesFailure(errors.response.data.message));
