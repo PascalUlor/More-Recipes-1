@@ -6,8 +6,7 @@ import {
   IS_PROFILE_UPDATING,
   PROFILE_UPDATE_SUCCESS,
   PROFILE_UPDATE_FAILURE
-}
-from '../actionTypes/actionTypes';
+} from '../actionTypes/actionTypes';
 
 
 /**
@@ -91,20 +90,18 @@ export const fetchProfileRequest = () => (
   (dispatch) => {
     dispatch(isProfileFetching(true));
     return axios({
-        method: 'GET',
-        headers: {
-          'x-access-token': window.localStorage.jwtToken
-        },
-        url: '/api/v1/user/profile'
-      })
-      .then((response) => {
-        dispatch(fetchProfileSuccess(response.data));
-        dispatch(isProfileFetching(false));
-      })
-      .catch((error) => {
-        dispatch(fetchProfileFailure(error));
-        dispatch(isProfileFetching(false));
-      });
+      method: 'GET',
+      headers: {
+        'x-access-token': window.localStorage.jwtToken
+      },
+      url: '/api/v1/user/profile'
+    }).then((response) => {
+      dispatch(fetchProfileSuccess(response.data));
+      dispatch(isProfileFetching(false));
+    }).catch((error) => {
+      dispatch(fetchProfileFailure(error.response.data.message));
+      dispatch(isProfileFetching(false));
+    });
   }
 );
 
@@ -122,30 +119,28 @@ const updateProfile = (userDetails, cloudImageUrl) => (
       axios.defaults.headers.common['x-access-token'] = window.localStorage.jwtToken;
     }
     return axios({
-        method: 'PUT',
-        url: '/api/v1/user/profile',
-        headers: {
-          'x-access-token': window.localStorage.jwtToken
-        },
-        data: {
-          fullName: userDetails.fullName,
-          username: userDetails.username,
-          email: userDetails.email,
-          profileImage: cloudImageUrl,
-          location: userDetails.location,
-          aboutMe: userDetails.aboutMe
-        }
-      })
-      .then((response) => {
-        if (response) {
-          dispatch(profileUpdateSuccess(response.data));
-          dispatch(isProfileUpdating(false));
-        }
-      })
-      .catch(() => {
-        dispatch(profileUpdateFailure('Unable to update your profile. Try again later'));
+      method: 'PUT',
+      url: '/api/v1/user/profile',
+      headers: {
+        'x-access-token': window.localStorage.jwtToken
+      },
+      data: {
+        fullName: userDetails.fullName,
+        username: userDetails.username,
+        email: userDetails.email,
+        profileImage: cloudImageUrl,
+        location: userDetails.location,
+        aboutMe: userDetails.aboutMe
+      }
+    }).then((response) => {
+      if (response) {
+        dispatch(profileUpdateSuccess(response.data));
         dispatch(isProfileUpdating(false));
-      });
+      }
+    }).catch((error) => {
+      dispatch(profileUpdateFailure(error.response.data.message));
+      dispatch(isProfileUpdating(false));
+    });
   }
 );
 
@@ -171,8 +166,8 @@ export const updateProfileRequest = userDetails => (
           cloudImageUrl = response.data.url;
           dispatch(updateProfile(userDetails, cloudImageUrl));
         })
-        .catch(() => {
-          dispatch(profileUpdateFailure('Unable to update your profile. Try again later'));
+        .catch((error) => {
+          dispatch(profileUpdateFailure(error.response.data.message));
           dispatch(isProfileUpdating(false));
         });
     }

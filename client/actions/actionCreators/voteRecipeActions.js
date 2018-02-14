@@ -2,8 +2,7 @@ import axios from 'axios';
 import {
   VOTE_RECIPE_SUCCESS,
   VOTE_RECIPE_FAILURE
-}
-from '../actionTypes/actionTypes';
+} from '../actionTypes/actionTypes';
 
 /**
  * @description handles vote recipe success
@@ -45,11 +44,9 @@ const voteRecipeRequest = (recipeId, voteType) => (
         'x-access-token': window.localStorage.jwtToken
       },
       url: `/api/v1/recipes/${recipeId}/vote?vote=${voteType}`
-    })
-    .then((response) => {
+    }).then((response) => {
       dispatch(voteRecipeSuccess(response.data));
-    })
-    .catch((error) => {
+    }).catch((error) => {
       dispatch(voteRecipeFailure(error.response.data.message));
     })
   )

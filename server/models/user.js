@@ -1,10 +1,10 @@
-/** @description Users database model with foreign associations
+/** @description User database model with foreign associations
  * @param  {obj} sequelize
  * @param  {obj} DataTypes
- * @returns {obj} Users model
+ * @returns {obj} User model
  */
 export default (sequelize, DataTypes) => {
-  const Users = sequelize.define('Users', {
+  const User = sequelize.define('User', {
     fullName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -67,19 +67,19 @@ export default (sequelize, DataTypes) => {
       allowNull: true
     }
   });
-  Users.associate = (models) => {
-    Users.hasMany(models.Recipes, {
+  User.associate = (models) => {
+    User.hasMany(models.Recipe, {
       foreignKey: 'userId'
     });
-    Users.hasMany(models.Reviews, {
+    User.hasMany(models.Review, {
       foreignKey: 'userId'
     });
-    Users.hasMany(models.Favorites, {
+    User.hasMany(models.Favorite, {
       foreignKey: 'userId'
     });
-    Users.hasMany(models.Votes, {
+    User.hasMany(models.Vote, {
       foreignKey: 'userId'
     });
   };
-  return Users;
+  return User;
 };

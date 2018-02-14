@@ -3,8 +3,7 @@ import {
   IS_USER_RECIPES_FETCHING,
   FETCH_USER_RECIPES_SUCCESS,
   FETCH_USER_RECIPES_FAILURE
-}
-from '../actionTypes/actionTypes';
+} from '../actionTypes/actionTypes';
 
 
 /**
@@ -54,19 +53,18 @@ const fetchUserRecipesRequest = page => (
   (dispatch) => {
     dispatch(isUserRecipesFetching(true));
     return axios({
-        method: 'GET',
-        headers: {
-          'x-access-token': window.localStorage.jwtToken
-        },
-        url: `/api/v1/user/recipes?page=${page}`
-      })
-      .then((response) => {
-        dispatch(fetchUserRecipesSuccess(response.data));
-        dispatch(isUserRecipesFetching(false));
-      }).catch((errors) => {
-        dispatch(fetchUserRecipesFailure(errors.response.data.message));
-        dispatch(isUserRecipesFetching(false));
-      });
+      method: 'GET',
+      headers: {
+        'x-access-token': window.localStorage.jwtToken
+      },
+      url: `/api/v1/user/recipes?page=${page}`
+    }).then((response) => {
+      dispatch(fetchUserRecipesSuccess(response.data));
+      dispatch(isUserRecipesFetching(false));
+    }).catch((errors) => {
+      dispatch(fetchUserRecipesFailure(errors.response.data.message));
+      dispatch(isUserRecipesFetching(false));
+    });
   }
 );
 

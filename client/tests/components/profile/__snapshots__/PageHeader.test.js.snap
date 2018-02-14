@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Footer/> renders page header for profile component without crashing 1`] = `
+<section
+  className="cover text-center"
+>
+  <div
+    className="col"
+  >
+    <h3
+      className="page-header p-2 mb-1"
+    >
+      My Profile
+    </h3>
+  </div>
+  <hr
+    id="favorites"
+  />
+</section>
+`;

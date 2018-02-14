@@ -8,9 +8,9 @@ import TextFieldGroup from '../../common/TextFieldGroup.jsx';
 /**
  * @description displays sign in form
  * @method SignupForm
- * 
+ *
  * @param { object } props - object of functions and user details state
- * 
+ *
  * @returns { jsx } jsx - renders SignupForm component
  */
 const SignupForm = (props) => {
@@ -62,11 +62,11 @@ SignupForm.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   repassword: PropTypes.string.isRequired,
-	errors: PropTypes.shape().isRequired,
-	isLoading: PropTypes.bool.isRequired,
-	handleChange: PropTypes.func.isRequired,
-	handleFocus: PropTypes.func.isRequired,
-	handleSubmit: PropTypes.func.isRequired
+  errors: PropTypes.shape().isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleFocus: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired
 };
 
 export default SignupForm;

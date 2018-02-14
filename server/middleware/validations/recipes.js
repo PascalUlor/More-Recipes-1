@@ -38,13 +38,13 @@ export default class RecipesValidation {
 
     if (!validator.isEmpty(ingredients)) {
       if (!validator.isLength(ingredients, { min: 20, max: undefined })) {
-        errors.ingredients = 'Recipe ingredients provided must be atleast 20 characters';
+        errors.ingredients = 'Recipe ingredients provided must be at least 20 characters';
       }
     } else { errors.ingredients = 'Recipe ingredients are required'; }
 
     if (!validator.isEmpty(procedures)) {
       if (!validator.isLength(procedures, { min: 20, max: undefined })) {
-        errors.procedures = 'Recipe procedures provided must be atleast 20 characters';
+        errors.procedures = 'Recipe procedures provided must be at least 20 characters';
       }
     } else { errors.procedures = 'Recipe procedures are required'; }
 

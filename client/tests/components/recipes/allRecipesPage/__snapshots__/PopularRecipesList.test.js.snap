@@ -1,0 +1,243 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AllRecipesList component should render correctly 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "blank",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <PopularRecipesList
+      popularRecipes={
+        Array [
+          Object {
+            "User": Object {
+              "fullName": "",
+            },
+            "downvotes": 2,
+            "id": 1,
+            "title": "",
+            "upvotes": 1,
+          },
+          Object {
+            "User": Object {
+              "fullName": "",
+            },
+            "downvotes": 0,
+            "id": 2,
+            "title": "",
+            "upvotes": 1,
+          },
+        ]
+      }
+    >
+      <div
+        className="card mb-5"
+      >
+        <div
+          className="card-body"
+        >
+          <ul
+            className="list-group list-group-flush mb-2"
+          >
+            <PopularRecipe
+              key="1"
+              popularRecipe={
+                Object {
+                  "User": Object {
+                    "fullName": "",
+                  },
+                  "downvotes": 2,
+                  "id": 1,
+                  "title": "",
+                  "upvotes": 1,
+                }
+              }
+            >
+              <li
+                className="list-group-item"
+              >
+                <h5
+                  className="text-muted text-center w-100 p-1"
+                />
+                <p
+                  className="text-muted w-100 text-center"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="fa fa-user text-info"
+                  />
+                   
+                </p>
+                <div
+                  className="text-center w-100"
+                >
+                  <small
+                    className="text-success pr-1"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-thumbs-o-up"
+                    />
+                     
+                    1
+                  </small>
+                  <Link
+                    className="btn btn-outline-info btn-sm"
+                    replace={false}
+                    role="button"
+                    to="recipes/1/recipe-details"
+                  >
+                    <a
+                      className="btn btn-outline-info btn-sm"
+                      href="recipes/1/recipe-details"
+                      onClick={[Function]}
+                      role="button"
+                    >
+                      <small>
+                        View
+                      </small>
+                    </a>
+                  </Link>
+                  <small
+                    className="text-danger pl-1"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-thumbs-o-down"
+                    />
+                     
+                    2
+                  </small>
+                </div>
+              </li>
+            </PopularRecipe>
+            <PopularRecipe
+              key="2"
+              popularRecipe={
+                Object {
+                  "User": Object {
+                    "fullName": "",
+                  },
+                  "downvotes": 0,
+                  "id": 2,
+                  "title": "",
+                  "upvotes": 1,
+                }
+              }
+            >
+              <li
+                className="list-group-item"
+              >
+                <h5
+                  className="text-muted text-center w-100 p-1"
+                />
+                <p
+                  className="text-muted w-100 text-center"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="fa fa-user text-info"
+                  />
+                   
+                </p>
+                <div
+                  className="text-center w-100"
+                >
+                  <small
+                    className="text-success pr-1"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-thumbs-o-up"
+                    />
+                     
+                    1
+                  </small>
+                  <Link
+                    className="btn btn-outline-info btn-sm"
+                    replace={false}
+                    role="button"
+                    to="recipes/2/recipe-details"
+                  >
+                    <a
+                      className="btn btn-outline-info btn-sm"
+                      href="recipes/2/recipe-details"
+                      onClick={[Function]}
+                      role="button"
+                    >
+                      <small>
+                        View
+                      </small>
+                    </a>
+                  </Link>
+                  <small
+                    className="text-danger pl-1"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-thumbs-o-down"
+                    />
+                     
+                    0
+                  </small>
+                </div>
+              </li>
+            </PopularRecipe>
+          </ul>
+        </div>
+      </div>
+    </PopularRecipesList>
+  </Router>
+</BrowserRouter>
+`;
+
+exports[`AllRecipesList component should render correctly 2`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "blank",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <PopularRecipesList
+      popularRecipes={Array []}
+    >
+      <div />
+    </PopularRecipesList>
+  </Router>
+</BrowserRouter>
+`;

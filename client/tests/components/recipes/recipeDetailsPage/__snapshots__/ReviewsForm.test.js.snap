@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SignupForm/> renders form with five input fields and a button 1`] = `
+<div>
+  <h5
+    className="mt-3 page-text font-weight-bold"
+  >
+    Post Your Review
+  </h5>
+  <form
+    onSubmit={[Function]}
+  >
+    <div
+      className="col p-0 mb-2"
+    >
+      <textarea
+        className="form-control"
+        name="reviewBody"
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyUp={[Function]}
+        placeholder="enter your review for this recipe"
+        rows="7"
+        value=""
+      />
+    </div>
+    <button
+      className="btn btn-outline-success"
+      type="submit"
+    >
+      Post Review
+    </button>
+  </form>
+</div>
+`;

@@ -14,10 +14,10 @@ import redirect from '../../utils/redirect';
  *
  * @extends Component
  */
-class ReviewsForm extends Component {
+export class ReviewsForm extends Component {
   /**
    * @description creates an instance of ReviewsForm
-   * 
+   *
    * @constructor
    *
    * @param { props } props - contains review form component properties
@@ -38,7 +38,7 @@ class ReviewsForm extends Component {
   /**
    * @description handles client validation checks
    * @method isValid
-   * 
+   *
    * @returns { bool } true/false when form is submitted
    */
   isValid() {
@@ -51,7 +51,7 @@ class ReviewsForm extends Component {
   /**
    * @description handles on state change
    * @method handleChange
-   * 
+   *
    * @param { object } event - event object containing review detail
    *
    * @returns { object } new review detail state
@@ -64,7 +64,7 @@ class ReviewsForm extends Component {
   /**
    * @description handles on focus event
    * @method handleOnFocus
-   * 
+   *
    * @param { object } event - event object containing review detail
    *
    * @returns { object } new review detail state
@@ -74,7 +74,7 @@ class ReviewsForm extends Component {
       errors: Object.assign({}, this.state.errors, { [event.target.name]: '' })
     });
   }
-   /**
+  /**
    * @description handles on focus event
    * @method handleKeyPress
    *
@@ -94,19 +94,22 @@ class ReviewsForm extends Component {
    * @returns { * } null
    */
   handleSubmit(event) {
-    event.preventDefault();
+    if (verifyToken()) {
+      event.preventDefault();
+    }
     if (verifyToken()) {
       if (this.isValid()) {
         this.setState({ errors: {} });
+        console.log('i just set the state');
         this.props.postReview(this.state.review, this.props.recipeId)
-        .then(() => {
-          if (this.props.reviewSuccessMessage) {
-            this.setState({ review: '' });
-            toastr.success(this.props.reviewSuccessMessage);
-          } else {
-            toastr.error(this.props.reviewFailureMessage);
-          }
-        });
+          .then(() => {
+            if (this.props.reviewSuccessMessage) {
+              this.setState({ review: '' });
+              toastr.success(this.props.reviewSuccessMessage);
+            } else {
+              toastr.error(this.props.reviewFailureMessage);
+            }
+          });
       }
     } else {
       redirect(this.props);
@@ -143,7 +146,7 @@ class ReviewsForm extends Component {
           <button className="btn btn-outline-success"
             type="submit">
               Post Review
-            </button>
+          </button>
         </form>
       </div>
     );
@@ -155,10 +158,6 @@ ReviewsForm.propTypes = {
   postReview: PropTypes.func.isRequired,
   reviewSuccessMessage: PropTypes.string,
   reviewFailureMessage: PropTypes.string
-};
-
-ReviewsForm.contextTypes = {
-  router: PropTypes.shape().isRequired
 };
 
 /**

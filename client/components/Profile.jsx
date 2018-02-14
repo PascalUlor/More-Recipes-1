@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -5,7 +6,7 @@ import toastr from 'toastr';
 import Spinner from 'react-md-spinner';
 import NavBar from './NavBar.jsx';
 import ProfileForm from './profile/ProfileForm.jsx';
-import PageHeader from './profile/PageHeader.jsx'
+import PageHeader from './profile/PageHeader.jsx';
 import Footer from './Footer.jsx';
 import {
   fetchProfileRequest,
@@ -22,10 +23,10 @@ import validateInputs from '../shared/validations/profile';
  *
  * @extends Component
  */
-class Profile extends Component {
+export class Profile extends Component {
   /**
    * @description creates an instance of Profile page
-   * 
+   *
    * @constructor
    *
    * @param { props } props - contains all user profile component properties
@@ -45,7 +46,7 @@ class Profile extends Component {
       errors: {}
     };
     this.handleChange = this.handleChange.bind(this);
-		this.handleOnFocus = this.handleOnFocus.bind(this);
+    this.handleOnFocus = this.handleOnFocus.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,7 +54,7 @@ class Profile extends Component {
   }
   /**
    * @description handles fetching user profile details
-   * 
+   *
    * @method componentDidMount
    *
    * @returns {*} null
@@ -64,9 +65,9 @@ class Profile extends Component {
   /**
    * @description receives update on lastest updates
    * @method componentWillReceiveProps
-   * 
+   *
    * @param {object} nextProps - object of new incoming property
-   * 
+   *
    * @returns {*} null
    */
   componentWillReceiveProps(nextProps) {
@@ -93,7 +94,7 @@ class Profile extends Component {
   /**
    * @description handles on state change
    * @method handleChange
-   * 
+   *
    * @param { object } event - event object containing profile details
    *
    * @returns { object } new user profile state
@@ -104,8 +105,8 @@ class Profile extends Component {
   /**
    * @description handles clicking of hidden input of type file
    * @method handleClick
-   * 
-   * @returns {*} null 
+   *
+   * @returns {*} null
    */
   handleClick() {
     $('input[type=file]').click();
@@ -125,7 +126,7 @@ class Profile extends Component {
   /**
    * @description handles on image change
    * @method handleImageChange
-   * 
+   *
    * @param { object } event - event object containing profile details
    *
    * @returns { object } profile image - new updated user image state
@@ -154,13 +155,13 @@ class Profile extends Component {
   /**
    * @description handles client validation checks
    * @method isValid
-   * 
+   *
    * @returns { bool } true/false when form is submitted
    */
   isValid() {
     const { errors, isValid } = validateInputs(this.state);
     if (!isValid) {
-        this.setState({ errors });
+      this.setState({ errors });
     }
     return isValid;
   }
@@ -176,15 +177,16 @@ class Profile extends Component {
     if (this.isValid()) {
       this.setState({ errors: {} });
       this.props.updateProfile(this.state)
-      .then(() => {
-        if (this.props.updateProfileError === '') {
-          toastr.remove();
-          toastr.success(this.props.updatedProfile.message);
-        } else {
-          toastr.remove();
-          toastr.error(this.props.updateProfileError);
-        }
-      });
+        .then(() => {
+          if (this.props.updateProfileError === '') {
+            console.log(this.props.updatedProfile.message);
+            toastr.remove();
+            toastr.success(this.props.updatedProfile.message);
+          } else {
+            toastr.remove();
+            toastr.error(this.props.updateProfileError);
+          }
+        });
     }
   }
   /**
@@ -199,22 +201,22 @@ class Profile extends Component {
         <NavBar/>
         <div className="pt-5">
           <PageHeader/>
-        </div> 
+        </div>
         <div className="container main-wrapper pt-0 mt-4">
-        {isFetching ?
-          <div className="text-center">
-            <Spinner size={50} className="text-center mt-5"/>
-          </div>
-        :
-          <ProfileForm
-            handleChange={this.handleChange}
-            handleFocus={this.handleOnFocus}
-            handleClick={this.handleClick}
-            handleImageChange={this.handleImageChange}
-            profile={this.state}
-            handleSubmit={this.handleSubmit}
-            isUpdating={this.props.isProfileUpdating}/>
-        }
+          {isFetching ?
+            <div className="text-center">
+              <Spinner size={50} className="text-center mt-5"/>
+            </div>
+            :
+            <ProfileForm
+              handleChange={this.handleChange}
+              handleFocus={this.handleOnFocus}
+              handleClick={this.handleClick}
+              handleImageChange={this.handleImageChange}
+              profile={this.state}
+              handleSubmit={this.handleSubmit}
+              isUpdating={this.props.isProfileUpdating}/>
+          }
         </div>
         <Footer/>
       </div>
@@ -255,7 +257,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchProfile: () => dispatch(fetchProfileRequest()),
   updateProfile: profileDetails =>
-  dispatch(updateProfileRequest(profileDetails))
+    dispatch(updateProfileRequest(profileDetails))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

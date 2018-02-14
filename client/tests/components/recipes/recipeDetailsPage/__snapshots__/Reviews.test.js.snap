@@ -1,0 +1,1524 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reviews component should render correctly 1`] = `
+ReactWrapper {
+  "length": 1,
+  Symbol(enzyme.__unrendered__): <Reviews
+    reviews={
+      Array [
+        Object {
+          "createdAt": "",
+          "id": 2,
+          "profileImage": "profileImage.jpg",
+          "reviewBody": "",
+          "username": "",
+        },
+        Object {
+          "createdAt": "",
+          "id": 1,
+          "profileImage": null,
+          "reviewBody": "",
+          "username": "",
+        },
+      ]
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "reviews": Array [
+        Object {
+          "createdAt": "",
+          "id": 2,
+          "profileImage": "profileImage.jpg",
+          "reviewBody": "",
+          "username": "",
+        },
+        Object {
+          "createdAt": "",
+          "id": 1,
+          "profileImage": null,
+          "reviewBody": "",
+          "username": "",
+        },
+      ],
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": <section
+        class="mb-5"
+      >
+        <h5
+          class="page-text font-weight-bold mt-4 mb-3 pt-3"
+        >
+          Reviews
+        </h5>
+        <div
+          class="card"
+        >
+          <div
+            class="card-header pl-3 pt-0 m-0"
+          >
+            <div
+              class="reviews"
+            >
+              <img
+                alt="profile image"
+                class="img-fluid figure-img rounded review-profile-image"
+                src="profileImage.jpg"
+              />
+              <div
+                class="d-inline-block mt-5 pl-2"
+              >
+                <small
+                  class="d-block font-weight-bold"
+                />
+                <small
+                  class="font-italic text-muted"
+                >
+                  Posted - 
+                  Invalid date
+                </small>
+              </div>
+              <small
+                class="d-block break-word"
+              />
+              <hr
+                class="mb-0 pb-0"
+              />
+            </div>
+            <div
+              class="reviews"
+            >
+              <img
+                alt="profile image"
+                class="img-fluid figure-img rounded review-profile-image"
+                src="/images/nophoto.jpg"
+              />
+              <div
+                class="d-inline-block mt-5 pl-2"
+              >
+                <small
+                  class="d-block font-weight-bold"
+                />
+                <small
+                  class="font-italic text-muted"
+                >
+                  Posted - 
+                  Invalid date
+                </small>
+              </div>
+              <small
+                class="d-block break-word"
+              />
+            </div>
+          </div>
+        </div>
+      </section>,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <h5
+            className="page-text font-weight-bold mt-4 mb-3 pt-3"
+          >
+            Reviews
+          </h5>,
+          <div
+            className="card"
+          >
+            <div
+              className="card-header pl-3 pt-0 m-0"
+            >
+              <ReviewsList
+                reviews={
+                  Array [
+                    Object {
+                      "createdAt": "",
+                      "id": 2,
+                      "profileImage": "profileImage.jpg",
+                      "reviewBody": "",
+                      "username": "",
+                    },
+                    Object {
+                      "createdAt": "",
+                      "id": 1,
+                      "profileImage": null,
+                      "reviewBody": "",
+                      "username": "",
+                    },
+                  ]
+                }
+              />
+            </div>
+          </div>,
+        ],
+        "className": "mb-5",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": <h5
+            class="page-text font-weight-bold mt-4 mb-3 pt-3"
+          >
+            Reviews
+          </h5>,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Reviews",
+            "className": "page-text font-weight-bold mt-4 mb-3 pt-3",
+          },
+          "ref": null,
+          "rendered": Array [
+            "Reviews",
+          ],
+          "type": "h5",
+        },
+        Object {
+          "instance": <div
+            class="card"
+          >
+            <div
+              class="card-header pl-3 pt-0 m-0"
+            >
+              <div
+                class="reviews"
+              >
+                <img
+                  alt="profile image"
+                  class="img-fluid figure-img rounded review-profile-image"
+                  src="profileImage.jpg"
+                />
+                <div
+                  class="d-inline-block mt-5 pl-2"
+                >
+                  <small
+                    class="d-block font-weight-bold"
+                  />
+                  <small
+                    class="font-italic text-muted"
+                  >
+                    Posted - 
+                    Invalid date
+                  </small>
+                </div>
+                <small
+                  class="d-block break-word"
+                />
+                <hr
+                  class="mb-0 pb-0"
+                />
+              </div>
+              <div
+                class="reviews"
+              >
+                <img
+                  alt="profile image"
+                  class="img-fluid figure-img rounded review-profile-image"
+                  src="/images/nophoto.jpg"
+                />
+                <div
+                  class="d-inline-block mt-5 pl-2"
+                >
+                  <small
+                    class="d-block font-weight-bold"
+                  />
+                  <small
+                    class="font-italic text-muted"
+                  >
+                    Posted - 
+                    Invalid date
+                  </small>
+                </div>
+                <small
+                  class="d-block break-word"
+                />
+              </div>
+            </div>
+          </div>,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="card-header pl-3 pt-0 m-0"
+            >
+              <ReviewsList
+                reviews={
+                  Array [
+                    Object {
+                      "createdAt": "",
+                      "id": 2,
+                      "profileImage": "profileImage.jpg",
+                      "reviewBody": "",
+                      "username": "",
+                    },
+                    Object {
+                      "createdAt": "",
+                      "id": 1,
+                      "profileImage": null,
+                      "reviewBody": "",
+                      "username": "",
+                    },
+                  ]
+                }
+              />
+            </div>,
+            "className": "card",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": <div
+                class="card-header pl-3 pt-0 m-0"
+              >
+                <div
+                  class="reviews"
+                >
+                  <img
+                    alt="profile image"
+                    class="img-fluid figure-img rounded review-profile-image"
+                    src="profileImage.jpg"
+                  />
+                  <div
+                    class="d-inline-block mt-5 pl-2"
+                  >
+                    <small
+                      class="d-block font-weight-bold"
+                    />
+                    <small
+                      class="font-italic text-muted"
+                    >
+                      Posted - 
+                      Invalid date
+                    </small>
+                  </div>
+                  <small
+                    class="d-block break-word"
+                  />
+                  <hr
+                    class="mb-0 pb-0"
+                  />
+                </div>
+                <div
+                  class="reviews"
+                >
+                  <img
+                    alt="profile image"
+                    class="img-fluid figure-img rounded review-profile-image"
+                    src="/images/nophoto.jpg"
+                  />
+                  <div
+                    class="d-inline-block mt-5 pl-2"
+                  >
+                    <small
+                      class="d-block font-weight-bold"
+                    />
+                    <small
+                      class="font-italic text-muted"
+                    >
+                      Posted - 
+                      Invalid date
+                    </small>
+                  </div>
+                  <small
+                    class="d-block break-word"
+                  />
+                </div>
+              </div>,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <ReviewsList
+                  reviews={
+                    Array [
+                      Object {
+                        "createdAt": "",
+                        "id": 2,
+                        "profileImage": "profileImage.jpg",
+                        "reviewBody": "",
+                        "username": "",
+                      },
+                      Object {
+                        "createdAt": "",
+                        "id": 1,
+                        "profileImage": null,
+                        "reviewBody": "",
+                        "username": "",
+                      },
+                    ]
+                  }
+                />,
+                "className": "card-header pl-3 pt-0 m-0",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "reviews": Array [
+                      Object {
+                        "createdAt": "",
+                        "id": 2,
+                        "profileImage": "profileImage.jpg",
+                        "reviewBody": "",
+                        "username": "",
+                      },
+                      Object {
+                        "createdAt": "",
+                        "id": 1,
+                        "profileImage": null,
+                        "reviewBody": "",
+                        "username": "",
+                      },
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": <div
+                        class="reviews"
+                      >
+                        <img
+                          alt="profile image"
+                          class="img-fluid figure-img rounded review-profile-image"
+                          src="profileImage.jpg"
+                        />
+                        <div
+                          class="d-inline-block mt-5 pl-2"
+                        >
+                          <small
+                            class="d-block font-weight-bold"
+                          />
+                          <small
+                            class="font-italic text-muted"
+                          >
+                            Posted - 
+                            Invalid date
+                          </small>
+                        </div>
+                        <small
+                          class="d-block break-word"
+                        />
+                        <hr
+                          class="mb-0 pb-0"
+                        />
+                      </div>,
+                      "key": "2",
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <img
+                            alt="profile image"
+                            className="img-fluid figure-img rounded review-profile-image"
+                            src="profileImage.jpg"
+                          />,
+                          <div
+                            className="d-inline-block mt-5 pl-2"
+                          >
+                            <small
+                              className="d-block font-weight-bold"
+                            >
+                              
+                            </small>
+                            <small
+                              className="font-italic text-muted"
+                            >
+                              Posted - 
+                              Invalid date
+                            </small>
+                          </div>,
+                          <small
+                            className="d-block break-word"
+                          >
+                            
+                          </small>,
+                          <hr
+                            className="mb-0 pb-0"
+                          />,
+                        ],
+                        "className": "reviews",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": <img
+                            alt="profile image"
+                            class="img-fluid figure-img rounded review-profile-image"
+                            src="profileImage.jpg"
+                          />,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "alt": "profile image",
+                            "className": "img-fluid figure-img rounded review-profile-image",
+                            "src": "profileImage.jpg",
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            undefined,
+                          ],
+                          "type": "img",
+                        },
+                        Object {
+                          "instance": <div
+                            class="d-inline-block mt-5 pl-2"
+                          >
+                            <small
+                              class="d-block font-weight-bold"
+                            />
+                            <small
+                              class="font-italic text-muted"
+                            >
+                              Posted - 
+                              Invalid date
+                            </small>
+                          </div>,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": Array [
+                              <small
+                                className="d-block font-weight-bold"
+                              >
+                                
+                              </small>,
+                              <small
+                                className="font-italic text-muted"
+                              >
+                                Posted - 
+                                Invalid date
+                              </small>,
+                            ],
+                            "className": "d-inline-block mt-5 pl-2",
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            Object {
+                              "instance": <small
+                                class="d-block font-weight-bold"
+                              />,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "children": "",
+                                "className": "d-block font-weight-bold",
+                              },
+                              "ref": null,
+                              "rendered": Array [
+                                "",
+                              ],
+                              "type": "small",
+                            },
+                            Object {
+                              "instance": <small
+                                class="font-italic text-muted"
+                              >
+                                Posted - 
+                                Invalid date
+                              </small>,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "children": Array [
+                                  "Posted - ",
+                                  "Invalid date",
+                                ],
+                                "className": "font-italic text-muted",
+                              },
+                              "ref": null,
+                              "rendered": Array [
+                                "Posted - ",
+                                "Invalid date",
+                              ],
+                              "type": "small",
+                            },
+                          ],
+                          "type": "div",
+                        },
+                        Object {
+                          "instance": <small
+                            class="d-block break-word"
+                          />,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "",
+                            "className": "d-block break-word",
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            "",
+                          ],
+                          "type": "small",
+                        },
+                        Object {
+                          "instance": <hr
+                            class="mb-0 pb-0"
+                          />,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "className": "mb-0 pb-0",
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            undefined,
+                          ],
+                          "type": "hr",
+                        },
+                      ],
+                      "type": "div",
+                    },
+                    Object {
+                      "instance": <div
+                        class="reviews"
+                      >
+                        <img
+                          alt="profile image"
+                          class="img-fluid figure-img rounded review-profile-image"
+                          src="/images/nophoto.jpg"
+                        />
+                        <div
+                          class="d-inline-block mt-5 pl-2"
+                        >
+                          <small
+                            class="d-block font-weight-bold"
+                          />
+                          <small
+                            class="font-italic text-muted"
+                          >
+                            Posted - 
+                            Invalid date
+                          </small>
+                        </div>
+                        <small
+                          class="d-block break-word"
+                        />
+                      </div>,
+                      "key": "1",
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <img
+                            alt="profile image"
+                            className="img-fluid figure-img rounded review-profile-image"
+                            src="/images/nophoto.jpg"
+                          />,
+                          <div
+                            className="d-inline-block mt-5 pl-2"
+                          >
+                            <small
+                              className="d-block font-weight-bold"
+                            >
+                              
+                            </small>
+                            <small
+                              className="font-italic text-muted"
+                            >
+                              Posted - 
+                              Invalid date
+                            </small>
+                          </div>,
+                          <small
+                            className="d-block break-word"
+                          >
+                            
+                          </small>,
+                          false,
+                        ],
+                        "className": "reviews",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": <img
+                            alt="profile image"
+                            class="img-fluid figure-img rounded review-profile-image"
+                            src="/images/nophoto.jpg"
+                          />,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "alt": "profile image",
+                            "className": "img-fluid figure-img rounded review-profile-image",
+                            "src": "/images/nophoto.jpg",
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            undefined,
+                          ],
+                          "type": "img",
+                        },
+                        Object {
+                          "instance": <div
+                            class="d-inline-block mt-5 pl-2"
+                          >
+                            <small
+                              class="d-block font-weight-bold"
+                            />
+                            <small
+                              class="font-italic text-muted"
+                            >
+                              Posted - 
+                              Invalid date
+                            </small>
+                          </div>,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": Array [
+                              <small
+                                className="d-block font-weight-bold"
+                              >
+                                
+                              </small>,
+                              <small
+                                className="font-italic text-muted"
+                              >
+                                Posted - 
+                                Invalid date
+                              </small>,
+                            ],
+                            "className": "d-inline-block mt-5 pl-2",
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            Object {
+                              "instance": <small
+                                class="d-block font-weight-bold"
+                              />,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "children": "",
+                                "className": "d-block font-weight-bold",
+                              },
+                              "ref": null,
+                              "rendered": Array [
+                                "",
+                              ],
+                              "type": "small",
+                            },
+                            Object {
+                              "instance": <small
+                                class="font-italic text-muted"
+                              >
+                                Posted - 
+                                Invalid date
+                              </small>,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "children": Array [
+                                  "Posted - ",
+                                  "Invalid date",
+                                ],
+                                "className": "font-italic text-muted",
+                              },
+                              "ref": null,
+                              "rendered": Array [
+                                "Posted - ",
+                                "Invalid date",
+                              ],
+                              "type": "small",
+                            },
+                          ],
+                          "type": "div",
+                        },
+                        Object {
+                          "instance": <small
+                            class="d-block break-word"
+                          />,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "",
+                            "className": "d-block break-word",
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            "",
+                          ],
+                          "type": "small",
+                        },
+                      ],
+                      "type": "div",
+                    },
+                  ],
+                  "type": [Function],
+                },
+              ],
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "section",
+    },
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "reviews": Array [
+          Object {
+            "createdAt": "",
+            "id": 2,
+            "profileImage": "profileImage.jpg",
+            "reviewBody": "",
+            "username": "",
+          },
+          Object {
+            "createdAt": "",
+            "id": 1,
+            "profileImage": null,
+            "reviewBody": "",
+            "username": "",
+          },
+        ],
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": <section
+          class="mb-5"
+        >
+          <h5
+            class="page-text font-weight-bold mt-4 mb-3 pt-3"
+          >
+            Reviews
+          </h5>
+          <div
+            class="card"
+          >
+            <div
+              class="card-header pl-3 pt-0 m-0"
+            >
+              <div
+                class="reviews"
+              >
+                <img
+                  alt="profile image"
+                  class="img-fluid figure-img rounded review-profile-image"
+                  src="profileImage.jpg"
+                />
+                <div
+                  class="d-inline-block mt-5 pl-2"
+                >
+                  <small
+                    class="d-block font-weight-bold"
+                  />
+                  <small
+                    class="font-italic text-muted"
+                  >
+                    Posted - 
+                    Invalid date
+                  </small>
+                </div>
+                <small
+                  class="d-block break-word"
+                />
+                <hr
+                  class="mb-0 pb-0"
+                />
+              </div>
+              <div
+                class="reviews"
+              >
+                <img
+                  alt="profile image"
+                  class="img-fluid figure-img rounded review-profile-image"
+                  src="/images/nophoto.jpg"
+                />
+                <div
+                  class="d-inline-block mt-5 pl-2"
+                >
+                  <small
+                    class="d-block font-weight-bold"
+                  />
+                  <small
+                    class="font-italic text-muted"
+                  >
+                    Posted - 
+                    Invalid date
+                  </small>
+                </div>
+                <small
+                  class="d-block break-word"
+                />
+              </div>
+            </div>
+          </div>
+        </section>,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <h5
+              className="page-text font-weight-bold mt-4 mb-3 pt-3"
+            >
+              Reviews
+            </h5>,
+            <div
+              className="card"
+            >
+              <div
+                className="card-header pl-3 pt-0 m-0"
+              >
+                <ReviewsList
+                  reviews={
+                    Array [
+                      Object {
+                        "createdAt": "",
+                        "id": 2,
+                        "profileImage": "profileImage.jpg",
+                        "reviewBody": "",
+                        "username": "",
+                      },
+                      Object {
+                        "createdAt": "",
+                        "id": 1,
+                        "profileImage": null,
+                        "reviewBody": "",
+                        "username": "",
+                      },
+                    ]
+                  }
+                />
+              </div>
+            </div>,
+          ],
+          "className": "mb-5",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": <h5
+              class="page-text font-weight-bold mt-4 mb-3 pt-3"
+            >
+              Reviews
+            </h5>,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Reviews",
+              "className": "page-text font-weight-bold mt-4 mb-3 pt-3",
+            },
+            "ref": null,
+            "rendered": Array [
+              "Reviews",
+            ],
+            "type": "h5",
+          },
+          Object {
+            "instance": <div
+              class="card"
+            >
+              <div
+                class="card-header pl-3 pt-0 m-0"
+              >
+                <div
+                  class="reviews"
+                >
+                  <img
+                    alt="profile image"
+                    class="img-fluid figure-img rounded review-profile-image"
+                    src="profileImage.jpg"
+                  />
+                  <div
+                    class="d-inline-block mt-5 pl-2"
+                  >
+                    <small
+                      class="d-block font-weight-bold"
+                    />
+                    <small
+                      class="font-italic text-muted"
+                    >
+                      Posted - 
+                      Invalid date
+                    </small>
+                  </div>
+                  <small
+                    class="d-block break-word"
+                  />
+                  <hr
+                    class="mb-0 pb-0"
+                  />
+                </div>
+                <div
+                  class="reviews"
+                >
+                  <img
+                    alt="profile image"
+                    class="img-fluid figure-img rounded review-profile-image"
+                    src="/images/nophoto.jpg"
+                  />
+                  <div
+                    class="d-inline-block mt-5 pl-2"
+                  >
+                    <small
+                      class="d-block font-weight-bold"
+                    />
+                    <small
+                      class="font-italic text-muted"
+                    >
+                      Posted - 
+                      Invalid date
+                    </small>
+                  </div>
+                  <small
+                    class="d-block break-word"
+                  />
+                </div>
+              </div>
+            </div>,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <div
+                className="card-header pl-3 pt-0 m-0"
+              >
+                <ReviewsList
+                  reviews={
+                    Array [
+                      Object {
+                        "createdAt": "",
+                        "id": 2,
+                        "profileImage": "profileImage.jpg",
+                        "reviewBody": "",
+                        "username": "",
+                      },
+                      Object {
+                        "createdAt": "",
+                        "id": 1,
+                        "profileImage": null,
+                        "reviewBody": "",
+                        "username": "",
+                      },
+                    ]
+                  }
+                />
+              </div>,
+              "className": "card",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": <div
+                  class="card-header pl-3 pt-0 m-0"
+                >
+                  <div
+                    class="reviews"
+                  >
+                    <img
+                      alt="profile image"
+                      class="img-fluid figure-img rounded review-profile-image"
+                      src="profileImage.jpg"
+                    />
+                    <div
+                      class="d-inline-block mt-5 pl-2"
+                    >
+                      <small
+                        class="d-block font-weight-bold"
+                      />
+                      <small
+                        class="font-italic text-muted"
+                      >
+                        Posted - 
+                        Invalid date
+                      </small>
+                    </div>
+                    <small
+                      class="d-block break-word"
+                    />
+                    <hr
+                      class="mb-0 pb-0"
+                    />
+                  </div>
+                  <div
+                    class="reviews"
+                  >
+                    <img
+                      alt="profile image"
+                      class="img-fluid figure-img rounded review-profile-image"
+                      src="/images/nophoto.jpg"
+                    />
+                    <div
+                      class="d-inline-block mt-5 pl-2"
+                    >
+                      <small
+                        class="d-block font-weight-bold"
+                      />
+                      <small
+                        class="font-italic text-muted"
+                      >
+                        Posted - 
+                        Invalid date
+                      </small>
+                    </div>
+                    <small
+                      class="d-block break-word"
+                    />
+                  </div>
+                </div>,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <ReviewsList
+                    reviews={
+                      Array [
+                        Object {
+                          "createdAt": "",
+                          "id": 2,
+                          "profileImage": "profileImage.jpg",
+                          "reviewBody": "",
+                          "username": "",
+                        },
+                        Object {
+                          "createdAt": "",
+                          "id": 1,
+                          "profileImage": null,
+                          "reviewBody": "",
+                          "username": "",
+                        },
+                      ]
+                    }
+                  />,
+                  "className": "card-header pl-3 pt-0 m-0",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "reviews": Array [
+                        Object {
+                          "createdAt": "",
+                          "id": 2,
+                          "profileImage": "profileImage.jpg",
+                          "reviewBody": "",
+                          "username": "",
+                        },
+                        Object {
+                          "createdAt": "",
+                          "id": 1,
+                          "profileImage": null,
+                          "reviewBody": "",
+                          "username": "",
+                        },
+                      ],
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": <div
+                          class="reviews"
+                        >
+                          <img
+                            alt="profile image"
+                            class="img-fluid figure-img rounded review-profile-image"
+                            src="profileImage.jpg"
+                          />
+                          <div
+                            class="d-inline-block mt-5 pl-2"
+                          >
+                            <small
+                              class="d-block font-weight-bold"
+                            />
+                            <small
+                              class="font-italic text-muted"
+                            >
+                              Posted - 
+                              Invalid date
+                            </small>
+                          </div>
+                          <small
+                            class="d-block break-word"
+                          />
+                          <hr
+                            class="mb-0 pb-0"
+                          />
+                        </div>,
+                        "key": "2",
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <img
+                              alt="profile image"
+                              className="img-fluid figure-img rounded review-profile-image"
+                              src="profileImage.jpg"
+                            />,
+                            <div
+                              className="d-inline-block mt-5 pl-2"
+                            >
+                              <small
+                                className="d-block font-weight-bold"
+                              >
+                                
+                              </small>
+                              <small
+                                className="font-italic text-muted"
+                              >
+                                Posted - 
+                                Invalid date
+                              </small>
+                            </div>,
+                            <small
+                              className="d-block break-word"
+                            >
+                              
+                            </small>,
+                            <hr
+                              className="mb-0 pb-0"
+                            />,
+                          ],
+                          "className": "reviews",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": <img
+                              alt="profile image"
+                              class="img-fluid figure-img rounded review-profile-image"
+                              src="profileImage.jpg"
+                            />,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "alt": "profile image",
+                              "className": "img-fluid figure-img rounded review-profile-image",
+                              "src": "profileImage.jpg",
+                            },
+                            "ref": null,
+                            "rendered": Array [
+                              undefined,
+                            ],
+                            "type": "img",
+                          },
+                          Object {
+                            "instance": <div
+                              class="d-inline-block mt-5 pl-2"
+                            >
+                              <small
+                                class="d-block font-weight-bold"
+                              />
+                              <small
+                                class="font-italic text-muted"
+                              >
+                                Posted - 
+                                Invalid date
+                              </small>
+                            </div>,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": Array [
+                                <small
+                                  className="d-block font-weight-bold"
+                                >
+                                  
+                                </small>,
+                                <small
+                                  className="font-italic text-muted"
+                                >
+                                  Posted - 
+                                  Invalid date
+                                </small>,
+                              ],
+                              "className": "d-inline-block mt-5 pl-2",
+                            },
+                            "ref": null,
+                            "rendered": Array [
+                              Object {
+                                "instance": <small
+                                  class="d-block font-weight-bold"
+                                />,
+                                "key": undefined,
+                                "nodeType": "host",
+                                "props": Object {
+                                  "children": "",
+                                  "className": "d-block font-weight-bold",
+                                },
+                                "ref": null,
+                                "rendered": Array [
+                                  "",
+                                ],
+                                "type": "small",
+                              },
+                              Object {
+                                "instance": <small
+                                  class="font-italic text-muted"
+                                >
+                                  Posted - 
+                                  Invalid date
+                                </small>,
+                                "key": undefined,
+                                "nodeType": "host",
+                                "props": Object {
+                                  "children": Array [
+                                    "Posted - ",
+                                    "Invalid date",
+                                  ],
+                                  "className": "font-italic text-muted",
+                                },
+                                "ref": null,
+                                "rendered": Array [
+                                  "Posted - ",
+                                  "Invalid date",
+                                ],
+                                "type": "small",
+                              },
+                            ],
+                            "type": "div",
+                          },
+                          Object {
+                            "instance": <small
+                              class="d-block break-word"
+                            />,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "",
+                              "className": "d-block break-word",
+                            },
+                            "ref": null,
+                            "rendered": Array [
+                              "",
+                            ],
+                            "type": "small",
+                          },
+                          Object {
+                            "instance": <hr
+                              class="mb-0 pb-0"
+                            />,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "className": "mb-0 pb-0",
+                            },
+                            "ref": null,
+                            "rendered": Array [
+                              undefined,
+                            ],
+                            "type": "hr",
+                          },
+                        ],
+                        "type": "div",
+                      },
+                      Object {
+                        "instance": <div
+                          class="reviews"
+                        >
+                          <img
+                            alt="profile image"
+                            class="img-fluid figure-img rounded review-profile-image"
+                            src="/images/nophoto.jpg"
+                          />
+                          <div
+                            class="d-inline-block mt-5 pl-2"
+                          >
+                            <small
+                              class="d-block font-weight-bold"
+                            />
+                            <small
+                              class="font-italic text-muted"
+                            >
+                              Posted - 
+                              Invalid date
+                            </small>
+                          </div>
+                          <small
+                            class="d-block break-word"
+                          />
+                        </div>,
+                        "key": "1",
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <img
+                              alt="profile image"
+                              className="img-fluid figure-img rounded review-profile-image"
+                              src="/images/nophoto.jpg"
+                            />,
+                            <div
+                              className="d-inline-block mt-5 pl-2"
+                            >
+                              <small
+                                className="d-block font-weight-bold"
+                              >
+                                
+                              </small>
+                              <small
+                                className="font-italic text-muted"
+                              >
+                                Posted - 
+                                Invalid date
+                              </small>
+                            </div>,
+                            <small
+                              className="d-block break-word"
+                            >
+                              
+                            </small>,
+                            false,
+                          ],
+                          "className": "reviews",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": <img
+                              alt="profile image"
+                              class="img-fluid figure-img rounded review-profile-image"
+                              src="/images/nophoto.jpg"
+                            />,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "alt": "profile image",
+                              "className": "img-fluid figure-img rounded review-profile-image",
+                              "src": "/images/nophoto.jpg",
+                            },
+                            "ref": null,
+                            "rendered": Array [
+                              undefined,
+                            ],
+                            "type": "img",
+                          },
+                          Object {
+                            "instance": <div
+                              class="d-inline-block mt-5 pl-2"
+                            >
+                              <small
+                                class="d-block font-weight-bold"
+                              />
+                              <small
+                                class="font-italic text-muted"
+                              >
+                                Posted - 
+                                Invalid date
+                              </small>
+                            </div>,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": Array [
+                                <small
+                                  className="d-block font-weight-bold"
+                                >
+                                  
+                                </small>,
+                                <small
+                                  className="font-italic text-muted"
+                                >
+                                  Posted - 
+                                  Invalid date
+                                </small>,
+                              ],
+                              "className": "d-inline-block mt-5 pl-2",
+                            },
+                            "ref": null,
+                            "rendered": Array [
+                              Object {
+                                "instance": <small
+                                  class="d-block font-weight-bold"
+                                />,
+                                "key": undefined,
+                                "nodeType": "host",
+                                "props": Object {
+                                  "children": "",
+                                  "className": "d-block font-weight-bold",
+                                },
+                                "ref": null,
+                                "rendered": Array [
+                                  "",
+                                ],
+                                "type": "small",
+                              },
+                              Object {
+                                "instance": <small
+                                  class="font-italic text-muted"
+                                >
+                                  Posted - 
+                                  Invalid date
+                                </small>,
+                                "key": undefined,
+                                "nodeType": "host",
+                                "props": Object {
+                                  "children": Array [
+                                    "Posted - ",
+                                    "Invalid date",
+                                  ],
+                                  "className": "font-italic text-muted",
+                                },
+                                "ref": null,
+                                "rendered": Array [
+                                  "Posted - ",
+                                  "Invalid date",
+                                ],
+                                "type": "small",
+                              },
+                            ],
+                            "type": "div",
+                          },
+                          Object {
+                            "instance": <small
+                              class="d-block break-word"
+                            />,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "",
+                              "className": "d-block break-word",
+                            },
+                            "ref": null,
+                            "rendered": Array [
+                              "",
+                            ],
+                            "type": "small",
+                          },
+                        ],
+                        "type": "div",
+                      },
+                    ],
+                    "type": [Function],
+                  },
+                ],
+                "type": "div",
+              },
+            ],
+            "type": "div",
+          },
+        ],
+        "type": "section",
+      },
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

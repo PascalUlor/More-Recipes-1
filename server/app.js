@@ -36,6 +36,8 @@ if (env === 'production') {
   app.use(webpackHotMiddleware(compiler));
 }
 
+app.use('/apidocs', express.static('apidocs'));
+
 app.use('/api/v1/', apiRoutes);
 
 app.get('*', (req, res) => {

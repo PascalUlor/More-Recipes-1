@@ -1,10 +1,10 @@
-/** Define recipes database model with foreign associations
+/** Define recipe database model with foreign associations
  * @param  {obj} sequelize
  * @param  {obj} DataTypes
- * @returns {obj} Recipes model
+ * @returns {obj} Recipe model
  */
 export default (sequelize, DataTypes) => {
-  const Recipes = sequelize.define('Recipes', {
+  const Recipe = sequelize.define('Recipe', {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -27,8 +27,8 @@ export default (sequelize, DataTypes) => {
         },
         len: {
           args: [20, 1000],
-          msg: `Recipe ingredients provided must
-be atleast 20 to 1000 characters`
+          msg: 'Recipe ingredients provided must' +
+            'be atleast 20 to 1000 characters'
         }
       }
 
@@ -42,8 +42,8 @@ be atleast 20 to 1000 characters`
         },
         len: {
           args: [30, 1000],
-          msg: `Recipe procedures provided must
-be atleast 30 to 1000 characters`
+          msg: 'Recipe procedures provided must' +
+            'be atleast 30 to 1000 characters'
         }
       }
     },
@@ -76,25 +76,25 @@ be atleast 30 to 1000 characters`
       type: DataTypes.INTEGER,
       onDelete: 'CASCADE',
       references: {
-        model: 'Users',
+        model: 'User',
         key: 'id'
       }
     }
   });
-  Recipes.associate = (models) => {
-    Recipes.belongsTo(models.Users, {
+  Recipe.associate = (models) => {
+    Recipe.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE'
     });
-    Recipes.hasMany(models.Reviews, {
+    Recipe.hasMany(models.Review, {
       foreignKey: 'recipeId'
     });
-    Recipes.hasMany(models.Favorites, {
+    Recipe.hasMany(models.Favorite, {
       foreignKey: 'recipeId'
     });
-    Recipes.hasMany(models.Votes, {
+    Recipe.hasMany(models.Vote, {
       foreignKey: 'recipeId'
     });
   };
-  return Recipes;
+  return Recipe;
 };

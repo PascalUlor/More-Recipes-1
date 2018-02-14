@@ -3,8 +3,7 @@ import {
   IS_RECIPE_CREATING,
   CREATE_RECIPE_SUCCESS,
   CREATE_RECIPE_FAILURE
-}
-from '../actionTypes/actionTypes';
+} from '../actionTypes/actionTypes';
 
 /**
  * @description handles recipe creation loading
@@ -74,8 +73,8 @@ const createRecipe = (recipe, cloudImageUrl) => (
       const { message } = response.data;
       dispatch(createRecipeSuccess(response.data.recipe, message));
       dispatch(isRecipeCreating(false));
-    }).catch(() => {
-      dispatch(createRecipeFailure('Upload failed. Try again later'));
+    }).catch((error) => {
+      dispatch(createRecipeFailure(error.response.data.message));
       dispatch(isRecipeCreating(false));
     });
   }
@@ -104,8 +103,8 @@ const createRecipeRequest = recipe => (
           cloudImageUrl = response.data.url;
           return dispatch(createRecipe(recipe, cloudImageUrl));
         }).catch(() => {
-          dispatch(isRecipeCreating(false));
           dispatch(createRecipeFailure('Upload failed. Try again later'));
+          dispatch(isRecipeCreating(false));
         });
     }
     return dispatch(createRecipe(recipe, cloudImageUrl));

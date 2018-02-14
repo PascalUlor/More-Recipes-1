@@ -1,10 +1,10 @@
 /** Define Review database model with foreign associations
  * @param  {obj} sequelize
  * @param  {obj} DataTypes
- * @returns {obj} Reviews model
+ * @returns {obj} Review model
  */
 export default (sequelize, DataTypes) => {
-  const Reviews = sequelize.define('Reviews', {
+  const Review = sequelize.define('Review', {
     reviewBody: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -30,7 +30,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       onDelete: 'CASCADE',
       references: {
-        model: 'Users',
+        model: 'User',
         key: 'id'
       }
     },
@@ -38,21 +38,21 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       onDelete: 'CASCADE',
       references: {
-        model: 'Recipes',
+        model: 'Recipe',
         key: 'id'
       }
     }
   });
 
-  Reviews.associate = (models) => {
-    Reviews.belongsTo(models.Users, {
+  Review.associate = (models) => {
+    Review.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE'
     });
-    Reviews.belongsTo(models.Recipes, {
+    Review.belongsTo(models.Recipe, {
       foreignKey: 'recipeId',
       onDelete: 'CASCADE'
     });
   };
-  return Reviews;
+  return Review;
 };

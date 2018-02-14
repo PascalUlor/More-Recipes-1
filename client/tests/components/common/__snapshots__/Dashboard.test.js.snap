@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dashboard/> renders dashboard component without crashing 1`] = `
+<div
+  className="bg-faded"
+>
+  <div>
+    <Connect(NavBar) />
+    <div
+      className="main-wrapper text-center"
+    >
+      <Connect(FlashMessage) />
+      <MainContents />
+    </div>
+  </div>
+  <Footer />
+</div>
+`;

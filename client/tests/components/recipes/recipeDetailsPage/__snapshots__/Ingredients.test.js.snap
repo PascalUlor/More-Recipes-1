@@ -1,0 +1,221 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Ingredients component should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Ingredients
+    ingredients="onions."
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <h5
+          className="page-text font-weight-bold pb-2"
+        >
+          Ingredients
+        </h5>,
+        <ul
+          className="list-group list-group-flush text-muted details break-word"
+        >
+          <li>
+            <i
+              aria-hidden="true"
+              className="fa fa-check-square-o pr-2 maroon"
+            />
+            onions
+          </li>
+          
+        </ul>,
+      ],
+      "className": "col-md-4 col-lg-4 mb-3",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Ingredients",
+          "className": "page-text font-weight-bold pb-2",
+        },
+        "ref": null,
+        "rendered": "Ingredients",
+        "type": "h5",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <li>
+              <i
+                aria-hidden="true"
+                className="fa fa-check-square-o pr-2 maroon"
+              />
+              onions
+            </li>,
+            "",
+          ],
+          "className": "list-group list-group-flush text-muted details break-word",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": "0",
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <i
+                  aria-hidden="true"
+                  className="fa fa-check-square-o pr-2 maroon"
+                />,
+                "onions",
+              ],
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "aria-hidden": "true",
+                  "className": "fa fa-check-square-o pr-2 maroon",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "i",
+              },
+              "onions",
+            ],
+            "type": "li",
+          },
+          "",
+        ],
+        "type": "ul",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <h5
+            className="page-text font-weight-bold pb-2"
+          >
+            Ingredients
+          </h5>,
+          <ul
+            className="list-group list-group-flush text-muted details break-word"
+          >
+            <li>
+              <i
+                aria-hidden="true"
+                className="fa fa-check-square-o pr-2 maroon"
+              />
+              onions
+            </li>
+            
+          </ul>,
+        ],
+        "className": "col-md-4 col-lg-4 mb-3",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Ingredients",
+            "className": "page-text font-weight-bold pb-2",
+          },
+          "ref": null,
+          "rendered": "Ingredients",
+          "type": "h5",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <li>
+                <i
+                  aria-hidden="true"
+                  className="fa fa-check-square-o pr-2 maroon"
+                />
+                onions
+              </li>,
+              "",
+            ],
+            "className": "list-group list-group-flush text-muted details break-word",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": "0",
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <i
+                    aria-hidden="true"
+                    className="fa fa-check-square-o pr-2 maroon"
+                  />,
+                  "onions",
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "aria-hidden": "true",
+                    "className": "fa fa-check-square-o pr-2 maroon",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "i",
+                },
+                "onions",
+              ],
+              "type": "li",
+            },
+            "",
+          ],
+          "type": "ul",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

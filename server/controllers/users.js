@@ -1,40 +1,32 @@
 import bcrypt from 'bcryptjs';
-import models from '../models';
+import { User, Review } from '../models';
 import requestFeedback from '../utils/requestFeedback';
 import generateTokenAndSendFeedback from '../utils/users';
 
-const { Users, Reviews } = models;
-
 
 /**
- * @class UsersApiController
+ * @class UserApiController
  */
-export default class UsersApiController {
+export default class UserApiController {
   /**
    * @description Users details are captured and persisted on the database
-   * @memberof UsersApiController
+   * @memberof UserApiController
    * @static
    *
    * @param   {object} request   the server/http(s) request object
    * @param   {object} response  the server/http(s) response object
    *
-   * @returns {object} failure message object or success message object with the persisted database data
+   * @returns {object} failure message object or success message
+   * object with the persisted database data
    */
   static signup(request, response) {
     const { fullName, username, email } = request.body;
 
-    return Users.findOne({
+    return User.findOne({
       where: {
-        $or: [{
-            username: {
-              $iLike: username
-            }
-          },
-          {
-            email: {
-              $iLike: email
-            }
-          }
+        $or: [
+          { username: { $iLike: username } },
+          { email: { $iLike: email } }
         ]
       }
     }).then((foundUser) => {
@@ -54,32 +46,37 @@ export default class UsersApiController {
       const saltRounds = 10;
       bcrypt.genSalt(saltRounds, (err, salt) => {
         bcrypt.hash(request.body.password, salt, (err, hash) => {
-          Users.create({
+          User.create({
             fullName,
             username,
             email,
             password: hash
-          }).then(user => (generateTokenAndSendFeedback(request, response, 201, 'Successfully created account', user)));
+          }).then(user => (generateTokenAndSendFeedback(
+            request, response, 201,
+            'Successfully created account', user
+          )));
         });
       });
     }).catch(error => requestFeedback.error(response, 500, error.message));
   }
 
   /**
-   * @description User details are captured and authenticated against persisted database data
-   * @memberof UsersApiController
+   * @description User details are captured and authenticated against
+   * persisted database data
+   * @memberof UserApiController
    * @static
    *
    * @param   {object} request   the server/http(s) request object
    * @param   {object} response  the server/http(s) response object
    *
-   * @returns {object} Failure message or Success message with persisted database data
+   * @returns {object} Failure message or Success message with persisted
+   * database data
    */
   static signin(request, response) {
     const { username, password } = request.body,
       errors = { form: 'Invalid username or password' };
 
-    return Users.findOne({
+    return User.findOne({
       where: {
         username: {
           $iLike: username
@@ -89,7 +86,10 @@ export default class UsersApiController {
       if (user && user.username.toLowerCase === username.toLowerCase) {
         const check = bcrypt.compareSync(password, user.password);
         if (check) {
-          return generateTokenAndSendFeedback(request, response, 200, 'You are now logged In', user);
+          return generateTokenAndSendFeedback(
+            request, response, 200,
+            'You are now logged In', user
+          );
         }
         return response.status(401).json({
           status: 'Failed',
@@ -105,48 +105,51 @@ export default class UsersApiController {
 
   /**
    * @description Get user details from persisted database data
-   * @memberof UsersApiController
+   * @memberof UserApiController
    * @static
    *
    * @param   {object} request   the server/http(s) request object
    * @param   {object} response  the server/http(s) response object
    *
-   * @returns {object} Failure message or Success message with persisted database data
+   * @returns {object} Failure message or Success message with persisted
+   * database data
    */
   static getUser(request, response) {
     const { userId } = request.decoded;
 
-    Users.findOne({
-        where: { id: userId },
-        attributes: [
-          'id', 'fullName', 'username', 'email',
-          'profileImage', 'location', 'aboutMe'
-        ]
-      }).then(user => (requestFeedback.success(response, 200, 'User found', { user })))
-      .catch(error => requestFeedback.error(response, 500, error.message));
+    User.findOne({
+      where: { id: userId },
+      attributes: [
+        'id', 'fullName', 'username', 'email',
+        'profileImage', 'location', 'aboutMe'
+      ]
+    }).then(user => (requestFeedback
+      .success(response, 200, 'User found', { user }))).catch(() =>
+      requestFeedback.error(response, 500, 'Internal server error'));
   }
 
   /**
    * @description Update user details and persist updated data to database
-   * @memberof UsersApiController
+   * @memberof UserApiController
    * @static
    *
    * @param   {object} request   the server/http(s) request object
    * @param   {object} response  the server/http(s) response object
    *
-   * @returns {object} Failure message or Success message with persisted database data
+   * @returns {object} Failure message or Success message with
+   * persisted database data
    */
   static updateUser(request, response) {
     const {
-      fullName,
-      username,
-      email,
-      location,
-      aboutMe,
-      profileImage
-    } = request.body, { userId } = request.decoded;
+        fullName,
+        username,
+        email,
+        location,
+        aboutMe,
+        profileImage
+      } = request.body, { userId } = request.decoded;
 
-    Users.findOne({ where: { id: userId } }).then((foundUser) => {
+    User.findOne({ where: { id: userId } }).then((foundUser) => {
       if (foundUser) {
         return foundUser.updateAttributes({
           fullName: (fullName) || foundUser.fullName,
@@ -156,17 +159,20 @@ export default class UsersApiController {
           aboutMe: (aboutMe) || foundUser.aboutMe,
           profileImage: (profileImage) || foundUser.profileImage
         }).then(() => (
-          Users.findOne({
+          User.findOne({
             where: { id: userId },
             attributes: [
               'id', 'fullName', 'username', 'email',
               'profileImage', 'location', 'aboutMe'
             ]
           }).then(updatedUser => (
-            Reviews.findAll({ where: { userId } }).then((review) => {
-              const feedback = requestFeedback.success(response, 200, 'Successfully updated profile', { updatedUser });
+            Review.findAll({ where: { userId } }).then((review) => {
+              const feedback = requestFeedback.success(
+                response, 200,
+                'Successfully updated profile', { updatedUser }
+              );
               if (review.length !== 0) {
-                return Reviews.update({
+                return Review.update({
                   username: updatedUser.username,
                   profileImage: updatedUser.profileImage
                 }, {
@@ -178,7 +184,8 @@ export default class UsersApiController {
               return feedback;
             })
           ))
-        )).catch(error => requestFeedback.error(response, 500, error.message));
+        )).catch(() =>
+          requestFeedback.error(response, 500, 'Internal server error'));
       }
     });
   }

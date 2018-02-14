@@ -2,8 +2,7 @@ import axios from 'axios';
 import {
   ADD_FAVORITE_RECIPE_SUCCESS,
   ADD_FAVORITE_RECIPE_FAILURE
-}
-from '../actionTypes/actionTypes';
+} from '../actionTypes/actionTypes';
 
 /**
  * @description handles success for adding favorite recipe
@@ -45,8 +44,9 @@ const addFavoriteRequest = recipeId => (
       },
       url: `/api/v1/recipes/${recipeId}/favorites`
     })
-    .then(response => dispatch(addFavoriteSuccess(response.data.message)))
-    .catch(error => dispatch(addFavoriteError(error.response.data.message)))
-  ));
+      .then(response => dispatch(addFavoriteSuccess(response.data.message)))
+      .catch(error => dispatch(addFavoriteError(error.response.data.message)))
+  )
+);
 
 export default addFavoriteRequest;

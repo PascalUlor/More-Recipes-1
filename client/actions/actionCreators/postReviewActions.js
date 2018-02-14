@@ -49,12 +49,10 @@ const postReviewRequest = (review, recipeId) => (
       data: {
         reviewBody: review
       }
-    })
-    .then((response) => {
+    }).then((response) => {
       const { postedReview, message } = response.data;
       dispatch(postReviewSuccess(postedReview, message));
-    })
-    .catch((error) => {
+    }).catch((error) => {
       dispatch(postReviewFailure(error.response.data.message));
     })
   )

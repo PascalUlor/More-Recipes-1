@@ -36,23 +36,21 @@ const setCurrentRecipe = recipe => ({
  * @returns { object } set ID - returns set recipe details action
  */
 const setCurrentRecipeRequest = recipeId => (
-  (dispatch) => {
+  dispatch => (
     axios({
-        method: 'GET',
-        headers: {
-          'x-access-token': window.localStorage.jwtToken
-        },
-        url: `/api/v1/recipes/${recipeId}`
-      })
-      .then((response) => {
-        dispatch(setRecipeId(recipeId));
-        dispatch(setCurrentRecipe(response.data));
-      })
-      .catch(() => {
-        dispatch(setRecipeId(0));
-        dispatch(setCurrentRecipe({}));
-      });
-  }
+      method: 'GET',
+      headers: {
+        'x-access-token': window.localStorage.jwtToken
+      },
+      url: `/api/v1/recipes/${recipeId}`
+    }).then((response) => {
+      dispatch(setRecipeId(recipeId));
+      dispatch(setCurrentRecipe(response.data));
+    }).catch(() => {
+      dispatch(setRecipeId(0));
+      dispatch(setCurrentRecipe({}));
+    })
+  )
 );
 
 export default setCurrentRecipeRequest;

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,7 +8,7 @@ import MainCover from './homePage/MainCover.jsx';
 import PopularRecipes from './homePage/PopularRecipes.jsx';
 import Footer from './Footer.jsx';
 import fetchPopularRecipesRequest from
-'../actions/actionCreators/popularRecipesActions';
+  '../actions/actionCreators/popularRecipesActions';
 import verifyToken from '../utils/verifyToken';
 
 
@@ -18,56 +19,54 @@ import verifyToken from '../utils/verifyToken';
  *
  * @extends Component
  */
-class Homepage extends Component {
-	/**
+export class HomePage extends Component {
+  /**
    * @description handles token verification and fetching of popular recipes
-   * 
+   *
    * @method componentDidMount
    *
    * @returns { * } null
     */
-	componentDidMount() {
-		if (verifyToken()) {
-			this.context.router.history.push('/dashboard');
-		}
-		const { fetchPopularRecipes } = this.props;
+  componentDidMount() {
+    if (verifyToken()) {
+      this.props.history.push('/dashboard');
+    }
+    const { fetchPopularRecipes } = this.props;
     fetchPopularRecipes();
-	}
-	/**
+  }
+  /**
    * @description renders Home Page
    *
    * @returns { jsx } jsx - renders Home Page components
    */
-	render() {
-		const { isFetching, fetchedPopularRecipes } = this.props;
-		return (
-			<div className="bg-faded">
-				<div className="main-wrapper mt-0">
-					<NavBar/>
-					{isFetching ? 
-						<div className="text-center">
+  render() {
+    const { isFetching, fetchedPopularRecipes } = this.props;
+    return (
+      <div className="bg-faded">
+        <div className="main-wrapper mt-0">
+          <NavBar/>
+          {isFetching ?
+            <div className="text-center">
             	<Spinner size={50} className="mt-5"/>
-						</div>
-						:
-						<div className="content clear-top">
-							<MainCover/>
-							<PopularRecipes fetchedPopularRecipes={fetchedPopularRecipes}/>
-						</div>
-					}
-				</div>
-				<Footer/>
-			</div>
-		);
-	}
+            </div>
+            :
+            <div className="content clear-top">
+              <MainCover/>
+              <PopularRecipes fetchedPopularRecipes={fetchedPopularRecipes}/>
+            </div>
+          }
+        </div>
+        <Footer/>
+      </div>
+    );
+  }
 }
 
-Homepage.propTypes = {
+HomePage.propTypes = {
   fetchedPopularRecipes: PropTypes.array.isRequired,
-  fetchPopularRecipes: PropTypes.func.isRequired
-};
-
-Homepage.contextTypes = {
-  router: PropTypes.shape().isRequired
+  fetchPopularRecipes: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  history: PropTypes.shape().isRequired
 };
 
 /**
@@ -78,8 +77,8 @@ Homepage.contextTypes = {
  * @return { object } props - returns mapped props from state
  */
 const mapStateToProps = state => ({
-	fetchedPopularRecipes: state.popularRecipes.fetchedPopularRecipes,
-	isFetching: state.popularRecipes.isPopularRecipesFetching
+  fetchedPopularRecipes: state.popularRecipes.fetchedPopularRecipes,
+  isFetching: state.popularRecipes.isPopularRecipesFetching
 });
 /**
  * @description maps action dispatch to props
@@ -92,4 +91,4 @@ const mapDispatchToProps = dispatch => ({
   fetchPopularRecipes: () => dispatch(fetchPopularRecipesRequest())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

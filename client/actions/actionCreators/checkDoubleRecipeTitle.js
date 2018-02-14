@@ -2,8 +2,7 @@ import axios from 'axios';
 import {
   IS_RECIPE_TITLE_DOUBLE,
   DOUBLE_RECIPE_TITLE_ERROR
-}
-from '../actionTypes/actionTypes';
+} from '../actionTypes/actionTypes';
 
 /**
  * @description handles check for double recipe title
@@ -45,12 +44,10 @@ const checkDoubleRecipeTitleRequest = recipeTitle => (
       },
       url: '/api/v1/recipes/checkTitle',
       data: { title: recipeTitle }
-    })
-    .then(() => {
+    }).then(() => {
       dispatch(isRecipeTitleDouble(false));
       dispatch(doubleRecipeTitleError(''));
-    })
-    .catch((error) => {
+    }).catch((error) => {
       dispatch(isRecipeTitleDouble(true));
       dispatch(doubleRecipeTitleError(error.response.data.message));
     })

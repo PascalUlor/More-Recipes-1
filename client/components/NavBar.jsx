@@ -16,24 +16,10 @@ import verifyToken from '../utils/verifyToken';
  *
  * @extends Component
  */
-class NavBar extends Component {
-  // /**
-  //  * @description creates an instance of Nav Bar
-  //  * 
-  //  * @constructor
-  //  *
-  //  * @param { props } props - contains navbar component properties
-  //  *
-  //  */
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     username: ''
-  //   };
-  // }
+export class NavBar extends Component {
   /**
    * @description handles decoding of token for current logged in user
-   * 
+   *
    * @method componentDidMount
    *
    * @returns { * } null
@@ -42,21 +28,17 @@ class NavBar extends Component {
     const userDecodedInfo = jwt.decode(localStorage.getItem('jwtToken'));
     if (localStorage.getItem('jwtToken') && userDecodedInfo !== null) {
       this.setState({ username: userDecodedInfo.username });
-    } else {
-      this.setState({ username: '' });
     }
   }
-  // componentWillReceiveProps(nextProps) {
-  //   console.log()
-  // }
   /**
    * @description handles on logout event
    *
    * @return {*} null
    */
   handleLogOut() {
-    logOutRequest();
+    this.props.logOut();
     this.context.router.history.push('/');
+    window.location.reload();
   }
   /**
    * @description renders Navigation bar
@@ -64,7 +46,6 @@ class NavBar extends Component {
    * @returns { jsx } jsx - renders NavBar component
   */
   render() {
-    // const { username } = this.state,
     const { isAuthenticated, user } = this.props.authenticatedUser;
     return (
       <div className="container pl-0 pr-0">
@@ -78,7 +59,7 @@ class NavBar extends Component {
             </button>
             <Link className="navbar-brand" to="/">
               <img src='/images/logo.png' width="45" height="32"
-              className="d-inline-block align-center" alt="More Recipe Logo"/>
+                className="d-inline-block align-center" alt="More Recipe Logo"/>
               <span id="site-name">More Recipes</span>
             </Link>
             { (isAuthenticated && verifyToken()) ?
@@ -98,12 +79,14 @@ NavBar.propTypes = {
   authenticatedUser: PropTypes.shape({
     isAuthenticated: PropTypes.bool.isRequired,
     user: PropTypes.shape().isRequired
-  }).isRequired
+  }).isRequired,
+  logOut: PropTypes.func.isRequired
 };
 
 NavBar.contextTypes = {
   router: PropTypes.shape().isRequired
 };
+
 /**
  * @description maps redux state to props
  *
@@ -112,7 +95,10 @@ NavBar.contextTypes = {
  * @return { object } props - returns mapped props from state
  */
 const mapStateToProps = state => ({
-  authenticatedUser: state.authenticatedUser
+  authenticatedUser: state.authenticatedUser,
+});
+const mapDispatchToProps = dispatch => ({
+  logOut: () => dispatch(logOutRequest())
 });
 
-export default connect(mapStateToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

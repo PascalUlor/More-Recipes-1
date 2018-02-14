@@ -4,39 +4,39 @@
 import models from '../models';
 
 const {
-  Users,
-  Recipes,
-  Favorites,
-  Reviews,
-  Votes,
+  User,
+  Recipe,
+  Favorite,
+  Review,
+  Vote,
 } = models;
 
 before((done) => {
-  Users.destroy({
+  User.destroy({
     cascade: true,
     truncate: true,
     restartIdentity: true
   });
 
-  Recipes.destroy({
+  Recipe.destroy({
     cascade: true,
     truncate: true,
     restartIdentity: true
   });
 
-  Reviews.destroy({
+  Review.destroy({
     cascade: true,
     truncate: true,
     restartIdentity: true
   });
 
-  Favorites.destroy({
+  Favorite.destroy({
     cascade: true,
     truncate: true,
     restartIdentity: true
   });
 
-  Votes.destroy({
+  Vote.destroy({
     cascade: true,
     truncate: true,
     restartIdentity: true

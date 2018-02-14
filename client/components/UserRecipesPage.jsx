@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,30 +8,30 @@ import Spinner from 'react-md-spinner';
 /** ****************** USER RECIPES COMPONENTS  ************************* */
 import NavBar from './NavBar.jsx';
 import PageHeader from './userRecipesPage/PageHeader.jsx';
-import CreateRecipeButton from
-'./userRecipesPage/mainContents/CreateRecipeButton.jsx';
+import CreateRecipeButton
+  from './userRecipesPage/mainContents/CreateRecipeButton.jsx';
 import MyRecipesList from
-'./userRecipesPage/mainContents/myRecipes/MyRecipesList.jsx';
+  './userRecipesPage/mainContents/myRecipes/MyRecipesList.jsx';
 import CreateRecipeModal from
-'./userRecipesPage/mainContents/CreateRecipeModal.jsx';
-import EditRecipeModal from 
-'./userRecipesPage/mainContents/EditRecipeModal.jsx';
+  './userRecipesPage/mainContents/CreateRecipeModal.jsx';
+import EditRecipeModal from
+  './userRecipesPage/mainContents/EditRecipeModal.jsx';
 import DeleteRecipeModal from './DeleteRecipeModal.jsx';
 import Footer from './Footer.jsx';
 /** ****************** USER RECIPE ACTIONS  **************************** */
 import checkDoubleRecipeTitleRequest from
-'../actions/actionCreators/checkDoubleRecipeTitle';
+  '../actions/actionCreators/checkDoubleRecipeTitle';
 import createRecipeRequest from
-'../actions/actionCreators/createRecipeActions';
+  '../actions/actionCreators/createRecipeActions';
 import fetchUserRecipesRequest from
-'../actions/actionCreators/getUserRecipesActions';
-import setCurrentRecipeRequest from
-'../actions/actionCreators/setCurrentRecipeActions';
+  '../actions/actionCreators/getUserRecipesActions';
+import setCurrentRecipeRequest
+  from '../actions/actionCreators/setCurrentRecipeActions';
 import deleteRecipeRequest from
-'../actions/actionCreators/deleteRecipeActions';
+  '../actions/actionCreators/deleteRecipeActions';
 import updateRecipeRequest from '../actions/actionCreators/editRecipeActions';
 import {
-  deleteSelectedRecipe, fetchCurrentPageRecipes 
+  deleteSelectedRecipe, fetchCurrentPageRecipes
 } from '../utils/deleteSelectedRecipe';
 
 
@@ -41,10 +42,10 @@ import {
  *
  * @extends Component
  */
-class UserRecipesPage extends Component {
+export class UserRecipesPage extends Component {
   /**
    * @description creates an instance of UserRecipesPage
-   * 
+   *
    * @constructor
    *
    * @param { props } props - contains user's recipe component properties
@@ -62,9 +63,9 @@ class UserRecipesPage extends Component {
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleDeleteRecipe = this.handleDeleteRecipe.bind(this);
   }
-   /**
+  /**
    * @description handles fetching all user's recipes
-   * 
+   *
    * @method componentDidMount
    *
    * @returns { * } null
@@ -76,14 +77,14 @@ class UserRecipesPage extends Component {
   /**
    * @description receives update on lastest updates
    * @method componentWillReceiveProps
-   * 
+   *
    * @param {object} nextProps - object of new incoming property
-   * 
+   *
    * @returns {object} new state
    */
   componentWillReceiveProps(nextProps) {
     const { userRecipes, selectedRecipeId, paginationDetails } = nextProps,
-    { currentPage, limit, numberOfRecipes } = paginationDetails;
+      { currentPage, limit, numberOfRecipes } = paginationDetails;
     this.setState({
       myRecipes: userRecipes,
       currentPage,
@@ -102,22 +103,22 @@ class UserRecipesPage extends Component {
     const { currentPage, recipeId } = this.state,
       { deleteRecipe, fetchUserRecipes } = this.props;
     deleteSelectedRecipe(deleteRecipe, recipeId)
-    .then(() => {
-      const {
-        deleteSuccess, deleteError, isFetching, userRecipes,
-      } = this.props;
-      fetchCurrentPageRecipes(
-        deleteSuccess, deleteError, fetchUserRecipes,
-        isFetching, userRecipes, currentPage, toastr
-      );
-    });
+      .then(() => {
+        const {
+          deleteSuccess, deleteError, isFetching, userRecipes,
+        } = this.props;
+        fetchCurrentPageRecipes(
+          deleteSuccess, deleteError, fetchUserRecipes,
+          isFetching, userRecipes, currentPage, toastr
+        );
+      });
   }
   /**
    * @description handles page navigation
    * @method handlePageChange
-   * 
+   *
    * @param {number} page - page number to fetch
-   * 
+   *
    * @returns {*} null
     */
   handlePageChange(page) {
@@ -131,12 +132,12 @@ class UserRecipesPage extends Component {
    */
   render() {
     const {
-    myRecipes, currentPage, pageSize, numberOfRecipes
-  } = this.state,
-  {
-    checkDoubleRecipeTitle, createRecipe,
-    updateRecipe, isFetching, setCurrentRecipe
-  } = this.props;
+        myRecipes, currentPage, pageSize, numberOfRecipes
+      } = this.state,
+      {
+        checkDoubleRecipeTitle, createRecipe,
+        updateRecipe, isFetching, setCurrentRecipe
+      } = this.props;
     return (
       <div className="bg-faded">
         <div className="site-wrapper">
@@ -150,13 +151,13 @@ class UserRecipesPage extends Component {
                   <div className="text-center">
                     <Spinner size={50} className="mt-5 mb-5"/>
                   </div>
-                :
+                  :
                   <div className=
-                  "col-10 offset-1 offet-sm-1 offset-md-1 offset-lg-1 p-0">
+                    "col-10 offset-1 offet-sm-1 offset-md-1 offset-lg-1 p-0">
                     <MyRecipesList
                       myRecipes={myRecipes}
                       setCurrentRecipe={setCurrentRecipe}/>
-                    {(numberOfRecipes > 6 && 
+                    {(numberOfRecipes > 6 &&
                       typeof numberOfRecipes !== 'undefined')
                       &&
                     <Pagination
@@ -226,7 +227,7 @@ const mapDispatchToProps = dispatch => ({
   fetchUserRecipes: page => dispatch(fetchUserRecipesRequest(page)),
   setCurrentRecipe: recipeId => dispatch(setCurrentRecipeRequest(recipeId)),
   checkDoubleRecipeTitle: recipeTitle =>
-  dispatch(checkDoubleRecipeTitleRequest(recipeTitle)),
+    dispatch(checkDoubleRecipeTitleRequest(recipeTitle)),
   createRecipe: recipe => dispatch(createRecipeRequest(recipe)),
   deleteRecipe: recipeId => dispatch(deleteRecipeRequest(recipeId)),
   updateRecipe: recipe => dispatch(updateRecipeRequest(recipe))
