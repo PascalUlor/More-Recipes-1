@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Footer/> renders footer component without crashing 1`] = `
+<main
+  className="landing"
+>
+  <div
+    className="container"
+  >
+    <section
+      className="cover-caption"
+    >
+      <h1
+        className="display-3"
+      >
+        Share Your Special Recipe Ideas Instantly
+      </h1>
+      <p
+        className="lead"
+        id="sub-title"
+      >
+        More-Recipes provides a platform for users to share the awesome and exciting recipe ideas they have invented or learnt, get feedback in form of reviews and votes from other users who explore that recipe
+      </p>
+      <Link
+        className="btn btn-lg btn-warning mt-3"
+        replace={false}
+        role="button"
+        to="/signup"
+      >
+        Get Started
+      </Link>
+      <p
+        className="lead beautify"
+      >
+        Already Registered?
+        <Link
+          className="btn btn-link"
+          replace={false}
+          role="button"
+          to="/signin"
+        >
+          Sign In
+        </Link>
+      </p>
+    </section>
+  </div>
+</main>
+`;

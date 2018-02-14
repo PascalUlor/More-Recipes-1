@@ -1,0 +1,331 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SigninPage/> should render without crashing 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "blank",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <SigninPage
+        addFlashMessage={[MockFunction]}
+        flashMessage={Object {}}
+        history={
+          Object {
+            "push": [Function],
+          }
+        }
+        isAuthenticated={false}
+        userSigninRequest={[MockFunction]}
+      >
+        <div>
+          <div
+            className="site-wrapper"
+          >
+            <div
+              className="container-fluid mt-4"
+              style={
+                Object {
+                  "height": "85.5vh",
+                }
+              }
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col-sm-10 col-md-8 col-lg-8 offset-sm-1 offset-md-2 offset-lg-2"
+                >
+                  <div
+                    className="row"
+                  >
+                    <SigninSignupImage>
+                      <div
+                        className="col-4 col-sm-4 col-md-4 col-lg-4"
+                      >
+                        <figure
+                          className="figure"
+                        >
+                          <Link
+                            replace={false}
+                            to="/"
+                          >
+                            <a
+                              href="/"
+                              onClick={[Function]}
+                            >
+                              <img
+                                alt="More Recipes Logo"
+                                className="figure-img img-fluid rounded"
+                                height="70"
+                                src="/images/logo.png"
+                                width="200"
+                              />
+                              <figcaption
+                                className="figure-caption text-center"
+                              >
+                                <h3
+                                  id="site-name"
+                                >
+                                  More Recipes
+                                </h3>
+                              </figcaption>
+                            </a>
+                          </Link>
+                        </figure>
+                      </div>
+                    </SigninSignupImage>
+                    <SigninForm
+                      errors={Object {}}
+                      handleChange={[Function]}
+                      handleFocus={[Function]}
+                      handleSubmit={[Function]}
+                      isLoading={false}
+                      password=""
+                      showWarning={false}
+                      username=""
+                    >
+                      <div
+                        className="col-8 col-sm-8 col-md-8 col-lg-8"
+                      >
+                        <h2>
+                          Sign In
+                        </h2>
+                        <p
+                          className="lead"
+                        >
+                          Don't have a More-Recipes account?
+                          <Link
+                            replace={false}
+                            to="/signup"
+                          >
+                            <a
+                              href="/signup"
+                              onClick={[Function]}
+                            >
+                              Sign Up
+                            </a>
+                          </Link>
+                        </p>
+                        <form
+                          onSubmit={[Function]}
+                          role="form"
+                        >
+                          <TextFieldGroup
+                            font="fa fa-user"
+                            label="Username"
+                            name="username"
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            placeholder="enter username"
+                            type="text"
+                            value=""
+                          >
+                            <div
+                              className="form-group"
+                            >
+                              <label
+                                className="page-text"
+                                htmlFor="username"
+                              >
+                                Username
+                              </label>
+                              <div
+                                className="input-group mb-2 mr-sm-2 mb-sm-0"
+                              >
+                                <div
+                                  className="input-group-addon page-text"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    className="fa fa-user"
+                                  />
+                                </div>
+                                <input
+                                  className="form-control form-control-sm"
+                                  defaultValue=""
+                                  id="username"
+                                  name="username"
+                                  onChange={[Function]}
+                                  onFocus={[Function]}
+                                  placeholder="enter username"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+                          </TextFieldGroup>
+                          <TextFieldGroup
+                            font="fa fa-lock"
+                            label="Password"
+                            name="password"
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            placeholder="enter password"
+                            type="password"
+                            value=""
+                          >
+                            <div
+                              className="form-group"
+                            >
+                              <label
+                                className="page-text"
+                                htmlFor="password"
+                              >
+                                Password
+                              </label>
+                              <div
+                                className="input-group mb-2 mr-sm-2 mb-sm-0"
+                              >
+                                <div
+                                  className="input-group-addon page-text"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    className="fa fa-lock"
+                                  />
+                                </div>
+                                <input
+                                  className="form-control form-control-sm"
+                                  defaultValue=""
+                                  id="password"
+                                  name="password"
+                                  onChange={[Function]}
+                                  onFocus={[Function]}
+                                  placeholder="enter password"
+                                  type="password"
+                                />
+                              </div>
+                            </div>
+                          </TextFieldGroup>
+                          <button
+                            className="btn btn-outline-success"
+                            disabled={false}
+                            type="submit"
+                          >
+                            Sign In 
+                          </button>
+                        </form>
+                      </div>
+                    </SigninForm>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <Footer>
+            <footer
+              className="footer"
+            >
+              <div
+                className="container"
+              >
+                <div
+                  className="row mt-4"
+                >
+                  <div
+                    className="col-12 col-sm-8 col-md-9 col-lg-10"
+                  >
+                    <small
+                      className="text-white"
+                      id="copywrite"
+                    >
+                      <span
+                        className="text-warning"
+                      >
+                        ©2018 
+                      </span>
+                      Bootcamp27, Andela Nigeria. All rights reserved.
+                    </small>
+                  </div>
+                  <div
+                    className="col-12 col-sm-4 col-md-3 col-lg-2 text-center"
+                  >
+                    <ul
+                      className="list-inline"
+                    >
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="fa fa-google-plus"
+                          />
+                        </a>
+                      </li>
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            className="fa fa-github"
+                          />
+                        </a>
+                      </li>
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            className="fa fa-facebook"
+                          />
+                        </a>
+                      </li>
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            className="fa fa-twitter"
+                          />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </footer>
+          </Footer>
+        </div>
+      </SigninPage>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;

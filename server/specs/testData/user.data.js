@@ -69,7 +69,7 @@ export default {
   improperUpdateData3: {
     fullName: 'Hyginus Chinwoke',
     username: 'ch',
-    email: 'chyke@gmail.com',
+    email: 'chyke@gmail',
     location: 'lagos',
     aboutMe: 'I am just a cool dude'
   },

@@ -54,7 +54,8 @@ const updateRecipeFailure = error => ({
 const updateRecipe = (recipe, cloudImageUrl) => (
   (dispatch) => {
     if (axios.defaults.headers.common['x-access-token'] === '') {
-      axios.defaults.headers.common['x-access-token'] = window.localStorage.jwtToken;
+      axios.defaults.headers.common['x-access-token'] =
+        window.localStorage.jwtToken;
     }
 
     return axios({
@@ -70,11 +71,9 @@ const updateRecipe = (recipe, cloudImageUrl) => (
         recipeImage: cloudImageUrl
       }
     }).then((response) => {
-      if (response) {
-        const { message } = response.data;
-        dispatch(updateRecipeSuccess(response.data.recipe, message));
-        dispatch(isRecipeUpdating(false));
-      }
+      const { message } = response.data;
+      dispatch(updateRecipeSuccess(response.data.recipe, message));
+      dispatch(isRecipeUpdating(false));
     }).catch((error) => {
       dispatch(updateRecipeFailure(error.response.data.message));
       dispatch(isRecipeUpdating(false));
@@ -105,8 +104,8 @@ const updateRecipeRequest = recipe => (
           cloudImageUrl = response.data.url;
           return dispatch(updateRecipe(recipe, cloudImageUrl));
         }).catch(() => {
-          dispatch(isRecipeUpdating(false));
           dispatch(updateRecipeFailure('Upload failure. Try again later'));
+          dispatch(isRecipeUpdating(false));
         });
     }
     return dispatch(updateRecipe(recipe, cloudImageUrl));

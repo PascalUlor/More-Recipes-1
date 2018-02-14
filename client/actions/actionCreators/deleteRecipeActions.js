@@ -46,7 +46,7 @@ const deleteRecipeError = error => ({
 /**
  * @description handles delete favorite recipe
  *
- * @param { object } recipeId - contains ID of user          recipe to be deleted
+ * @param { object } recipeId - contains ID of user recipe to be deleted
  *
  * @returns { object } deleted recipe - returns delete user recipe action
  */
@@ -54,17 +54,17 @@ const deleteRecipeRequest = recipeId => (
   (dispatch) => {
     dispatch(isRecipeDeleting(true));
     return axios({
-        method: 'DELETE',
-        headers: {
-          'x-access-token': window.localStorage.jwtToken
-        },
-        url: `/api/v1/recipes/${recipeId}`
-      })
+      method: 'DELETE',
+      headers: {
+        'x-access-token': window.localStorage.jwtToken
+      },
+      url: `/api/v1/recipes/${recipeId}`
+    })
       .then((response) => {
         dispatch(deleteRecipeSuccess(recipeId, response.data.message));
         dispatch(isRecipeDeleting(false));
-      }).catch((errors) => {
-        dispatch(deleteRecipeError(errors.message));
+      }).catch((error) => {
+        dispatch(deleteRecipeError(error.response.data.message));
         dispatch(isRecipeDeleting(false));
       });
   }

@@ -1,0 +1,1163 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;javascript&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo.png" class="logo" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="javascript">javascript</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc" class="toc-list-h1">
+          <li>
+            <a href="#welcome-to-more-recipes-api-documentation" class="toc-h1 toc-link" data-title="Welcome to More-Recipes API Documentation">Welcome to More-Recipes API Documentation</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#introduction" class="toc-h2 toc-link" data-title="Introduction">Introduction</a>
+                  </li>
+                  <li>
+                    <a href="#development" class="toc-h2 toc-link" data-title="Development">Development</a>
+                  </li>
+                  <li>
+                    <a href="#installation" class="toc-h2 toc-link" data-title="Installation">Installation</a>
+                  </li>
+                  <li>
+                    <a href="#json-web-token-jwt-for-user-authentication" class="toc-h2 toc-link" data-title="Json Web Token (JWT) for User Authentication">Json Web Token (JWT) for User Authentication</a>
+                  </li>
+                  <li>
+                    <a href="#api-overview" class="toc-h2 toc-link" data-title="API Overview">API Overview</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#signup-user" class="toc-h2 toc-link" data-title="Signup User">Signup User</a>
+                  </li>
+                  <li>
+                    <a href="#signin-user" class="toc-h2 toc-link" data-title="Signin User">Signin User</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#profile" class="toc-h1 toc-link" data-title="Profile">Profile</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-user-profile" class="toc-h2 toc-link" data-title="Get User Profile">Get User Profile</a>
+                  </li>
+                  <li>
+                    <a href="#update-user-profile" class="toc-h2 toc-link" data-title="Update User Profile">Update User Profile</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#recipes" class="toc-h1 toc-link" data-title="Recipes">Recipes</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-a-recipe" class="toc-h2 toc-link" data-title="Create a recipe">Create a recipe</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-recipe" class="toc-h2 toc-link" data-title="Get a recipe">Get a recipe</a>
+                  </li>
+                  <li>
+                    <a href="#get-user-recipes" class="toc-h2 toc-link" data-title="Get user recipes">Get user recipes</a>
+                  </li>
+                  <li>
+                    <a href="#get-all-recipes" class="toc-h2 toc-link" data-title="Get all recipes">Get all recipes</a>
+                  </li>
+                  <li>
+                    <a href="#update-a-recipe" class="toc-h2 toc-link" data-title="Update a recipe">Update a recipe</a>
+                  </li>
+                  <li>
+                    <a href="#delete-a-recipe" class="toc-h2 toc-link" data-title="Delete a recipe">Delete a recipe</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#voting-2" class="toc-h1 toc-link" data-title="Voting">Voting</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#upvote-a-recipe" class="toc-h2 toc-link" data-title="Upvote a recipe">Upvote a recipe</a>
+                  </li>
+                  <li>
+                    <a href="#downvote-a-recipe" class="toc-h2 toc-link" data-title="Downvote a recipe">Downvote a recipe</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#favorite" class="toc-h1 toc-link" data-title="Favorite">Favorite</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#add-favorite" class="toc-h2 toc-link" data-title="Add favorite">Add favorite</a>
+                  </li>
+                  <li>
+                    <a href="#get-favorites" class="toc-h2 toc-link" data-title="Get favorites">Get favorites</a>
+                  </li>
+                  <li>
+                    <a href="#delete-favorite" class="toc-h2 toc-link" data-title="Delete favorite">Delete favorite</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#review" class="toc-h1 toc-link" data-title="Review">Review</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#post-a-review" class="toc-h2 toc-link" data-title="Post a review">Post a review</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+          </li>
+      </div>
+        <ul class="toc-footer">
+            <li>© 2018 More Recipes</li>
+            <li>Developed By Chinwoke Hyginus</li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='welcome-to-more-recipes-api-documentation'>Welcome to More-Recipes API Documentation</h1><h2 id='introduction'>Introduction</h2>
+<p>More-Recipe API contains several API end points that allows users to signup, signin, add, retrieve, edit, and delete recipe. User can also upvote or downvote a recipe, add recipe to his/her favourite or remove from his/her favourite, get recipes with most upvote in ascending order. It also offers a way to ensure that only authorized users can perform certain operations.</p>
+<h2 id='development'>Development</h2>
+<p>The application was developed with</p>
+
+<ul>
+<li><a href='https://nodejs.org'>NodeJs</a> : for creating application server</li>
+<li><a href='https://expressjs.com'>Express</a> : for routing</li>
+<li><a href='https://reactjs.org'>ReactJs</a> : for front-end rendering</li>
+<li><a href='https://postgresql.com'>Postgresql</a> : for application database, used with sequelize as the ORM</li>
+</ul>
+<h2 id='installation'>Installation</h2>
+<p>Follow the steps below to setup a local development environment. First ensure you have <a href='https://postgresql.com'>Postgresql</a> installed, and a version of <a href='https://nodejs.org'>NodeJs</a> equal or greater than v6.8.0.</p>
+
+<ul>
+<li>Clone the repository from a terminal <code>git clone https://github.com/chykehyman/More-Recipes.git</code></li>
+<li>Move into the project directory <code>cd More-Recipes</code></li>
+<li>Add a <code>.env</code> file and add any preferred postgresql DB_URL.</li>
+<li>Install project dependencies <code>npm install</code></li>
+<li>Start the express server <code>npm start</code></li>
+</ul>
+<h2 id='json-web-token-jwt-for-user-authentication'>Json Web Token (JWT) for User Authentication</h2>
+<p>This application uses <code>username &amp; password</code> to authenticate users while generating a unique token. To use the token returned after successful <code>signin or signup</code>: </p>
+
+<ul>
+<li><p>Save the generated token to the browser local storage or session storage with a property name &quot;jwtToken&quot;. This gives users the priviledge to certain parts and aspect of the application they have permission to.</p></li>
+<li><p>If using Postman to test the routes, copy the token from the login or sign up response to the headers with key name <code>x-access-token</code>.</p></li>
+</ul>
+<h2 id='api-overview'>API Overview</h2><h3 id='user'>User</h3>
+<table><thead>
+<tr>
+<th>EndPoint</th>
+<th>Functionality</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>POST /api/v1/users/signup</td>
+<td>Creates a new user.</td>
+</tr>
+<tr>
+<td>POST /api/v1/users/signin</td>
+<td>Logs in a user.</td>
+</tr>
+<tr>
+<td>GET /api/v1/user/profile</td>
+<td>Retreives a logged in user&#39;s profile based on user decoded id.</td>
+</tr>
+<tr>
+<td>PUT /api/v1/user/profile</td>
+<td>Updates any logged in user&#39;s Profile except email based on the users id</td>
+</tr>
+</tbody></table>
+<h3 id='recipe'>Recipe</h3>
+<table><thead>
+<tr>
+<th>EndPoint</th>
+<th>Functionality</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>POST /api/v1/recipes</td>
+<td>Creates a new recipe. (available only to authenticated users)</td>
+</tr>
+<tr>
+<td>GET /api/v1/recipes</td>
+<td>Gets all recipes. (available to everyone)</td>
+</tr>
+<tr>
+<td>GET /api/v1/recipes/:recipeID&#39;</td>
+<td>Finds a recipe by id. (available to everyone)</td>
+</tr>
+<tr>
+<td>GET /api/v1/user/recipes</td>
+<td>Gets all recipes belonging to a particular user (available only to authenticated users)</td>
+</tr>
+<tr>
+<td>GET /api/v1/recipes?sort=upvotes&amp;&amp;order=desc</td>
+<td>Gets all recipes with the most up vote (available only to authenticated users)</td>
+</tr>
+<tr>
+<td>PUT /api/v1/recipes/:recipeID</td>
+<td>Updates a recipe. (available only to authenticated &amp;  users who added the recipe)</td>
+</tr>
+<tr>
+<td>DELETE /api/v1/recipes/:recipeID</td>
+<td>Deletes a recipe. (available only to the users who added the recipe)&#39;</td>
+</tr>
+</tbody></table>
+<h3 id='favourite'>Favourite</h3>
+<table><thead>
+<tr>
+<th>EndPoint</th>
+<th>Functionality</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>POST /api/v1/recipes/:recipeID/favorites</td>
+<td>Adds or removes a recipe to/from user&#39;s favourite recipes catalog. (available only to authenticated users)</td>
+</tr>
+<tr>
+<td>GET /api/v1/user/favorites</td>
+<td>Gets all user&#39;s favourite recipes. (available only to authenticated users)</td>
+</tr>
+<tr>
+<td>DELETE /api/user/favorites/:recipeID</td>
+<td>Delete a recipe from user&#39;s favourite recipes catalog. (available only to authenticated users)</td>
+</tr>
+</tbody></table>
+<h3 id='voting'>Voting</h3>
+<table><thead>
+<tr>
+<th>EndPoint</th>
+<th>Functionality</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>POST /api/v1/recipes/:recipeID/vote</td>
+<td>Upvoting and downvoting a recipe. (available only to authenticated users)</td>
+</tr>
+</tbody></table>
+<h3 id='reviews'>Reviews</h3>
+<table><thead>
+<tr>
+<th>EndPoint</th>
+<th>Functionality</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>POST /api/recipes/:recipeID/reviews</td>
+<td>Post review for a recipe. (available only to authenticated users)</td>
+</tr>
+</tbody></table>
+<h1 id='authentication'>Authentication</h1><h2 id='signup-user'>Signup User</h2>
+<p>This response handles user registration</p>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe@domain.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password123"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"repassword"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password123"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully created account"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe@gmail.com"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkpvaG4gRG9lIiwidXNlcm5hbWUiOiJqb2huZG9lIiwidXNlcklkIjoxLCJpYXQiOjE1MTA2OTM5ODQsImV4cCI6MTUxMDcyMjc4NH0.V7uV9JrLsQKLXvet46CxpOK_hIDbX9FHBCgFhWAVt98"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='request'>Request</h3>
+<ul>
+<li>Endpoint: POST: <code>api/v1/users/signup</code></li>
+<li>Body: <code>(application/x-www-form-urlencoded)</code></li>
+</ul>
+<h3 id='response'>Response</h3>
+<ul>
+<li>Status: <code>201: CREATED</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+
+<aside class="warning">username, email and password are unique</aside>
+<h2 id='signin-user'>Signin User</h2>
+<p>This endpoint handles user login to their More-Recipes account</p>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password123"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You are now logged In"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe@gmail.com"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG5kb2UiLCJ1c2VySWQiOjEsImlhdCI6MTUxNzg0OTcxMSwiZXhwIjoxNTE3ODc4NTExfQ.Pv3e0r9nKOqwHLI9KzIKA5K7PCOkJr_FLpnLnZY-4QQ"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='request-2'>Request</h3>
+<ul>
+<li>Endpoint: POST: <code>api/v1/users/signin</code></li>
+<li>Body: <code>(application/x-www-form-urlencoded)</code></li>
+</ul>
+<h3 id='response-2'>Response</h3>
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+
+<aside class="warning">username and password are unique</aside>
+<h1 id='profile'>Profile</h1><h2 id='get-user-profile'>Get User Profile</h2>
+<p>This endpoint handles retrieving of logged in user profile</p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User found"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe@gmail.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"profileImage"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"aboutMe"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='request-3'>Request</h3>
+<ul>
+<li>Endpoint: GET: <code>api/v1/user/profile</code></li>
+<li>Body: <code>(application/json)</code></li>
+<li>Requires: Authentication</li>
+</ul>
+<h3 id='response-3'>Response</h3>
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+<h2 id='update-user-profile'>Update User Profile</h2>
+<p>This endpoint handles updating of logged in user profile</p>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lagos"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"aboutMe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I am feeling ontop of the world"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"profileImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"profile.jpg"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully updated profile"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updatedUser"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe@gmail.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"profileImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"profile.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lagos"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"aboutMe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I am feeling ontop of the world"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='request-4'>Request</h3>
+<ul>
+<li>Endpoint: PUT: <code>api/v1/user/profile</code></li>
+<li>Body: <code>(application/json)</code></li>
+<li>Requires: Authentication</li>
+</ul>
+<h3 id='response-4'>Response</h3>
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+<h1 id='recipes'>Recipes</h1><h2 id='create-a-recipe'>Create a recipe</h2>
+<p>This endpoint handles creating recipes</p>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sweet Cake Cup"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maggie. gsiisy. hhsbhsh. nhsgs. gagaga."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"procedures"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sssddhhd. bdghdhb. hdbvhbdbjs. jsbdhdhaaga."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"recipeOne.jpg"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully added new recipe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"viewsCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"upvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"downvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"hasOwnerViewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sweet Cake Cup"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maggie. gsiisy. hhsbhsh. nhsgs. gagaga."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"procedures"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sssddhhd. bdghdhb. hdbvhbdbjs. jsbdhdhaaga."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"recipeOne.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T17:30:32.619Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T17:30:32.619Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: POST: <code>api/v1/recipes</code></li>
+<li>Body: <code>(application/json)</code></li>
+<li>Requires: Authentication</li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>201: Created</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+<h2 id='get-a-recipe'>Get a recipe</h2>
+<p>This endpoint handles retrieving a particular recipe</p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully retrieved recipe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sweet Cake Cup"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maggie. gsiisy. hhsbhsh. nhsgs. gagaga."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"procedures"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sssddhhd. bdghdhb. hdbvhbdbjs. jsbdhdhaaga."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"recipeOne.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"viewsCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"upvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"downvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"hasOwnerViewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T17:30:32.619Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T17:42:07.942Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"User"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"Reviews"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"isFavorited"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"vote"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: GET: <code>api/v1/recipes/1</code></li>
+<li>Body: <code>(application/json)</code></li>
+<li>Requires: No authentication require. But if provided, a check is done</li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+<h2 id='get-user-recipes'>Get user recipes</h2>
+<p>This endpoint handles retrieving of all user recipes</p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully retrieved your recipe(s)"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"numberOfRecipes"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currentPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Meat Pie"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maggie. gsiisy. hhsbhsh. nhsgs. gagaga."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"procedures"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sssddhhd. bdghdhb. hdbvhbdbjs. jsbdhdhaaga."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"recipeTwo.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"viewsCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasOwnerViewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T18:12:02.955Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T18:12:02.955Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sweet Cake Cup"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maggie. gsiisy. hhsbhsh. nhsgs. gagaga."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"procedures"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sssddhhd. bdghdhb. hdbvhbdbjs. jsbdhdhaaga."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"recipeOne.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"viewsCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasOwnerViewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T17:30:32.619Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T17:59:27.533Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: GET: <code>api/v1/user/recipes</code></li>
+<li>Body: <code>(application/json)</code></li>
+<li>Requires: Authentication</li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+<h2 id='get-all-recipes'>Get all recipes</h2>
+<p>This endpoint handles retrieving of all recipes in the application</p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully retrieved your recipe(s)"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"numberOfRecipes"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currentPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Meat Pie"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maggie. gsiisy. hhsbhsh. nhsgs. gagaga."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"procedures"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sssddhhd. bdghdhb. hdbvhbdbjs. jsbdhdhaaga."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"recipeTwo.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"viewsCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasOwnerViewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T18:12:02.955Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T18:12:02.955Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sweet Cake Cup"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maggie. gsiisy. hhsbhsh. nhsgs. gagaga."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"procedures"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sssddhhd. bdghdhb. hdbvhbdbjs. jsbdhdhaaga."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"recipeOne.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"viewsCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"upvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"downvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasOwnerViewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T17:30:32.619Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T17:59:27.533Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: GET: <code>api/v1/recipes</code></li>
+<li>Body: <code>(application/json)</code></li>
+<li>Requires: No authentication required</li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+<h2 id='update-a-recipe'>Update a recipe</h2>
+<p>This endpoint handles updating a recipe</p>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bitter Cake Cup"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maggie. gsiisy. hhsbhsh. nhsgs. gagaga.more ingredients"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"procedures"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sssddhhd. bdghdhb. hdbvhbdbjs. jsbdhdhaaga. added more procedures"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully updated recipe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bitter Cake Cup"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maggie. gsiisy. hhsbhsh. nhsgs. gagaga.more ingredients"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"procedures"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sssddhhd. bdghdhb. hdbvhbdbjs. jsbdhdhaaga. added more procedures"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"recipeOne.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"viewsCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"upvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"downvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"hasOwnerViewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T17:30:32.619Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T18:29:48.363Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: PUT: <code>api/v1/recipes/1</code></li>
+<li>Body: <code>(application/json)</code></li>
+<li>Requires: Authentication</li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+<h2 id='delete-a-recipe'>Delete a recipe</h2>
+<p>This endpoint handles deleting a recipe</p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully delected recipe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bitter Cake Cup"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ingredients"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maggie. gsiisy. hhsbhsh. nhsgs. gagaga.more ingredients"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"procedures"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sssddhhd. bdghdhb. hdbvhbdbjs. jsbdhdhaaga. added more procedures"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"recipeOne.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"viewsCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"upvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"downvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"hasOwnerViewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T17:30:32.619Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T18:29:48.363Z"</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: DELETE: <code>api/v1/recipes/1</code></li>
+<li>Body: <code>(application/json)</code></li>
+<li>Requires: Authentication</li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+<h1 id='voting-2'>Voting</h1><h2 id='upvote-a-recipe'>Upvote a recipe</h2>
+<p>This endpoint handles upvoting a recipe</p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thanks for upvoting"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"voteLog"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"upvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"downvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"userVote"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upvote"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: POST: <code>api/v1/recipes/2/vote?vote=upvote</code></li>
+<li>Body: <code>(application/json)</code></li>
+<li>Requires: Authentication</li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>201: Created</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+<h2 id='downvote-a-recipe'>Downvote a recipe</h2>
+<p>This endpoint handles downvoting a recipe</p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thanks for downvoting"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"voteLog"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"upvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"downvotes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"userVote"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upvote"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: POST: <code>api/v1/recipes/3/vote?vote=downvote</code></li>
+<li>Body: <code>(application/json)</code></li>
+<li>Requires: Authentication</li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>201: Created</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+<h1 id='favorite'>Favorite</h1><h2 id='add-favorite'>Add favorite</h2>
+<p>This endpoint handles favoriting a recipe</p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipe has been favorited"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"favoritedRecipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T19:13:06.177Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T19:13:06.177Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: POST: <code>api/v1/recipes/:recipeID/favorites</code></li>
+<li>Body: <code>(application/json)</code></li>
+<li>Requires: Authentication</li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>201: Created</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+<h2 id='get-favorites'>Get favorites</h2>
+<p>This endpoint handles retrieving of user&#39;s favorite recipe</p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully retrieved your favorite Recipe(s)"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"numberOfRecipes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currentPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recipes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"recipeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T19:13:06.177Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T19:13:06.177Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Recipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Meat Pie"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"recipeImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"recipeTwo.jpg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"viewsCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"User"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: GET: <code>api/v1/user/favorites</code></li>
+<li>Body: <code>(application/json)</code></li>
+<li>Requires: Authentication</li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+<h2 id='delete-favorite'>Delete favorite</h2>
+<p>This endpoint handles deleting a user favorited recipe</p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully deleted Recipe"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: DELETE: <code>api/v1/user/favorites/:recipeID</code></li>
+<li>Body: <code>(application/json)</code></li>
+<li>Requires: Authentication</li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+<h1 id='review'>Review</h1><h2 id='post-a-review'>Post a review</h2>
+<p>This endpoint handles review posting for a recipe</p>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"reviewBody"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is good. Nice job"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully posted review"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"postedReview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"reviewBody"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is good. Nice job"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnwoe"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"profileImage"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recipeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T19:28:36.422Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-05T19:28:36.422Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Request</p>
+
+<ul>
+<li>Endpoint: POST: <code>api/v1/recipes/:recipeID/reviews</code></li>
+<li>Body: <code>(application/json)</code></li>
+<li>Requires: Authentication</li>
+</ul>
+
+<p>Response</p>
+
+<ul>
+<li>Status: <code>201: Created</code></li>
+<li>Body: <code>(application/json)</code></li>
+</ul>
+<h1 id='errors'>Errors</h1>
+<p>The More-Recipes API uses the following error codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request -- Your request sucks.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized -- Your API key is wrong.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found -- The specified kitten could not be found.</td>
+</tr>
+<tr>
+<td>406</td>
+<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
+</tr>
+<tr>
+<td>409</td>
+<td>Conflicts -- Your request already exist.</td>
+</tr>
+<tr>
+<td>422</td>
+<td>Unprocessable entity -- Your requested format was undefined.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="javascript">javascript</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>

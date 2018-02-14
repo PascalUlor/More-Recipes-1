@@ -16,9 +16,11 @@ const updateProfileValidations = (data) => {
   } else { errors.fullName = 'Full name is required'; }
 
   if (!validator.isEmpty(username)) {
-    if (validator.toInt(username)) {
-      errors.username = 'Username must not start with number(s)';
-    }
+    if (!validator.toInt(username)) {
+      if (!validator.isLength(username, { min: 3, max: 25 })) {
+        errors.username = 'Username must be at least 3 to 25 characters';
+      }
+    } else { errors.username = 'Username must not start with number(s)'; }
   } else { errors.username = 'Username is required'; }
 
   if (!validator.isEmpty(email)) {
@@ -35,7 +37,7 @@ const updateProfileValidations = (data) => {
 
   if (aboutMe) {
     if (!validator.isLength(aboutMe, { min: 4, max: undefined })) {
-      errors.aboutMe = 'Provided description must be atleast 4 characters';
+      errors.aboutMe = 'Provided description must be at least 4 characters';
     }
   }
 

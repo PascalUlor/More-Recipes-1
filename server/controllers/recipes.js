@@ -5,22 +5,22 @@ import requestFeedback from '../utils/requestFeedback';
 import modifiedFavoriteNotifier from '../utils/modifiedFavoriteNotifier';
 
 const {
-  Users,
-  Recipes,
-  Reviews,
-  Favorites,
-  Votes
+  User,
+  Recipe,
+  Review,
+  Favorite,
+  Vote
 } = models;
 
 
 /**
  * Class implementation for /api/v1/recipes routes
- * @class RecipesApiController
+ * @class RecipeApiController
  */
-export default class RecipesApiController {
+export default class RecipeApiController {
   /**
    * Add a recipe to recipes catalog
-   * @memberof RecipesApiController
+   * @memberof RecipeApiController
    * @static
    *
    * @param   {object} request   the server/http(s) request object
@@ -31,32 +31,36 @@ export default class RecipesApiController {
    */
   static addRecipe(request, response) {
     const {
-      title,
-      ingredients,
-      procedures,
-      recipeImage
-    } = request.body, { userId } = request.decoded;
-    Recipes.findOne({ where: { title, userId } }).then((found) => {
+        title,
+        ingredients,
+        procedures,
+        recipeImage
+      } = request.body, { userId } = request.decoded;
+    Recipe.findOne({ where: { title, userId } }).then((found) => {
       if (found && found.title === title) {
-        return requestFeedback.error(response, 409,
-          `Recipe with title:${title}, already exist in your catalog`);
+        return requestFeedback.error(
+          response, 409,
+          `Recipe with title:${title}, already exist in your catalog`
+        );
       }
 
-      return Recipes.create({
-          title,
-          ingredients,
-          procedures,
-          recipeImage,
-          userId
-        }).then(recipe => requestFeedback.success(response, 201,
-          'Successfully added new recipe', { recipe }))
+      return Recipe.create({
+        title,
+        ingredients,
+        procedures,
+        recipeImage,
+        userId
+      }).then(recipe => requestFeedback.success(
+        response, 201,
+        'Successfully added new recipe', { recipe }
+      ))
         .catch(error => requestFeedback.error(response, 500, error.message));
     }).catch(error => requestFeedback.error(response, 500, error.message));
   }
 
   /**
    * Modify a recipe in the recipes catalog
-   * @memberof RecipesApiController
+   * @memberof RecipeApiController
    * @static
    *
    * @param   {object} request   the server/http(s) request object
@@ -67,14 +71,14 @@ export default class RecipesApiController {
    */
   static updateRecipe(request, response) {
     const {
-      title,
-      ingredients,
-      procedures,
-      recipeImage
-    } = request.body, { userId } = request.decoded,
+        title,
+        ingredients,
+        procedures,
+        recipeImage
+      } = request.body, { userId } = request.decoded,
       recipeId = request.params.recipeID;
 
-    return Recipes.findById(recipeId).then((recipe) => {
+    return Recipe.findById(recipeId).then((recipe) => {
       if (recipe.userId === userId) {
         return recipe.updateAttributes({
           title: (title) || recipe.title,
@@ -82,39 +86,51 @@ export default class RecipesApiController {
           procedures: (procedures) || recipe.procedures,
           recipeImage: (recipeImage) || recipe.recipeImage
         }).then(() => {
-          Favorites.findAll({
+          Favorite.findAll({
             where: { recipeId: recipe.id },
             attributes: ['userId']
           }).then((favorites) => {
             if (favorites.length === 0) {
-              return requestFeedback.success(response, 200,
-                'Successfully updated recipe', { recipe });
+              return requestFeedback.success(
+                response, 200,
+                'Successfully updated recipe', { recipe }
+              );
             }
 
             const allFoundUserIds = favorites.map(favorite => favorite.userId);
 
-            return Users.findAll({
+            return User.findAll({
               where: { id: allFoundUserIds },
               attributes: ['username', 'email']
             }).then((allFoundRecipeUsers) => {
-              requestFeedback.success(response, 200,
-                'Successfully updated recipe', { recipe });
-              modifiedFavoriteNotifier(Users, userId,
-                recipe, allFoundRecipeUsers, request);
+              requestFeedback.success(
+                response, 200,
+                'Successfully updated recipe', { recipe }
+              );
+              modifiedFavoriteNotifier(
+                User, userId,
+                recipe, allFoundRecipeUsers, request
+              );
             });
           });
-        }).catch(error => (requestFeedback.error(response,
-          500, error.message)));
+        }).catch(error => (requestFeedback.error(
+          response,
+          500, error.message
+        )));
       }
-      return requestFeedback.error(response, 401,
-        'Can not update a recipe not created by you');
-    }).catch(() => requestFeedback.error(response, 404,
-      'Recipe not found or has been deleted'));
+      return requestFeedback.error(
+        response, 401,
+        'Can not update a recipe not created by you'
+      );
+    }).catch(() => requestFeedback.error(
+      response, 404,
+      'Recipe not found or has been deleted'
+    ));
   }
 
   /**
    * Deleting a recipe from the recipes catalog
-   * @memberof RecipesApiController
+   * @memberof RecipeApiController
    * @static
    *
    * @param   {object} request   the server/http(s) request object
@@ -128,25 +144,31 @@ export default class RecipesApiController {
       recipeId = parseInt(request.params.recipeID.trim(), 10);
 
     if (checkId.recipeId(response, recipeId)) {
-      return Recipes.findById(recipeId).then((recipe) => {
+      return Recipe.findById(recipeId).then((recipe) => {
         if (recipe.userId === userId) {
-          return Recipes.destroy({
+          return Recipe.destroy({
             where: {
               id: recipeId
             },
-          }).then(() => requestFeedback.success(response, 200,
-            'Successfully delected recipe', { recipe }));
+          }).then(() => requestFeedback.success(
+            response, 200,
+            'Successfully delected recipe', { recipe }
+          ));
         }
-        return requestFeedback.error(response, 401,
-          'You can not delete a recipe not created by you');
-      }).catch(() => requestFeedback.error(response, 404,
-        'Recipe not found or has been deleted'));
+        return requestFeedback.error(
+          response, 401,
+          'You can not delete a recipe not created by you'
+        );
+      }).catch(() => requestFeedback.error(
+        response, 404,
+        'Recipe not found or has been deleted'
+      ));
     }
   }
 
   /**
    * Retrieve all recipes from catalog either in sorted or non sorted format
-   * @memberof RecipesApiController
+   * @memberof RecipeApiController
    * @static
    *
    * @param   {object} request   the server/http(s) request object
@@ -156,22 +178,29 @@ export default class RecipesApiController {
    * success message object with recipe data
    */
   static getRecipes(request, response) {
-    const message1 = 'There are no available recipes';
+    let message1 = 'There are no available recipes';
     if (!request.query.sort) {
+      if (request.query.search) {
+        message1 = 'No Recipes Found';
+      }
       const message2 = 'Successfully retrieved all recipes';
-      return fetchRecipes(request, response, Recipes, Users,
-        null, 0, 'updatedAt', 'DESC', message1, message2);
+      return fetchRecipes(
+        request, response, Recipe, User,
+        null, 0, 'updatedAt', 'DESC', message1, message2
+      );
     }
     const orderBy = request.query.sort.toUpperCase(),
       orderType = request.query.order.toUpperCase(),
       message2 = 'Successfully retrieved all recipes by upvote or downvote';
-    return fetchRecipes(request, response, Recipes, Users, null, 0,
-      orderBy.toLowerCase(), orderType.toLowerCase(), message1, message2);
+    return fetchRecipes(
+      request, response, Recipe, User, null, 0,
+      orderBy.toLowerCase(), orderType.toLowerCase(), message1, message2
+    );
   }
 
   /**
    * @description Retrieves all user recipes from their recipes catalog
-   * @memberof RecipesApiController
+   * @memberof RecipeApiController
    * @static
    *
    * @param   {object} request   the server/http(s) request object
@@ -185,13 +214,15 @@ export default class RecipesApiController {
 
     const message1 = 'You have no available recipes',
       message2 = 'Successfully retrieved your recipe(s)';
-    fetchRecipes(request, response, Recipes, Users, null,
-      userId, 'createdAt', 'DESC', message1, message2);
+    fetchRecipes(
+      request, response, Recipe, User, null,
+      userId, 'createdAt', 'DESC', message1, message2
+    );
   }
 
   /**
    * @description Retrieves a particular recipe from the database
-   * @memberof RecipesApiController
+   * @memberof RecipeApiController
    * @static
    *
    * @param   {object} request   the server/http(s) request object
@@ -206,23 +237,21 @@ export default class RecipesApiController {
       vote = '';
 
     if (checkId.recipeId(response, recipeId)) {
-      Recipes.findById(recipeId, {
+      Recipe.findById(recipeId, {
         include: [
-          { model: Users, attributes: ['fullName'] },
+          { model: User, attributes: ['fullName'] },
           {
-            model: Reviews,
+            model: Review,
             attributes: [
               'id', 'reviewBody', 'username', 'profileImage', 'createdAt'
             ]
           }
         ]
       }).then((recipe) => {
-        const updateRecipe = (boolean) => {
-          return recipe.update({
-            viewsCount: recipe.viewsCount + 1,
-            hasOwnerViewed: boolean
-          });
-        }
+        const updateRecipe = boolean => recipe.update({
+          viewsCount: recipe.viewsCount + 1,
+          hasOwnerViewed: boolean
+        });
         if (recipe) {
           if (request.decoded) {
             const { userId } = request.decoded;
@@ -232,30 +261,35 @@ export default class RecipesApiController {
               updateRecipe(recipe.hasOwnerViewed);
             }
 
-            return Favorites.findOne({
+            return Favorite.findOne({
               where: { userId, recipeId }
             }).then((foundFavorite) => {
               if (foundFavorite) {
                 isFavorited = true;
               }
-              Votes.findOne({
+              Vote.findOne({
                 where: { userId, recipeId }
               }).then((foundVote) => {
                 if (foundVote) {
-                  vote = foundVote.vote;
+                  ({ vote } = foundVote);
                 }
-                return requestFeedback.success(response, 200,
-                  "Successfully retrieved recipe", { recipe, isFavorited, vote }
+                return requestFeedback.success(
+                  response, 200,
+                  'Successfully retrieved recipe', { recipe, isFavorited, vote }
                 );
               });
-            })
+            });
           }
           updateRecipe(recipe.hasOwnerViewed);
-          return requestFeedback.success(response, 200,
-            "Successfully retrieved recipe", { recipe, isFavorited, vote });
+          return requestFeedback.success(
+            response, 200,
+            'Successfully retrieved recipe', { recipe, isFavorited, vote }
+          );
         }
-        return requestFeedback.error(response, 404,
-          'Recipe not found or has been deleted');
+        return requestFeedback.error(
+          response, 404,
+          'Recipe not found or has been deleted'
+        );
       });
     }
   }

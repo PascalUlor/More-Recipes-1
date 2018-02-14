@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -10,11 +11,11 @@ import FavoriteRecipesList from './favoriteRecipesPage/FavoriteRecipesList.jsx';
 import DeleteRecipeModal from './DeleteRecipeModal.jsx';
 import Footer from './Footer.jsx';
 import fetchFavoriteRecipesRequest from
-'../actions/actionCreators/getFavoriteRecipesActions';
+  '../actions/actionCreators/getFavoriteRecipesActions';
 import deleteFavoriteRecipeRequest from
-'../actions/actionCreators/deleteFavoriteRecipeActions';
+  '../actions/actionCreators/deleteFavoriteRecipeActions';
 import setCurrentRecipeRequest from
-'../actions/actionCreators/setCurrentRecipeActions';
+  '../actions/actionCreators/setCurrentRecipeActions';
 import {
   deleteSelectedRecipe,
   fetchCurrentPageRecipes
@@ -28,10 +29,10 @@ import {
  *
  * @extends Component
  */
-class FavoriteRecipesPage extends Component {
+export class FavoriteRecipesPage extends Component {
   /**
    * @description creates an instance of FavoriteRecipesPage
-   * 
+   *
    * @constructor
    *
    * @param { props } props - contains favorite recipes component properties
@@ -51,7 +52,7 @@ class FavoriteRecipesPage extends Component {
   }
   /**
    * @description handles fetching user's favorite recipes
-   * 
+   *
    * @method componentDidMount
    *
    * @returns { * } null
@@ -63,49 +64,49 @@ class FavoriteRecipesPage extends Component {
   /**
    * @description receives update on lastest updates
    * @method componentWillReceiveProps
-   * 
+   *
    * @param {object} nextProps - object of new incoming property
-   * 
+   *
    * @returns {*} null
    */
   componentWillReceiveProps(nextProps) {
     const { favoriteRecipes, paginationDetails, currentRecipeId } = nextProps,
-    { currentPage, limit, numberOfRecipes } = paginationDetails;
-      this.setState({
-        favoriteRecipes,
-        currentPage,
-        numberOfRecipes,
-        pageSize: limit,
-        recipeId: currentRecipeId
-      });
+      { currentPage, limit, numberOfRecipes } = paginationDetails;
+    this.setState({
+      favoriteRecipes,
+      currentPage,
+      numberOfRecipes,
+      pageSize: limit,
+      recipeId: currentRecipeId
+    });
   }
   /**
    * @description handles deleting of user's favorite recipes and fetches
    * the remaining
    * @method handleDeleteFavoriteRecipe
-   * 
+   *
    * @returns {*} null
    */
   handleDeleteFavoriteRecipe() {
     const { deleteFavoriteRecipe, fetchFavoriteRecipes } = this.props,
       { currentPage, recipeId } = this.state;
     deleteSelectedRecipe(deleteFavoriteRecipe, recipeId)
-    .then(() => {
-      const {
-        deleteSuccess, deleteError, isFetching, favoriteRecipes
-      } = this.props;
-      fetchCurrentPageRecipes(
-        deleteSuccess, deleteError, fetchFavoriteRecipes,
-        isFetching, favoriteRecipes, currentPage, toastr
-      );
-    });
+      .then(() => {
+        const {
+          deleteSuccess, deleteError, isFetching, favoriteRecipes
+        } = this.props;
+        fetchCurrentPageRecipes(
+          deleteSuccess, deleteError, fetchFavoriteRecipes,
+          isFetching, favoriteRecipes, currentPage, toastr
+        );
+      });
   }
   /**
    * @description handles page navigation
    * @method handlePageChange
-   * 
+   *
    * @param {number} page - page number to fetch
-   * 
+   *
    * @returns {*} null
    */
   handlePageChange(page) {
@@ -119,9 +120,9 @@ class FavoriteRecipesPage extends Component {
    */
   render() {
     const {
-    favoriteRecipes, currentPage, pageSize, numberOfRecipes
-  } = this.state,
-  { isFetching } = this.props;
+        favoriteRecipes, currentPage, pageSize, numberOfRecipes
+      } = this.state,
+      { isFetching } = this.props;
     return (
       <div className="bg-faded">
         <div className="site-wrapper">
@@ -133,10 +134,10 @@ class FavoriteRecipesPage extends Component {
                 <div style={{ textAlign: 'center' }}>
                   <Spinner size={50} className="mt-5 mb-5"/>
                 </div>
-              :
+                :
                 <div>
                   <div className=
-                  "col-10 offset-1 offet-sm-1 offset-md-1 offset-lg-1">
+                    "col-10 offset-1 offet-sm-1 offset-md-1 offset-lg-1">
                     <FavoriteRecipesList
                       favorites={favoriteRecipes}
                       setCurrentRecipe={this.props.setCurrentRecipe}/>
@@ -144,8 +145,8 @@ class FavoriteRecipesPage extends Component {
                       handleDelete={this.handleDeleteFavoriteRecipe}/>
                   </div>
                   <div className="col-11 offset-1 pl-0">
-                  { 
-                    (numberOfRecipes > 6 &&
+                    {
+                      (numberOfRecipes > 6 &&
                     typeof numberOfRecipes !== 'undefined') &&
                       <Pagination
                         onChange={this.handlePageChange}
@@ -154,9 +155,9 @@ class FavoriteRecipesPage extends Component {
                         total={numberOfRecipes}
                         className="pagination"
                       />
-                  }
+                    }
                   </div>
-              </div>
+                </div>
               }
             </div>
           </main>
@@ -186,12 +187,12 @@ FavoriteRecipesPage.propTypes = {
  * @return { object } props - returns mapped props from state
  */
 const mapStateToProps = state => ({
- favoriteRecipes: state.favoriteRecipes.fetchedFavoriteRecipes,
- isFetching: state.favoriteRecipes.isFavoriteRecipesFetching,
- deleteSuccess: state.favoriteRecipes.deleteFavoriteSuccessMessage,
- deleteError: state.favoriteRecipes.deleteFavoriteError,
- currentRecipeId: state.setCurrentRecipe.currentSetRecipeId,
- paginationDetails: state.favoriteRecipes.paginationDetails
+  favoriteRecipes: state.favoriteRecipes.fetchedFavoriteRecipes,
+  isFetching: state.favoriteRecipes.isFavoriteRecipesFetching,
+  deleteSuccess: state.favoriteRecipes.deleteFavoriteSuccessMessage,
+  deleteError: state.favoriteRecipes.deleteFavoriteError,
+  currentRecipeId: state.setCurrentRecipe.currentSetRecipeId,
+  paginationDetails: state.favoriteRecipes.paginationDetails
 });
 /**
  * @description maps action dispatch to props
@@ -203,7 +204,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchFavoriteRecipes: page => dispatch(fetchFavoriteRecipesRequest(page)),
   deleteFavoriteRecipe: recipeId =>
-  dispatch(deleteFavoriteRecipeRequest(recipeId)),
+    dispatch(deleteFavoriteRecipeRequest(recipeId)),
   setCurrentRecipe: recipeId => dispatch(setCurrentRecipeRequest(recipeId))
 });
 

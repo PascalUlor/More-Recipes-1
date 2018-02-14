@@ -1,0 +1,227 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NavBar/> should render without crashing 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "blank",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <NavBar
+        authenticatedUser={
+          Object {
+            "isAuthenticated": false,
+            "user": Object {},
+          }
+        }
+        logOut={[MockFunction]}
+        router={
+          Object {
+            "history": Object {
+              "push": [MockFunction],
+            },
+          }
+        }
+      >
+        <div
+          className="container pl-0 pr-0"
+        >
+          <header
+            className="mb-5"
+          >
+            <nav
+              className="navbar navbar-toggleable-md navbar-light fixed-top"
+            >
+              <button
+                aria-controls="navbarItems"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                className="navbar-toggler navbar-toggler-right"
+                data-target="#navbarItems"
+                data-toggle="collapse"
+                type="button"
+              >
+                <span
+                  className="navbar-toggler-icon"
+                />
+              </button>
+              <Link
+                className="navbar-brand"
+                replace={false}
+                to="/"
+              >
+                <a
+                  className="navbar-brand"
+                  href="/"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="More Recipe Logo"
+                    className="d-inline-block align-center"
+                    height="32"
+                    src="/images/logo.png"
+                    width="45"
+                  />
+                  <span
+                    id="site-name"
+                  >
+                    More Recipes
+                  </span>
+                </a>
+              </Link>
+              <GuestNavBar>
+                <div
+                  className="collapse navbar-collapse"
+                  id="navbarItems"
+                >
+                  <ul
+                    className="navbar-nav ml-auto text-center"
+                  >
+                    <li
+                      className="nav-item"
+                    >
+                      <NavLink
+                        activeClassName="active"
+                        activeStyle={
+                          Object {
+                            "backgroundColor": "whitesmoke",
+                            "color": "darkcyan",
+                            "fontWeight": "600",
+                          }
+                        }
+                        ariaCurrent="true"
+                        className="nav-link"
+                        to="/"
+                      >
+                        <Route
+                          path="/"
+                        >
+                          <Link
+                            aria-current={false}
+                            className="nav-link"
+                            replace={false}
+                            to="/"
+                          >
+                            <a
+                              aria-current={false}
+                              className="nav-link"
+                              href="/"
+                              onClick={[Function]}
+                            >
+                              Home
+                            </a>
+                          </Link>
+                        </Route>
+                      </NavLink>
+                    </li>
+                    <li
+                      className="nav-item"
+                    >
+                      <NavLink
+                        activeClassName="active"
+                        activeStyle={
+                          Object {
+                            "backgroundColor": "whitesmoke",
+                            "color": "darkcyan",
+                            "fontWeight": "600",
+                          }
+                        }
+                        ariaCurrent="true"
+                        className="nav-link"
+                        to="/recipes"
+                      >
+                        <Route
+                          path="/recipes"
+                        >
+                          <Link
+                            aria-current={false}
+                            className="nav-link"
+                            replace={false}
+                            to="/recipes"
+                          >
+                            <a
+                              aria-current={false}
+                              className="nav-link"
+                              href="/recipes"
+                              onClick={[Function]}
+                            >
+                              All Recipes
+                            </a>
+                          </Link>
+                        </Route>
+                      </NavLink>
+                    </li>
+                    <li
+                      className="nav-item"
+                    >
+                      <Link
+                        className="nav-link"
+                        replace={false}
+                        to="/signin"
+                      >
+                        <a
+                          className="nav-link"
+                          href="/signin"
+                          onClick={[Function]}
+                        >
+                          Login
+                        </a>
+                      </Link>
+                    </li>
+                    <li
+                      className="nav-item"
+                    >
+                      <Link
+                        className="nav-link nav-button"
+                        replace={false}
+                        to="/signup"
+                      >
+                        <a
+                          className="nav-link nav-button"
+                          href="/signup"
+                          onClick={[Function]}
+                        >
+                          Register
+                        </a>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </GuestNavBar>
+            </nav>
+          </header>
+        </div>
+      </NavBar>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;

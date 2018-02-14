@@ -12,11 +12,23 @@
     "start:dev": "rm -rf build && export NODE_ENV=development && npm run build:dev:client && nodemon --watch server --exec babel-node -- server/app.js",
     "start:prod": "rm -rf build && rm -rf dist && export NODE_ENV=production && npm run heroku-postbuild && npm start",
     "test": "export NODE_ENV=test && nyc --reporter=html --reporter=text mocha --timeout 500000 --compilers js:babel-core/register server/specs/*test.js",
+    "test:client": "jest /client --coverage --collectCoverageFrom=client/**/*.{js,jsx}",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "heroku-postbuild": "npm run build:prod:client && npm run build:prod:server",
     "migrate:dev": "export NODE_ENV=development && sequelize db:migrate:undo:all && sequelize db:migrate",
     "migrate:prod": "export NODE_ENV=production && sequelize db:migrate:undo:all && sequelize db:migrate",
     "migrate:test": "export NODE_ENV=test && sequelize db:migrate:undo:all && sequelize db:migrate"
+  },
+  "jest": {
+    "setupFiles": [
+      "./client/tests/jestSetup.js"
+    ],
+    "modulePathIgnorePatterns": [
+      "./client/assets/",
+      "./client/store.js",
+      "./client/Index.jsx",
+      "./client/reducers/index.js"
+    ]
   },
   "repository": {
     "type": "git",
@@ -88,18 +100,31 @@
     "winston": "^2.4.0"
   },
   "devDependencies": {
+    "babel-jest": "^22.1.0",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
     "coveralls": "^3.0.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.1",
     "eslint": "^4.7.2",
+    "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.0.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-react": "^7.4.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1",
+    "expect": "^22.1.0",
+    "jest": "^22.1.4",
     "mocha-istanbul": "^0.3.0",
     "mocha-lcov-reporter": "^1.3.0",
+    "moxios": "^0.4.0",
     "nyc": "^11.2.1",
     "react-hot-loader": "^3.1.1",
+    "react-test-renderer": "^16.2.0",
+    "redux-mock-store": "^1.5.1",
+    "redux-testkit": "^1.0.6",
     "sequelize-cli": "^3.0.0",
+    "sinon": "^4.3.0",
     "supertest": "^3.0.0"
   }
 }

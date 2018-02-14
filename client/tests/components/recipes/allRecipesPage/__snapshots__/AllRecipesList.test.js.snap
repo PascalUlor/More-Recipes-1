@@ -1,0 +1,322 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AllRecipesList component should render correctly 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "blank",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <AllRecipesList
+      allRecipes={
+        Array [
+          Object {
+            "User": Object {
+              "fullName": "",
+            },
+            "downvotes": 2,
+            "id": 1,
+            "recipeImage": "",
+            "title": "",
+            "upvotes": 1,
+            "viewsCount": 1,
+          },
+          Object {
+            "User": Object {
+              "fullName": "",
+            },
+            "downvotes": 0,
+            "id": 2,
+            "recipeImage": "",
+            "title": "",
+            "upvotes": 1,
+            "viewsCount": 1,
+          },
+        ]
+      }
+      errorMessage=""
+    >
+      <div
+        className="card-deck mb-3 mt-3"
+      >
+        <AllRecipe
+          allRecipe={
+            Object {
+              "User": Object {
+                "fullName": "",
+              },
+              "downvotes": 2,
+              "id": 1,
+              "recipeImage": "",
+              "title": "",
+              "upvotes": 1,
+              "viewsCount": 1,
+            }
+          }
+          key="1"
+        >
+          <div
+            className="col-12 col-md-6 col-lg-4"
+          >
+            <div
+              className="card mb-4"
+            >
+              <Link
+                replace={false}
+                to="recipes/1/recipe-details"
+              >
+                <a
+                  href="recipes/1/recipe-details"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="Card image cap"
+                    className="card-img-top img-fluid"
+                    src=""
+                  />
+                </a>
+              </Link>
+              <div
+                className="card-body text-center pt-1 pb-2"
+              >
+                <h6
+                  className="card-title mt-2"
+                >
+                  <small
+                    className="float-right pr-2"
+                  >
+                    <i
+                      className="fa fa-eye"
+                    />
+                     
+                    1
+                  </small>
+                </h6>
+                <p
+                  className="text-muted w-100"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="fa fa-user text-info"
+                  />
+                   
+                </p>
+                <div
+                  className="card-text"
+                >
+                  <small
+                    className="text-success pr-1"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-thumbs-o-up"
+                    />
+                     
+                    1
+                  </small>
+                  <Link
+                    className="btn btn-outline-info btn-sm"
+                    replace={false}
+                    role="button"
+                    to="recipes/1/recipe-details"
+                  >
+                    <a
+                      className="btn btn-outline-info btn-sm"
+                      href="recipes/1/recipe-details"
+                      onClick={[Function]}
+                      role="button"
+                    >
+                      <small>
+                        View
+                      </small>
+                    </a>
+                  </Link>
+                  <small
+                    className="text-danger pl-1"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-thumbs-o-down"
+                    />
+                     
+                    2
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </AllRecipe>
+        <AllRecipe
+          allRecipe={
+            Object {
+              "User": Object {
+                "fullName": "",
+              },
+              "downvotes": 0,
+              "id": 2,
+              "recipeImage": "",
+              "title": "",
+              "upvotes": 1,
+              "viewsCount": 1,
+            }
+          }
+          key="2"
+        >
+          <div
+            className="col-12 col-md-6 col-lg-4"
+          >
+            <div
+              className="card mb-4"
+            >
+              <Link
+                replace={false}
+                to="recipes/2/recipe-details"
+              >
+                <a
+                  href="recipes/2/recipe-details"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="Card image cap"
+                    className="card-img-top img-fluid"
+                    src=""
+                  />
+                </a>
+              </Link>
+              <div
+                className="card-body text-center pt-1 pb-2"
+              >
+                <h6
+                  className="card-title mt-2"
+                >
+                  <small
+                    className="float-right pr-2"
+                  >
+                    <i
+                      className="fa fa-eye"
+                    />
+                     
+                    1
+                  </small>
+                </h6>
+                <p
+                  className="text-muted w-100"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="fa fa-user text-info"
+                  />
+                   
+                </p>
+                <div
+                  className="card-text"
+                >
+                  <small
+                    className="text-success pr-1"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-thumbs-o-up"
+                    />
+                     
+                    1
+                  </small>
+                  <Link
+                    className="btn btn-outline-info btn-sm"
+                    replace={false}
+                    role="button"
+                    to="recipes/2/recipe-details"
+                  >
+                    <a
+                      className="btn btn-outline-info btn-sm"
+                      href="recipes/2/recipe-details"
+                      onClick={[Function]}
+                      role="button"
+                    >
+                      <small>
+                        View
+                      </small>
+                    </a>
+                  </Link>
+                  <small
+                    className="text-danger pl-1"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-thumbs-o-down"
+                    />
+                     
+                    0
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </AllRecipe>
+      </div>
+    </AllRecipesList>
+  </Router>
+</BrowserRouter>
+`;
+
+exports[`AllRecipesList component should render correctly 2`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "blank",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <AllRecipesList
+      allRecipes={Array []}
+      errorMessage=""
+    >
+      <div
+        className="card-deck mb-3 mt-3"
+      >
+        <div
+          className="not-found lead"
+          id="all-recipes"
+        >
+          <i
+            className="fa fa-exclamation-triangle fa-3x pb-3 text-warning d-block"
+          />
+        </div>
+      </div>
+    </AllRecipesList>
+  </Router>
+</BrowserRouter>
+`;

@@ -1,0 +1,274 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FavoriteRecipesList component should render correctly 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "blank",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <FavoriteRecipesList
+      favorites={
+        Array [
+          Object {
+            "Recipe": Object {
+              "User": Object {
+                "fullName": "",
+              },
+              "recipeImage": "recipeImage.jpg",
+            },
+            "id": 1,
+          },
+          Object {
+            "Recipe": Object {
+              "User": Object {
+                "fullName": "",
+              },
+              "recipeImage": "recipeImage.jpg",
+            },
+            "id": 2,
+          },
+        ]
+      }
+      setCurrentRecipe={[MockFunction]}
+    >
+      <div
+        className="card-deck mb-4 mt-4"
+      >
+        <div
+          className="row w-100"
+        >
+          <FavoriteRecipe
+            favorite={
+              Object {
+                "Recipe": Object {
+                  "User": Object {
+                    "fullName": "",
+                  },
+                  "recipeImage": "recipeImage.jpg",
+                },
+                "id": 1,
+              }
+            }
+            key="1"
+            setCurrentRecipe={[MockFunction]}
+          >
+            <div
+              className="col-12 col-sm-12 col-md-6 col-lg-4 pt-2"
+            >
+              <div
+                className="card"
+              >
+                <Link
+                  replace={false}
+                  to="/recipes/undefined/recipe-details"
+                >
+                  <a
+                    href="/recipes/undefined/recipe-details"
+                    onClick={[Function]}
+                  >
+                    <img
+                      alt="Card image cap"
+                      className="card-img-top img-fluid"
+                      src="recipeImage.jpg"
+                    />
+                  </a>
+                </Link>
+                <div
+                  className="card-body p-2"
+                >
+                  <h5
+                    className="card-title mt-2"
+                  />
+                  <p
+                    className="text-muted w-100"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-user text-info"
+                    />
+                  </p>
+                  <div>
+                    <Link
+                      className="btn btn-sm btn-outline-info mr-2"
+                      replace={false}
+                      to="/recipes/undefined/recipe-details"
+                    >
+                      <a
+                        className="btn btn-sm btn-outline-info mr-2"
+                        href="/recipes/undefined/recipe-details"
+                        onClick={[Function]}
+                      >
+                        <i
+                          aria-hidden="true"
+                          className="fa fa-eye"
+                        />
+                         View
+                      </a>
+                    </Link>
+                    <button
+                      className="btn btn-sm btn-outline-danger ml-2"
+                      data-target="#deleteRecipeModal"
+                      data-toggle="modal"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <i
+                        className="fa fa-trash"
+                      />
+                       Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FavoriteRecipe>
+          <FavoriteRecipe
+            favorite={
+              Object {
+                "Recipe": Object {
+                  "User": Object {
+                    "fullName": "",
+                  },
+                  "recipeImage": "recipeImage.jpg",
+                },
+                "id": 2,
+              }
+            }
+            key="2"
+            setCurrentRecipe={[MockFunction]}
+          >
+            <div
+              className="col-12 col-sm-12 col-md-6 col-lg-4 pt-2"
+            >
+              <div
+                className="card"
+              >
+                <Link
+                  replace={false}
+                  to="/recipes/undefined/recipe-details"
+                >
+                  <a
+                    href="/recipes/undefined/recipe-details"
+                    onClick={[Function]}
+                  >
+                    <img
+                      alt="Card image cap"
+                      className="card-img-top img-fluid"
+                      src="recipeImage.jpg"
+                    />
+                  </a>
+                </Link>
+                <div
+                  className="card-body p-2"
+                >
+                  <h5
+                    className="card-title mt-2"
+                  />
+                  <p
+                    className="text-muted w-100"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-user text-info"
+                    />
+                  </p>
+                  <div>
+                    <Link
+                      className="btn btn-sm btn-outline-info mr-2"
+                      replace={false}
+                      to="/recipes/undefined/recipe-details"
+                    >
+                      <a
+                        className="btn btn-sm btn-outline-info mr-2"
+                        href="/recipes/undefined/recipe-details"
+                        onClick={[Function]}
+                      >
+                        <i
+                          aria-hidden="true"
+                          className="fa fa-eye"
+                        />
+                         View
+                      </a>
+                    </Link>
+                    <button
+                      className="btn btn-sm btn-outline-danger ml-2"
+                      data-target="#deleteRecipeModal"
+                      data-toggle="modal"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <i
+                        className="fa fa-trash"
+                      />
+                       Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FavoriteRecipe>
+        </div>
+      </div>
+    </FavoriteRecipesList>
+  </Router>
+</BrowserRouter>
+`;
+
+exports[`FavoriteRecipesList component should render correctly 2`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "blank",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <FavoriteRecipesList
+      favorites={Array []}
+      setCurrentRecipe={[MockFunction]}
+    >
+      <div
+        className="not-found lead p-3 mt-3 mt-5"
+      >
+        <i
+          className="fa fa-exclamation-triangle fa-3x pb-3 text-warning d-block"
+        />
+        You have no favorite recipes
+      </div>
+    </FavoriteRecipesList>
+  </Router>
+</BrowserRouter>
+`;

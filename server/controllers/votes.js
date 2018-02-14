@@ -3,7 +3,7 @@ import { createVote, voteResponse } from '../utils/votes';
 import requestFeedback from '../utils/requestFeedback';
 import checkId from '../utils/checkId';
 
-const { Recipes, Votes } = models;
+const { Recipe, Vote } = models;
 
 /**
  * Class Definition for the upvoting or downvoting recipes
@@ -12,7 +12,7 @@ const { Recipes, Votes } = models;
 export default class VotesApiController {
   /**
    * @description Upvoting and downvoting a recipe
-   * @memberof VotesApiController
+   * @memberof VoteApiController
    * @static
    *
    * @param   {object} request   the server/http(s) request object
@@ -27,57 +27,71 @@ export default class VotesApiController {
       { vote } = request.query;
 
     if (checkId.recipeId(response, recipeId)) {
-      Recipes.findById(recipeId).then((recipe) => {
+      Recipe.findById(recipeId).then((recipe) => {
         if (recipe) {
-          return Votes.findOne({ where: { userId, recipeId } })
+          return Vote.findOne({ where: { userId, recipeId } })
             .then((foundVote) => {
               if (foundVote) {
                 if (vote === 'upvote') {
                   if (foundVote.vote === 'upvote') {
-                    return requestFeedback.error(response, 409,
-                      'You already upvoted');
+                    return requestFeedback
+                      .error(response, 409, 'You already upvoted');
                   }
-                  return Votes.update({
+                  return Vote.update({
                     vote: 'upvote'
                   }, {
                     where: { userId, recipeId }
                   }).then(() => {
-                    Recipes.update({
+                    Recipe
+                      .update({
                         upvotes: recipe.upvotes + 1,
                         downvotes: recipe.downvotes - 1
                       }, { where: { id: recipeId } })
-                      .then(() => (voteResponse(Recipes, recipeId, response,
-                        200, 'You upvoted', vote)));
+                      .then(() => (voteResponse(
+                        Recipe, recipeId, response,
+                        200, 'You upvoted', vote
+                      )));
                   });
                 }
                 if (foundVote.vote === 'downvote') {
-                  return requestFeedback.error(response, 409,
-                    'You already downvoted');
+                  return requestFeedback.error(
+                    response, 409,
+                    'You already downvoted'
+                  );
                 }
-                return Votes.update({
+                return Vote.update({
                   vote: 'downvote'
                 }, {
                   where: { userId, recipeId }
                 }).then(() => {
-                  Recipes.update({
+                  Recipe
+                    .update({
                       upvotes: recipe.upvotes - 1,
                       downvotes: recipe.downvotes + 1
                     }, { where: { id: recipeId } })
-                    .then(() => (voteResponse(Recipes, recipeId,
-                      response, 200, 'You downvoted', vote)));
+                    .then(() => (voteResponse(
+                      Recipe, recipeId,
+                      response, 200, 'You downvoted', vote
+                    )));
                 });
               }
 
               if (vote === 'upvote') {
-                return createVote(Recipes, Votes, response, userId, recipeId,
-                  vote, recipe, 201, 'Thanks for upvoting');
+                return createVote(
+                  Recipe, Vote, response, userId, recipeId,
+                  vote, recipe, 201, 'Thanks for upvoting'
+                );
               }
-              return createVote(Recipes, Votes, response, userId, recipeId,
-                vote, recipe, 201, 'Thanks for downvoting');
+              return createVote(
+                Recipe, Vote, response, userId, recipeId,
+                vote, recipe, 201, 'Thanks for downvoting'
+              );
             });
         }
-        return requestFeedback.error(response, 404,
-          'Recipe Not found or has been deleted');
+        return requestFeedback.error(
+          response, 404,
+          'Recipe Not found or has been deleted'
+        );
       }).catch(error => (requestFeedback.error(response, 500, error.message)));
     }
   }

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Footer/> renders footer component without crashing 1`] = `
+<div
+  className="bg-faded"
+>
+  <Connect(NavBar) />
+  <main
+    className="main-wrapper"
+  >
+    <div
+      className="not-found lead"
+    >
+      <i
+        className="fa fa-exclamation-triangle fa-3x pb-3 d-block text-warning"
+      />
+      Ooops!!!.. Page Not Found
+    </div>
+  </main>
+  <Footer />
+</div>
+`;

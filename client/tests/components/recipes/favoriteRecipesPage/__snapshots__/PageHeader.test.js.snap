@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageHeader component should render correctly 1`] = `
+<section
+  className="cover text-center"
+>
+  <div
+    className="col"
+  >
+    <h3
+      className="page-header p-2"
+    >
+      My Favorites
+    </h3>
+  </div>
+  <hr
+    id="favorites"
+  />
+</section>
+`;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PopularRecipesList from './popularRecipes/PopularRecipesList.jsx';
@@ -7,15 +7,15 @@ import PopularRecipesList from './popularRecipes/PopularRecipesList.jsx';
 /**
  * @description displays popular recipes or message of no recipes
  * @method PopularRecipes
- * 
+ *
  * @param { array } fetchedPopularRecipes - array of popular recipes
- * 
+ *
  * @returns { jsx } jsx - renders PopularRecipes component
  */
 const PopularRecipes = ({ fetchedPopularRecipes }) => {
-  let message = 'Want to view more awesome recipes?'
+  let message = 'Want to view more awesome recipes?';
   if (fetchedPopularRecipes.length <= 6) {
-    message = 'Want to create your awesome recipe?'
+    message = 'Want to create your awesome recipe?';
   }
   return (
     <section id="home">
@@ -44,10 +44,10 @@ const PopularRecipes = ({ fetchedPopularRecipes }) => {
       </div>
     </section>
   );
-}
+};
 
 PopularRecipes.propTypes = {
   fetchedPopularRecipes: PropTypes.array.isRequired
-}
+};
 
 export default PopularRecipes;

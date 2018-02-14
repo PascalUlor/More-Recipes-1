@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FavoriteRecipesPage component should render correctly 1`] = `
+<BrowserRouter>
+  <FavoriteRecipesPage
+    currentRecipeId={1}
+    deleteError=""
+    deleteFavoriteRecipe={[MockFunction]}
+    deleteSuccess=""
+    favoriteRecipes={Array []}
+    fetchFavoriteRecipes={[MockFunction]}
+    isFetching={false}
+    paginationDetails={Object {}}
+    setCurrentRecipe={[MockFunction]}
+  />
+</BrowserRouter>
+`;

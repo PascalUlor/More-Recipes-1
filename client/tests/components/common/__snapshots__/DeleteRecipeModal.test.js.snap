@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DeleteRecipeModal/> renders delete recipe modal component without crashing 1`] = `
+<div
+  aria-hidden="true"
+  aria-labelledby="deleteRecipe"
+  className="modal fade"
+  id="deleteRecipeModal"
+  role="dialog"
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog"
+    role="document"
+  >
+    <div
+      className="modal-content"
+    >
+      <div
+        className="modal-header"
+      >
+        <span
+          className="navbar-brand text-gray-dark"
+        >
+          <img
+            alt=" Make Recipe Logo"
+            className="d-inline-block align-center"
+            height="32"
+            src="/images/logo.png"
+            width="45"
+          />
+          <span
+            id="site-name"
+          >
+            More Recipes
+          </span>
+        </span>
+        <button
+          aria-label="Close"
+          className="close"
+          data-dismiss="modal"
+          id="close"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            <i
+              aria-hidden="true"
+              className="fa fa-times-circle"
+            />
+          </span>
+        </button>
+      </div>
+      <div
+        className="modal-body text-muted text-left"
+      >
+        <div
+          className="container-fluid"
+        >
+          Are you sure of deleting this recipe?
+        </div>
+      </div>
+      <div
+        className="modal-footer"
+      >
+        <button
+          className="btn btn-secondary"
+          data-dismiss="modal"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="btn btn-danger"
+          onClick={[Function]}
+          type="button"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

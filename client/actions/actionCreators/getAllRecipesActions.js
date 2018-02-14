@@ -3,12 +3,7 @@ import {
   IS_ALL_RECIPES_FETCHING,
   FETCH_ALL_RECIPES_SUCCESS,
   FETCH_ALL_RECIPES_FAILURE
-}
-from '../actionTypes/actionTypes';
-import {
-  paginationDetails,
-  setPaginationDetails
-} from './setPaginationDetailsAction';
+} from '../actionTypes/actionTypes';
 
 
 /**
@@ -51,19 +46,19 @@ const fetchAllRecipesFailure = error => ({
  * @description handles update user recipe request
  *
  * @param { number } page - contains page number of recipes to fetch
+ * @param { string } value - contains a string of search values
  *
  * @returns { object } fetched recipes/error - returns fetch recipe action
  */
-export const fetchAllRecipesRequest = page => (
+export const fetchAllRecipesRequest = (page, value) => (
   (dispatch) => {
     dispatch(isAllRecipesFetching(true));
     return axios({
-        method: 'GET',
-        url: `/api/v1/recipes?page=${page}`
-      })
+      method: 'GET',
+      url: `/api/v1/recipes?page=${page}&search=${value}`
+    })
       .then((response) => {
-        dispatch(fetchAllRecipesSuccess(response.data.recipes));
-        dispatch(setPaginationDetails(paginationDetails(response)));
+        dispatch(fetchAllRecipesSuccess(response.data));
         dispatch(isAllRecipesFetching(false));
       }).catch((error) => {
         dispatch(fetchAllRecipesFailure(error.response.data.message));

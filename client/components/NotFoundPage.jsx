@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import Navbar from './NavBar.jsx';
 import Footer from './Footer.jsx';
 
@@ -22,13 +22,16 @@ class NotFoundPage extends Component {
         <Navbar/>
         <main className="main-wrapper">
           <div className="not-found lead">
-            <i className="fa fa-exclamation-triangle fa-3x pb-3 d-block"></i>
+            <i
+              className=
+                "fa fa-exclamation-triangle fa-3x pb-3 d-block text-warning">
+            </i>
             Ooops!!!.. Page Not Found
           </div>
         </main>
         <Footer/>
       </div>
-    )
+    );
   }
 }
 

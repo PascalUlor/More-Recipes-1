@@ -40,13 +40,13 @@ const TextFieldGroup = (props) => {
 TextFieldGroup.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  font: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  type: PropTypes.string,
+  font: PropTypes.string,
   placeholder: PropTypes.string.isRequired,
   error: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  onFocus: PropTypes.func.isRequired
+  onFocus: PropTypes.func
 };
 
 // default PropType

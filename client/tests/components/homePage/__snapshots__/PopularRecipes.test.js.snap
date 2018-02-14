@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PopularRecipes/> renders popular recipes component without crashing 1`] = `
+<section
+  id="home"
+>
+  <div
+    className="container"
+  >
+    <section
+      className="cover text-center mb-3 mt-4"
+    >
+      <h3
+        className="page-header"
+      >
+        Popular Recipes
+      </h3>
+      <hr
+        id="favorites"
+      />
+    </section>
+    <div
+      className="lead text-center text-warning p-3"
+    >
+      There are no recipes to display
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col text-center"
+      >
+        <p
+          className="lead font-weight-bold mb-5 mt-3"
+        >
+          Want to create your awesome recipe?
+          <Link
+            replace={false}
+            to="/signup"
+          >
+             Sign Up Now
+          </Link>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+`;

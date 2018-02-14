@@ -11,7 +11,7 @@ import classnames from 'classnames';
  *
  * @extends Component
  */
-class FlashMessage extends Component {
+export class FlashMessage extends Component {
   /**
    * @description displays succes or error flash message
    *

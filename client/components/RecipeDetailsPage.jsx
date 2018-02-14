@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -10,13 +11,13 @@ import Procedures from './recipeDetailsPage/Procedures.jsx';
 import ReviewsForm from './recipeDetailsPage/ReviewsForm.jsx';
 import Reviews from './recipeDetailsPage/Reviews.jsx';
 import Footer from './Footer.jsx';
-/** ***************** RECIPE DETAILS ACTIONS  *************************/
+/** ***************** RECIPE DETAILS ACTIONS  ************************ */
 import setCurrentRecipeRequest from
-'../actions/actionCreators/setCurrentRecipeActions';
+  '../actions/actionCreators/setCurrentRecipeActions';
 import postReviewRequest from '../actions/actionCreators/postReviewActions';
 import verifyToken from '../utils/verifyToken';
-import addFavoriteRequest from 
-'../actions/actionCreators/addFavoriteRecipeActions';
+import addFavoriteRequest from
+  '../actions/actionCreators/addFavoriteRecipeActions';
 import voteRecipeRequest from '../actions/actionCreators/voteRecipeActions';
 import redirect from '../utils/redirect';
 
@@ -28,10 +29,10 @@ import redirect from '../utils/redirect';
  *
  * @extends Component
  */
-class RecipeDetailsPage extends Component {
+export class RecipeDetailsPage extends Component {
   /**
    * @description creates an instance of RecipeDetailsPage page
-   * 
+   *
    * @constructor
    *
    * @param { props } props - contains recipe details component properties
@@ -60,7 +61,7 @@ class RecipeDetailsPage extends Component {
   }
   /**
    * @description handles fetching details of seleted recipe
-   * 
+   *
    * @method componentDidMount
    *
    * @returns {*} null
@@ -70,12 +71,12 @@ class RecipeDetailsPage extends Component {
     this.props.setCurrentRecipe(recipeId);
     this.setState({ recipeId });
   }
-   /**
+  /**
    * @description receives update on lastest updates
    * @method componentWillReceiveProps
-   * 
+   *
    * @param {object} nextProps - object of new incoming property
-   * 
+   *
    * @returns {object} new state
    */
   componentWillReceiveProps(nextProps) {
@@ -83,7 +84,7 @@ class RecipeDetailsPage extends Component {
       title, ingredients, procedures,
       recipeImage, upvotes, downvotes,
       User, updatedAt, Reviews
-     } = nextProps.recipeDetails.recipe;
+    } = nextProps.recipeDetails.recipe;
     if (nextProps.recipeDetails.recipe.title) {
       this.setState({
         topContents: {
@@ -114,15 +115,15 @@ class RecipeDetailsPage extends Component {
     const { recipeId } = this.state;
     if (verifyToken()) {
       this.props.addFavorite(recipeId)
-      .then(() => {
-        if (this.props.addFavoriteSuccess) {
-          toastr.remove();
-          toastr.success(this.props.addFavoriteSuccess);
-        } else {
-          toastr.remove();
-          toastr.error(this.props.addFavoriteError);
-        }
-      });
+        .then(() => {
+          if (this.props.addFavoriteSuccess) {
+            toastr.remove();
+            toastr.success(this.props.addFavoriteSuccess);
+          } else {
+            toastr.remove();
+            toastr.error(this.props.addFavoriteError);
+          }
+        });
     } else {
       redirect(this.props);
     }
@@ -131,26 +132,28 @@ class RecipeDetailsPage extends Component {
    * @description handles on voting a recipe
    * @method handleVote
    *
+   * @param { object } event
+   *
    * @returns {*} null
    */
   handleVote(event) {
     const { recipeId } = this.state,
-    { voteRecipe } = this.props;
+      { voteRecipe } = this.props;
     let voteType = null;
     if (event.target.id === 'upvote') {
       voteType = 'upvote';
     } else { voteType = 'downvote'; }
     if (verifyToken()) {
       voteRecipe(recipeId, voteType)
-      .then(() => {
-        if (this.props.voteSuccessMessage) {
-          toastr.remove();
-          toastr.success(this.props.voteSuccessMessage);
-        } else {
-          toastr.remove();
-          toastr.error(this.props.voteFailureMessage);
-        }
-      });
+        .then(() => {
+          if (this.props.voteSuccessMessage) {
+            toastr.remove();
+            toastr.success(this.props.voteSuccessMessage);
+          } else {
+            toastr.remove();
+            toastr.error(this.props.voteFailureMessage);
+          }
+        });
     } else {
       redirect(this.props);
     }
@@ -171,7 +174,7 @@ class RecipeDetailsPage extends Component {
                 details={this.state.topContents}
                 addFavorite={this.handleFavourite}
                 voteRecipe={this.handleVote}
-                />
+              />
               <div className="row mb-4">
                 <Ingredients ingredients={this.state.ingredients}/>
                 <div className="col-1"></div>
@@ -201,12 +204,9 @@ RecipeDetailsPage.propTypes = {
   addFavoriteError: PropTypes.string.isRequired,
   voteRecipe: PropTypes.func.isRequired,
   voteSuccessMessage: PropTypes.string.isRequired,
-  voteFailureMessage: PropTypes.string.isRequired
+  voteFailureMessage: PropTypes.string.isRequired,
 };
 
-RecipeDetailsPage.contextTypes = {
-  router: PropTypes.shape().isRequired
-};
 /**
  * @description maps redux state to props
  *
@@ -215,12 +215,12 @@ RecipeDetailsPage.contextTypes = {
  * @return { object } props - returns mapped props from state
  */
 const mapStateToProps = state => ({
-    recipeDetails: state.setCurrentRecipe.currentSetRecipe,
-    addFavoriteSuccess: state.addFavoriteRecipe.addFavoriteSuccess,
-    addFavoriteError: state.addFavoriteRecipe.addFavoriteError,
-    voteSuccessMessage: state.setCurrentRecipe.voteSuccessMessage,
-    voteFailureMessage: state.setCurrentRecipe.voteFailureMessage
-  }
+  recipeDetails: state.setCurrentRecipe.currentSetRecipe,
+  addFavoriteSuccess: state.addFavoriteRecipe.addFavoriteSuccess,
+  addFavoriteError: state.addFavoriteRecipe.addFavoriteError,
+  voteSuccessMessage: state.setCurrentRecipe.voteSuccessMessage,
+  voteFailureMessage: state.setCurrentRecipe.voteFailureMessage
+}
 );
 /**
   * @description maps action dispatch to props

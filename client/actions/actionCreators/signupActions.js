@@ -1,5 +1,4 @@
 import axios from 'axios';
-import jwt from 'jsonwebtoken';
 import { setAuthorizationToken } from '../../utils/setAuthorizationToken';
 import { SET_CURRENT_USER } from '../actionTypes/actionTypes';
 
@@ -24,12 +23,11 @@ export const setCurrentUser = user => ({
  */
 const userSignupRequest = userData => (
   dispatch => (
-    axios.post('/api/v1/users/signup', userData)
-    .then((response) => {
-      const { token } = response.data;
+    axios.post('/api/v1/users/signup', userData).then((response) => {
+      const { token, user } = response.data;
       localStorage.setItem('jwtToken', token);
       setAuthorizationToken(token);
-      dispatch(setCurrentUser(jwt.decode(token)));
+      dispatch(setCurrentUser(user));
     })
   )
 );
