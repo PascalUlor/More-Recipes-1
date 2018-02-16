@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -17,7 +18,7 @@ import checkImageFile from '../../../shared/validations/checkImageFile';
 class CreateRecipeModal extends Component {
   /**
    * @description creates an instance of CreateRecipeModal
-   * 
+   *
    * @constructor
    *
    * @param { props } props - contains modal component properties
@@ -42,7 +43,7 @@ class CreateRecipeModal extends Component {
   /**
    * @description handles on state change
    * @method handleChange
-   * 
+   *
    * @param { object } event - event object containing recipe details
    *
    * @returns { object } new recipe details state
@@ -55,7 +56,7 @@ class CreateRecipeModal extends Component {
   /**
    * @description handles on focus event
    * @method handleOnFocus
-   * 
+   *
    * @param { object } event - event object containing recipe details
    *
    * @returns { object } new recipe details state
@@ -68,7 +69,7 @@ class CreateRecipeModal extends Component {
   /**
    * @description handles on image change
    * @method handleImageChange
-   * 
+   *
    * @param { object } event - event object containing recipe details
    *
    * @returns { object } recipe image - new updated recipe image state
@@ -113,7 +114,7 @@ class CreateRecipeModal extends Component {
   /**
    * @description handles client validation checks
    * @method isValid
-   * 
+   *
    * @returns { bool } true/false when form is submitted
    */
   isValid() {
@@ -138,45 +139,45 @@ class CreateRecipeModal extends Component {
     if (this.isValid()) {
       this.setState({ errors: {} });
       checkDoubleRecipeTitle(this.state.title)
-      .then(() => {
-        const {
-          isTitleDouble, doubleTitleError
-        } = this.props;
-        if (isTitleDouble) {
-          toastr.remove();
-          toastr.warning(doubleTitleError);
-        } else {
-          createRecipe(this.state)
-          .then(() => {
-            const { createSuccess, createError } = this.props;
-            if (createError === '') {
-              toastr.remove();
-              toastr.success(createSuccess);
-            } else {
-              toastr.remove();
-              toastr.error(createError);
-            }
-            $('button[id=close]').click();
-            this.handleClearState();
-          });
-        }
-      });
+        .then(() => {
+          const {
+            isTitleDouble, doubleTitleError
+          } = this.props;
+          if (isTitleDouble) {
+            toastr.remove();
+            toastr.warning(doubleTitleError);
+          } else {
+            createRecipe(this.state)
+              .then(() => {
+                const { createSuccess, createError } = this.props;
+                if (createError === '') {
+                  toastr.remove();
+                  toastr.success(createSuccess);
+                } else {
+                  toastr.remove();
+                  toastr.error(createError);
+                }
+                $('button[id=close]').click();
+                this.handleClearState();
+              });
+          }
+        });
     }
   }
- /**
+  /**
    * @description displays create recipe modal form
    *
    * @returns { jsx } jsx - renders CreateRecipeModal
    */
   render() {
     const {
-      title, ingredients, procedures, imageSrc, errors
-    } = this.state,
-    { isRecipeCreating } = this.props;
+        title, ingredients, procedures, imageSrc, errors
+      } = this.state,
+      { isRecipeCreating } = this.props;
     return (
       <div
-        className="modal fade"
         id="createRecipeModal"
+        className="modal fade"
         tabIndex="-1"
         role="dialog"
         aria-labelledby="createRecipe"
@@ -204,12 +205,13 @@ class CreateRecipeModal extends Component {
                     <div className="form-row text-muted">
                       <div className="col p-1">
                         <input type="text" name="title" value={title}
-                        onChange={this.onChange} onFocus={this.handleOnFocus}
-                        className="form-control"
-                        placeholder="enter recipe title"/>
+                          onChange={this.onChange} onFocus={this.handleOnFocus}
+                          className="form-control"
+                          placeholder="enter recipe title"/>
                       </div>
                       <div className="text-danger small text-left p-1">
-                        {errors.title && <em>{errors.title}</em>}
+                        {errors.title &&
+                          <em id="title-error">{errors.title}</em>}
                       </div>
                       <div className="col p-1">
                         <textarea rows="5" name="ingredients"
@@ -221,12 +223,12 @@ class CreateRecipeModal extends Component {
                       </div>
                       {errors.ingredients
                         ? <div className="text-danger small text-left p-1">
-                            <em>{errors.ingredients}</em>
-                          </div>
+                          <em id="ingredient-error">{errors.ingredients}</em>
+                        </div>
                         : <small id="help" name="ingredients"
-                            className="form-text text-warning text-left p-1">
-                           <i>separate each ingredient with a full stop (.)</i>
-                          </small>
+                          className="form-text text-warning text-left p-1">
+                          <i>separate each ingredient with a full stop (.)</i>
+                        </small>
                       }
                       <div className="col p-1 mb-0">
                         <textarea rows="5" name="procedures" value={procedures}
@@ -237,18 +239,18 @@ class CreateRecipeModal extends Component {
                       </div>
                       {errors.procedures
                         ? <div className="text-danger small text-left p-1">
-                            <em>{errors.procedures}</em>
-                          </div>
+                          <em id="procedure-error">{errors.procedures}</em>
+                        </div>
                         : <small id="help" name="procedures"
-                            className="form-text text-warning text-left p-1">
-                           <i>separate each step taken with a full stop (.)</i>
-                          </small>
+                          className="form-text text-warning text-left p-1">
+                          <i>separate each step taken with a full stop (.)</i>
+                        </small>
                       }
                     </div>
                   </div>
                 </div>
                 <div className=
-"col-10 offset-1 col-sm-10 offset-1 col-md-4 col-lg-4 text-gray-dark mt-3">
+                  "col-10 offset-1 col-sm-10 offset-1 col-md-4 col-lg-4 text-gray-dark mt-3">
                   <img src={imageSrc} alt="recipe image"
                     className="img-thumbnail img-fluid mb-3 recipe-image"
                   />
@@ -258,18 +260,18 @@ class CreateRecipeModal extends Component {
                 <input type="file" name="imageFile" id="imageSrc"
                   onChange={this.handleImageChange} accept="image/*"
                   className="form-control-file" aria-describedby="fileHelp"/>
-                  {errors.image
+                {errors.image
                   ? <span className="text-danger small">{errors.image}</span>
                   : <small id="fileHelp"
-                      className="form-text text-warning text-left">
-                      <i>Maximum allowable image size is 3mb</i>
-                    </small>
-                  }
+                    className="form-text text-warning text-left">
+                    <i>Maximum allowable image size is 3mb</i>
+                  </small>
+                }
               </div>
               <div className="modal-footer">
                 <button type="button" onClick={this.handleClearState}
-                className="btn btn-secondary"
-                data-dismiss="modal">Close</button>
+                  className="btn btn-secondary"
+                  data-dismiss="modal">Close</button>
                 <button type="submit" className="btn btn-info"
                   disabled={isRecipeCreating}>
                   {!isRecipeCreating
@@ -287,13 +289,13 @@ class CreateRecipeModal extends Component {
 }
 
 CreateRecipeModal.propTypes = {
-	checkDoubleRecipeTitle: PropTypes.func.isRequired,
+  checkDoubleRecipeTitle: PropTypes.func.isRequired,
   isTitleDouble: PropTypes.bool.isRequired,
   createRecipe: PropTypes.func.isRequired,
-	doubleTitleError: PropTypes.string.isRequired,
-	isRecipeCreating: PropTypes.bool.isRequired,
-	createSuccess: PropTypes.string.isRequired,
-	createError: PropTypes.string.isRequired
+  doubleTitleError: PropTypes.string.isRequired,
+  isRecipeCreating: PropTypes.bool.isRequired,
+  createSuccess: PropTypes.string.isRequired,
+  createError: PropTypes.string.isRequired
 };
 /**
  * @description maps redux state to props

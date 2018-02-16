@@ -54,7 +54,7 @@ describe('user actions', () => {
         });
     });
 
-    it('should sign out a user', function async(done) {
+    it('should sign out a user', (done) => {
       const expectedActions = [{
         type: types.SET_CURRENT_USER,
         user: {}
@@ -77,9 +77,13 @@ describe('user actions', () => {
 
       const expectedActions = [
         { type: types.IS_PROFILE_FETCHING, bool: true },
-        { type: types.FETCH_PROFILE_SUCCESS, fetchedProfile: getProfileResponse },
+        {
+          type: types.FETCH_PROFILE_SUCCESS,
+          fetchedProfile: getProfileResponse
+        },
         { type: types.IS_PROFILE_FETCHING, bool: false }
       ];
+
       const store = mockStore({});
       return store.dispatch(fetchProfileRequest())
         .then(() => {
@@ -100,6 +104,7 @@ describe('user actions', () => {
         { type: types.FETCH_PROFILE_FAILURE, error: profileError.message },
         { type: types.IS_PROFILE_FETCHING, bool: false },
       ];
+
       const store = mockStore({});
       return store.dispatch(fetchProfileRequest())
         .then(() => {

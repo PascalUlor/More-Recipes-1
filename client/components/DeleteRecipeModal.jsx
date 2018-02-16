@@ -35,7 +35,7 @@ const DeleteRecipeModal = ({ handleDelete }) => (
           <button type="button" className="btn btn-secondary"
             data-dismiss="modal">Cancel
           </button>
-          <button type="button" onClick={handleDelete}
+          <button type="button" id="delete-recipe" onClick={handleDelete}
             className="btn btn-danger">Delete
           </button>
         </div>

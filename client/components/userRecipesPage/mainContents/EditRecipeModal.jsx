@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -17,7 +18,7 @@ import checkImageFile from '../../../shared/validations/checkImageFile';
 class EditRecipeModal extends Component {
   /**
    * @description creates an instance of EditRecipeModal
-   * 
+   *
    * @constructor
    *
    * @param { props } props - contains modal component properties
@@ -43,28 +44,36 @@ class EditRecipeModal extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
   }
+  /**
+   * @description receives lastest set props
+   * @method componentWillReceiveProps
+   *
+   * @param {object} nextProps - object of new incoming properties
+   *
+   * @returns {object} new state
+   */
   componentWillReceiveProps(nextProps) {
     const {
       currentRecipeDetails, currentSetRecipeId
-      } = nextProps,
-      { currentState } = this.state;
-      if (typeof currentRecipeDetails !== 'undefined' && 
+    } = nextProps;
+
+    if (typeof currentRecipeDetails !== 'undefined' &&
       this.state.id !== currentSetRecipeId) {
-        this.setState({
-          initialTitle: currentRecipeDetails.title,
-          title: currentRecipeDetails.title,
-          ingredients: currentRecipeDetails.ingredients,
-          procedures: currentRecipeDetails.procedures,
-          currentImageSrc: currentRecipeDetails.recipeImage,
-          initialImageSrc: currentRecipeDetails.recipeImage,
-          id: currentRecipeDetails.id
-        });
+      this.setState({
+        initialTitle: currentRecipeDetails.title,
+        title: currentRecipeDetails.title,
+        ingredients: currentRecipeDetails.ingredients,
+        procedures: currentRecipeDetails.procedures,
+        currentImageSrc: currentRecipeDetails.recipeImage,
+        initialImageSrc: currentRecipeDetails.recipeImage,
+        id: currentRecipeDetails.id
+      });
     }
   }
   /**
    * @description handles on state change
    * @method handleChange
-   * 
+   *
    * @param { object } event - event object containing recipe details
    *
    * @returns { object } new recipe details state
@@ -74,10 +83,10 @@ class EditRecipeModal extends Component {
       [event.target.name]: event.target.value
     });
   }
-   /**
+  /**
    * @description handles on focus event
    * @method handleOnFocus
-   * 
+   *
    * @param { object } event - event object containing recipe details
    *
    * @returns { object } new recipe details state
@@ -90,7 +99,7 @@ class EditRecipeModal extends Component {
   /**
    * @description handles on image change
    * @method handleImageChange
-   * 
+   *
    * @param { object } event - event object containing recipe details
    *
    * @returns { object } recipe image - new updated recipe image state
@@ -121,7 +130,7 @@ class EditRecipeModal extends Component {
   /**
    * @description handles client validation checks
    * @method isValid
-   * 
+   *
    * @returns { bool } true/false when form is submitted
    */
   isValid() {
@@ -138,16 +147,16 @@ class EditRecipeModal extends Component {
    */
   handleUpdate() {
     this.props.updateRecipe(this.state)
-    .then(() => {
-      if (this.props.updateSuccess !== '') {
-        toastr.remove();
-        toastr.success(this.props.updateSuccess);
-      } else if (this.props.updateError !== '') {
-        toastr.remove();
-        toastr.error(this.props.updateError);
-      }
-      $('button[id=close]').click();
-    });
+      .then(() => {
+        if (this.props.updateSuccess !== '') {
+          toastr.remove();
+          toastr.success(this.props.updateSuccess);
+        } else if (this.props.updateError !== '') {
+          toastr.remove();
+          toastr.error(this.props.updateError);
+        }
+        $('button[id=close]').click();
+      });
   }
   /**
    * @description handles on submit event for updating user recipe
@@ -159,22 +168,22 @@ class EditRecipeModal extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { initialTitle, title } = this.state,
-    { checkDoubleRecipeTitle } = this.props;
+      { checkDoubleRecipeTitle } = this.props;
     if (this.isValid()) {
       this.setState({ errors: {} });
       if (initialTitle.trim() === title.trim()) {
         this.handleUpdate();
       } else {
         checkDoubleRecipeTitle(title)
-        .then(() => {
-          const { isTitleDouble, doubleTitleError } = this.props;
-          if (isTitleDouble) {
-            toastr.remove();
-            toastr.warning(doubleTitleError);
-          } else {
-            this.handleUpdate();
-          }
-        });
+          .then(() => {
+            const { isTitleDouble, doubleTitleError } = this.props;
+            if (isTitleDouble) {
+              toastr.remove();
+              toastr.warning(doubleTitleError);
+            } else {
+              this.handleUpdate();
+            }
+          });
       }
     }
   }
@@ -185,9 +194,9 @@ class EditRecipeModal extends Component {
    */
   render() {
     const {
-      title, ingredients, procedures, currentImageSrc, errors
-    } = this.state,
-    { isRecipeUpdating } = this.props;
+        title, ingredients, procedures, currentImageSrc, errors
+      } = this.state,
+      { isRecipeUpdating } = this.props;
     return (
       <div className="modal fade" id="editRecipeModal" tabIndex="-1"
         role="dialog" aria-labelledby="editRecipe" aria-hidden="true">
@@ -213,7 +222,7 @@ class EditRecipeModal extends Component {
                   <div className="modal-body">
                     <div className="form-row text-muted">
                       <div className="col p-1">
-                        <input type="text" name="title"
+                        <input type="text" name="title" id="title"
                           onChange={this.onChange}
                           value={title} className="form-control"
                           onFocus={this.handleOnFocus}
@@ -223,21 +232,21 @@ class EditRecipeModal extends Component {
                         {errors.title && <em>{errors.title}</em>}
                       </div>
                       <div className="col p-1">
-                        <textarea rows="5" name="ingredients" 
+                        <textarea rows="5" name="ingredients"
                           value={ingredients} onChange={this.onChange}
-                          onFocus={this.handleOnFocus} className="form-control" 
+                          onFocus={this.handleOnFocus} className="form-control"
                           placeholder="enter recipe ingredients"
                           aria-describedby="help">
                         </textarea>
                       </div>
                       {errors.ingredients
                         ? <div className="text-danger small text-left p-1">
-                            <em>{errors.ingredients}</em>
-                          </div>
+                          <em>{errors.ingredients}</em>
+                        </div>
                         : <small id="help" name="ingredients"
-                           className="form-text text-warning text-left p-1">
-                           <i>separate each ingredient with a full stop (.)</i>
-                          </small>
+                          className="form-text text-warning text-left p-1">
+                          <i>separate each ingredient with a full stop (.)</i>
+                        </small>
                       }
                       <div className="col p-1 mb-0">
                         <textarea rows="5" name="procedures" value={procedures}
@@ -248,21 +257,21 @@ class EditRecipeModal extends Component {
                       </div>
                       {errors.procedures
                         ? <div className="text-danger small text-left p-1">
-                            <em>{errors.procedures}</em>
-                          </div>
+                          <em>{errors.procedures}</em>
+                        </div>
                         : <small id="help" name="procedures"
-                           className="form-text text-warning text-left p-1">
-                           <i>separate each procedure with a full stop (.)</i>
-                          </small>
+                          className="form-text text-warning text-left p-1">
+                          <i>separate each procedure with a full stop (.)</i>
+                        </small>
                       }
                     </div>
                   </div>
                 </div>
                 <div
                   className=
-"col-10 offset-1 col-sm-10 offset-1 col-md-4 col-lg-4 text-gray-dark mt-3">
+                    "col-10 offset-1 col-sm-10 offset-1 col-md-4 col-lg-4 text-gray-dark mt-3">
                   <img src={currentImageSrc}
-                  className="img-thumbnail img-fluid mb-3 recipe-image"
+                    className="img-thumbnail img-fluid mb-3 recipe-image"
                     alt="recipe image"/>
                 </div>
               </div>
@@ -270,25 +279,25 @@ class EditRecipeModal extends Component {
                 <input type="file" name="imageFile" accept="image/*"
                   onChange={this.handleImageChange} id="imageSrc"
                   className="form-control-file" aria-describedby="fileHelp"/>
-                  {errors.image
+                {errors.image
                   ? <span className="text-danger small">{errors.image}</span>
                   : <small id="fileHelp"
-                      className="form-text text-warning text-left">
-                      <i>Maximum allowable image size is 3mb</i>
-                    </small>
-                  }
+                    className="form-text text-warning text-left">
+                    <i>Maximum allowable image size is 3mb</i>
+                  </small>
+                }
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary"
                   data-dismiss="modal">Close</button>
-                <button type="submit" className="btn btn-info"
+                <button type="submit" id="edit-recipe" className="btn btn-info"
                   disabled={isRecipeUpdating}>
                   {!isRecipeUpdating
                     ? 'Update Recipe'
                     : <span>Updating...
-                        <Spinner size={20}/>
-                      </span>
-                    }
+                      <Spinner size={20}/>
+                    </span>
+                  }
                 </button>
               </div>
             </form>

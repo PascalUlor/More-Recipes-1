@@ -5,8 +5,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import SigninForm from '../../../components/signinPage/SigninForm.jsx';
 
 /**
+ * @description return initial property state of the component instance
+ * @function setup
  *
- * @return { object } props
+ * @return { object } props - properties of component instance
  */
 const setup = () => {
   const props = {
@@ -15,9 +17,9 @@ const setup = () => {
     errors: {},
     showWarning: false,
     isLoading: false,
-    handleChange: () => {},
-    handleFocus: () => {},
-    handleSubmit: () => {}
+    handleChange: jest.fn(),
+    handleFocus: jest.fn(),
+    handleSubmit: jest.fn()
   };
   return props;
 };
@@ -30,7 +32,9 @@ describe('<SigninForm/>', () => {
     expect(wrapper.find('form').length).toBe(1);
     expect(wrapper.find('TextFieldGroup').length).toBe(2);
     expect(wrapper.find('button').length).toBe(1);
-  }); it('renders Spinner component, when isLoading is ', () => {
+  });
+
+  it('renders Spinner component, when isLoading is ', () => {
     const wrapper = mount((
       <Router>
         <SigninForm {...props } isLoading = { true }/>

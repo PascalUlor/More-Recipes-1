@@ -5,7 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <Ingredients
-    ingredients="onions."
+    ingredients=""
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -28,13 +28,6 @@ ShallowWrapper {
         <ul
           className="list-group list-group-flush text-muted details break-word"
         >
-          <li>
-            <i
-              aria-hidden="true"
-              className="fa fa-check-square-o pr-2 maroon"
-            />
-            onions
-          </li>
           
         </ul>,
       ],
@@ -60,50 +53,12 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": Array [
-            <li>
-              <i
-                aria-hidden="true"
-                className="fa fa-check-square-o pr-2 maroon"
-              />
-              onions
-            </li>,
             "",
           ],
           "className": "list-group list-group-flush text-muted details break-word",
         },
         "ref": null,
         "rendered": Array [
-          Object {
-            "instance": null,
-            "key": "0",
-            "nodeType": "host",
-            "props": Object {
-              "children": Array [
-                <i
-                  aria-hidden="true"
-                  className="fa fa-check-square-o pr-2 maroon"
-                />,
-                "onions",
-              ],
-            },
-            "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "aria-hidden": "true",
-                  "className": "fa fa-check-square-o pr-2 maroon",
-                },
-                "ref": null,
-                "rendered": null,
-                "type": "i",
-              },
-              "onions",
-            ],
-            "type": "li",
-          },
           "",
         ],
         "type": "ul",
@@ -126,13 +81,6 @@ ShallowWrapper {
           <ul
             className="list-group list-group-flush text-muted details break-word"
           >
-            <li>
-              <i
-                aria-hidden="true"
-                className="fa fa-check-square-o pr-2 maroon"
-              />
-              onions
-            </li>
             
           </ul>,
         ],
@@ -158,50 +106,12 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": Array [
-              <li>
-                <i
-                  aria-hidden="true"
-                  className="fa fa-check-square-o pr-2 maroon"
-                />
-                onions
-              </li>,
               "",
             ],
             "className": "list-group list-group-flush text-muted details break-word",
           },
           "ref": null,
           "rendered": Array [
-            Object {
-              "instance": null,
-              "key": "0",
-              "nodeType": "host",
-              "props": Object {
-                "children": Array [
-                  <i
-                    aria-hidden="true"
-                    className="fa fa-check-square-o pr-2 maroon"
-                  />,
-                  "onions",
-                ],
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "aria-hidden": "true",
-                    "className": "fa fa-check-square-o pr-2 maroon",
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": "i",
-                },
-                "onions",
-              ],
-              "type": "li",
-            },
             "",
           ],
           "type": "ul",

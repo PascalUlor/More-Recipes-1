@@ -5,8 +5,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import SignupForm from '../../../components/signupPage/SignupForm.jsx';
 
 /**
+ * @description return initial property state of the component instance
+ * @function setup
  *
- * @return { object } props
+ * @return { object } props - properties of component instance
  */
 const setup = () => {
   const props = {
@@ -17,9 +19,9 @@ const setup = () => {
     repassword: '',
     errors: {},
     isLoading: false,
-    handleChange: () => {},
-    handleFocus: () => {},
-    handleSubmit: () => {}
+    handleChange: jest.fn(),
+    handleFocus: jest.fn(),
+    handleSubmit: jest.fn()
   };
   return props;
 };

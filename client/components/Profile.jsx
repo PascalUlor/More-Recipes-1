@@ -179,7 +179,6 @@ export class Profile extends Component {
       this.props.updateProfile(this.state)
         .then(() => {
           if (this.props.updateProfileError === '') {
-            console.log(this.props.updatedProfile.message);
             toastr.remove();
             toastr.success(this.props.updatedProfile.message);
           } else {

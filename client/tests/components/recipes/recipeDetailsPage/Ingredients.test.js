@@ -5,7 +5,7 @@ import Ingredients
 
 
 const props = {
-  ingredients: 'onions.'
+  ingredients: ''
 };
 
 describe('Ingredients component', () => {

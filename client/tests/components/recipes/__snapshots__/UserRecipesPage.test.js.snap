@@ -1,143 +1,1317 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UserRecipePage component should render correctly 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Provider
-    store={
-      Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      }
+exports[`UserRecipesPage component should render correctly 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
     }
-  >
-    <BrowserRouter>
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "blank",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
       <UserRecipesPage
         checkDoubleRecipeTitle={[MockFunction]}
         createRecipe={[MockFunction]}
         deleteError=""
         deleteRecipe={[MockFunction]}
         deleteSuccess=""
-        fetchUserRecipes={[MockFunction]}
+        doubleTitleError={null}
+        fetchUserRecipes={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                1,
+              ],
+            ],
+          }
+        }
         isFetching={true}
         paginationDetails={Object {}}
         selectedRecipeId={1}
         setCurrentRecipe={[MockFunction]}
         updateRecipe={[MockFunction]}
         userRecipes={Array []}
-      />
-    </BrowserRouter>
-  </Provider>,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "class",
-    "props": Object {
-      "children": <UserRecipesPage
-        checkDoubleRecipeTitle={[MockFunction]}
-        createRecipe={[MockFunction]}
-        deleteError=""
-        deleteRecipe={[MockFunction]}
-        deleteSuccess=""
-        fetchUserRecipes={[MockFunction]}
-        isFetching={true}
-        paginationDetails={Object {}}
-        selectedRecipeId={1}
-        setCurrentRecipe={[MockFunction]}
-        updateRecipe={[MockFunction]}
-        userRecipes={Array []}
-      />,
-    },
-    "ref": null,
-    "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "checkDoubleRecipeTitle": [MockFunction],
-        "createRecipe": [MockFunction],
-        "deleteError": "",
-        "deleteRecipe": [MockFunction],
-        "deleteSuccess": "",
-        "fetchUserRecipes": [MockFunction],
-        "isFetching": true,
-        "paginationDetails": Object {},
-        "selectedRecipeId": 1,
-        "setCurrentRecipe": [MockFunction],
-        "updateRecipe": [MockFunction],
-        "userRecipes": Array [],
-      },
-      "ref": null,
-      "rendered": null,
-      "type": [Function],
-    },
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "children": <UserRecipesPage
-          checkDoubleRecipeTitle={[MockFunction]}
-          createRecipe={[MockFunction]}
-          deleteError=""
-          deleteRecipe={[MockFunction]}
-          deleteSuccess=""
-          fetchUserRecipes={[MockFunction]}
-          isFetching={true}
-          paginationDetails={Object {}}
-          selectedRecipeId={1}
-          setCurrentRecipe={[MockFunction]}
-          updateRecipe={[MockFunction]}
-          userRecipes={Array []}
-        />,
-      },
-      "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "checkDoubleRecipeTitle": [MockFunction],
-          "createRecipe": [MockFunction],
-          "deleteError": "",
-          "deleteRecipe": [MockFunction],
-          "deleteSuccess": "",
-          "fetchUserRecipes": [MockFunction],
-          "isFetching": true,
-          "paginationDetails": Object {},
-          "selectedRecipeId": 1,
-          "setCurrentRecipe": [MockFunction],
-          "updateRecipe": [MockFunction],
-          "userRecipes": Array [],
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      "type": [Function],
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+      >
+        <div
+          className="bg-faded"
+        >
+          <div
+            className="site-wrapper"
+          >
+            <Connect(NavBar)>
+              <NavBar
+                authenticatedUser={
+                  Object {
+                    "isAuthenticated": false,
+                    "user": Object {},
+                  }
+                }
+                logOut={[Function]}
+              >
+                <div
+                  className="container pl-0 pr-0"
+                >
+                  <header
+                    className="mb-5"
+                  >
+                    <nav
+                      className="navbar navbar-toggleable-md navbar-light fixed-top"
+                    >
+                      <button
+                        aria-controls="navbarItems"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                        className="navbar-toggler navbar-toggler-right"
+                        data-target="#navbarItems"
+                        data-toggle="collapse"
+                        type="button"
+                      >
+                        <span
+                          className="navbar-toggler-icon"
+                        />
+                      </button>
+                      <Link
+                        className="navbar-brand"
+                        replace={false}
+                        to="/"
+                      >
+                        <a
+                          className="navbar-brand"
+                          href="/"
+                          onClick={[Function]}
+                        >
+                          <img
+                            alt="More Recipe Logo"
+                            className="d-inline-block align-center"
+                            height="32"
+                            src="/images/logo.png"
+                            width="45"
+                          />
+                          <span
+                            id="site-name"
+                          >
+                            More Recipes
+                          </span>
+                        </a>
+                      </Link>
+                      <GuestNavBar>
+                        <div
+                          className="collapse navbar-collapse"
+                          id="navbarItems"
+                        >
+                          <ul
+                            className="navbar-nav ml-auto text-center"
+                          >
+                            <li
+                              className="nav-item"
+                            >
+                              <NavLink
+                                activeClassName="active"
+                                activeStyle={
+                                  Object {
+                                    "backgroundColor": "whitesmoke",
+                                    "color": "darkcyan",
+                                    "fontWeight": "600",
+                                  }
+                                }
+                                ariaCurrent="true"
+                                className="nav-link"
+                                id="home"
+                                to="/"
+                              >
+                                <Route
+                                  path="/"
+                                >
+                                  <Link
+                                    aria-current={false}
+                                    className="nav-link"
+                                    id="home"
+                                    replace={false}
+                                    to="/"
+                                  >
+                                    <a
+                                      aria-current={false}
+                                      className="nav-link"
+                                      href="/"
+                                      id="home"
+                                      onClick={[Function]}
+                                    >
+                                      Home
+                                    </a>
+                                  </Link>
+                                </Route>
+                              </NavLink>
+                            </li>
+                            <li
+                              className="nav-item"
+                            >
+                              <NavLink
+                                activeClassName="active"
+                                activeStyle={
+                                  Object {
+                                    "backgroundColor": "whitesmoke",
+                                    "color": "darkcyan",
+                                    "fontWeight": "600",
+                                  }
+                                }
+                                ariaCurrent="true"
+                                className="nav-link"
+                                id="all-recipes"
+                                to="/recipes"
+                              >
+                                <Route
+                                  path="/recipes"
+                                >
+                                  <Link
+                                    aria-current={false}
+                                    className="nav-link"
+                                    id="all-recipes"
+                                    replace={false}
+                                    to="/recipes"
+                                  >
+                                    <a
+                                      aria-current={false}
+                                      className="nav-link"
+                                      href="/recipes"
+                                      id="all-recipes"
+                                      onClick={[Function]}
+                                    >
+                                      All Recipes
+                                    </a>
+                                  </Link>
+                                </Route>
+                              </NavLink>
+                            </li>
+                            <li
+                              className="nav-item"
+                            >
+                              <Link
+                                className="nav-link"
+                                id="signin"
+                                replace={false}
+                                to="/signin"
+                              >
+                                <a
+                                  className="nav-link"
+                                  href="/signin"
+                                  id="signin"
+                                  onClick={[Function]}
+                                >
+                                  Login
+                                </a>
+                              </Link>
+                            </li>
+                            <li
+                              className="nav-item"
+                            >
+                              <Link
+                                className="nav-link nav-button"
+                                id="signup"
+                                replace={false}
+                                to="/signup"
+                              >
+                                <a
+                                  className="nav-link nav-button"
+                                  href="/signup"
+                                  id="signup"
+                                  onClick={[Function]}
+                                >
+                                  Register
+                                </a>
+                              </Link>
+                            </li>
+                          </ul>
+                        </div>
+                      </GuestNavBar>
+                    </nav>
+                  </header>
+                </div>
+              </NavBar>
+            </Connect(NavBar)>
+            <main
+              className="main-wrapper"
+            >
+              <div
+                className="container"
+              >
+                <PageHeader>
+                  <section
+                    className="cover text-center"
+                  >
+                    <div
+                      className="col"
+                    >
+                      <h3
+                        className="page-header p-2 mb-1"
+                      >
+                        My Recipes
+                      </h3>
+                    </div>
+                    <hr
+                      id="favorites"
+                    />
+                  </section>
+                </PageHeader>
+                <div>
+                  <CreateRecipeButton>
+                    <div
+                      className="text-left"
+                    >
+                      <button
+                        className="btn btn-outline-success ml-5 mt-3"
+                        data-target="#createRecipeModal"
+                        data-toggle="modal"
+                        type="button"
+                      >
+                        <i
+                          aria-hidden="true"
+                          className="fa fa-plus-circle"
+                        />
+                         Create Recipe
+                      </button>
+                    </div>
+                  </CreateRecipeButton>
+                  <div
+                    className="text-center"
+                  >
+                    <MDSpinner
+                      className="mt-5 mb-5"
+                      color1="rgb(66, 165, 245)"
+                      color2="rgb(239, 83, 80)"
+                      color3="rgb(253, 216, 53)"
+                      color4="rgb(76, 175, 80)"
+                      duration={1333}
+                      size={50}
+                    >
+                      <span
+                        className="mt-5 mb-5"
+                        style={
+                          Object {
+                            "animation": "__react-md-spinner-animation__root-rotate 1568.235294117647ms linear infinite",
+                            "display": "inline-block",
+                            "height": 50,
+                            "position": "relative",
+                            "verticalAlign": "middle",
+                            "width": 50,
+                          }
+                        }
+                      >
+                        <span
+                          key="0"
+                          style={
+                            Object {
+                              "animationDuration": "5332ms",
+                              "animationIterationCount": "infinite",
+                              "animationName": "__react-md-spinner-animation__fill-unfill-rotate, __react-md-spinner-animation__layer-1-fade-in-out",
+                              "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                              "borderColor": "rgb(66, 165, 245)",
+                              "display": "flex",
+                              "height": "100%",
+                              "opacity": 1,
+                              "position": "absolute",
+                              "whiteSpace": "nowrap",
+                              "width": "100%",
+                            }
+                          }
+                        >
+                          <span
+                            style={
+                              Object {
+                                "borderColor": "inherit",
+                                "display": "inline-block",
+                                "flexGrow": 1,
+                                "height": "100%",
+                                "overflow": "hidden",
+                                "position": "relative",
+                              }
+                            }
+                          >
+                            <span
+                              style={
+                                Object {
+                                  "animationDuration": "1333ms",
+                                  "animationIterationCount": "infinite",
+                                  "animationName": "__react-md-spinner-animation__left-spin",
+                                  "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                                  "borderColor": "rgb(66, 165, 245) transparent transparent rgb(66, 165, 245)",
+                                  "borderRadius": "50%",
+                                  "borderStyle": "solid",
+                                  "borderWidth": 5,
+                                  "bottom": 0,
+                                  "boxSizing": "border-box",
+                                  "left": 0,
+                                  "position": "absolute",
+                                  "top": 0,
+                                  "transform": "rotate(129deg)",
+                                  "width": "200%",
+                                }
+                              }
+                            />
+                          </span>
+                          <span
+                            style={
+                              Object {
+                                "borderColor": "inherit",
+                                "display": "inline-block",
+                                "flexGrow": 1,
+                                "height": "100%",
+                                "overflow": "hidden",
+                                "position": "relative",
+                              }
+                            }
+                          >
+                            <span
+                              style={
+                                Object {
+                                  "animationDuration": "1333ms",
+                                  "animationIterationCount": "infinite",
+                                  "animationName": "__react-md-spinner-animation__right-spin",
+                                  "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                                  "borderColor": "rgb(66, 165, 245) rgb(66, 165, 245) transparent transparent",
+                                  "borderRadius": "50%",
+                                  "borderStyle": "solid",
+                                  "borderWidth": 5,
+                                  "bottom": 0,
+                                  "boxSizing": "border-box",
+                                  "left": "-100%",
+                                  "position": "absolute",
+                                  "top": 0,
+                                  "transform": "rotate(-129deg)",
+                                  "width": "200%",
+                                }
+                              }
+                            />
+                          </span>
+                          <span
+                            style={
+                              Object {
+                                "borderColor": "inherit",
+                                "borderRadius": "50%",
+                                "borderTopStyle": "solid",
+                                "borderWidth": 5,
+                                "boxSizing": "border-box",
+                                "left": "45%",
+                                "position": "absolute",
+                                "top": 0,
+                                "width": "10%",
+                              }
+                            }
+                          />
+                        </span>
+                        <span
+                          key="1"
+                          style={
+                            Object {
+                              "animationDuration": "5332ms",
+                              "animationIterationCount": "infinite",
+                              "animationName": "__react-md-spinner-animation__fill-unfill-rotate, __react-md-spinner-animation__layer-2-fade-in-out",
+                              "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                              "borderColor": "rgb(239, 83, 80)",
+                              "display": "flex",
+                              "height": "100%",
+                              "opacity": 1,
+                              "position": "absolute",
+                              "whiteSpace": "nowrap",
+                              "width": "100%",
+                            }
+                          }
+                        >
+                          <span
+                            style={
+                              Object {
+                                "borderColor": "inherit",
+                                "display": "inline-block",
+                                "flexGrow": 1,
+                                "height": "100%",
+                                "overflow": "hidden",
+                                "position": "relative",
+                              }
+                            }
+                          >
+                            <span
+                              style={
+                                Object {
+                                  "animationDuration": "1333ms",
+                                  "animationIterationCount": "infinite",
+                                  "animationName": "__react-md-spinner-animation__left-spin",
+                                  "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                                  "borderColor": "rgb(239, 83, 80) transparent transparent rgb(239, 83, 80)",
+                                  "borderRadius": "50%",
+                                  "borderStyle": "solid",
+                                  "borderWidth": 5,
+                                  "bottom": 0,
+                                  "boxSizing": "border-box",
+                                  "left": 0,
+                                  "position": "absolute",
+                                  "top": 0,
+                                  "transform": "rotate(129deg)",
+                                  "width": "200%",
+                                }
+                              }
+                            />
+                          </span>
+                          <span
+                            style={
+                              Object {
+                                "borderColor": "inherit",
+                                "display": "inline-block",
+                                "flexGrow": 1,
+                                "height": "100%",
+                                "overflow": "hidden",
+                                "position": "relative",
+                              }
+                            }
+                          >
+                            <span
+                              style={
+                                Object {
+                                  "animationDuration": "1333ms",
+                                  "animationIterationCount": "infinite",
+                                  "animationName": "__react-md-spinner-animation__right-spin",
+                                  "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                                  "borderColor": "rgb(239, 83, 80) rgb(239, 83, 80) transparent transparent",
+                                  "borderRadius": "50%",
+                                  "borderStyle": "solid",
+                                  "borderWidth": 5,
+                                  "bottom": 0,
+                                  "boxSizing": "border-box",
+                                  "left": "-100%",
+                                  "position": "absolute",
+                                  "top": 0,
+                                  "transform": "rotate(-129deg)",
+                                  "width": "200%",
+                                }
+                              }
+                            />
+                          </span>
+                          <span
+                            style={
+                              Object {
+                                "borderColor": "inherit",
+                                "borderRadius": "50%",
+                                "borderTopStyle": "solid",
+                                "borderWidth": 5,
+                                "boxSizing": "border-box",
+                                "left": "45%",
+                                "position": "absolute",
+                                "top": 0,
+                                "width": "10%",
+                              }
+                            }
+                          />
+                        </span>
+                        <span
+                          key="2"
+                          style={
+                            Object {
+                              "animationDuration": "5332ms",
+                              "animationIterationCount": "infinite",
+                              "animationName": "__react-md-spinner-animation__fill-unfill-rotate, __react-md-spinner-animation__layer-3-fade-in-out",
+                              "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                              "borderColor": "rgb(253, 216, 53)",
+                              "display": "flex",
+                              "height": "100%",
+                              "opacity": 1,
+                              "position": "absolute",
+                              "whiteSpace": "nowrap",
+                              "width": "100%",
+                            }
+                          }
+                        >
+                          <span
+                            style={
+                              Object {
+                                "borderColor": "inherit",
+                                "display": "inline-block",
+                                "flexGrow": 1,
+                                "height": "100%",
+                                "overflow": "hidden",
+                                "position": "relative",
+                              }
+                            }
+                          >
+                            <span
+                              style={
+                                Object {
+                                  "animationDuration": "1333ms",
+                                  "animationIterationCount": "infinite",
+                                  "animationName": "__react-md-spinner-animation__left-spin",
+                                  "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                                  "borderColor": "rgb(253, 216, 53) transparent transparent rgb(253, 216, 53)",
+                                  "borderRadius": "50%",
+                                  "borderStyle": "solid",
+                                  "borderWidth": 5,
+                                  "bottom": 0,
+                                  "boxSizing": "border-box",
+                                  "left": 0,
+                                  "position": "absolute",
+                                  "top": 0,
+                                  "transform": "rotate(129deg)",
+                                  "width": "200%",
+                                }
+                              }
+                            />
+                          </span>
+                          <span
+                            style={
+                              Object {
+                                "borderColor": "inherit",
+                                "display": "inline-block",
+                                "flexGrow": 1,
+                                "height": "100%",
+                                "overflow": "hidden",
+                                "position": "relative",
+                              }
+                            }
+                          >
+                            <span
+                              style={
+                                Object {
+                                  "animationDuration": "1333ms",
+                                  "animationIterationCount": "infinite",
+                                  "animationName": "__react-md-spinner-animation__right-spin",
+                                  "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                                  "borderColor": "rgb(253, 216, 53) rgb(253, 216, 53) transparent transparent",
+                                  "borderRadius": "50%",
+                                  "borderStyle": "solid",
+                                  "borderWidth": 5,
+                                  "bottom": 0,
+                                  "boxSizing": "border-box",
+                                  "left": "-100%",
+                                  "position": "absolute",
+                                  "top": 0,
+                                  "transform": "rotate(-129deg)",
+                                  "width": "200%",
+                                }
+                              }
+                            />
+                          </span>
+                          <span
+                            style={
+                              Object {
+                                "borderColor": "inherit",
+                                "borderRadius": "50%",
+                                "borderTopStyle": "solid",
+                                "borderWidth": 5,
+                                "boxSizing": "border-box",
+                                "left": "45%",
+                                "position": "absolute",
+                                "top": 0,
+                                "width": "10%",
+                              }
+                            }
+                          />
+                        </span>
+                        <span
+                          key="3"
+                          style={
+                            Object {
+                              "animationDuration": "5332ms",
+                              "animationIterationCount": "infinite",
+                              "animationName": "__react-md-spinner-animation__fill-unfill-rotate, __react-md-spinner-animation__layer-4-fade-in-out",
+                              "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                              "borderColor": "rgb(76, 175, 80)",
+                              "display": "flex",
+                              "height": "100%",
+                              "opacity": 1,
+                              "position": "absolute",
+                              "whiteSpace": "nowrap",
+                              "width": "100%",
+                            }
+                          }
+                        >
+                          <span
+                            style={
+                              Object {
+                                "borderColor": "inherit",
+                                "display": "inline-block",
+                                "flexGrow": 1,
+                                "height": "100%",
+                                "overflow": "hidden",
+                                "position": "relative",
+                              }
+                            }
+                          >
+                            <span
+                              style={
+                                Object {
+                                  "animationDuration": "1333ms",
+                                  "animationIterationCount": "infinite",
+                                  "animationName": "__react-md-spinner-animation__left-spin",
+                                  "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                                  "borderColor": "rgb(76, 175, 80) transparent transparent rgb(76, 175, 80)",
+                                  "borderRadius": "50%",
+                                  "borderStyle": "solid",
+                                  "borderWidth": 5,
+                                  "bottom": 0,
+                                  "boxSizing": "border-box",
+                                  "left": 0,
+                                  "position": "absolute",
+                                  "top": 0,
+                                  "transform": "rotate(129deg)",
+                                  "width": "200%",
+                                }
+                              }
+                            />
+                          </span>
+                          <span
+                            style={
+                              Object {
+                                "borderColor": "inherit",
+                                "display": "inline-block",
+                                "flexGrow": 1,
+                                "height": "100%",
+                                "overflow": "hidden",
+                                "position": "relative",
+                              }
+                            }
+                          >
+                            <span
+                              style={
+                                Object {
+                                  "animationDuration": "1333ms",
+                                  "animationIterationCount": "infinite",
+                                  "animationName": "__react-md-spinner-animation__right-spin",
+                                  "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                                  "borderColor": "rgb(76, 175, 80) rgb(76, 175, 80) transparent transparent",
+                                  "borderRadius": "50%",
+                                  "borderStyle": "solid",
+                                  "borderWidth": 5,
+                                  "bottom": 0,
+                                  "boxSizing": "border-box",
+                                  "left": "-100%",
+                                  "position": "absolute",
+                                  "top": 0,
+                                  "transform": "rotate(-129deg)",
+                                  "width": "200%",
+                                }
+                              }
+                            />
+                          </span>
+                          <span
+                            style={
+                              Object {
+                                "borderColor": "inherit",
+                                "borderRadius": "50%",
+                                "borderTopStyle": "solid",
+                                "borderWidth": 5,
+                                "boxSizing": "border-box",
+                                "left": "45%",
+                                "position": "absolute",
+                                "top": 0,
+                                "width": "10%",
+                              }
+                            }
+                          />
+                        </span>
+                      </span>
+                    </MDSpinner>
+                  </div>
+                  <Connect(CreateRecipeModal)
+                    checkDoubleRecipeTitle={[MockFunction]}
+                    createRecipe={[MockFunction]}
+                  >
+                    <CreateRecipeModal
+                      checkDoubleRecipeTitle={[MockFunction]}
+                      createError=""
+                      createRecipe={[MockFunction]}
+                      createSuccess=""
+                      dispatch={[Function]}
+                      doubleTitleError=""
+                      isRecipeCreating={false}
+                      isTitleDouble={false}
+                    >
+                      <div
+                        aria-hidden="true"
+                        aria-labelledby="createRecipe"
+                        className="modal fade"
+                        id="createRecipeModal"
+                        role="dialog"
+                        tabIndex="-1"
+                      >
+                        <div
+                          className="modal-dialog modal-lg"
+                          role="document"
+                        >
+                          <div
+                            className="modal-content"
+                          >
+                            <div
+                              className="modal-header"
+                            >
+                              <span
+                                className="navbar-brand text-gray-dark"
+                              >
+                                <img
+                                  alt="More Recipes Logo"
+                                  className="d-inline-block align-center"
+                                  height="32"
+                                  src="/images/logo.png"
+                                  width="45"
+                                />
+                                <span
+                                  id="site-name"
+                                >
+                                  More Recipes
+                                </span>
+                              </span>
+                              <button
+                                aria-label="Close"
+                                className="close"
+                                data-dismiss="modal"
+                                id="close"
+                                onClick={[Function]}
+                                type="button"
+                              >
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    className="fa fa-times-circle"
+                                  />
+                                </span>
+                              </button>
+                            </div>
+                            <form
+                              onSubmit={[Function]}
+                              role="form"
+                            >
+                              <div
+                                className="row"
+                              >
+                                <div
+                                  className="col-12 col-sm-12 col-md-7 col-lg-7"
+                                >
+                                  <div
+                                    className="modal-body"
+                                  >
+                                    <div
+                                      className="form-row text-muted"
+                                    >
+                                      <div
+                                        className="col p-1"
+                                      >
+                                        <input
+                                          className="form-control"
+                                          name="title"
+                                          onChange={[Function]}
+                                          onFocus={[Function]}
+                                          placeholder="enter recipe title"
+                                          type="text"
+                                          value=""
+                                        />
+                                      </div>
+                                      <div
+                                        className="text-danger small text-left p-1"
+                                      />
+                                      <div
+                                        className="col p-1"
+                                      >
+                                        <textarea
+                                          aria-describedby="help"
+                                          className="form-control"
+                                          name="ingredients"
+                                          onChange={[Function]}
+                                          onFocus={[Function]}
+                                          placeholder="enter recipe ingredients"
+                                          rows="5"
+                                          value=""
+                                        />
+                                      </div>
+                                      <small
+                                        className="form-text text-warning text-left p-1"
+                                        id="help"
+                                        name="ingredients"
+                                      >
+                                        <i>
+                                          separate each ingredient with a full stop (.)
+                                        </i>
+                                      </small>
+                                      <div
+                                        className="col p-1 mb-0"
+                                      >
+                                        <textarea
+                                          className="form-control"
+                                          name="procedures"
+                                          onChange={[Function]}
+                                          onFocus={[Function]}
+                                          placeholder="enter procedures or steps taken"
+                                          rows="5"
+                                          value=""
+                                        />
+                                      </div>
+                                      <small
+                                        className="form-text text-warning text-left p-1"
+                                        id="help"
+                                        name="procedures"
+                                      >
+                                        <i>
+                                          separate each step taken with a full stop (.)
+                                        </i>
+                                      </small>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="col-10 offset-1 col-sm-10 offset-1 col-md-4 col-lg-4 text-gray-dark mt-3"
+                                >
+                                  <img
+                                    alt="recipe image"
+                                    className="img-thumbnail img-fluid mb-3 recipe-image"
+                                    src="/images/noimageyet.jpg"
+                                  />
+                                </div>
+                              </div>
+                              <div
+                                className="form-group text-gray-dark ml-3 p-1"
+                              >
+                                <input
+                                  accept="image/*"
+                                  aria-describedby="fileHelp"
+                                  className="form-control-file"
+                                  id="imageSrc"
+                                  name="imageFile"
+                                  onChange={[Function]}
+                                  type="file"
+                                />
+                                <small
+                                  className="form-text text-warning text-left"
+                                  id="fileHelp"
+                                >
+                                  <i>
+                                    Maximum allowable image size is 3mb
+                                  </i>
+                                </small>
+                              </div>
+                              <div
+                                className="modal-footer"
+                              >
+                                <button
+                                  className="btn btn-secondary"
+                                  data-dismiss="modal"
+                                  onClick={[Function]}
+                                  type="button"
+                                >
+                                  Close
+                                </button>
+                                <button
+                                  className="btn btn-info"
+                                  disabled={false}
+                                  type="submit"
+                                >
+                                  Save Recipe
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </CreateRecipeModal>
+                  </Connect(CreateRecipeModal)>
+                  <Connect(EditRecipeModal)
+                    checkDoubleRecipeTitle={[MockFunction]}
+                    updateRecipe={[MockFunction]}
+                  >
+                    <EditRecipeModal
+                      checkDoubleRecipeTitle={[MockFunction]}
+                      currentSetRecipeId={0}
+                      dispatch={[Function]}
+                      doubleTitleError=""
+                      isRecipeUpdating={false}
+                      isTitleDouble={false}
+                      updateError=""
+                      updateRecipe={[MockFunction]}
+                      updateSuccess=""
+                    >
+                      <div
+                        aria-hidden="true"
+                        aria-labelledby="editRecipe"
+                        className="modal fade"
+                        id="editRecipeModal"
+                        role="dialog"
+                        tabIndex="-1"
+                      >
+                        <div
+                          className="modal-dialog modal-lg"
+                          role="document"
+                        >
+                          <div
+                            className="modal-content"
+                          >
+                            <div
+                              className="modal-header"
+                            >
+                              <span
+                                className="navbar-brand text-gray-dark"
+                              >
+                                <img
+                                  alt=" More Recipe Logo"
+                                  className="d-inline-block align-center"
+                                  height="32"
+                                  src="/images/logo.png"
+                                  width="45"
+                                />
+                                <span
+                                  id="site-name"
+                                >
+                                  More Recipes
+                                </span>
+                              </span>
+                              <button
+                                aria-label="Close"
+                                className="close"
+                                data-dismiss="modal"
+                                id="close"
+                                type="button"
+                              >
+                                <span
+                                  aria-hidden="true"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    className="fa fa-times-circle"
+                                  />
+                                </span>
+                              </button>
+                            </div>
+                            <form
+                              onSubmit={[Function]}
+                              role="form"
+                            >
+                              <div
+                                className="row"
+                              >
+                                <div
+                                  className="col-12 col-sm-12 col-md-7 col-lg-7"
+                                >
+                                  <div
+                                    className="modal-body"
+                                  >
+                                    <div
+                                      className="form-row text-muted"
+                                    >
+                                      <div
+                                        className="col p-1"
+                                      >
+                                        <input
+                                          className="form-control"
+                                          name="title"
+                                          onChange={[Function]}
+                                          onFocus={[Function]}
+                                          placeholder="enter recipe title"
+                                          type="text"
+                                          value=""
+                                        />
+                                      </div>
+                                      <div
+                                        className="text-danger small text-left p-1"
+                                      />
+                                      <div
+                                        className="col p-1"
+                                      >
+                                        <textarea
+                                          aria-describedby="help"
+                                          className="form-control"
+                                          name="ingredients"
+                                          onChange={[Function]}
+                                          onFocus={[Function]}
+                                          placeholder="enter recipe ingredients"
+                                          rows="5"
+                                          value=""
+                                        />
+                                      </div>
+                                      <small
+                                        className="form-text text-warning text-left p-1"
+                                        id="help"
+                                        name="ingredients"
+                                      >
+                                        <i>
+                                          separate each ingredient with a full stop (.)
+                                        </i>
+                                      </small>
+                                      <div
+                                        className="col p-1 mb-0"
+                                      >
+                                        <textarea
+                                          className="form-control"
+                                          name="procedures"
+                                          onChange={[Function]}
+                                          onFocus={[Function]}
+                                          placeholder="enter procedures or steps taken"
+                                          rows="5"
+                                          value=""
+                                        />
+                                      </div>
+                                      <small
+                                        className="form-text text-warning text-left p-1"
+                                        id="help"
+                                        name="procedures"
+                                      >
+                                        <i>
+                                          separate each procedure with a full stop (.)
+                                        </i>
+                                      </small>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="col-10 offset-1 col-sm-10 offset-1 col-md-4 col-lg-4 text-gray-dark mt-3"
+                                >
+                                  <img
+                                    alt="recipe image"
+                                    className="img-thumbnail img-fluid mb-3 recipe-image"
+                                    src=""
+                                  />
+                                </div>
+                              </div>
+                              <div
+                                className="form-group text-gray-dark ml-3 p-1"
+                              >
+                                <input
+                                  accept="image/*"
+                                  aria-describedby="fileHelp"
+                                  className="form-control-file"
+                                  id="imageSrc"
+                                  name="imageFile"
+                                  onChange={[Function]}
+                                  type="file"
+                                />
+                                <small
+                                  className="form-text text-warning text-left"
+                                  id="fileHelp"
+                                >
+                                  <i>
+                                    Maximum allowable image size is 3mb
+                                  </i>
+                                </small>
+                              </div>
+                              <div
+                                className="modal-footer"
+                              >
+                                <button
+                                  className="btn btn-secondary"
+                                  data-dismiss="modal"
+                                  type="button"
+                                >
+                                  Close
+                                </button>
+                                <button
+                                  className="btn btn-info"
+                                  disabled={false}
+                                  id="edit-recipe"
+                                  type="submit"
+                                >
+                                  Update Recipe
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </EditRecipeModal>
+                  </Connect(EditRecipeModal)>
+                  <DeleteRecipeModal
+                    handleDelete={[Function]}
+                  >
+                    <div
+                      aria-hidden="true"
+                      aria-labelledby="deleteRecipe"
+                      className="modal fade"
+                      id="deleteRecipeModal"
+                      role="dialog"
+                      tabIndex="-1"
+                    >
+                      <div
+                        className="modal-dialog"
+                        role="document"
+                      >
+                        <div
+                          className="modal-content"
+                        >
+                          <div
+                            className="modal-header"
+                          >
+                            <span
+                              className="navbar-brand text-gray-dark"
+                            >
+                              <img
+                                alt=" Make Recipe Logo"
+                                className="d-inline-block align-center"
+                                height="32"
+                                src="/images/logo.png"
+                                width="45"
+                              />
+                              <span
+                                id="site-name"
+                              >
+                                More Recipes
+                              </span>
+                            </span>
+                            <button
+                              aria-label="Close"
+                              className="close"
+                              data-dismiss="modal"
+                              id="close"
+                              type="button"
+                            >
+                              <span
+                                aria-hidden="true"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="fa fa-times-circle"
+                                />
+                              </span>
+                            </button>
+                          </div>
+                          <div
+                            className="modal-body text-muted text-left"
+                          >
+                            <div
+                              className="container-fluid"
+                            >
+                              Are you sure of deleting this recipe?
+                            </div>
+                          </div>
+                          <div
+                            className="modal-footer"
+                          >
+                            <button
+                              className="btn btn-secondary"
+                              data-dismiss="modal"
+                              type="button"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              className="btn btn-danger"
+                              id="delete-recipe"
+                              onClick={[Function]}
+                              type="button"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </DeleteRecipeModal>
+                </div>
+              </div>
+            </main>
+          </div>
+          <Footer>
+            <footer
+              className="footer"
+            >
+              <div
+                className="container"
+              >
+                <div
+                  className="row mt-4"
+                >
+                  <div
+                    className="col-12 col-sm-8 col-md-9 col-lg-10"
+                  >
+                    <small
+                      className="text-white"
+                      id="copywrite"
+                    >
+                      <span
+                        className="text-warning"
+                      >
+                        ©2018 
+                      </span>
+                      Bootcamp27, Andela Nigeria. All rights reserved.
+                    </small>
+                  </div>
+                  <div
+                    className="col-12 col-sm-4 col-md-3 col-lg-2 text-center"
+                  >
+                    <ul
+                      className="list-inline"
+                    >
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="fa fa-google-plus"
+                          />
+                        </a>
+                      </li>
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            className="fa fa-github"
+                          />
+                        </a>
+                      </li>
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            className="fa fa-facebook"
+                          />
+                        </a>
+                      </li>
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            className="fa fa-twitter"
+                          />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </footer>
+          </Footer>
+        </div>
+      </UserRecipesPage>
+    </Router>
+  </BrowserRouter>
+</Provider>
 `;

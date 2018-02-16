@@ -91,7 +91,8 @@ export class AllRecipesPage extends Component {
    * @returns {*} null
    */
   handlePageChange(page) {
-    this.props.fetchAllRecipes(page);
+    const { search } = this.state;
+    this.props.fetchAllRecipes(page, search);
   }
   /**
    * @description renders all and popular recipes

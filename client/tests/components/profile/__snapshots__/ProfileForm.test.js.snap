@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileForm component renders form with five input fields and a button 1`] = `
+<form
+  onSubmit={[MockFunction]}
+  role="form"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-6 col-sm-3 col-md-4 col-lg-4 figure"
+    >
+      <figure
+        className="figure"
+      >
+        <img
+          alt="Site Logo"
+          className="rounded-circle img-fluid"
+          id="profile-image"
+          onClick={[MockFunction]}
+          src=""
+        />
+      </figure>
+      <input
+        accept="image/*"
+        className="file-chooser"
+        name="imageFile"
+        onChange={[MockFunction]}
+        type="file"
+      />
+    </div>
+    <div
+      className="col-10 col-sm-9 col-md-8 col-lg-6 profile-text"
+    >
+      <TextFieldGroup
+        font="fa fa-user"
+        label="Full Name"
+        name="fullName"
+        onChange={[MockFunction]}
+        onFocus={[MockFunction]}
+        placeholder="firstname lastname"
+        type="text"
+        value=""
+      />
+      <TextFieldGroup
+        font="fa fa-user"
+        label="Username"
+        name="username"
+        onChange={[MockFunction]}
+        onFocus={[MockFunction]}
+        placeholder="enter username"
+        type="text"
+        value=""
+      />
+      <TextFieldGroup
+        font="fa fa-envelope"
+        label="Email"
+        name="email"
+        onChange={[MockFunction]}
+        onFocus={[MockFunction]}
+        placeholder="enter email"
+        type="text"
+        value=""
+      />
+      <TextFieldGroup
+        font="fa fa-map-marker"
+        label="Location"
+        name="location"
+        onChange={[MockFunction]}
+        onFocus={[MockFunction]}
+        placeholder="enter city where you are. eg: lagos"
+        type="text"
+        value=""
+      />
+      <div
+        className="form-group"
+      >
+        <label
+          className="page-text"
+          htmlFor="about"
+        >
+          About Me
+        </label>
+        <textarea
+          className="form-control"
+          name="aboutMe"
+          onChange={[MockFunction]}
+          onFocus={[MockFunction]}
+          placeholder="write about yourself"
+          rows="5"
+          value=""
+        />
+      </div>
+      <div
+        className="text-right"
+      >
+        <button
+          className="btn btn-outline-info"
+          disabled={false}
+          type="submit"
+        >
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+`;

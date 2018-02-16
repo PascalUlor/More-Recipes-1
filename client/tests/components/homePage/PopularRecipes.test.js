@@ -28,6 +28,7 @@ describe('<PopularRecipes/>', () => {
         viewsCount: 1
       }]
     };
+
     shallowWrapper = mount((
       <Router>
         <PopularRecipes {...newProps}/>

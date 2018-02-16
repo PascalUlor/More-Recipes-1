@@ -1,159 +1,676 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RecipeDetailsPage component should render correctly 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Provider
-    store={
-      Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      }
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
     }
-  >
-    <BrowserRouter>
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "blank",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
       <RecipeDetailsPage
         addFavorite={[MockFunction]}
         addFavoriteError=""
         addFavoriteSuccess=""
+        history={
+          Object {
+            "location": Object {
+              "pathname": "",
+            },
+            "push": [MockFunction],
+          }
+        }
         match={
           Object {
             "params": Object {
-              "id": 1,
+              "id": 20,
             },
           }
         }
         postReview={[MockFunction]}
         recipeDetails={Object {}}
-        setCurrentRecipe={[MockFunction]}
-        voteFailureMessage=""
-        voteRecipe={[MockFunction]}
-        voteSuccessMessage=""
-      />
-    </BrowserRouter>
-  </Provider>,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "class",
-    "props": Object {
-      "children": <RecipeDetailsPage
-        addFavorite={[MockFunction]}
-        addFavoriteError=""
-        addFavoriteSuccess=""
-        match={
-          Object {
-            "params": Object {
-              "id": 1,
-            },
+        setCurrentRecipe={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                20,
+              ],
+            ],
           }
         }
-        postReview={[MockFunction]}
-        recipeDetails={Object {}}
-        setCurrentRecipe={[MockFunction]}
         voteFailureMessage=""
         voteRecipe={[MockFunction]}
         voteSuccessMessage=""
-      />,
-    },
-    "ref": null,
-    "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "addFavorite": [MockFunction],
-        "addFavoriteError": "",
-        "addFavoriteSuccess": "",
-        "match": Object {
-          "params": Object {
-            "id": 1,
-          },
-        },
-        "postReview": [MockFunction],
-        "recipeDetails": Object {},
-        "setCurrentRecipe": [MockFunction],
-        "voteFailureMessage": "",
-        "voteRecipe": [MockFunction],
-        "voteSuccessMessage": "",
-      },
-      "ref": null,
-      "rendered": null,
-      "type": [Function],
-    },
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "children": <RecipeDetailsPage
-          addFavorite={[MockFunction]}
-          addFavoriteError=""
-          addFavoriteSuccess=""
-          match={
-            Object {
-              "params": Object {
-                "id": 1,
-              },
-            }
-          }
-          postReview={[MockFunction]}
-          recipeDetails={Object {}}
-          setCurrentRecipe={[MockFunction]}
-          voteFailureMessage=""
-          voteRecipe={[MockFunction]}
-          voteSuccessMessage=""
-        />,
-      },
-      "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "addFavorite": [MockFunction],
-          "addFavoriteError": "",
-          "addFavoriteSuccess": "",
-          "match": Object {
-            "params": Object {
-              "id": 1,
-            },
-          },
-          "postReview": [MockFunction],
-          "recipeDetails": Object {},
-          "setCurrentRecipe": [MockFunction],
-          "voteFailureMessage": "",
-          "voteRecipe": [MockFunction],
-          "voteSuccessMessage": "",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      "type": [Function],
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+      >
+        <div
+          className="bg-faded"
+        >
+          <div
+            className="site-wrapper"
+          >
+            <Connect(NavBar)>
+              <NavBar
+                authenticatedUser={
+                  Object {
+                    "isAuthenticated": false,
+                    "user": Object {},
+                  }
+                }
+                logOut={[Function]}
+              >
+                <div
+                  className="container pl-0 pr-0"
+                >
+                  <header
+                    className="mb-5"
+                  >
+                    <nav
+                      className="navbar navbar-toggleable-md navbar-light fixed-top"
+                    >
+                      <button
+                        aria-controls="navbarItems"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                        className="navbar-toggler navbar-toggler-right"
+                        data-target="#navbarItems"
+                        data-toggle="collapse"
+                        type="button"
+                      >
+                        <span
+                          className="navbar-toggler-icon"
+                        />
+                      </button>
+                      <Link
+                        className="navbar-brand"
+                        replace={false}
+                        to="/"
+                      >
+                        <a
+                          className="navbar-brand"
+                          href="/"
+                          onClick={[Function]}
+                        >
+                          <img
+                            alt="More Recipe Logo"
+                            className="d-inline-block align-center"
+                            height="32"
+                            src="/images/logo.png"
+                            width="45"
+                          />
+                          <span
+                            id="site-name"
+                          >
+                            More Recipes
+                          </span>
+                        </a>
+                      </Link>
+                      <GuestNavBar>
+                        <div
+                          className="collapse navbar-collapse"
+                          id="navbarItems"
+                        >
+                          <ul
+                            className="navbar-nav ml-auto text-center"
+                          >
+                            <li
+                              className="nav-item"
+                            >
+                              <NavLink
+                                activeClassName="active"
+                                activeStyle={
+                                  Object {
+                                    "backgroundColor": "whitesmoke",
+                                    "color": "darkcyan",
+                                    "fontWeight": "600",
+                                  }
+                                }
+                                ariaCurrent="true"
+                                className="nav-link"
+                                id="home"
+                                to="/"
+                              >
+                                <Route
+                                  path="/"
+                                >
+                                  <Link
+                                    aria-current={false}
+                                    className="nav-link"
+                                    id="home"
+                                    replace={false}
+                                    to="/"
+                                  >
+                                    <a
+                                      aria-current={false}
+                                      className="nav-link"
+                                      href="/"
+                                      id="home"
+                                      onClick={[Function]}
+                                    >
+                                      Home
+                                    </a>
+                                  </Link>
+                                </Route>
+                              </NavLink>
+                            </li>
+                            <li
+                              className="nav-item"
+                            >
+                              <NavLink
+                                activeClassName="active"
+                                activeStyle={
+                                  Object {
+                                    "backgroundColor": "whitesmoke",
+                                    "color": "darkcyan",
+                                    "fontWeight": "600",
+                                  }
+                                }
+                                ariaCurrent="true"
+                                className="nav-link"
+                                id="all-recipes"
+                                to="/recipes"
+                              >
+                                <Route
+                                  path="/recipes"
+                                >
+                                  <Link
+                                    aria-current={false}
+                                    className="nav-link"
+                                    id="all-recipes"
+                                    replace={false}
+                                    to="/recipes"
+                                  >
+                                    <a
+                                      aria-current={false}
+                                      className="nav-link"
+                                      href="/recipes"
+                                      id="all-recipes"
+                                      onClick={[Function]}
+                                    >
+                                      All Recipes
+                                    </a>
+                                  </Link>
+                                </Route>
+                              </NavLink>
+                            </li>
+                            <li
+                              className="nav-item"
+                            >
+                              <Link
+                                className="nav-link"
+                                id="signin"
+                                replace={false}
+                                to="/signin"
+                              >
+                                <a
+                                  className="nav-link"
+                                  href="/signin"
+                                  id="signin"
+                                  onClick={[Function]}
+                                >
+                                  Login
+                                </a>
+                              </Link>
+                            </li>
+                            <li
+                              className="nav-item"
+                            >
+                              <Link
+                                className="nav-link nav-button"
+                                id="signup"
+                                replace={false}
+                                to="/signup"
+                              >
+                                <a
+                                  className="nav-link nav-button"
+                                  href="/signup"
+                                  id="signup"
+                                  onClick={[Function]}
+                                >
+                                  Register
+                                </a>
+                              </Link>
+                            </li>
+                          </ul>
+                        </div>
+                      </GuestNavBar>
+                    </nav>
+                  </header>
+                </div>
+              </NavBar>
+            </Connect(NavBar)>
+            <div
+              className="container main-wrapper"
+            >
+              <main
+                className="pl-4 pr-3 mt-4"
+              >
+                <TopContents
+                  addFavorite={[Function]}
+                  details={
+                    Object {
+                      "createdBy": "",
+                      "downvotes": 0,
+                      "isFavorited": false,
+                      "lastUpdated": "",
+                      "recipeImage": "",
+                      "title": "",
+                      "upvotes": 0,
+                      "vote": "",
+                    }
+                  }
+                  voteRecipe={[Function]}
+                >
+                  <div
+                    className="row mb-4"
+                  >
+                    <div
+                      className="col-md-8 col-lg-8 mb-3"
+                    >
+                      <div
+                        className="card"
+                      >
+                        <img
+                          alt="Card image cap"
+                          className="img-fluid"
+                          id="recipe_image"
+                          src=""
+                        />
+                        <div
+                          className="card-body"
+                        >
+                          <div
+                            className=" pt-2 pb-2"
+                          >
+                            <div
+                              className="row"
+                            >
+                              <div
+                                className="col-10 offset-1"
+                              >
+                                <div
+                                  className="row"
+                                >
+                                  <div
+                                    className="col-3 p-1"
+                                  >
+                                    <span
+                                      className="text-success"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        className="fa fa-thumbs-o-up fa-2x action pr-1"
+                                        id="upvote"
+                                        onClick={[Function]}
+                                      />
+                                      0
+                                    </span>
+                                  </div>
+                                  <div
+                                    className="col-3 p-1"
+                                  >
+                                    <span
+                                      className="text-danger"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        className="fa fa-thumbs-o-down fa-2x action pr-1"
+                                        id="downvote"
+                                        onClick={[Function]}
+                                      />
+                                      0
+                                    </span>
+                                  </div>
+                                  <div
+                                    className="col-6 p-1 text-right text-warning"
+                                  >
+                                    <i
+                                      className="fa fa-heart-o fa-2x action"
+                                      id="favorite"
+                                      onClick={[Function]}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className="text-mute text-center font-italic pt-1"
+                            >
+                              <span
+                                className="lead text-muted"
+                              >
+                                Last Updated: 
+                                Invalid date
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="col-md-4 col-lg-4 mb-3"
+                    >
+                      <h2
+                        className="page-text font-weight-bold break-word"
+                      />
+                      <p
+                        className="lead font-italic p-2 text-muted"
+                        id="description"
+                      >
+                        The best african continental dish. Very easy to prepar and less time consuming. Enjoy!
+                      </p>
+                      <div>
+                        <p
+                          className="lead mb-0 font-weight-bold page-text"
+                        >
+                          Time To Prepare
+                        </p>
+                        <span
+                          className="maroon"
+                        >
+                          <i
+                            className="fa fa-clock-o pl-1"
+                          />
+                          <small
+                            className="text-muted font-italic"
+                            id="time"
+                          >
+                             20 mins
+                          </small>
+                        </span>
+                      </div>
+                      <div
+                        className="pt-3 small"
+                      >
+                        <span
+                          className="font-weight-bold page-text"
+                        >
+                          By: 
+                        </span>
+                        <span
+                          className="text-muted"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </TopContents>
+                <div
+                  className="row mb-4"
+                >
+                  <Ingredients
+                    ingredients=""
+                  >
+                    <div
+                      className="col-md-4 col-lg-4 mb-3"
+                    >
+                      <h5
+                        className="page-text font-weight-bold pb-2"
+                      >
+                        Ingredients
+                      </h5>
+                      <ul
+                        className="list-group list-group-flush text-muted details break-word"
+                      />
+                    </div>
+                  </Ingredients>
+                  <div
+                    className="col-1"
+                  />
+                  <Procedures
+                    procedures=""
+                  >
+                    <div
+                      className="col-md-7 col-lg-7"
+                    >
+                      <h5
+                        className="page-text font-weight-bold pb-2"
+                      >
+                        Procedures
+                      </h5>
+                      <ul
+                        className="list-group list-group-flush text-muted details break-word"
+                      />
+                    </div>
+                  </Procedures>
+                </div>
+                <Connect(ReviewsForm)
+                  addFavorite={[MockFunction]}
+                  addFavoriteError=""
+                  addFavoriteSuccess=""
+                  history={
+                    Object {
+                      "location": Object {
+                        "pathname": "",
+                      },
+                      "push": [MockFunction],
+                    }
+                  }
+                  match={
+                    Object {
+                      "params": Object {
+                        "id": 20,
+                      },
+                    }
+                  }
+                  postReview={[MockFunction]}
+                  recipeDetails={Object {}}
+                  recipeId={20}
+                  setCurrentRecipe={
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          20,
+                        ],
+                      ],
+                    }
+                  }
+                  voteFailureMessage=""
+                  voteRecipe={[MockFunction]}
+                  voteSuccessMessage=""
+                >
+                  <ReviewsForm
+                    addFavorite={[MockFunction]}
+                    addFavoriteError=""
+                    addFavoriteSuccess=""
+                    dispatch={[Function]}
+                    history={
+                      Object {
+                        "location": Object {
+                          "pathname": "",
+                        },
+                        "push": [MockFunction],
+                      }
+                    }
+                    match={
+                      Object {
+                        "params": Object {
+                          "id": 20,
+                        },
+                      }
+                    }
+                    postReview={[MockFunction]}
+                    recipeDetails={Object {}}
+                    recipeId={20}
+                    reviewFailureMessage=""
+                    reviewSuccessMessage=""
+                    setCurrentRecipe={
+                      [MockFunction] {
+                        "calls": Array [
+                          Array [
+                            20,
+                          ],
+                        ],
+                      }
+                    }
+                    voteFailureMessage=""
+                    voteRecipe={[MockFunction]}
+                    voteSuccessMessage=""
+                  >
+                    <div>
+                      <h5
+                        className="mt-3 page-text font-weight-bold"
+                      >
+                        Post Your Review
+                      </h5>
+                      <form
+                        onSubmit={[Function]}
+                      >
+                        <div
+                          className="col p-0 mb-2"
+                        >
+                          <textarea
+                            className="form-control"
+                            name="reviewBody"
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            onKeyUp={[Function]}
+                            placeholder="enter your review for this recipe"
+                            rows="7"
+                            value=""
+                          />
+                        </div>
+                        <button
+                          className="btn btn-outline-success"
+                          type="submit"
+                        >
+                          Post Review
+                        </button>
+                      </form>
+                    </div>
+                  </ReviewsForm>
+                </Connect(ReviewsForm)>
+                <Reviews
+                  reviews={Array []}
+                >
+                  <section
+                    className="mb-5"
+                  >
+                    <h5
+                      className="page-text font-weight-bold mt-4 mb-3 pt-3"
+                    >
+                      Reviews
+                    </h5>
+                    <div
+                      className="mt-4 text-muted"
+                    >
+                      There are no reviews yet, for this recipe
+                    </div>
+                  </section>
+                </Reviews>
+              </main>
+            </div>
+          </div>
+          <Footer>
+            <footer
+              className="footer"
+            >
+              <div
+                className="container"
+              >
+                <div
+                  className="row mt-4"
+                >
+                  <div
+                    className="col-12 col-sm-8 col-md-9 col-lg-10"
+                  >
+                    <small
+                      className="text-white"
+                      id="copywrite"
+                    >
+                      <span
+                        className="text-warning"
+                      >
+                        ©2018 
+                      </span>
+                      Bootcamp27, Andela Nigeria. All rights reserved.
+                    </small>
+                  </div>
+                  <div
+                    className="col-12 col-sm-4 col-md-3 col-lg-2 text-center"
+                  >
+                    <ul
+                      className="list-inline"
+                    >
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="fa fa-google-plus"
+                          />
+                        </a>
+                      </li>
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            className="fa fa-github"
+                          />
+                        </a>
+                      </li>
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            className="fa fa-facebook"
+                          />
+                        </a>
+                      </li>
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            className="fa fa-twitter"
+                          />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </footer>
+          </Footer>
+        </div>
+      </RecipeDetailsPage>
+    </Router>
+  </BrowserRouter>
+</Provider>
 `;

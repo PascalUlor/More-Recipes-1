@@ -47,10 +47,10 @@ const deleteFavouriteRecipeRequest = recipeId => (
       },
       url: `/api/v1/user/favorites/${recipeId}`,
     })
-    .then(response =>
-      dispatch(deleteFavouriteSuccess(recipeId, response.data.message)))
-    .catch(error =>
-      dispatch(deleteFavouriteFailure(error.response.data.message)))
+      .then(response =>
+        dispatch(deleteFavouriteSuccess(recipeId, response.data.message)))
+      .catch(error =>
+        dispatch(deleteFavouriteFailure(error.response.data.message)))
   ));
 
 export default deleteFavouriteRecipeRequest;

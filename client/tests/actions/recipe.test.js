@@ -8,7 +8,8 @@ import {
 import popularRecipes from '../../actions/actionCreators/popularRecipesActions';
 import getUserRecipes from '../../actions/actionCreators/getUserRecipesActions';
 import setRecipe from '../../actions/actionCreators/setCurrentRecipeActions';
-import checkDoubleTitle from '../../actions/actionCreators/checkDoubleRecipeTitle';
+import checkDoubleTitle
+  from '../../actions/actionCreators/checkDoubleRecipeTitle';
 import * as types from '../../actions/actionTypes/actionTypes';
 import mockData from '../__mocks__/data/recipeData';
 
@@ -163,7 +164,10 @@ describe('recipe actions', () => {
 
       const expectedActions = [
         { type: types.IS_ALL_RECIPES_FETCHING, bool: true },
-        { type: types.FETCH_ALL_RECIPES_SUCCESS, allRecipes: mockData.allRecipesResponse },
+        {
+          type: types.FETCH_ALL_RECIPES_SUCCESS,
+          allRecipes: mockData.allRecipesResponse
+        },
         { type: types.IS_ALL_RECIPES_FETCHING, bool: false }
       ];
       const store = mockStore({});

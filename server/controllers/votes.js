@@ -27,64 +27,39 @@ export default class VotesApiController {
       { vote } = request.query;
 
     if (checkId.recipeId(response, recipeId)) {
-      Recipe.findById(recipeId).then((recipe) => {
+      return Recipe.findById(recipeId).then((recipe) => {
         if (recipe) {
           return Vote.findOne({ where: { userId, recipeId } })
             .then((foundVote) => {
               if (foundVote) {
-                if (vote === 'upvote') {
-                  if (foundVote.vote === 'upvote') {
-                    return requestFeedback
-                      .error(response, 409, 'You already upvoted');
-                  }
-                  return Vote.update({
-                    vote: 'upvote'
-                  }, {
-                    where: { userId, recipeId }
-                  }).then(() => {
-                    Recipe
-                      .update({
-                        upvotes: recipe.upvotes + 1,
-                        downvotes: recipe.downvotes - 1
-                      }, { where: { id: recipeId } })
-                      .then(() => (voteResponse(
-                        Recipe, recipeId, response,
-                        200, 'You upvoted', vote
-                      )));
-                  });
-                }
-                if (foundVote.vote === 'downvote') {
-                  return requestFeedback.error(
-                    response, 409,
-                    'You already downvoted'
-                  );
+                if (foundVote.vote === vote) {
+                  return requestFeedback
+                    .error(response, 409, `You already ${vote}d`);
                 }
                 return Vote.update({
-                  vote: 'downvote'
+                  vote
                 }, {
                   where: { userId, recipeId }
                 }).then(() => {
-                  Recipe
-                    .update({
-                      upvotes: recipe.upvotes - 1,
-                      downvotes: recipe.downvotes + 1
-                    }, { where: { id: recipeId } })
+                  const { upvotes, downvotes } = recipe;
+                  return Recipe.update({
+                    upvotes: vote === 'upvote' ? upvotes + 1 : upvotes - 1,
+                    downvotes: vote === 'downvote'
+                      ? downvotes + 1 : downvotes - 1
+                  }, { where: { id: recipeId } })
                     .then(() => (voteResponse(
-                      Recipe, recipeId,
-                      response, 200, 'You downvoted', vote
+                      Recipe, recipeId, response,
+                      200, `You ${vote}d`, vote
                     )));
                 });
               }
-
-              if (vote === 'upvote') {
-                return createVote(
-                  Recipe, Vote, response, userId, recipeId,
-                  vote, recipe, 201, 'Thanks for upvoting'
-                );
+              let message = 'Thanks for upvoting';
+              if (vote === 'downvote') {
+                message = 'Thanks for downvoting';
               }
               return createVote(
-                Recipe, Vote, response, userId, recipeId,
-                vote, recipe, 201, 'Thanks for downvoting'
+                Recipe, Vote, response, userId,
+                recipeId, vote, 201, message
               );
             });
         }

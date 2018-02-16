@@ -3,52 +3,43 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import toJson from 'enzyme-to-json';
-import sinon from 'sinon';
-import {
-  AllRecipesPage
-} from '../../../components/AllRecipesPage.jsx';
+import store from '../../../store';
+import AllRecipesPage from '../../../components/AllRecipesPage.jsx';
 
 
-/**
- * @param { boolean } loading
- *
- * @return { * } null
- */
-const setup = () => {
-  const props = {
-    fetchPopularRecipes: jest.fn(),
-    fetchAllRecipes: jest.fn(),
-    isPopularFetching: false,
-    isAllFetching: false,
-    fetchedPopularRecipes: [],
-    fetchedAllRecipes: [],
-    paginationDetails: {},
-    errorMessage: ''
-  };
-  return props;
-};
+const props = {};
 
-const props = setup();
-const store = mockStore({});
-const shallowWrapper = shallow((
+const mountWrapper = mount((
   <Provider store={store}>
     <Router><AllRecipesPage {...props}/></Router>
   </Provider>
 ));
 describe('AllRecipesPage component', () => {
   it('should render correctly', () => {
-    expect(shallowWrapper).toMatchSnapshot();
+    expect(toJson(mountWrapper)).toMatchSnapshot();
   });
 
-  // it('should call onChange() event', () => {
-  //   shallowWrapper.find('TextFieldGroup').find('input')
-  //     .simulate('change', {
-  //       target: {
-  //         name: 'search',
-  //         value: 'rice',
-  //       },
-  //     });
-  //   // expect(shallowWrapper.instance().state.search).toEqual('rice');
-  //   // expect(shallowWrapper.instance().fetchAllRecipes).toHaveBeenCalled();
-  // });
+  it('should call onChange() event', () => {
+    mountWrapper.find('TextFieldGroup').find('input')
+      .simulate('change', {
+        target: {
+          name: 'search',
+          value: 'rice',
+        },
+      });
+    expect(mountWrapper.find('AllRecipesPage')
+      .instance().state.search).toEqual('rice');
+  });
+
+  it('should call handleSearch()', () => {
+    mountWrapper.find('form').simulate('keyup');
+    expect(mountWrapper.find('AllRecipesPage').instance().state.search)
+      .toEqual('rice');
+    mountWrapper.find('AllRecipesPage').instance().setState({
+      search: '',
+    });
+    mountWrapper.find('form').simulate('keyup');
+    expect(mountWrapper.find('AllRecipesPage').instance().state.search)
+      .toEqual('');
+  });
 });

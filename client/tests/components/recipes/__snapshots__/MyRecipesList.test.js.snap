@@ -1,0 +1,347 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing MyRecipesList component Should render without error 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "blank",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <MyRecipesList
+        myRecipes={
+          Array [
+            Object {
+              "errors": Object {},
+              "id": 90,
+              "imageFile": Object {},
+              "imageSrc": "/images/noimageyet.jpg",
+              "ingredients": "ing1, ing2, ingredient3, ingredient4, ingredient5, ingredient6",
+              "procedures": "new test procedure for this new added recipe",
+              "title": "new test title",
+            },
+            Object {
+              "errors": Object {},
+              "id": 89,
+              "imageFile": Object {},
+              "imageSrc": "/images/noimageyet.jpg",
+              "ingredients": "ing1, ing2, ingredient3, ingredient4, ingredient5, ingredient6",
+              "procedures": "new test procedure for this new added recipe",
+              "title": "new test title",
+            },
+          ]
+        }
+        setCurrentRecipe={[MockFunction]}
+      >
+        <div
+          className="card-deck mb-4 mt-4"
+        >
+          <MyRecipe
+            key="90"
+            myRecipe={
+              Object {
+                "errors": Object {},
+                "id": 90,
+                "imageFile": Object {},
+                "imageSrc": "/images/noimageyet.jpg",
+                "ingredients": "ing1, ing2, ingredient3, ingredient4, ingredient5, ingredient6",
+                "procedures": "new test procedure for this new added recipe",
+                "title": "new test title",
+              }
+            }
+            setCurrentRecipe={[MockFunction]}
+          >
+            <div
+              className="col-12 col-sm-6 col-md-6 col-lg-4 pt-2"
+            >
+              <div
+                className="card"
+              >
+                <Link
+                  replace={false}
+                  to="/recipes/90/recipe-details"
+                >
+                  <a
+                    href="/recipes/90/recipe-details"
+                    onClick={[Function]}
+                  >
+                    <img
+                      alt="Card image cap"
+                      className="card-img-top img-fluid"
+                    />
+                  </a>
+                </Link>
+                <div
+                  className="card-body text-center p-2"
+                >
+                  <div
+                    className="row card-title"
+                  >
+                    <h6
+                      className="col-9 mt-2 text-truncate"
+                    >
+                      new test title
+                    </h6>
+                    <small
+                      className="col-3 mt-2"
+                    >
+                      <i
+                        className="fa fa-eye"
+                      />
+                       
+                    </small>
+                  </div>
+                  <div
+                    className="card-text"
+                  >
+                    <small
+                      className="text-success pr-1"
+                    >
+                      <i
+                        aria-hidden="true"
+                        className="fa fa-thumbs-o-up"
+                      />
+                       
+                    </small>
+                    <button
+                      className="btn btn-outline-danger btn-sm mr-1"
+                      data-target="#deleteRecipeModal"
+                      data-toggle="modal"
+                      onClick={[Function]}
+                    >
+                      <small>
+                        <i
+                          className="fa fa-trash"
+                        />
+                         Delete
+                      </small>
+                    </button>
+                    <button
+                      className="btn btn-outline-success btn-sm"
+                      data-target="#editRecipeModal"
+                      data-toggle="modal"
+                      onClick={[Function]}
+                    >
+                      <small>
+                        <i
+                          className="fa fa-edit"
+                        />
+                         Edit
+                      </small>
+                    </button>
+                    <small
+                      className="text-danger pl-1"
+                    >
+                      <i
+                        className="fa fa-thumbs-o-down"
+                      />
+                       
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </MyRecipe>
+          <MyRecipe
+            key="89"
+            myRecipe={
+              Object {
+                "errors": Object {},
+                "id": 89,
+                "imageFile": Object {},
+                "imageSrc": "/images/noimageyet.jpg",
+                "ingredients": "ing1, ing2, ingredient3, ingredient4, ingredient5, ingredient6",
+                "procedures": "new test procedure for this new added recipe",
+                "title": "new test title",
+              }
+            }
+            setCurrentRecipe={[MockFunction]}
+          >
+            <div
+              className="col-12 col-sm-6 col-md-6 col-lg-4 pt-2"
+            >
+              <div
+                className="card"
+              >
+                <Link
+                  replace={false}
+                  to="/recipes/89/recipe-details"
+                >
+                  <a
+                    href="/recipes/89/recipe-details"
+                    onClick={[Function]}
+                  >
+                    <img
+                      alt="Card image cap"
+                      className="card-img-top img-fluid"
+                    />
+                  </a>
+                </Link>
+                <div
+                  className="card-body text-center p-2"
+                >
+                  <div
+                    className="row card-title"
+                  >
+                    <h6
+                      className="col-9 mt-2 text-truncate"
+                    >
+                      new test title
+                    </h6>
+                    <small
+                      className="col-3 mt-2"
+                    >
+                      <i
+                        className="fa fa-eye"
+                      />
+                       
+                    </small>
+                  </div>
+                  <div
+                    className="card-text"
+                  >
+                    <small
+                      className="text-success pr-1"
+                    >
+                      <i
+                        aria-hidden="true"
+                        className="fa fa-thumbs-o-up"
+                      />
+                       
+                    </small>
+                    <button
+                      className="btn btn-outline-danger btn-sm mr-1"
+                      data-target="#deleteRecipeModal"
+                      data-toggle="modal"
+                      onClick={[Function]}
+                    >
+                      <small>
+                        <i
+                          className="fa fa-trash"
+                        />
+                         Delete
+                      </small>
+                    </button>
+                    <button
+                      className="btn btn-outline-success btn-sm"
+                      data-target="#editRecipeModal"
+                      data-toggle="modal"
+                      onClick={[Function]}
+                    >
+                      <small>
+                        <i
+                          className="fa fa-edit"
+                        />
+                         Edit
+                      </small>
+                    </button>
+                    <small
+                      className="text-danger pl-1"
+                    >
+                      <i
+                        className="fa fa-thumbs-o-down"
+                      />
+                       
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </MyRecipe>
+        </div>
+      </MyRecipesList>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`Testing MyRecipesList component Should render without error 2`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "blank",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <MyRecipesList
+        myRecipes={Array []}
+        setCurrentRecipe={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                90,
+              ],
+              Array [
+                90,
+              ],
+            ],
+          }
+        }
+      >
+        <div
+          className="not-found lead p-3 mt-3 mt-5"
+        >
+          <i
+            className="fa fa-exclamation-triangle fa-3x pb-3 text-warning d-block"
+          />
+          You have no available recipes
+        </div>
+      </MyRecipesList>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;

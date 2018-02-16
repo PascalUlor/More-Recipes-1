@@ -73,7 +73,8 @@ exports[`<DeleteRecipeModal/> renders delete recipe modal component without cras
         </button>
         <button
           className="btn btn-danger"
-          onClick={[Function]}
+          id="delete-recipe"
+          onClick={[MockFunction]}
           type="button"
         >
           Delete

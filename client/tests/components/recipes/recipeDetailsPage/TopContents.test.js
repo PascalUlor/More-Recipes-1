@@ -49,7 +49,8 @@ describe('TopContents component', () => {
         vote: 'downvote'
       }
     };
-    const shallowWrapper = shallow(<TopContents {...newProps} vote='downvote'/>);
+    const shallowWrapper =
+      shallow(<TopContents {...newProps} vote='downvote'/>);
     const downvote = shallowWrapper.find('#downvote');
     expect(downvote.hasClass('fa-thumbs-down')).toEqual(true);
   });

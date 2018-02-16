@@ -10,6 +10,7 @@
     "build:prod:client": "rm -rf build && webpack --progress --config webpack.config.prod.js",
     "build:dev:client": "webpack --progress --config webpack.config.dev.js",
     "start:dev": "rm -rf build && export NODE_ENV=development && npm run build:dev:client && nodemon --watch server --exec babel-node -- server/app.js",
+    "start:test": "rm -rf build && export NODE_ENV=test && npm run build:dev:client && nodemon --watch server --exec babel-node -- server/app.js",
     "start:prod": "rm -rf build && rm -rf dist && export NODE_ENV=production && npm run heroku-postbuild && npm start",
     "test": "export NODE_ENV=test && nyc --reporter=html --reporter=text mocha --timeout 500000 --compilers js:babel-core/register server/specs/*test.js",
     "test:client": "jest /client --coverage --collectCoverageFrom=client/**/*.{js,jsx}",
@@ -17,7 +18,11 @@
     "heroku-postbuild": "npm run build:prod:client && npm run build:prod:server",
     "migrate:dev": "export NODE_ENV=development && sequelize db:migrate:undo:all && sequelize db:migrate",
     "migrate:prod": "export NODE_ENV=production && sequelize db:migrate:undo:all && sequelize db:migrate",
-    "migrate:test": "export NODE_ENV=test && sequelize db:migrate:undo:all && sequelize db:migrate"
+    "migrate:test": "export NODE_ENV=test && sequelize db:migrate:undo:all && sequelize db:migrate",
+    "e2e-server": "selenium-standalone start",
+    "test:e2e": "nightwatch ./e2e-tests/*.test.js",
+    "start:e2e": "babel-node -- server/app.js",
+    "e2e": "npm run migrate:test && npm run test:e2e"
   },
   "jest": {
     "setupFiles": [
@@ -123,6 +128,7 @@
     "react-test-renderer": "^16.2.0",
     "redux-mock-store": "^1.5.1",
     "redux-testkit": "^1.0.6",
+    "selenium-standalone": "^6.12.0",
     "sequelize-cli": "^3.0.0",
     "sinon": "^4.3.0",
     "supertest": "^3.0.0"

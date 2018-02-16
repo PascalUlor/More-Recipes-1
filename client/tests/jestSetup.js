@@ -8,7 +8,6 @@ import expect from 'expect';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import localStorage from './__mocks__/localStorage';
-// import decode from 'jwt-decode';
 
 
 // This file is written in ES5 since it's not transpiled by Babel.
@@ -50,21 +49,8 @@ global.navigator = {
   userAgent: 'node.js'
 };
 
-var documentRef = document;
-
-// Disable webpack-specific features for tests since
-// Jest doesn't know what to do with them.
-
-// Configure JSDOM and set global variables
-// to simulate a browser environment for tests.
-// var jsdom = require('jsdom');
-
-// const { JSDOM } = jsdom;
 
 var exposedProperties = ['window', 'navigator', 'document'];
-
-// const { document } = (new JSDOM(
-//   '<!doctype html><html><body></body></html>')).window;
 
 Object.keys(document.defaultView).forEach((property) => {
   if (typeof global[property] === 'undefined') {

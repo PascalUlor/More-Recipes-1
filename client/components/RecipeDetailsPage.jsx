@@ -139,10 +139,10 @@ export class RecipeDetailsPage extends Component {
   handleVote(event) {
     const { recipeId } = this.state,
       { voteRecipe } = this.props;
-    let voteType = null;
-    if (event.target.id === 'upvote') {
-      voteType = 'upvote';
-    } else { voteType = 'downvote'; }
+    let voteType = 'upvote';
+    if (event.target.id === 'downvote') {
+      voteType = 'downvote';
+    }
     if (verifyToken()) {
       voteRecipe(recipeId, voteType)
         .then(() => {

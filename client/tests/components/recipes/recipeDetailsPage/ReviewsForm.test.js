@@ -6,12 +6,12 @@ import { ReviewsForm }
 
 /**
  *
- * @return { object } props
+ * @return { object } props - properties of the class instance
  */
 const setup = () => {
   const props = {
     recipeId: 1,
-    postReview: jest.fn(),
+    postReview: jest.fn(() => Promise.resolve()),
     reviewSuccessMessage: '',
     reviewFailureMessage: '',
     history: {
@@ -21,22 +21,12 @@ const setup = () => {
       push: jest.fn()
     }
   };
-
   return props;
 };
 
-
-const simulateInput = (name, value) => {
-  const event = {
-    target: {
-      name,
-      value
-    }
-  };
-  return event;
-};
 const props = setup();
-const shallowWrapper = shallow(<ReviewsForm {...props}/>);
+let shallowWrapper = shallow(<ReviewsForm {...props}/>);
+
 describe('<SignupForm/>', () => {
   it('renders form with five input fields and a button', () => {
     expect(shallowWrapper.find('div').length).toBe(2);
@@ -64,20 +54,19 @@ describe('<SignupForm/>', () => {
         value: '',
       }
     });
+    expect(shallowWrapper.instance().state.errors).toEqual({
+      reviewBody: ''
+    });
   });
 
   it('should call onKeyUp() event', () => {
     shallowWrapper.find('textarea').simulate('keyUp');
-    shallowWrapper.instance().handleKeyUp();
+    expect(shallowWrapper.instance().state.review).toEqual('');
   });
 
   describe('handleSubmit()', () => {
     const event = {
-      preventDefault: jest.fn(),
-      target: {
-        name: 'reviewBody',
-        value: 'bad'
-      }
+      preventDefault: jest.fn()
     };
 
     it('should return an error for empty review body', (done) => {
@@ -90,36 +79,46 @@ describe('<SignupForm/>', () => {
       done();
     });
 
-    // it(
-    //   'should return error if length of review body is less than four',
-    //   (done) => {
-    //     shallowWrapper.instance()
-    //       .handleChange(simulateInput('reviewBody', 'bad'));
-    //     shallowWrapper.setState({ review: 'baddo' });
-    //     shallowWrapper.find('form').simulate('submit');
-    //     // shallowWrapper.instance().handleSubmit(event);
-    //     // shallowWrapper.find('form').simulate('submit', { preventDefault: jest.fn()});
-    //     // expect(shallowWrapper.state().review).toEqual('bad');
-    //     console.log(shallowWrapper.instance().handleSubmit.children());
-    //     // console.log(shallowWrapper.state());
-    //     // expect(shallowWrapper.state().errors).toEqual({
-    //     //   reviewBody: 'Review provided must be atleast 4 characters'
-    //     // });
-    //     done();
-    //   }
-    // );
+    it('should return error when length of review is less than 4', (done) => {
+      shallowWrapper.setState({ review: 'bad' });
+      shallowWrapper.find('form')
+        .simulate('submit', event);
+      expect(shallowWrapper.instance().isValid()).toBe(false);
+      expect(shallowWrapper.state().errors).toEqual({
+        reviewBody: 'Review provided must be atleast 4 characters'
+      });
+      done();
+    });
 
-    // it('should work if provided form details are valid', () => {
-    //   signupPage.setState({
-    //     fullName: 'Richie Rich',
-    //     username: 'rich',
-    //     email: 'rich@gmail.com',
-    //     password: '12345678',
-    //     repassword: '12345678'
-    //   });
-    //   submit();
-    //   expect(signupPage.state.errors).toEqual({});
-    //   expect(signupPage.props.userSignupRequest).toBeCalled();
-    // });
+    it('should alert failure message on error during posting', (done) => {
+      const newProps = {
+        ...props,
+        reviewFailureMessage: 'error occurred'
+      };
+      shallowWrapper = shallow(<ReviewsForm {...newProps}/>);
+      shallowWrapper.setState({ review: 'Nice job' });
+      shallowWrapper.find('form')
+        .simulate('submit', event);
+      expect(shallowWrapper.instance().isValid()).toBe(true);
+      expect(shallowWrapper.state().errors).toEqual({});
+      expect(shallowWrapper.instance().props.reviewFailureMessage)
+        .toEqual('error occurred');
+      done();
+    });
+    it('should alert success message on no post error', (done) => {
+      const newProps = {
+        ...props,
+        reviewSuccessMessage: 'review has been posted'
+      };
+      shallowWrapper = shallow(<ReviewsForm {...newProps}/>);
+      shallowWrapper.setState({ review: 'Nice job' });
+      shallowWrapper.find('form')
+        .simulate('submit', event);
+      expect(shallowWrapper.instance().isValid()).toBe(true);
+      expect(shallowWrapper.state().errors).toEqual({});
+      expect(shallowWrapper.instance().props.reviewSuccessMessage)
+        .toEqual('review has been posted');
+      done();
+    });
   });
 });

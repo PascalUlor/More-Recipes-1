@@ -7,9 +7,10 @@ import { SigninPage } from '../../../components/SigninPage.jsx';
 
 
 /**
- * @param { boolean } loading
+ * @description returns mounted component with its props
+ * @function setup
  *
- * @return { * } null
+ * @return { object } mounted component
  */
 const setup = () => {
   const props = {
@@ -18,7 +19,7 @@ const setup = () => {
     addFlashMessage: jest.fn(),
     userSigninRequest: jest.fn(() => Promise.resolve()),
     history: {
-      push: () => {}
+      push: jest.fn()
     }
   };
   const store = mockStore({});
@@ -62,6 +63,7 @@ describe('<SigninPage/>', () => {
     const submit = () => mountWrapper.find('SigninForm')
       .find('TextFieldGroup').at(0).find('input')
       .simulate('submit', event);
+
     it('should not work for empty username', () => {
       signinPage.setState({
         username: '',
@@ -83,7 +85,7 @@ describe('<SigninPage/>', () => {
       });
       submit();
       expect(signinPage.state.errors).toEqual({});
-      expect(signinPage.props.userSigninRequest).toBeCalled();
+      expect(signinPage.props.userSigninRequest).toHaveBeenCalled();
     });
   });
 });
