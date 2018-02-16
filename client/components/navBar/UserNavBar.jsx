@@ -6,10 +6,10 @@ import { Link, NavLink } from 'react-router-dom';
 /**
  * @description displays authenticated user's navigaton bar
  * @method UserNavBar
- * 
+ *
  * @param { string } currentUsername - username of current logged in user
  * @param { function } logOut - logs/signs out users
- * 
+ *
  * @returns { jsx } jsx - renders UserNavBar component
  */
 const UserNavBar = ({ currentUsername, logOut }) => (
@@ -20,7 +20,7 @@ const UserNavBar = ({ currentUsername, logOut }) => (
           activeStyle={{
             backgroundColor: 'whitesmoke', fontWeight: '600', color: 'darkcyan'
           }}
-          className="nav-link" to="/dashboard">Dashboard
+          className="nav-link" id="dashboard" to="/dashboard">Dashboard
         </NavLink>
       </li>
       <li className="nav-item">
@@ -28,7 +28,7 @@ const UserNavBar = ({ currentUsername, logOut }) => (
           activeStyle={{
             backgroundColor: 'whitesmoke', fontWeight: '600', color: 'darkcyan'
           }}
-          className="nav-link" to="/user/recipes">My Recipes
+          className="nav-link" id="my-recipes" to="/user/recipes">My Recipes
         </NavLink>
       </li>
       <li className="nav-item">
@@ -36,7 +36,7 @@ const UserNavBar = ({ currentUsername, logOut }) => (
           activeStyle={{
             backgroundColor: 'whitesmoke', fontWeight: '600', color: 'darkcyan'
           }}
-          className="nav-link" to="/user/favorites">Favorites
+          className="nav-link" id="favorites" to="/user/favorites">Favorites
         </NavLink>
       </li>
       <li className="nav-item">
@@ -44,7 +44,7 @@ const UserNavBar = ({ currentUsername, logOut }) => (
           activeStyle={{
             backgroundColor: 'whitesmoke', fontWeight: '600', color: 'darkcyan'
           }}
-          className="nav-link" to="/recipes">All Recipes
+          className="nav-link" id="all-recipes" to="/recipes">All Recipes
         </NavLink>
       </li>
     </ul>
@@ -58,10 +58,17 @@ const UserNavBar = ({ currentUsername, logOut }) => (
         <span className="beautify">{currentUsername}</span>
       </button>
       <div className="dropdown-menu dropdown-menu-right">
-        <Link className="dropdown-item" to="/user/profile">Profile</Link>
-        <Link className="dropdown-item" to="">Settings</Link>
+        <Link
+          className="dropdown-item" id="profile"
+          to="/user/profile">Profile
+        </Link>
+        <Link
+          className="dropdown-item" id="settings"
+          to="">Settings</Link>
         <div className="dropdown-divider"></div>
-        <Link className="dropdown-item" to="#" onClick={logOut}>Log Out</Link>
+        <Link
+          className="dropdown-item" id="logout"
+          to="#" onClick={logOut}>Log Out</Link>
       </div>
     </div>
   </div>

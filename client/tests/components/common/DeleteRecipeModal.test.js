@@ -6,7 +6,7 @@ import DeleteRecipeModal from '../../../components/DeleteRecipeModal.jsx';
 
 describe('<DeleteRecipeModal/>', () => {
   const props = {
-    handleDelete: () => {}
+    handleDelete: jest.fn()
   };
   it('renders delete recipe modal component without crashing', () => {
     const shallowWrapper = shallow(<DeleteRecipeModal {...props}/>);

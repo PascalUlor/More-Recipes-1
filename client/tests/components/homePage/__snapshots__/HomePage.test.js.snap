@@ -1,119 +1,776 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HomePage component should render correctly 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Provider
-    store={
-      Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      }
-    }
-  >
-    <BrowserRouter>
-      <HomePage
-        fetchPopularRecipes={[MockFunction]}
-        fetchedPopularRecipes={Array []}
-        history={
-          Object {
-            "push": [MockFunction],
-          }
-        }
-        isFetching={false}
-      />
-    </BrowserRouter>
-  </Provider>,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "class",
-    "props": Object {
-      "children": <HomePage
-        fetchPopularRecipes={[MockFunction]}
-        fetchedPopularRecipes={Array []}
-        history={
-          Object {
-            "push": [MockFunction],
-          }
-        }
-        isFetching={false}
-      />,
-    },
-    "ref": null,
-    "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "fetchPopularRecipes": [MockFunction],
-        "fetchedPopularRecipes": Array [],
-        "history": Object {
-          "push": [MockFunction],
-        },
-        "isFetching": false,
-      },
-      "ref": null,
-      "rendered": null,
-      "type": [Function],
-    },
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
+<Provider
+  store={
     Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "children": <HomePage
-          fetchPopularRecipes={[MockFunction]}
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "blank",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Connect(HomePage)
+        history={
+          Object {
+            "push": [Function],
+          }
+        }
+      >
+        <HomePage
+          fetchPopularRecipes={[Function]}
           fetchedPopularRecipes={Array []}
           history={
             Object {
-              "push": [MockFunction],
+              "push": [Function],
             }
           }
-          isFetching={false}
-        />,
-      },
-      "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "fetchPopularRecipes": [MockFunction],
-          "fetchedPopularRecipes": Array [],
-          "history": Object {
-            "push": [MockFunction],
-          },
-          "isFetching": false,
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      "type": [Function],
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+          isFetching={true}
+        >
+          <div
+            className="bg-faded"
+          >
+            <div
+              className="main-wrapper mt-0"
+            >
+              <Connect(NavBar)>
+                <NavBar
+                  authenticatedUser={
+                    Object {
+                      "isAuthenticated": false,
+                      "user": Object {},
+                    }
+                  }
+                  logOut={[Function]}
+                >
+                  <div
+                    className="container pl-0 pr-0"
+                  >
+                    <header
+                      className="mb-5"
+                    >
+                      <nav
+                        className="navbar navbar-toggleable-md navbar-light fixed-top"
+                      >
+                        <button
+                          aria-controls="navbarItems"
+                          aria-expanded="false"
+                          aria-label="Toggle navigation"
+                          className="navbar-toggler navbar-toggler-right"
+                          data-target="#navbarItems"
+                          data-toggle="collapse"
+                          type="button"
+                        >
+                          <span
+                            className="navbar-toggler-icon"
+                          />
+                        </button>
+                        <Link
+                          className="navbar-brand"
+                          replace={false}
+                          to="/"
+                        >
+                          <a
+                            className="navbar-brand"
+                            href="/"
+                            onClick={[Function]}
+                          >
+                            <img
+                              alt="More Recipe Logo"
+                              className="d-inline-block align-center"
+                              height="32"
+                              src="/images/logo.png"
+                              width="45"
+                            />
+                            <span
+                              id="site-name"
+                            >
+                              More Recipes
+                            </span>
+                          </a>
+                        </Link>
+                        <GuestNavBar>
+                          <div
+                            className="collapse navbar-collapse"
+                            id="navbarItems"
+                          >
+                            <ul
+                              className="navbar-nav ml-auto text-center"
+                            >
+                              <li
+                                className="nav-item"
+                              >
+                                <NavLink
+                                  activeClassName="active"
+                                  activeStyle={
+                                    Object {
+                                      "backgroundColor": "whitesmoke",
+                                      "color": "darkcyan",
+                                      "fontWeight": "600",
+                                    }
+                                  }
+                                  ariaCurrent="true"
+                                  className="nav-link"
+                                  id="home"
+                                  to="/"
+                                >
+                                  <Route
+                                    path="/"
+                                  >
+                                    <Link
+                                      aria-current={false}
+                                      className="nav-link"
+                                      id="home"
+                                      replace={false}
+                                      to="/"
+                                    >
+                                      <a
+                                        aria-current={false}
+                                        className="nav-link"
+                                        href="/"
+                                        id="home"
+                                        onClick={[Function]}
+                                      >
+                                        Home
+                                      </a>
+                                    </Link>
+                                  </Route>
+                                </NavLink>
+                              </li>
+                              <li
+                                className="nav-item"
+                              >
+                                <NavLink
+                                  activeClassName="active"
+                                  activeStyle={
+                                    Object {
+                                      "backgroundColor": "whitesmoke",
+                                      "color": "darkcyan",
+                                      "fontWeight": "600",
+                                    }
+                                  }
+                                  ariaCurrent="true"
+                                  className="nav-link"
+                                  id="all-recipes"
+                                  to="/recipes"
+                                >
+                                  <Route
+                                    path="/recipes"
+                                  >
+                                    <Link
+                                      aria-current={false}
+                                      className="nav-link"
+                                      id="all-recipes"
+                                      replace={false}
+                                      to="/recipes"
+                                    >
+                                      <a
+                                        aria-current={false}
+                                        className="nav-link"
+                                        href="/recipes"
+                                        id="all-recipes"
+                                        onClick={[Function]}
+                                      >
+                                        All Recipes
+                                      </a>
+                                    </Link>
+                                  </Route>
+                                </NavLink>
+                              </li>
+                              <li
+                                className="nav-item"
+                              >
+                                <Link
+                                  className="nav-link"
+                                  id="signin"
+                                  replace={false}
+                                  to="/signin"
+                                >
+                                  <a
+                                    className="nav-link"
+                                    href="/signin"
+                                    id="signin"
+                                    onClick={[Function]}
+                                  >
+                                    Login
+                                  </a>
+                                </Link>
+                              </li>
+                              <li
+                                className="nav-item"
+                              >
+                                <Link
+                                  className="nav-link nav-button"
+                                  id="signup"
+                                  replace={false}
+                                  to="/signup"
+                                >
+                                  <a
+                                    className="nav-link nav-button"
+                                    href="/signup"
+                                    id="signup"
+                                    onClick={[Function]}
+                                  >
+                                    Register
+                                  </a>
+                                </Link>
+                              </li>
+                            </ul>
+                          </div>
+                        </GuestNavBar>
+                      </nav>
+                    </header>
+                  </div>
+                </NavBar>
+              </Connect(NavBar)>
+              <div
+                className="text-center"
+              >
+                <MDSpinner
+                  className="mt-5"
+                  color1="rgb(66, 165, 245)"
+                  color2="rgb(239, 83, 80)"
+                  color3="rgb(253, 216, 53)"
+                  color4="rgb(76, 175, 80)"
+                  duration={1333}
+                  size={50}
+                >
+                  <span
+                    className="mt-5"
+                    style={
+                      Object {
+                        "animation": "__react-md-spinner-animation__root-rotate 1568.235294117647ms linear infinite",
+                        "display": "inline-block",
+                        "height": 50,
+                        "position": "relative",
+                        "verticalAlign": "middle",
+                        "width": 50,
+                      }
+                    }
+                  >
+                    <span
+                      key="0"
+                      style={
+                        Object {
+                          "animationDuration": "5332ms",
+                          "animationIterationCount": "infinite",
+                          "animationName": "__react-md-spinner-animation__fill-unfill-rotate, __react-md-spinner-animation__layer-1-fade-in-out",
+                          "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                          "borderColor": "rgb(66, 165, 245)",
+                          "display": "flex",
+                          "height": "100%",
+                          "opacity": 1,
+                          "position": "absolute",
+                          "whiteSpace": "nowrap",
+                          "width": "100%",
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "borderColor": "inherit",
+                            "display": "inline-block",
+                            "flexGrow": 1,
+                            "height": "100%",
+                            "overflow": "hidden",
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <span
+                          style={
+                            Object {
+                              "animationDuration": "1333ms",
+                              "animationIterationCount": "infinite",
+                              "animationName": "__react-md-spinner-animation__left-spin",
+                              "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                              "borderColor": "rgb(66, 165, 245) transparent transparent rgb(66, 165, 245)",
+                              "borderRadius": "50%",
+                              "borderStyle": "solid",
+                              "borderWidth": 5,
+                              "bottom": 0,
+                              "boxSizing": "border-box",
+                              "left": 0,
+                              "position": "absolute",
+                              "top": 0,
+                              "transform": "rotate(129deg)",
+                              "width": "200%",
+                            }
+                          }
+                        />
+                      </span>
+                      <span
+                        style={
+                          Object {
+                            "borderColor": "inherit",
+                            "display": "inline-block",
+                            "flexGrow": 1,
+                            "height": "100%",
+                            "overflow": "hidden",
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <span
+                          style={
+                            Object {
+                              "animationDuration": "1333ms",
+                              "animationIterationCount": "infinite",
+                              "animationName": "__react-md-spinner-animation__right-spin",
+                              "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                              "borderColor": "rgb(66, 165, 245) rgb(66, 165, 245) transparent transparent",
+                              "borderRadius": "50%",
+                              "borderStyle": "solid",
+                              "borderWidth": 5,
+                              "bottom": 0,
+                              "boxSizing": "border-box",
+                              "left": "-100%",
+                              "position": "absolute",
+                              "top": 0,
+                              "transform": "rotate(-129deg)",
+                              "width": "200%",
+                            }
+                          }
+                        />
+                      </span>
+                      <span
+                        style={
+                          Object {
+                            "borderColor": "inherit",
+                            "borderRadius": "50%",
+                            "borderTopStyle": "solid",
+                            "borderWidth": 5,
+                            "boxSizing": "border-box",
+                            "left": "45%",
+                            "position": "absolute",
+                            "top": 0,
+                            "width": "10%",
+                          }
+                        }
+                      />
+                    </span>
+                    <span
+                      key="1"
+                      style={
+                        Object {
+                          "animationDuration": "5332ms",
+                          "animationIterationCount": "infinite",
+                          "animationName": "__react-md-spinner-animation__fill-unfill-rotate, __react-md-spinner-animation__layer-2-fade-in-out",
+                          "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                          "borderColor": "rgb(239, 83, 80)",
+                          "display": "flex",
+                          "height": "100%",
+                          "opacity": 1,
+                          "position": "absolute",
+                          "whiteSpace": "nowrap",
+                          "width": "100%",
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "borderColor": "inherit",
+                            "display": "inline-block",
+                            "flexGrow": 1,
+                            "height": "100%",
+                            "overflow": "hidden",
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <span
+                          style={
+                            Object {
+                              "animationDuration": "1333ms",
+                              "animationIterationCount": "infinite",
+                              "animationName": "__react-md-spinner-animation__left-spin",
+                              "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                              "borderColor": "rgb(239, 83, 80) transparent transparent rgb(239, 83, 80)",
+                              "borderRadius": "50%",
+                              "borderStyle": "solid",
+                              "borderWidth": 5,
+                              "bottom": 0,
+                              "boxSizing": "border-box",
+                              "left": 0,
+                              "position": "absolute",
+                              "top": 0,
+                              "transform": "rotate(129deg)",
+                              "width": "200%",
+                            }
+                          }
+                        />
+                      </span>
+                      <span
+                        style={
+                          Object {
+                            "borderColor": "inherit",
+                            "display": "inline-block",
+                            "flexGrow": 1,
+                            "height": "100%",
+                            "overflow": "hidden",
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <span
+                          style={
+                            Object {
+                              "animationDuration": "1333ms",
+                              "animationIterationCount": "infinite",
+                              "animationName": "__react-md-spinner-animation__right-spin",
+                              "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                              "borderColor": "rgb(239, 83, 80) rgb(239, 83, 80) transparent transparent",
+                              "borderRadius": "50%",
+                              "borderStyle": "solid",
+                              "borderWidth": 5,
+                              "bottom": 0,
+                              "boxSizing": "border-box",
+                              "left": "-100%",
+                              "position": "absolute",
+                              "top": 0,
+                              "transform": "rotate(-129deg)",
+                              "width": "200%",
+                            }
+                          }
+                        />
+                      </span>
+                      <span
+                        style={
+                          Object {
+                            "borderColor": "inherit",
+                            "borderRadius": "50%",
+                            "borderTopStyle": "solid",
+                            "borderWidth": 5,
+                            "boxSizing": "border-box",
+                            "left": "45%",
+                            "position": "absolute",
+                            "top": 0,
+                            "width": "10%",
+                          }
+                        }
+                      />
+                    </span>
+                    <span
+                      key="2"
+                      style={
+                        Object {
+                          "animationDuration": "5332ms",
+                          "animationIterationCount": "infinite",
+                          "animationName": "__react-md-spinner-animation__fill-unfill-rotate, __react-md-spinner-animation__layer-3-fade-in-out",
+                          "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                          "borderColor": "rgb(253, 216, 53)",
+                          "display": "flex",
+                          "height": "100%",
+                          "opacity": 1,
+                          "position": "absolute",
+                          "whiteSpace": "nowrap",
+                          "width": "100%",
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "borderColor": "inherit",
+                            "display": "inline-block",
+                            "flexGrow": 1,
+                            "height": "100%",
+                            "overflow": "hidden",
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <span
+                          style={
+                            Object {
+                              "animationDuration": "1333ms",
+                              "animationIterationCount": "infinite",
+                              "animationName": "__react-md-spinner-animation__left-spin",
+                              "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                              "borderColor": "rgb(253, 216, 53) transparent transparent rgb(253, 216, 53)",
+                              "borderRadius": "50%",
+                              "borderStyle": "solid",
+                              "borderWidth": 5,
+                              "bottom": 0,
+                              "boxSizing": "border-box",
+                              "left": 0,
+                              "position": "absolute",
+                              "top": 0,
+                              "transform": "rotate(129deg)",
+                              "width": "200%",
+                            }
+                          }
+                        />
+                      </span>
+                      <span
+                        style={
+                          Object {
+                            "borderColor": "inherit",
+                            "display": "inline-block",
+                            "flexGrow": 1,
+                            "height": "100%",
+                            "overflow": "hidden",
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <span
+                          style={
+                            Object {
+                              "animationDuration": "1333ms",
+                              "animationIterationCount": "infinite",
+                              "animationName": "__react-md-spinner-animation__right-spin",
+                              "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                              "borderColor": "rgb(253, 216, 53) rgb(253, 216, 53) transparent transparent",
+                              "borderRadius": "50%",
+                              "borderStyle": "solid",
+                              "borderWidth": 5,
+                              "bottom": 0,
+                              "boxSizing": "border-box",
+                              "left": "-100%",
+                              "position": "absolute",
+                              "top": 0,
+                              "transform": "rotate(-129deg)",
+                              "width": "200%",
+                            }
+                          }
+                        />
+                      </span>
+                      <span
+                        style={
+                          Object {
+                            "borderColor": "inherit",
+                            "borderRadius": "50%",
+                            "borderTopStyle": "solid",
+                            "borderWidth": 5,
+                            "boxSizing": "border-box",
+                            "left": "45%",
+                            "position": "absolute",
+                            "top": 0,
+                            "width": "10%",
+                          }
+                        }
+                      />
+                    </span>
+                    <span
+                      key="3"
+                      style={
+                        Object {
+                          "animationDuration": "5332ms",
+                          "animationIterationCount": "infinite",
+                          "animationName": "__react-md-spinner-animation__fill-unfill-rotate, __react-md-spinner-animation__layer-4-fade-in-out",
+                          "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                          "borderColor": "rgb(76, 175, 80)",
+                          "display": "flex",
+                          "height": "100%",
+                          "opacity": 1,
+                          "position": "absolute",
+                          "whiteSpace": "nowrap",
+                          "width": "100%",
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "borderColor": "inherit",
+                            "display": "inline-block",
+                            "flexGrow": 1,
+                            "height": "100%",
+                            "overflow": "hidden",
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <span
+                          style={
+                            Object {
+                              "animationDuration": "1333ms",
+                              "animationIterationCount": "infinite",
+                              "animationName": "__react-md-spinner-animation__left-spin",
+                              "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                              "borderColor": "rgb(76, 175, 80) transparent transparent rgb(76, 175, 80)",
+                              "borderRadius": "50%",
+                              "borderStyle": "solid",
+                              "borderWidth": 5,
+                              "bottom": 0,
+                              "boxSizing": "border-box",
+                              "left": 0,
+                              "position": "absolute",
+                              "top": 0,
+                              "transform": "rotate(129deg)",
+                              "width": "200%",
+                            }
+                          }
+                        />
+                      </span>
+                      <span
+                        style={
+                          Object {
+                            "borderColor": "inherit",
+                            "display": "inline-block",
+                            "flexGrow": 1,
+                            "height": "100%",
+                            "overflow": "hidden",
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <span
+                          style={
+                            Object {
+                              "animationDuration": "1333ms",
+                              "animationIterationCount": "infinite",
+                              "animationName": "__react-md-spinner-animation__right-spin",
+                              "animationTimingFunction": "cubic-bezier(.4, 0, .2, 1)",
+                              "borderColor": "rgb(76, 175, 80) rgb(76, 175, 80) transparent transparent",
+                              "borderRadius": "50%",
+                              "borderStyle": "solid",
+                              "borderWidth": 5,
+                              "bottom": 0,
+                              "boxSizing": "border-box",
+                              "left": "-100%",
+                              "position": "absolute",
+                              "top": 0,
+                              "transform": "rotate(-129deg)",
+                              "width": "200%",
+                            }
+                          }
+                        />
+                      </span>
+                      <span
+                        style={
+                          Object {
+                            "borderColor": "inherit",
+                            "borderRadius": "50%",
+                            "borderTopStyle": "solid",
+                            "borderWidth": 5,
+                            "boxSizing": "border-box",
+                            "left": "45%",
+                            "position": "absolute",
+                            "top": 0,
+                            "width": "10%",
+                          }
+                        }
+                      />
+                    </span>
+                  </span>
+                </MDSpinner>
+              </div>
+            </div>
+            <Footer>
+              <footer
+                className="footer"
+              >
+                <div
+                  className="container"
+                >
+                  <div
+                    className="row mt-4"
+                  >
+                    <div
+                      className="col-12 col-sm-8 col-md-9 col-lg-10"
+                    >
+                      <small
+                        className="text-white"
+                        id="copywrite"
+                      >
+                        <span
+                          className="text-warning"
+                        >
+                          ©2018 
+                        </span>
+                        Bootcamp27, Andela Nigeria. All rights reserved.
+                      </small>
+                    </div>
+                    <div
+                      className="col-12 col-sm-4 col-md-3 col-lg-2 text-center"
+                    >
+                      <ul
+                        className="list-inline"
+                      >
+                        <li
+                          className="list-inline-item"
+                        >
+                          <a
+                            href="#"
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="fa fa-google-plus"
+                            />
+                          </a>
+                        </li>
+                        <li
+                          className="list-inline-item"
+                        >
+                          <a
+                            href="#"
+                          >
+                            <i
+                              className="fa fa-github"
+                            />
+                          </a>
+                        </li>
+                        <li
+                          className="list-inline-item"
+                        >
+                          <a
+                            href="#"
+                          >
+                            <i
+                              className="fa fa-facebook"
+                            />
+                          </a>
+                        </li>
+                        <li
+                          className="list-inline-item"
+                        >
+                          <a
+                            href="#"
+                          >
+                            <i
+                              className="fa fa-twitter"
+                            />
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </footer>
+            </Footer>
+          </div>
+        </HomePage>
+      </Connect(HomePage)>
+    </Router>
+  </BrowserRouter>
+</Provider>
 `;

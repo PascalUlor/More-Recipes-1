@@ -41,7 +41,7 @@ exports[`<SigninPage/> should render without crashing 1`] = `
         flashMessage={Object {}}
         history={
           Object {
-            "push": [Function],
+            "push": [MockFunction],
           }
         }
         isAuthenticated={false}

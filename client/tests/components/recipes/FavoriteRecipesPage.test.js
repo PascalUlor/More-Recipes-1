@@ -3,21 +3,13 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import toJson from 'enzyme-to-json';
-import sinon from 'sinon';
-import {
-  FavoriteRecipesPage
-} from '../../../components/FavoriteRecipesPage.jsx';
+import store from '../../../store';
+import FavoriteRecipesPage from '../../../components/FavoriteRecipesPage.jsx';
 
-
-/**
- * @param { boolean } loading
- *
- * @return { * } null
- */
 
 const props = {
-  fetchFavoriteRecipes: jest.fn(),
-  deleteFavoriteRecipe: jest.fn(),
+  fetchFavoriteRecipes: jest.fn(() => Promise.resolve()),
+  deleteFavoriteRecipe: jest.fn(() => Promise.resolve()),
   setCurrentRecipe: jest.fn(),
   favoriteRecipes: [],
   isFetching: false,
@@ -27,27 +19,38 @@ const props = {
   paginationDetails: {}
 };
 
-sinon.spy(FavoriteRecipesPage.prototype, 'componentDidMount');
+const mountWrapper = mount((
+  <Provider store={store}>
+    <Router><FavoriteRecipesPage {...props}/></Router>
+  </Provider>
+));
+
 describe('FavoriteRecipesPage component', () => {
-  const store = mockStore({});
-  const shallowWrapper = shallow((
-    <Provider store={store}>
-      <Router><FavoriteRecipesPage {...props}/></Router>
-    </Provider>
-  ));
   it('should render correctly', () => {
-    expect(toJson(shallowWrapper)).toMatchSnapshot();
+    expect(toJson(mountWrapper)).toMatchSnapshot();
   });
-  it('should work call handlePageChange()', () => {
-    sinon.spy(FavoriteRecipesPage.prototype, 'handlePageChange');
-    const newProps = {
-      ...props,
-      isFetching: true
+  it('should call handlePageChange()', () => {
+    const oldState = store.getState();
+    const newState = {
+      ...oldState,
+      favoriteRecipes: {
+        isFavoriteRecipesFetching: false,
+        fetchedFavoriteRecipes: [{}, {}],
+        paginationDetails: {
+          currentPage: 1,
+        },
+      },
     };
-    const shallowWrapper = shallow((
-      <Provider store={store}>
-        <Router><FavoriteRecipesPage {...newProps}/></Router>
+    const newStore = mockStore(newState);
+    const mountWrapper = mount((
+      <Provider store={newStore}>
+        <Router><FavoriteRecipesPage {...props}/></Router>
       </Provider>
     ));
+  });
+
+  it('should call handleDeleteFavoriteRecipe()', () => {
+    mountWrapper.find('FavoriteRecipesPage')
+      .instance().handleDeleteFavoriteRecipe();
   });
 });

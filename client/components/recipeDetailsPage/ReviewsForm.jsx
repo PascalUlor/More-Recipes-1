@@ -94,25 +94,18 @@ export class ReviewsForm extends Component {
    * @returns { * } null
    */
   handleSubmit(event) {
-    if (verifyToken()) {
-      event.preventDefault();
-    }
-    if (verifyToken()) {
-      if (this.isValid()) {
-        this.setState({ errors: {} });
-        console.log('i just set the state');
-        this.props.postReview(this.state.review, this.props.recipeId)
-          .then(() => {
-            if (this.props.reviewSuccessMessage) {
-              this.setState({ review: '' });
-              toastr.success(this.props.reviewSuccessMessage);
-            } else {
-              toastr.error(this.props.reviewFailureMessage);
-            }
-          });
-      }
-    } else {
-      redirect(this.props);
+    event.preventDefault();
+    if (this.isValid()) {
+      this.setState({ errors: {} });
+      this.props.postReview(this.state.review, this.props.recipeId)
+        .then(() => {
+          if (this.props.reviewSuccessMessage) {
+            this.setState({ review: '' });
+            toastr.success(this.props.reviewSuccessMessage);
+          } else {
+            toastr.error(this.props.reviewFailureMessage);
+          }
+        });
     }
   }
   /**

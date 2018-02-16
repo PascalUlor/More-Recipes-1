@@ -5,7 +5,7 @@ import Procedures
 
 
 const props = {
-  procedures: 'boil water.'
+  procedures: ''
 };
 
 describe('Procedures component', () => {

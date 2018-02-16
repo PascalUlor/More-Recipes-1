@@ -7,9 +7,10 @@ import { SignupPage } from '../../../components/SignupPage.jsx';
 
 
 /**
- * @param { boolean } loading
+ * @description returns mounted component with its props
+ * @function setup
  *
- * @return { * } null
+ * @return { object } mounted component
  */
 const setup = () => {
   const props = {
@@ -60,19 +61,43 @@ describe('<SignupPage/>', () => {
     const submit = () => mountWrapper.find('SignupForm')
       .find('TextFieldGroup').at(0).find('input')
       .simulate('submit', event);
+
+    it('should not work for empty input fields', () => {
+      signupPage.setState({
+        fullName: '',
+        username: '',
+        email: '',
+        password: '',
+        repassword: ''
+      });
+      submit();
+      expect(signupPage.state.errors)
+        .toEqual({
+          fullName: 'Full name is required',
+          username: 'Username is required',
+          email: 'Email is required',
+          password: 'Password is required',
+          repassword: 'Password confirmation is required'
+        });
+      expect(signupPage.props.userSignupRequest).not.toBeCalled();
+    });
+
     it('should not work for invalid username and email', () => {
       signupPage.setState({
-        fullName: 'Richie Rich',
+        fullName: 'Richie 25 Rich',
         username: '2rich',
         email: 'rich@gmail',
-        password: '12345678',
+        password: '1234567',
         repassword: '12345678'
       });
       submit();
       expect(signupPage.state.errors)
         .toEqual({
+          fullName: 'Full name must contain only alphabets',
           username: 'Username must not start with number(s)',
-          email: 'Email is invalid'
+          email: 'Email is invalid',
+          password: 'Password length must be between 8 and 30',
+          repassword: 'Password mismatched'
         });
       expect(signupPage.props.userSignupRequest).not.toBeCalled();
     });

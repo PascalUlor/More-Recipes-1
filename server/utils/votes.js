@@ -17,13 +17,14 @@ export const voteResponse = (
 
 export const createVote = (
   recipeModel, voteModel, response, userId, recipeId,
-  userVote, initialFoundRecipe, statusCode, message
+  userVote, statusCode, message
 ) => {
   const vote = `${userVote}s`;
-  voteModel.create({ userId, recipeId, vote: userVote }).then(() => {
-    initialFoundRecipe.increment(vote);
-  }).then(() => (voteResponse(
-    recipeModel, recipeId,
-    response, statusCode, message, userVote
-  )));
+  return voteModel.create({ userId, recipeId, vote: userVote }).then(() => {
+    recipeModel.increment(vote, { where: { id: recipeId } })
+      .then(() => (voteResponse(
+        recipeModel, recipeId,
+        response, statusCode, message, userVote
+      )));
+  });
 };

@@ -1,4 +1,3 @@
-import { Reducer } from 'redux-testkit';
 import authReducer from '../../reducers/authenticatedUser';
 import * as types from '../../actions/actionTypes/actionTypes';
 import mockData from '../__mocks__/data/userData';
@@ -12,11 +11,6 @@ describe('Authentication Reducer', () => {
   it('should return proper initial state', (done) => {
     expect(authReducer(undefined, {})).toEqual(initialState);
     done();
-  });
-
-  it('should not affect state', () => {
-    Reducer(authReducer).expect({ type: 'NOT_EXISTING' })
-      .toReturnState(initialState);
   });
 
   it('should set the current user when passed SET_CURRENT_USER', (done) => {

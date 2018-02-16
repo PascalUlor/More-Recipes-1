@@ -6,9 +6,9 @@ import MyRecipe from './MyRecipe.jsx';
 /**
  * @description renders a list of all user's recipes
  * @method MyRecipesList
- * 
+ *
  * @param { array } myRecipes - array of all user's recipes
- * 
+ *
  * @returns { jsx } jsx - renders MyRecipesList component
  */
 const MyRecipesList = ({ myRecipes, setCurrentRecipe }) => {
@@ -16,7 +16,7 @@ const MyRecipesList = ({ myRecipes, setCurrentRecipe }) => {
     return (
       <div className="not-found lead p-3 mt-3 mt-5">
         <i className=
-        "fa fa-exclamation-triangle fa-3x pb-3 text-warning d-block">
+          "fa fa-exclamation-triangle fa-3x pb-3 text-warning d-block">
         </i>
         You have no available recipes
       </div>

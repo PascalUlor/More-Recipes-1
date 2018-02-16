@@ -5,7 +5,7 @@ import { Link, NavLink } from 'react-router-dom';
 /**
  * @description displays non-authenticated user's navigation bar
  * @method GuestNavBar
- * 
+ *
  * @returns { jsx } jsx - renders GuestNavBar component
  */
 const GuestNavBar = () => (
@@ -16,20 +16,22 @@ const GuestNavBar = () => (
           activeStyle={{
             backgroundColor: 'whitesmoke', fontWeight: '600', color: 'darkcyan'
           }}
-          className="nav-link" to="/">Home</NavLink>
+          className="nav-link" id="home" to="/">Home</NavLink>
       </li>
       <li className="nav-item">
         <NavLink
           activeStyle={{
             backgroundColor: 'whitesmoke', fontWeight: '600', color: 'darkcyan'
           }}
-          className="nav-link" to="/recipes">All Recipes</NavLink>
+          className="nav-link" id="all-recipes" to="/recipes">All Recipes
+        </NavLink>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/signin">Login</Link>
+        <Link className="nav-link" id="signin" to="/signin">Login</Link>
       </li>
       <li className="nav-item">
-        <Link className="nav-link nav-button" to="/signup">Register</Link>
+        <Link className="nav-link nav-button" id="signup"to="/signup">Register
+        </Link>
       </li>
     </ul>
   </div>

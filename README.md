@@ -13,6 +13,8 @@ reviews and votes from other users who explore that recipe.
 
 More-Recipes is built with Javascript (ES6), ReactJs , Redux, NodeJs
 
+Visit our website [More Recipes](https://more-recipes-v1.herokuapp.com) to get started.
+
 ## Features
 - User Signup and Signin
 - Create/Add, modify or delete recipes
@@ -100,8 +102,12 @@ More-Recipes is built with Javascript (ES6), ReactJs , Redux, NodeJs
 ## Testing
 The app uses: 
 * `Mocha/Chai` and `Super-Test` for backend testing.
+* `Enzyme` and `Jest` for frontend testing
+* `NightWatch` for End-2-End testing
 
-> - `npm test` - to run tests and display code coverage results
+> - `npm test` - to run test and display code coverage for back-end
+> - `npm run test:client` - to run test for front-end
+> - `npm run start:test` then `npm run e2e` - on separate terminals, to run end-to-end test
 
 
 ## API Documentation

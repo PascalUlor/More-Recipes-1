@@ -4,8 +4,8 @@ import toJson from 'enzyme-to-json';
 import NotFoundPage from '../../../components/NotFoundPage.jsx';
 
 
-describe('<Footer/>', () => {
-  it('renders footer component without crashing', () => {
+describe('<NotFoundPage/>', () => {
+  it('renders 404(not found page) component without crashing', () => {
     const shallowWrapper = shallow(<NotFoundPage/>);
     expect(toJson(shallowWrapper)).toMatchSnapshot();
   });

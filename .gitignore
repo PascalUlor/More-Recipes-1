@@ -8,6 +8,7 @@ coverage
 node_modules
 dist/
 build/
+e2ereports/
 
 # logs
 npm-debug.log

@@ -1,118 +1,615 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Profile component should render correctly 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Provider
-    store={
-      Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      }
-    }
-  >
-    <BrowserRouter>
-      <Profile
-        fetchProfile={[MockFunction]}
-        fetchedProfile={Object {}}
-        isFetching={false}
-        isProfileUpdating={false}
-        updateProfile={[MockFunction]}
-        updateProfileError=""
-        updatedProfile={Object {}}
-      />
-    </BrowserRouter>
-  </Provider>,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "class",
-    "props": Object {
-      "children": <Profile
-        fetchProfile={[MockFunction]}
-        fetchedProfile={Object {}}
-        isFetching={false}
-        isProfileUpdating={false}
-        updateProfile={[MockFunction]}
-        updateProfileError=""
-        updatedProfile={Object {}}
-      />,
-    },
-    "ref": null,
-    "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "fetchProfile": [MockFunction],
-        "fetchedProfile": Object {},
-        "isFetching": false,
-        "isProfileUpdating": false,
-        "updateProfile": [MockFunction],
-        "updateProfileError": "",
-        "updatedProfile": Object {},
-      },
-      "ref": null,
-      "rendered": null,
-      "type": [Function],
-    },
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
+<Provider
+  store={
     Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "children": <Profile
-          fetchProfile={[MockFunction]}
-          fetchedProfile={Object {}}
-          isFetching={false}
-          isProfileUpdating={false}
-          updateProfile={[MockFunction]}
-          updateProfileError=""
-          updatedProfile={Object {}}
-        />,
-      },
-      "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "fetchProfile": [MockFunction],
-          "fetchedProfile": Object {},
-          "isFetching": false,
-          "isProfileUpdating": false,
-          "updateProfile": [MockFunction],
-          "updateProfileError": "",
-          "updatedProfile": Object {},
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      "type": [Function],
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "blank",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Profile
+        fetchProfile={
+          [MockFunction] {
+            "calls": Array [
+              Array [],
+            ],
+          }
+        }
+        isProfileUpdating={false}
+        updateProfile={[MockFunction]}
+      >
+        <div
+          className="bg-faded"
+        >
+          <Connect(NavBar)>
+            <NavBar
+              authenticatedUser={
+                Object {
+                  "isAuthenticated": false,
+                  "user": Object {},
+                }
+              }
+              logOut={[Function]}
+            >
+              <div
+                className="container pl-0 pr-0"
+              >
+                <header
+                  className="mb-5"
+                >
+                  <nav
+                    className="navbar navbar-toggleable-md navbar-light fixed-top"
+                  >
+                    <button
+                      aria-controls="navbarItems"
+                      aria-expanded="false"
+                      aria-label="Toggle navigation"
+                      className="navbar-toggler navbar-toggler-right"
+                      data-target="#navbarItems"
+                      data-toggle="collapse"
+                      type="button"
+                    >
+                      <span
+                        className="navbar-toggler-icon"
+                      />
+                    </button>
+                    <Link
+                      className="navbar-brand"
+                      replace={false}
+                      to="/"
+                    >
+                      <a
+                        className="navbar-brand"
+                        href="/"
+                        onClick={[Function]}
+                      >
+                        <img
+                          alt="More Recipe Logo"
+                          className="d-inline-block align-center"
+                          height="32"
+                          src="/images/logo.png"
+                          width="45"
+                        />
+                        <span
+                          id="site-name"
+                        >
+                          More Recipes
+                        </span>
+                      </a>
+                    </Link>
+                    <GuestNavBar>
+                      <div
+                        className="collapse navbar-collapse"
+                        id="navbarItems"
+                      >
+                        <ul
+                          className="navbar-nav ml-auto text-center"
+                        >
+                          <li
+                            className="nav-item"
+                          >
+                            <NavLink
+                              activeClassName="active"
+                              activeStyle={
+                                Object {
+                                  "backgroundColor": "whitesmoke",
+                                  "color": "darkcyan",
+                                  "fontWeight": "600",
+                                }
+                              }
+                              ariaCurrent="true"
+                              className="nav-link"
+                              id="home"
+                              to="/"
+                            >
+                              <Route
+                                path="/"
+                              >
+                                <Link
+                                  aria-current={false}
+                                  className="nav-link"
+                                  id="home"
+                                  replace={false}
+                                  to="/"
+                                >
+                                  <a
+                                    aria-current={false}
+                                    className="nav-link"
+                                    href="/"
+                                    id="home"
+                                    onClick={[Function]}
+                                  >
+                                    Home
+                                  </a>
+                                </Link>
+                              </Route>
+                            </NavLink>
+                          </li>
+                          <li
+                            className="nav-item"
+                          >
+                            <NavLink
+                              activeClassName="active"
+                              activeStyle={
+                                Object {
+                                  "backgroundColor": "whitesmoke",
+                                  "color": "darkcyan",
+                                  "fontWeight": "600",
+                                }
+                              }
+                              ariaCurrent="true"
+                              className="nav-link"
+                              id="all-recipes"
+                              to="/recipes"
+                            >
+                              <Route
+                                path="/recipes"
+                              >
+                                <Link
+                                  aria-current={false}
+                                  className="nav-link"
+                                  id="all-recipes"
+                                  replace={false}
+                                  to="/recipes"
+                                >
+                                  <a
+                                    aria-current={false}
+                                    className="nav-link"
+                                    href="/recipes"
+                                    id="all-recipes"
+                                    onClick={[Function]}
+                                  >
+                                    All Recipes
+                                  </a>
+                                </Link>
+                              </Route>
+                            </NavLink>
+                          </li>
+                          <li
+                            className="nav-item"
+                          >
+                            <Link
+                              className="nav-link"
+                              id="signin"
+                              replace={false}
+                              to="/signin"
+                            >
+                              <a
+                                className="nav-link"
+                                href="/signin"
+                                id="signin"
+                                onClick={[Function]}
+                              >
+                                Login
+                              </a>
+                            </Link>
+                          </li>
+                          <li
+                            className="nav-item"
+                          >
+                            <Link
+                              className="nav-link nav-button"
+                              id="signup"
+                              replace={false}
+                              to="/signup"
+                            >
+                              <a
+                                className="nav-link nav-button"
+                                href="/signup"
+                                id="signup"
+                                onClick={[Function]}
+                              >
+                                Register
+                              </a>
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                    </GuestNavBar>
+                  </nav>
+                </header>
+              </div>
+            </NavBar>
+          </Connect(NavBar)>
+          <div
+            className="pt-5"
+          >
+            <PageHeader>
+              <section
+                className="cover text-center"
+              >
+                <div
+                  className="col"
+                >
+                  <h3
+                    className="page-header p-2 mb-1"
+                  >
+                    My Profile
+                  </h3>
+                </div>
+                <hr
+                  id="favorites"
+                />
+              </section>
+            </PageHeader>
+          </div>
+          <div
+            className="container main-wrapper pt-0 mt-4"
+          >
+            <ProfileForm
+              handleChange={[Function]}
+              handleClick={[Function]}
+              handleFocus={[Function]}
+              handleImageChange={[Function]}
+              handleSubmit={[Function]}
+              isUpdating={false}
+              profile={
+                Object {
+                  "aboutMe": "",
+                  "email": "",
+                  "errors": Object {},
+                  "fullName": "",
+                  "imageFile": "",
+                  "initialImage": "",
+                  "location": "",
+                  "profileImage": "",
+                  "username": "",
+                }
+              }
+            >
+              <form
+                onSubmit={[Function]}
+                role="form"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-6 col-sm-3 col-md-4 col-lg-4 figure"
+                  >
+                    <figure
+                      className="figure"
+                    >
+                      <img
+                        alt="Site Logo"
+                        className="rounded-circle img-fluid"
+                        id="profile-image"
+                        onClick={[Function]}
+                        src=""
+                      />
+                    </figure>
+                    <input
+                      accept="image/*"
+                      className="file-chooser"
+                      name="imageFile"
+                      onChange={[Function]}
+                      type="file"
+                    />
+                  </div>
+                  <div
+                    className="col-10 col-sm-9 col-md-8 col-lg-6 profile-text"
+                  >
+                    <TextFieldGroup
+                      font="fa fa-user"
+                      label="Full Name"
+                      name="fullName"
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      placeholder="firstname lastname"
+                      type="text"
+                      value=""
+                    >
+                      <div
+                        className="form-group"
+                      >
+                        <label
+                          className="page-text"
+                          htmlFor="fullName"
+                        >
+                          Full Name
+                        </label>
+                        <div
+                          className="input-group mb-2 mr-sm-2 mb-sm-0"
+                        >
+                          <div
+                            className="input-group-addon page-text"
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="fa fa-user"
+                            />
+                          </div>
+                          <input
+                            className="form-control form-control-sm"
+                            defaultValue=""
+                            id="fullName"
+                            name="fullName"
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            placeholder="firstname lastname"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                    </TextFieldGroup>
+                    <TextFieldGroup
+                      font="fa fa-user"
+                      label="Username"
+                      name="username"
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      placeholder="enter username"
+                      type="text"
+                      value=""
+                    >
+                      <div
+                        className="form-group"
+                      >
+                        <label
+                          className="page-text"
+                          htmlFor="username"
+                        >
+                          Username
+                        </label>
+                        <div
+                          className="input-group mb-2 mr-sm-2 mb-sm-0"
+                        >
+                          <div
+                            className="input-group-addon page-text"
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="fa fa-user"
+                            />
+                          </div>
+                          <input
+                            className="form-control form-control-sm"
+                            defaultValue=""
+                            id="username"
+                            name="username"
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            placeholder="enter username"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                    </TextFieldGroup>
+                    <TextFieldGroup
+                      font="fa fa-envelope"
+                      label="Email"
+                      name="email"
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      placeholder="enter email"
+                      type="text"
+                      value=""
+                    >
+                      <div
+                        className="form-group"
+                      >
+                        <label
+                          className="page-text"
+                          htmlFor="email"
+                        >
+                          Email
+                        </label>
+                        <div
+                          className="input-group mb-2 mr-sm-2 mb-sm-0"
+                        >
+                          <div
+                            className="input-group-addon page-text"
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="fa fa-envelope"
+                            />
+                          </div>
+                          <input
+                            className="form-control form-control-sm"
+                            defaultValue=""
+                            id="email"
+                            name="email"
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            placeholder="enter email"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                    </TextFieldGroup>
+                    <TextFieldGroup
+                      font="fa fa-map-marker"
+                      label="Location"
+                      name="location"
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      placeholder="enter city where you are. eg: lagos"
+                      type="text"
+                      value=""
+                    >
+                      <div
+                        className="form-group"
+                      >
+                        <label
+                          className="page-text"
+                          htmlFor="location"
+                        >
+                          Location
+                        </label>
+                        <div
+                          className="input-group mb-2 mr-sm-2 mb-sm-0"
+                        >
+                          <div
+                            className="input-group-addon page-text"
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="fa fa-map-marker"
+                            />
+                          </div>
+                          <input
+                            className="form-control form-control-sm"
+                            defaultValue=""
+                            id="location"
+                            name="location"
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            placeholder="enter city where you are. eg: lagos"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                    </TextFieldGroup>
+                    <div
+                      className="form-group"
+                    >
+                      <label
+                        className="page-text"
+                        htmlFor="about"
+                      >
+                        About Me
+                      </label>
+                      <textarea
+                        className="form-control"
+                        name="aboutMe"
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        placeholder="write about yourself"
+                        rows="5"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      className="text-right"
+                    >
+                      <button
+                        className="btn btn-outline-info"
+                        disabled={false}
+                        type="submit"
+                      >
+                        Save Changes
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </ProfileForm>
+          </div>
+          <Footer>
+            <footer
+              className="footer"
+            >
+              <div
+                className="container"
+              >
+                <div
+                  className="row mt-4"
+                >
+                  <div
+                    className="col-12 col-sm-8 col-md-9 col-lg-10"
+                  >
+                    <small
+                      className="text-white"
+                      id="copywrite"
+                    >
+                      <span
+                        className="text-warning"
+                      >
+                        ©2018 
+                      </span>
+                      Bootcamp27, Andela Nigeria. All rights reserved.
+                    </small>
+                  </div>
+                  <div
+                    className="col-12 col-sm-4 col-md-3 col-lg-2 text-center"
+                  >
+                    <ul
+                      className="list-inline"
+                    >
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="fa fa-google-plus"
+                          />
+                        </a>
+                      </li>
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            className="fa fa-github"
+                          />
+                        </a>
+                      </li>
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            className="fa fa-facebook"
+                          />
+                        </a>
+                      </li>
+                      <li
+                        className="list-inline-item"
+                      >
+                        <a
+                          href="#"
+                        >
+                          <i
+                            className="fa fa-twitter"
+                          />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </footer>
+          </Footer>
+        </div>
+      </Profile>
+    </Router>
+  </BrowserRouter>
+</Provider>
 `;

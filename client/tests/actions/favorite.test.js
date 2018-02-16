@@ -72,7 +72,8 @@ describe('user favorite recipe actions', () => {
         });
     });
 
-    it('should catch an error when getting a user\'s favorite recipe', (done) => {
+    it('should catch an error when getting a user\'s' +
+      'favorite recipe', (done) => {
       const { getError } = mockData, page = 1;
       moxios.stubRequest(`/api/v1/user/favorites?page=${page}`, {
         status: 404,
@@ -92,7 +93,6 @@ describe('user favorite recipe actions', () => {
         });
     });
   });
-
 
   describe('delete favorite recipe action', () => {
     it('should delete a user favorite recipe', (done) => {

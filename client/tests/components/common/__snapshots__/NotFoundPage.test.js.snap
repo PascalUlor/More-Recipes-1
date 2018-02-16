@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Footer/> renders footer component without crashing 1`] = `
+exports[`<NotFoundPage/> renders 404(not found page) component without crashing 1`] = `
 <div
   className="bg-faded"
 >

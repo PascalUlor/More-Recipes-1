@@ -4,34 +4,29 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import toJson from 'enzyme-to-json';
 import sinon from 'sinon';
-import { HomePage } from '../../../components/HomePage.jsx';
+import store from '../../../store';
+import HomePage from '../../../components/HomePage.jsx';
 
 
 /**
- * @param { boolean } loading
+ * @prop
  *
- * @return { * } null
+ * @return { object } history - properties of HomePage component instance
  */
-const setup = () => {
-  const props = {
-    fetchPopularRecipes: jest.fn(),
-    fetchedPopularRecipes: [],
-    isFetching: false,
-    history: {
-      push: jest.fn()
-    }
-  };
-  const store = mockStore({});
-  return shallow((
-    <Provider store={store}>
-      <Router><HomePage {...props}/></Router>
-    </Provider>
-  ));
+const props = {
+  history: {
+    push: () => {},
+  },
 };
+const mountWrapper = mount((
+  <Provider store={store}>
+    <Router><HomePage {...props} /></Router>
+  </Provider>
+));
 
 describe('HomePage component', () => {
-  const mountWrapper = setup();
-  it('should render correctly', () => {
-    expect(mountWrapper).toMatchSnapshot();
+  it('should render correctly', (done) => {
+    expect(toJson(mountWrapper)).toMatchSnapshot();
+    done();
   });
 });

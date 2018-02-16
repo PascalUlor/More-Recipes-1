@@ -637,24 +637,5 @@ describe('Recipe Reducers', () => {
         done();
       }
     );
-
-    // it(
-    //       'should set vote recipe error message when' +
-    //       'passed VOTE_RECIPE_FAILURE',
-    //       (done) => {
-    //         const error = voteMockData.voteFailure404.message;
-    //         const action = {
-    //           type: types.VOTE_RECIPE_FAILURE,
-    //           error
-    //         };
-
-    //         const newState = setCurrentRecipe(initialState, action);
-    //         expect(newState.currentSetRecipeId).toEqual(0);
-    //         expect(newState.voteSuccessMessage).toEqual('');
-    //         expect(newState.voteFailureMessage).toEqual(action.error);
-    //         done();
-    //       }
-    //     );
   });
 });
-// ADD_FAVORITE_RECIPE_SUCCESS
